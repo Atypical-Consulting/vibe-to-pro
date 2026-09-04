@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vibe to Pro</title>
 <meta name="description" content="Un cours de terrain sur Claude Code, construit à partir des 385 versions du CHANGELOG officiel — chaque fait vérifié contre la documentation actuelle avant d'être enseigné.">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vibe to Pro — Le vibe-coding s'arrête où commence le contrôle">
+<meta property="og:description" content="Un cours gratuit construit à partir des 385 versions du CHANGELOG officiel de Claude Code. Chaque fait est vérifié contre la documentation actuelle avant d'être enseigné.">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vibe to Pro — Le vibe-coding s'arrête où commence le contrôle">
+<meta name="twitter:description" content="385 versions du CHANGELOG officiel de Claude Code, vérifiées une à une contre la documentation actuelle.">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
@@ -247,8 +258,8 @@
       </div>
       <div class="meta-row">
         <span class="meta-pill">Source&nbsp;: <b>github.com/anthropics/claude-code</b></span>
-        <span class="meta-pill">Vérifié au&nbsp;: <b>2 sept. 2026</b> — v2.1.260</span>
-        <span class="meta-pill">14 modules · gratuit</span>
+        <span class="meta-pill" data-freshness="2026-09-02">Vérifié au&nbsp;: <b>2 sept. 2026</b> — v2.1.260</span>
+        <span class="meta-pill">14 modules · <a href="methodologie.html">méthode vérifiée</a></span>
       </div>
     </section>
   </div>
@@ -353,6 +364,7 @@
       <span class="mark">vibe-to-pro</span>
       <nav class="foot-links">
         <a href="cours.html">Le cours</a>
+        <a href="methodologie.html">Méthodologie</a>
         <a href="https://github.com/Atypical-Consulting/vibe-to-pro">Code source</a>
         <a href="https://github.com/Atypical-Consulting/vibe-to-pro/blob/main/LICENSE">Licence MIT</a>
         <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">CHANGELOG source</a>
@@ -362,5 +374,17 @@
   </div>
 </footer>
 
+<script>
+  try{
+    document.querySelectorAll('[data-freshness]').forEach(function(el){
+      var days = Math.floor((Date.now() - new Date(el.dataset.freshness)) / 86400000);
+      if(days < 0 || days > 1000) return;
+      var tag = document.createElement('b');
+      tag.textContent = ' · il y a ' + days + ' j';
+      el.appendChild(tag);
+      if(days > 21) el.style.borderColor = 'var(--warn)';
+    });
+  }catch(e){}
+</script>
 </body>
 </html>

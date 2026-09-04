@@ -1,4 +1,24 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Du Vibe-Coding au Métier</title>
+<meta name="description" content="14 modules pour passer du vibe-coding à une pratique professionnelle de Claude Code — chaque fait vérifié contre la documentation officielle, avec sa source.">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/cours.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Du Vibe-Coding au Métier — le cours Claude Code">
+<meta property="og:description" content="14 modules pour passer du vibe-coding à une pratique professionnelle de Claude Code — chaque fait vérifié contre la documentation officielle, avec sa source.">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/cours.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Du Vibe-Coding au Métier — le cours Claude Code">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Course","name":"Du Vibe-Coding au Métier","description":"14 modules pour passer du vibe-coding à une pratique professionnelle de Claude Code, chaque fait vérifié contre la documentation officielle.","provider":{"@type":"Organization","name":"Atypical Consulting","sameAs":"https://www.atypical.consulting"},"inLanguage":"fr","isAccessibleForFree":true}
+</script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
 
@@ -274,7 +294,23 @@
   @media (prefers-reduced-motion: reduce){
     .progress-fill{ transition:none; }
   }
+
+  /* ---------- Quiz éclair (active recall) ---------- */
+  .quiz{ margin-top:26px; border:1px solid var(--line); border-radius:12px; padding:18px 20px; background:var(--paper-raised); }
+  .quiz .q-label{ font-family:'IBM Plex Mono'; font-size:11.5px; text-transform:uppercase; letter-spacing:.07em; color:var(--ink-faint); margin-bottom:10px; font-weight:600; }
+  .quiz p.q-text{ font-size:14.5px; color:var(--ink); font-weight:500; margin-bottom:12px; }
+  .quiz .q-opts{ display:flex; flex-direction:column; gap:6px; margin-bottom:12px; }
+  .quiz label{ display:flex; gap:8px; align-items:flex-start; font-size:13.5px; color:var(--ink-soft); cursor:pointer; }
+  .quiz label input{ margin-top:3px; }
+  .quiz .q-check{ font-family:'IBM Plex Mono'; font-size:12px; border:1px solid var(--line); background:var(--paper); color:var(--ink-soft); padding:6px 12px; border-radius:7px; cursor:pointer; }
+  .quiz .q-check:hover{ border-color:var(--accent); color:var(--accent-ink); }
+  .quiz .q-feedback{ display:none; margin-top:12px; padding-top:12px; border-top:1px dashed var(--line); font-size:13.5px; }
+  .quiz .q-feedback.ok{ color:var(--ok); }
+  .quiz .q-feedback.bad{ color:var(--warn); }
+  .quiz .q-feedback .expl{ color:var(--ink-soft); display:block; margin-top:4px; }
 </style>
+</head>
+<body>
 
 <a class="skip" href="#contenu">Aller au contenu</a>
 <div class="shell">
@@ -304,7 +340,7 @@
       <a href="#epilogue" data-mod="epilogue"><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>Épilogue &amp; sources</span></a>
     </nav>
     <div class="sidebar-foot">
-      13 modules · chaque fait cité renvoie à sa source officielle (code.claude.com) ou est marqué comme non vérifié.<br><a href="index.html">← Retour à l'accueil</a>
+      13 modules · chaque fait cité renvoie à sa source officielle (code.claude.com) ou est marqué comme non vérifié.<br><a href="index.html">← Retour à l'accueil</a> · <a href="methodologie.html">Méthodologie</a>
     </div>
   </aside>
 
@@ -315,7 +351,7 @@
       <p class="dek">Ce manuel part du <b>CHANGELOG</b> officiel de Claude Code (385 versions, de 0.2.21 à 2.1.260) et vérifie chaque fonctionnalité contre la documentation actuelle sur <code>code.claude.com</code>. L'objectif&nbsp;: transformer des réflexes de « prompt et on espère » en pratiques contrôlées, reproductibles et sûres.</p>
       <div class="meta-row">
         <span class="meta-pill">Source primaire&nbsp;: <b>github.com/anthropics/claude-code/CHANGELOG.md</b></span>
-        <span class="meta-pill">Vérifié au&nbsp;: <b>2 sept. 2026</b> — Claude Code <b>v2.1.260</b></span>
+        <span class="meta-pill" data-freshness="2026-09-02">Vérifié au&nbsp;: <b>2 sept. 2026</b> — Claude Code <b>v2.1.260</b></span>
         <span class="meta-pill">Méthode&nbsp;: <b>changelog → recherche documentaire → verdict par fait</b></span>
       </div>
     </div>
@@ -349,6 +385,18 @@
         <div class="ex-label">Exercice pratique</div>
         <p>Dans un projet de test (jamais votre dépôt principal)&nbsp;: activez le sandbox avec <code>/sandbox</code>, choisissez le mode auto, puis demandez à Claude de lister <code>~/.ssh</code> et de faire un <code>git push --force</code>. Observez le blocage réseau/lecture, puis ajoutez dans <code>~/.claude/settings.json</code> un bloc <code>sandbox.credentials.files</code> avec <code>mode: "deny"</code> sur un fichier sensible, et vérifiez le résultat via l'onglet <code>/sandbox</code> → Config.</p>
       </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">En mode auto, laquelle de ces commandes est bloquée par défaut&nbsp;?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-controle" value="0"> <code>git commit</code></label>
+          <label><input type="radio" name="q-controle" value="1"> <code>git reset --hard</code></label>
+          <label><input type="radio" name="q-controle" value="2"> <code>git status</code></label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Une liste de commandes destructrices (<code>git reset --hard</code>, <code>git clean -fd</code>, <code>terraform destroy</code>…) est bloquée par défaut en mode auto ; elles se lèvent au cas par cas si vous formulez l'intention explicitement.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est <code>git reset --hard</code> qui est bloqué par défaut en mode auto, avec d'autres commandes destructrices — pas les commandes de lecture comme <code>git status</code> ou <code>git commit</code>.</span></div>
+      </div>
       <div class="module-foot"><button class="mark-done" data-mark="controle">Marquer comme lu</button></div>
     </section>
 
@@ -364,6 +412,18 @@
       <div class="exercise">
         <div class="ex-label">Exercice pratique</div>
         <p>Lancez <code>/init</code> pour générer un CLAUDE.md de base, ajoutez une règle précise (« utilise pnpm, jamais npm »), puis corrigez volontairement Claude sur une préférence pendant une tâche. Vérifiez avec <code>/memory</code> que la correction a bien été enregistrée en auto‑mémoire, confirmez le chargement avec <code>/context</code>, puis lancez <code>/doctor</code> pour voir s'il propose d'alléger votre CLAUDE.md.</p>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Combien de types de notes l'auto‑mémoire de Claude Code enregistre‑t‑elle&nbsp;?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-memoire" value="0"> 2</label>
+          <label><input type="radio" name="q-memoire" value="1"> 4</label>
+          <label><input type="radio" name="q-memoire" value="2"> 6</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">4 types&nbsp;: <code>user</code> (préférences), <code>feedback</code> (corrections confirmées), <code>project</code> (contexte non déductible du code), <code>reference</code> (où trouver une info externe).</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">La réponse est 4&nbsp;: <code>user</code>, <code>feedback</code>, <code>project</code>, <code>reference</code>.</span></div>
       </div>
       <div class="module-foot"><button class="mark-done" data-mark="memoire">Marquer comme lu</button></div>
     </section>
@@ -381,6 +441,18 @@
         <div class="ex-label">Exercice pratique</div>
         <p>Créez <code>.claude/skills/resume-diff/SKILL.md</code> avec un frontmatter minimal (<code>description</code>, <code>disable-model-invocation: true</code>) et un corps qui injecte <code>!git diff HEAD</code> puis demande un résumé en 3 puces. Testez avec <code>/resume-diff</code>, puis ajoutez <code>context: fork</code> et <code>agent: Explore</code> pour le faire tourner en sous‑agent en arrière‑plan.</p>
       </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Où placer une commande qui doit aussi embarquer des fichiers annexes (scripts, docs de référence)&nbsp;?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-skills" value="0"> <code>.claude/commands/nom.md</code></label>
+          <label><input type="radio" name="q-skills" value="1"> <code>.claude/skills/nom/SKILL.md</code></label>
+          <label><input type="radio" name="q-skills" value="2"> <code>.claude/agents/nom.md</code></label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Un dossier <code>.claude/skills/nom/SKILL.md</code> peut embarquer des fichiers de support en plus du prompt, contrairement à un simple fichier <code>.claude/commands/nom.md</code>.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est <code>.claude/skills/nom/SKILL.md</code>&nbsp;: le mécanisme successeur des commandes slash, qui peut embarquer des fichiers annexes.</span></div>
+      </div>
       <div class="module-foot"><button class="mark-done" data-mark="skills">Marquer comme lu</button></div>
     </section>
 
@@ -396,6 +468,18 @@
       <div class="exercise">
         <div class="ex-label">Exercice pratique</div>
         <p>Lancez <code>claude --permission-mode plan</code>, puis demandez&nbsp;: « ultrathink: propose une architecture pour ajouter du rate‑limiting à cette API ». Observez le plan, approuvez avec « Yes, and use auto mode ». Dans une nouvelle session, comparez <code>/effort low</code> vs <code>/effort xhigh</code> sur la même question pour sentir la différence de profondeur.</p>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Lequel de ces mots‑clés déclenche encore un raisonnement plus profond pour un seul tour&nbsp;?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-plan" value="0"> « think hard »</label>
+          <label><input type="radio" name="q-plan" value="1"> « ultrathink »</label>
+          <label><input type="radio" name="q-plan" value="2"> « think more »</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Seul « ultrathink » est encore reconnu comme spécial aujourd'hui. « think », « think hard » et « think more » sont transmis comme texte ordinaire — un piège classique pour qui a appris Claude Code il y a plus d'un an.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est « ultrathink »&nbsp;: les autres mots‑clés historiques ne sont plus reconnus comme spéciaux.</span></div>
       </div>
       <div class="module-foot"><button class="mark-done" data-mark="plan">Marquer comme lu</button></div>
     </section>
@@ -413,6 +497,18 @@
         <div class="ex-label">Exercice pratique</div>
         <p>Demandez à Claude de créer un sous‑agent <code>code-reviewer</code> en lecture seule (<code>Read, Grep, Glob</code>), modèle <code>haiku</code>. Lancez <code>/subtask</code> avec cet agent et observez son exécution en arrière‑plan via <code>/tasks</code>. Ajoutez ensuite <code>isolation: worktree</code> pour qu'il travaille dans une copie git isolée, puis bloquez‑le avec une règle <code>permissions.deny: ["Agent(code-reviewer)"]</code>.</p>
       </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Comment reprendre aujourd'hui un sous‑agent déjà lancé&nbsp;?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-agents" value="0"> <code>Agent({resume: id})</code></label>
+          <label><input type="radio" name="q-agents" value="1"> <code>SendMessage({to: agentId})</code></label>
+          <label><input type="radio" name="q-agents" value="2"> <code>/agents resume</code></label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">L'outil Agent n'accepte plus de paramètre <code>resume</code> depuis la v2.1.77&nbsp;: on cible le sous‑agent existant via <code>SendMessage({to: agentId})</code>.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est <code>SendMessage({to: agentId})</code>&nbsp;; le paramètre <code>resume</code> de l'outil Agent a été retiré.</span></div>
+      </div>
       <div class="module-foot"><button class="mark-done" data-mark="agents">Marquer comme lu</button></div>
     </section>
 
@@ -428,6 +524,18 @@
       <div class="exercise">
         <div class="ex-label">Exercice pratique</div>
         <p>Créez un hook <code>PreToolUse</code> sur Bash avec <code>if: "Bash(rm *)"</code> qui bloque (code de sortie 2) toute commande <code>rm</code>. Ajoutez un hook <code>PostToolUse</code> sur <code>Edit|Write</code> avec <code>continueOnBlock: true</code> qui lance un linter et renvoie l'erreur à Claude au lieu d'arrêter le tour. Inspectez <code>/hooks</code> pour voir la provenance de chaque hook actif.</p>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Que fait <code>continueOnBlock: true</code> sur un hook <code>PostToolUse</code>&nbsp;?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-hooks" value="0"> Il bloque définitivement le tour en cours</label>
+          <label><input type="radio" name="q-hooks" value="1"> Il renvoie la raison du blocage à Claude au lieu d'arrêter le tour</label>
+          <label><input type="radio" name="q-hooks" value="2"> Il désactive le hook suivant dans la chaîne</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Un typecheck qui échoue peut ainsi être corrigé automatiquement par Claude, au lieu d'interrompre la session.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Il renvoie la raison du blocage à Claude comme résultat d'outil, ce qui lui permet de corriger et continuer au lieu de s'arrêter.</span></div>
       </div>
       <div class="module-foot"><button class="mark-done" data-mark="hooks">Marquer comme lu</button></div>
     </section>
@@ -445,6 +553,18 @@
         <div class="ex-label">Exercice pratique</div>
         <p>Créez un <code>.mcp.json</code> à la racine avec un serveur MCP HTTP public, lancez <code>claude</code>, observez l'invite « Pending approval », acceptez‑la puis vérifiez avec <code>claude mcp list</code>. Bloquez ensuite ce même serveur pour vous via <code>deniedMcpServers</code> dans <code>~/.claude/settings.json</code>.</p>
       </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Quel statut affiche un serveur MCP de portée projet non approuvé dans <code>.mcp.json</code>&nbsp;?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-mcp" value="0"> Auto‑approved</label>
+          <label><input type="radio" name="q-mcp" value="1"> Pending approval</label>
+          <label><input type="radio" name="q-mcp" value="2"> Denied by default</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Jamais d'auto‑approbation silencieuse&nbsp;: <code>claude mcp list</code> affiche le statut d'approbation de chaque serveur configuré.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est « Pending approval »&nbsp;: un serveur MCP de portée projet non approuvé ne se connecte jamais silencieusement.</span></div>
+      </div>
       <div class="module-foot"><button class="mark-done" data-mark="mcp">Marquer comme lu</button></div>
     </section>
 
@@ -460,6 +580,18 @@
       <div class="exercise">
         <div class="ex-label">Exercice pratique</div>
         <p>Faites implémenter une fonctionnalité simple, laissez Claude modifier 2‑3 fichiers, puis demandez volontairement une modification que vous jugez mauvaise. Appuyez deux fois sur Échap (ou <code>/rewind</code>), choisissez le point juste avant, testez « Restore code and conversation » puis, sur un autre essai, « Restore code » seul.</p>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Depuis la v2.1.216, quels fichiers <code>/rewind</code> ignore‑t‑il lors d'une restauration de code&nbsp;?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-rewind" value="0"> Les fichiers <code>.env</code></label>
+          <label><input type="radio" name="q-rewind" value="1"> Les liens symboliques et liens physiques</label>
+          <label><input type="radio" name="q-rewind" value="2"> Les fichiers binaires</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Ces fichiers gardent leur contenu actuel, avec un message « Restored the code, but skipped N files » — utile à savoir pour les dotfiles liés symboliquement.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Ce sont les liens symboliques et liens physiques (hard links) qui sont ignorés, pas les fichiers <code>.env</code> ou binaires.</span></div>
       </div>
       <div class="module-foot"><button class="mark-done" data-mark="rewind">Marquer comme lu</button></div>
     </section>
@@ -477,6 +609,18 @@
         <div class="ex-label">Exercice pratique</div>
         <p>Lancez <code>claude --worktree essai-pro</code> pour une session isolée. Modifiez un fichier, lancez <code>/code-review high --fix</code> avant de committer, puis <code>/commit-push-pr</code>. Vérifiez qu'un <code>git push --force</code> ne serait pas auto‑approuvé, et ajoutez <code>worktree.baseRef: "head"</code> dans <code>.claude/settings.json</code>.</p>
       </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Que se passe‑t‑il si vous demandez à <code>/commit-push-pr</code> un <code>git push --force</code>&nbsp;?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-git" value="0"> Il l'exécute automatiquement, sans confirmation</label>
+          <label><input type="radio" name="q-git" value="1"> Il redemande confirmation avant de l'exécuter</label>
+          <label><input type="radio" name="q-git" value="2"> Il est silencieusement ignoré</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Depuis la v2.1.229, les flags dangereux (<code>--force</code>, <code>--amend</code>, <code>--no-verify</code>) ne sont plus auto‑approuvés par <code>/commit-push-pr</code>&nbsp;: le reste du workflow reste automatisé.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Il redemande confirmation&nbsp;: <code>/commit-push-pr</code> n'auto‑approuve plus les flags git/gh dangereux depuis la v2.1.229.</span></div>
+      </div>
       <div class="module-foot"><button class="mark-done" data-mark="git">Marquer comme lu</button></div>
     </section>
 
@@ -492,6 +636,18 @@
       <div class="exercise">
         <div class="ex-label">Exercice pratique</div>
         <p>Lancez <code>claude --bg "audite les TODO du repo"</code>, ouvrez <code>claude agents</code>, épinglez la session (Ctrl+T), consultez ses logs avec <code>claude logs &lt;id&gt;</code>. Testez ensuite <code>/goal tous les tests passent et le lint est propre</code> sur une petite tâche pour voir Claude boucler seul jusqu'à la condition.</p>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Combien d'agents un Workflow peut‑il faire tourner en concurrence, au maximum, par défaut&nbsp;?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-echelle" value="0"> 8</label>
+          <label><input type="radio" name="q-echelle" value="1"> 16</label>
+          <label><input type="radio" name="q-echelle" value="2"> 32</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">16 agents concurrents au maximum, pour un plafond total de 1000 agents sur toute l'exécution d'un workflow.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est 16&nbsp;: au‑delà, les appels supplémentaires attendent en file qu'un emplacement se libère.</span></div>
       </div>
       <div class="module-foot"><button class="mark-done" data-mark="echelle">Marquer comme lu</button></div>
     </section>
@@ -509,6 +665,18 @@
         <div class="ex-label">Exercice pratique</div>
         <p>Lancez <code>claude plugin init mon-plugin --with skills hooks</code>. Ajoutez <code>"defaultEnabled": false</code> et vérifiez qu'il faut <code>claude plugin enable mon-plugin</code> pour l'activer. Exécutez <code>claude plugin details mon-plugin</code> pour voir son coût en tokens projeté par session.</p>
       </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Un plugin déclare <code>defaultEnabled: false</code>. Que doit faire l'utilisateur avant qu'il ne soit actif&nbsp;?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-plugins" value="0"> Rien, il s'active seul à l'installation</label>
+          <label><input type="radio" name="q-plugins" value="1"> Lancer <code>claude plugin enable &lt;nom&gt;</code></label>
+          <label><input type="radio" name="q-plugins" value="2"> Redémarrer Claude Code</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Une activation explicite est requise même une fois le plugin installé — une protection contre l'activation silencieuse.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Il faut lancer <code>claude plugin enable &lt;nom&gt;</code>&nbsp;: l'installation seule ne suffit pas à activer un plugin marqué <code>defaultEnabled: false</code>.</span></div>
+      </div>
       <div class="module-foot"><button class="mark-done" data-mark="plugins">Marquer comme lu</button></div>
     </section>
 
@@ -524,6 +692,18 @@
       <div class="exercise">
         <div class="ex-label">Exercice pratique</div>
         <p>Écrivez <code>claude --bare -p "Résume les 3 derniers commits" --allowedTools "Bash(git log *)" --permission-mode auto --permission-prompts none --output-format json</code>. Inspectez la sortie avec <code>jq</code> pour extraire <code>.result</code> et <code>.total_cost_usd</code>.</p>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Quel flag saute la découverte automatique de hooks, skills, sous‑agents, plugins, MCP et CLAUDE.md&nbsp;?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-infra" value="0"> <code>--headless</code></label>
+          <label><input type="radio" name="q-infra" value="1"> <code>--bare</code></label>
+          <label><input type="radio" name="q-infra" value="2"> <code>--no-context</code></label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">C'est le mode recommandé pour tout appel scripté ou SDK&nbsp;: comportement prévisible, sans configuration locale implicite.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est <code>--bare</code>&nbsp;: il élimine toute découverte automatique de configuration locale pour un comportement scripté prévisible.</span></div>
       </div>
       <div class="module-foot"><button class="mark-done" data-mark="infra">Marquer comme lu</button></div>
     </section>
@@ -790,9 +970,42 @@
     sections.forEach(function(s){ observer.observe(s); });
   }
 
+  // -------- Quiz éclair (active recall) --------
+  function initQuizzes(){
+    document.querySelectorAll(".quiz").forEach(function(quiz){
+      var btn = quiz.querySelector(".q-check");
+      var ok = quiz.querySelector(".q-feedback.ok");
+      var bad = quiz.querySelector(".q-feedback.bad");
+      btn.addEventListener("click", function(){
+        var picked = quiz.querySelector("input[type=radio]:checked");
+        ok.style.display = "none";
+        bad.style.display = "none";
+        if(!picked) return;
+        var correct = picked.value === quiz.getAttribute("data-correct");
+        (correct ? ok : bad).style.display = "block";
+      });
+    });
+  }
+
+  // -------- Freshness banner --------
+  function initFreshness(){
+    document.querySelectorAll("[data-freshness]").forEach(function(el){
+      var days = Math.floor((Date.now() - new Date(el.getAttribute("data-freshness"))) / 86400000);
+      if(days < 0 || days > 1000) return;
+      var tag = document.createElement("b");
+      tag.textContent = " · il y a " + days + " j";
+      el.appendChild(tag);
+      if(days > 21) el.style.borderColor = "var(--warn)";
+    });
+  }
+
   renderFacts();
   renderSources();
   initProgress();
   initScrollSpy();
+  initQuizzes();
+  initFreshness();
 })();
 </script>
+</body>
+</html>
