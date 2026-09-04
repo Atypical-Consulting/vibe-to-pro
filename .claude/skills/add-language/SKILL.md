@@ -152,6 +152,14 @@ force it.
   baked directly into HTML like button labels -- these come from step 2's
   glossary, which you already handed to the step-4 agents, so this should
   already agree; it's here as the thing to double-check if it doesn't)
+- `index.html` and `methodology.html` don't load `course.js` -- they carry
+  their own small inline `<script>` (freshness-date text, and the language
+  selector's change listener). `extract_text.py` correctly leaves JS string
+  literals alone, which means their hardcoded FR text (e.g. `' · il y a '
+  + days + ' j'`) survives untouched into the new language's copy and only
+  shows up when the script actually runs in a browser -- it won't show in
+  a text diff or an em-dash/quote grep. Check both inline scripts by hand
+  and translate any literal UI string in them.
 
 ## 6. Propagate the language selector to every page
 
