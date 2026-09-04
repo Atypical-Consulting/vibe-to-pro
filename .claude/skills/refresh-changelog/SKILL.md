@@ -4,8 +4,11 @@ description: >
   Refresh the vibe-to-pro course when a new Claude Code CHANGELOG version
   ships -- verifies new candidate facts, updates affected chapters, and
   bumps the site's stats/freshness numbers everywhere they're cited. Use
-  when the user asks to update the course for a new Claude Code release,
-  refresh the changelog, or mentions scripts/refresh/.
+  whenever the user asks to update the course for a new Claude Code
+  release, refresh/sync the changelog, check if the course is up to date,
+  or mentions scripts/refresh/ -- including French phrasings like "nouvelle
+  version de claude code", "mets a jour le cours", "rafraichis le
+  changelog" -- even if they don't name this skill directly.
 ---
 
 # Refresh the course for a new CHANGELOG version
@@ -49,9 +52,11 @@ the one rule this whole course is built on). Classify each:
 - **unverifiable** -- can't confirm against current docs; discard it,
   same as the original pipeline did for ~24 candidates
 
-Run verification in parallel across candidates (they're independent), but
-don't skip any -- an unverified fact in this course is a bug, not a
-shortcut.
+Candidates are independent, so verify them concurrently rather than one at
+a time: the Workflow tool's `parallel()` if multi-agent orchestration is
+active this turn, otherwise a batch of Agent tool calls (one per
+candidate) in a single message. Either way, don't skip any -- an
+unverified fact in this course is a bug, not a shortcut.
 
 ## 4. Update the affected chapter pages
 
