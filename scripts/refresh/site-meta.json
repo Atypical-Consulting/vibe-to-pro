@@ -1,0 +1,9 @@
+{
+  "last_version": "2.1.260",
+  "verified_date": "2026-09-02",
+  "versions_analyzed": 385,
+  "candidate_features": 395,
+  "confirmed_or_updated": 371,
+  "kept_facts": 98,
+  "changelog_url": "https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md"
+}

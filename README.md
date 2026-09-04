@@ -36,6 +36,13 @@ docs/
 
 Every chapter page is self-contained and links to the next and previous one. Code samples use [Prism](https://prismjs.com/) for syntax highlighting with a copy button; progress and quiz results are tracked per-browser in `localStorage`, nothing is sent to a server. Served via GitHub Pages from `main` / `docs`.
 
+## Maintaining the course
+
+Two Claude Code skills automate the recurring maintenance work (`.claude/skills/`):
+
+- **`add-language`**: adds a new language mirror (like `docs/en/`), translating all 16 pages and wiring up the language selector. Backed by `scripts/i18n/` (a generic HTML text-node extractor/injector that never touches code samples, plus a script that regenerates the `<select>` on every page from `scripts/i18n/languages.json`).
+- **`refresh-changelog`**: pulls in a new Claude Code CHANGELOG version, verifies new candidate facts against current docs, and bumps the site's stats everywhere they're cited. Backed by `scripts/refresh/` (`site-meta.json` holds the counters as a single source of truth; `find_stale_numbers.py` finds every place a number is cited so a refresh doesn't miss one).
+
 ## License
 
 MIT, see [LICENSE](LICENSE).
