@@ -119,11 +119,20 @@
     });
   }
 
+  function initTocScroll(){
+    var toc = document.getElementById("toc");
+    var active = toc && toc.querySelector("a.active");
+    if(active && toc.scrollHeight > toc.clientHeight){
+      active.scrollIntoView({block:"center"});
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", function(){
     if(window.Prism) Prism.highlightAll();
     initProgress();
     initQuizzes();
     initFreshness();
     initCopyButtons();
+    initTocScroll();
   });
 })();
