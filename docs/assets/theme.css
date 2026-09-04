@@ -200,7 +200,7 @@ h3.section-title{
 }
 h3.section-title.lesson-title{
   font-family:'IBM Plex Serif'; font-size:19px; text-transform:none; letter-spacing:normal;
-  color:var(--ink); font-weight:600; line-height:1.35; margin:0 0 16px;
+  color:var(--ink); font-weight:600; line-height:1.35; margin:30px 0 16px;
 }
 
 .facts{ display:flex; flex-direction:column; gap:10px; }
@@ -265,10 +265,10 @@ h3.section-title.lesson-title{
 
 .checklist{ display:flex; flex-direction:column; gap:8px; margin:18px 0 0; padding:0; list-style:none; }
 .checklist li{
-  display:flex; gap:10px; align-items:flex-start; font-size:14.5px;
-  border:1px solid var(--line); border-radius:9px; padding:10px 14px; background:var(--paper-raised);
+  position:relative; font-size:14.5px;
+  border:1px solid var(--line); border-radius:9px; padding:10px 14px 10px 32px; background:var(--paper-raised);
 }
-.checklist li::before{ content:"›"; color:var(--accent-ink); font-family:'IBM Plex Mono'; flex:none; }
+.checklist li::before{ content:"›"; position:absolute; left:14px; color:var(--accent-ink); font-family:'IBM Plex Mono'; }
 
 .sources-grid{
   display:grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap:8px 16px;
@@ -284,8 +284,8 @@ h3.section-title.lesson-title{
 .quiz .q-label{ font-family:'IBM Plex Mono'; font-size:11.5px; text-transform:uppercase; letter-spacing:.07em; color:var(--ink-faint); margin-bottom:10px; font-weight:600; }
 .quiz p.q-text{ font-size:14.5px; color:var(--ink); font-weight:500; margin-bottom:12px; }
 .quiz .q-opts{ display:flex; flex-direction:column; gap:6px; margin-bottom:12px; }
-.quiz label{ display:flex; gap:8px; align-items:flex-start; font-size:13.5px; color:var(--ink-soft); cursor:pointer; }
-.quiz label input{ margin-top:3px; }
+.quiz label{ display:block; position:relative; padding-left:24px; font-size:13.5px; color:var(--ink-soft); cursor:pointer; }
+.quiz label input{ position:absolute; left:0; top:3px; margin:0; }
 .quiz .q-check{ font-family:'IBM Plex Mono'; font-size:12px; border:1px solid var(--line); background:var(--paper); color:var(--ink-soft); padding:6px 12px; border-radius:7px; cursor:pointer; }
 .quiz .q-check:hover{ border-color:var(--accent); color:var(--accent-ink); }
 .quiz .q-feedback{ display:none; margin-top:12px; padding-top:12px; border-top:1px dashed var(--line); font-size:13.5px; }
@@ -317,13 +317,15 @@ h3.section-title.lesson-title{
 }
 .copy-btn:hover{ opacity:1; border-color:var(--accent); }
 .copy-btn.copied{ color:var(--ok); border-color:var(--ok); opacity:1; }
-.token.comment{ color:var(--ink-faint); }
+.code-block pre[class*="language-"], .code-block pre[class*="language-"] code{ color:#B9C2BC !important; }
+.token.comment{ color:#767D77; }
 .token.string, .token.attr-value{ color:#8FDBC9; }
-.token.keyword, .token.builtin, .token.important{ color:#E0A75E; }
+.token.keyword, .token.builtin, .token.important{ color:#E0A75E; font-weight:600; }
 .token.function{ color:#7BC97F; }
 .token.number, .token.boolean{ color:#E0A692; }
-.token.property, .token.parameter, .token.selector{ color:#DCE4DD; }
-.token.punctuation, .token.operator{ color:#8A9089; }
+.token.parameter, .token.variable{ color:#7FB4DE; }
+.token.property, .token.selector{ color:#DCE4DD; }
+.token.punctuation, .token.operator{ color:#767D77; }
 
 /* ---------- Pagination (prev/next chapter) ---------- */
 .pager{ display:flex; gap:16px; margin-top:48px; padding-top:24px; border-top:1px solid var(--line); }
