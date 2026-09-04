@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkpoints &amp; Rewind: The Safety Net · From Vibe-Coding to the Job</title>
+<meta name="description" content="Vibe-coding chains prompts blindly with no safety net if Claude heads in the wrong direction. Checkpoints turn that improvisation into professional practice: every prompt becomes a">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/en/rewind.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Checkpoints &amp; Rewind: The Safety Net · From Vibe-Coding to the Job">
+<meta property="og:description" content="Vibe-coding chains prompts blindly with no safety net if Claude heads in the wrong direction. Checkpoints turn that improvisation into professional practice: every prompt becomes a">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/en/rewind.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">Skip to content</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="Modules">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">Field manual</span></a>
+        <span class="lang-switch">
+          <a href="../rewind.html" class="" data-swap="fr">FR</a>
+          <a href="rewind.html" class="active" data-swap="en">EN</a>
+        </span>
+      </div>
+      <h1>From Vibe-Coding to the Job</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>Progress</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="Modules">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>Prologue</span></a>
+      <a href="controle.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>Control &amp; security</span></a>
+      <a href="memoire.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>Memory</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>Commands &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>Plan &amp; reasoning</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>Sub-agents</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class="active"><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>Checkpoints</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="echelle.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>Background &amp; workflows</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>Plugins &amp; marketplaces</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK, CI/CD, IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>Epilogue &amp; sources</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 modules &middot; every cited fact links to its official source (code.claude.com) or is marked unverified.<br>✓ read · ✓✓ verified (all of the module's quizzes passed)<br>
+      <a href="index.html">← Back to home</a> &middot; <a href="methodologie.html">Methodology</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="rewind">
+      <div class="module-head"><span class="index">08</span><h2>Checkpoints &amp; Rewind: The Safety Net</h2></div>
+      <div class="module-sub">Explore without fear</div>
+      <div class="stance"><p>Vibe-coding chains prompts blindly with no safety net if Claude heads in the wrong direction. Checkpoints turn that improvisation into professional practice: every prompt becomes a restorable point, code and/or conversation, even before a Git commit.</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Level check</div>
+        <p class="q-text">Since v2.1.216, which files does <code>/rewind</code> skip when restoring code?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-rewind" value="0"> <code>.env</code> files</label>
+          <label><input type="radio" name="q-rewind" value="1"> Symbolic links and hard links</label>
+          <label><input type="radio" name="q-rewind" value="2"> Binary files</label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">These files keep their current content, with a message saying "Restored the code, but skipped N files." That's worth knowing for symlinked dotfiles.</span><br><a class="skip-next" href="git.html">&rarr; You already know this lever, skip to the next module</a></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">It's symbolic links and hard links that get skipped, not <code>.env</code> files or binaries.</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">What if a bad prompt only cost you a round trip?</h3>
+      <p>You've probably felt this before in vibe-coding: you chain prompts one after another, Claude touches two or three files each time, and at some point a request heads in the wrong direction. The natural instinct is to fix it by hand, prompt after prompt, hoping to land somewhere close to the previous state. That's exactly the problem checkpoints (restore points, one per step) solve: every prompt you send automatically becomes a point you can return to, with no need to have made a Git commit beforehand to protect yourself.</p>
+      <p>So how does it actually work? You press Escape twice, or type <code>/rewind</code>, and a menu opens listing these points, one per prompt sent, in order. You can also jump straight to the point by passing an argument directly (a turn number as in <code>/rewind 5</code>, a checkpoint name, or a description) instead of browsing the list. The idea behind splitting by prompt, rather than by a simple file save, is that the unit of work in vibe-coding is the exchange: a request, Claude's response, and the files changed as a result. Going back to "right before this prompt" matches exactly how you think about your mistake.</p>
+      <p>But what exactly gets restored when you pick a point? Here again the mechanism is designed to match your real need: you can restore code and conversation together, wiping out both the modified files and the trace of the bad request, or restore code only, letting the conversation keep the memory of what happened. That's useful if you want to understand afterward why Claude went in that direction. A third option, "Summarize up to here," answers a different need: it compresses the conversation history before the chosen point, without touching the files on disk. So it's not a tool for undoing a mistake, but for freeing up space in a conversation that's grown too long, without losing the code work already done.</p>
+      <p>One thing to watch out for, though: this code restoration isn't entirely blind. Symbolic links and hard links (files that point to another file rather than containing their own data) are deliberately skipped during a restore: they keep their current content, and Claude Code explicitly warns you with a message rather than silently changing them. And the safety net isn't limited to the code of a running session either: there's also a complementary reflex for continuity between sessions. <code>--continue</code> picks up directly the most recent conversation in the current directory, while <code>--resume</code> opens a selector or targets a specific session by its ID. Here's what that changes in practice, in detail.</p>
+
+      <h3 class="section-title">What to remember</h3>
+      <div class="facts">
+<div class="fact"><div class="tag-col"><span class="version">v2.0.0</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p><code>/rewind</code> opens a menu listing checkpoints (one per prompt sent), or accepts a direct argument: checkpoint name, turn number, or description.</p><div class="how"><b>How to</b><br><code>/rewind 5</code> to jump straight back to the 5th turn of the conversation.</div><a class="src" href="https://code.claude.com/docs/en/commands" target="_blank" rel="noopener">code.claude.com/docs/en/commands</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.141</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>The "Summarize up to here" option in the <code>/rewind</code> menu compresses the conversation before the chosen point, without touching the files on disk.</p><div class="how"><b>How to</b><br>Useful for freeing up context without losing the code work already done.</div><a class="src" href="https://code.claude.com/docs/en/checkpointing" target="_blank" rel="noopener">code.claude.com/docs/en/checkpointing</a></div></div>
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.216</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>A code restore skips symbolic links and hard links: these files keep their current content, with a message saying "Restored the code, but skipped N files."</p><div class="how"><b>How to</b><br>Turn on <code>/debug</code> before a restore to see the exact list of skipped paths.</div><a class="src" href="https://code.claude.com/docs/en/checkpointing" target="_blank" rel="noopener">code.claude.com/docs/en/checkpointing</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v0.2.93</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p><code>--continue</code> (<code>-c</code>) resumes the most recent conversation in the current directory; <code>--resume</code> (<code>-r</code>) opens a selector or resumes a specific session ID.</p><div class="how"><b>How to</b><br><code>claude --continue</code> to pick up instantly right where you left off.</div><a class="src" href="https://code.claude.com/docs/en/sessions" target="_blank" rel="noopener">code.claude.com/docs/en/sessions</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.83</span><span class="badge corrected">Updated</span></div><div class="body"><p>In the VS Code extension, hovering over any message reveals a rewind button offering three options: "Fork conversation from here," "Rewind code to here," or both.</p><div class="how"><b>How to</b><br>In the CLI terminal, the shortcut is still Escape twice or <code>/rewind</code>.</div><a class="src" href="https://code.claude.com/docs/en/vs-code" target="_blank" rel="noopener">code.claude.com/docs/en/vs-code</a></div></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quick quiz</div>
+        <p class="q-text">What exactly does the "Summarize up to here" option in the /rewind menu do?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-rewind-2" value="0"> It permanently deletes the files modified before the chosen point</label>
+          <label><input type="radio" name="q-rewind-2" value="1"> It compresses the conversation before the chosen point, without touching the files on disk</label>
+          <label><input type="radio" name="q-rewind-2" value="2"> It automatically creates a Git commit before rewinding</label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">Correct. "Summarize up to here" acts only on the conversation history: it compresses it before the chosen point, without modifying the files on disk. That's useful for freeing up context without losing the code work already done.</span></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">Not quite. This option doesn't touch any files and doesn't create any commit: it only compresses the conversation before the chosen point, leaving the code untouched.</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quick quiz</div>
+        <p class="q-text">What's the difference between --continue (-c) and --resume (-r)?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-rewind-3" value="0"> --continue and --resume do exactly the same thing, they're just aliases</label>
+          <label><input type="radio" name="q-rewind-3" value="1"> --continue resumes the most recent conversation in the current directory; --resume opens a selector or resumes a specific session ID</label>
+          <label><input type="radio" name="q-rewind-3" value="2"> --continue lists every session on the machine; --resume is limited to the current directory</label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">Correct. --continue (-c) resumes the most recent conversation in the current directory directly, with nothing to choose, while --resume (-r) opens a session selector or resumes a specific session ID you give it.</span></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">Not quite. The two options aren't interchangeable: --continue automatically resumes the last conversation in the current directory, --resume opens a selector or targets a session by its ID.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Hands-on exercise</div>
+        <p>Have Claude implement a simple feature, let it modify 2-3 files, then deliberately ask for a change you consider bad. Press Escape twice (or <code>/rewind</code>), pick the point right before it, test "Restore code and conversation," then, on another try, "Restore code" alone.</p>
+        <details class="solution"><summary>Solution &amp; verification</summary>
+        <p>Pressing Escape twice (or typing /rewind) opens the checkpoint menu, which lists one restorable point per prompt sent, as described in the fact about /rewind (v2.0.0). This lets you pinpoint unambiguously the turn right before the change you considered bad, rather than counting Git commits. Choosing "Restore code and conversation" on that point brings both the code of the 2-3 modified files and the conversation history back to that state; redoing the attempt with "Restore code" alone restores only the files on disk, while the conversation keeps the trace of the request you considered bad. The expected manipulation therefore comes down to /rewind (or Esc x2), then selecting the checkpoint immediately before the bad request, tested once with each restore option.</p>
+        <ul><li>With "Restore code and conversation": the prompt judged bad and Claude's response that followed visibly disappear from the displayed conversation thread, and the content of the 2-3 modified files matches their state before that prompt (verifiable by reopening them or via a diff).</li><li>With "Restore code" alone: the file content goes back to the same pre-prompt state, but the conversation thread still fully displays the prompt judged bad and Claude's response. This contrast is what proves only the code restore took place.</li><li>No message like "Restored the code, but skipped N files" appears for these ordinary files; such a message should only show up if one of the 2-3 files involved is a symbolic or hard link.</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="rewind" data-label="Mark as read">Mark as read</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="mcp.html"><span class="dir">&larr; Previous</span><span class="ptitle">MCP</span></a>
+      <a class="next" href="git.html"><span class="dir">Next &rarr;</span><span class="ptitle">Git &amp; worktrees</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

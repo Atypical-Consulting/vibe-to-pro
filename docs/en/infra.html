@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SDK, Headless Mode, CI/CD &amp; IDE · From Vibe-Coding to the Job</title>
+<meta name="description" content="Vibe-coding validates every action by gut feel in interactive mode: that doesn't scale. Headless mode and the SDK turn Claude Code into a reproducible building block: deterministic">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/en/infra.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SDK, Headless Mode, CI/CD &amp; IDE · From Vibe-Coding to the Job">
+<meta property="og:description" content="Vibe-coding validates every action by gut feel in interactive mode: that doesn't scale. Headless mode and the SDK turn Claude Code into a reproducible building block: deterministic">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/en/infra.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">Skip to content</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="Modules">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">Field manual</span></a>
+        <span class="lang-switch">
+          <a href="../infra.html" class="" data-swap="fr">FR</a>
+          <a href="infra.html" class="active" data-swap="en">EN</a>
+        </span>
+      </div>
+      <h1>From Vibe-Coding to the Job</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>Progress</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="Modules">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>Prologue</span></a>
+      <a href="controle.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>Control &amp; security</span></a>
+      <a href="memoire.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>Memory</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>Commands &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>Plan &amp; reasoning</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>Sub-agents</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>Checkpoints</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="echelle.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>Background &amp; workflows</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>Plugins &amp; marketplaces</span></a>
+      <a href="infra.html" data-mod="infra" class="active"><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK, CI/CD, IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>Epilogue &amp; sources</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 modules &middot; every cited fact links to its official source (code.claude.com) or is marked unverified.<br>✓ read · ✓✓ verified (all of the module's quizzes passed)<br>
+      <a href="index.html">← Back to home</a> &middot; <a href="methodologie.html">Methodology</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="infra">
+      <div class="module-head"><span class="index">12</span><h2>SDK, Headless Mode, CI/CD &amp; IDE</h2></div>
+      <div class="module-sub">Turning Claude Code into an infrastructure building block</div>
+      <div class="stance"><p>Vibe-coding validates every action by gut feel in interactive mode: that doesn't scale. Headless mode and the SDK turn Claude Code into a reproducible building block: deterministic scripts, explicit guardrails, structured output you can act on in CI.</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Level check</div>
+        <p class="q-text">Which flag skips the automatic discovery of hooks, skills, subagents, plugins, MCP, and CLAUDE.md?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-infra" value="0"> <code>--headless</code></label>
+          <label><input type="radio" name="q-infra" value="1"> <code>--bare</code></label>
+          <label><input type="radio" name="q-infra" value="2"> <code>--no-context</code></label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">This is the recommended mode for any scripted or SDK call: predictable behavior, with no implicit local configuration.</span><br><a class="skip-next" href="epilogue.html">&rarr; You already know this lever, skip to the next module</a></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">It's <code>--bare</code>: it eliminates all automatic discovery of local configuration for predictable, scripted behavior.</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">What if no one was there to click "Yes"?</h3>
+      <p>In interactive mode, everything is simple: you see what Claude Code is about to do, and you approve or correct it as you go. But what happens when you want to hook Claude Code into a <code>CI/CD</code> pipeline (the system that builds and tests your code automatically on every push) running at 3am with no one watching the screen? Or when you want to call it from your own program, like a plain function? Interactive mode, with its confirmation prompts and implicit local configuration, no longer makes sense then: you need behavior that stays identical on every run, with no surprises and no dependency on whatever happens to be lying around on your machine.</p>
+      <p>That's exactly the role of headless mode (no interface, driven purely by the command line) and the <code>--bare</code> flag. <code>--bare</code> wipes the slate clean: it skips all automatic discovery of hooks, skills, subagents, plugins, MCP servers, memory, and the <code>CLAUDE.md</code> file. The result: only what you pass explicitly on the command line determines the session's behavior, which makes it reproducible from one machine to another. Combined with <code>--permission-prompts none</code>, which automatically turns into a refusal any action that would normally have triggered a confirmation prompt, you get a script that never sits stuck waiting for a human response that will never come. The SDK, now renamed Claude Agent SDK, formalizes the same logic in code: instead of typing a command, your program drives a Claude Code session directly.</p>
+      <p>But a script running unsupervised also has to know how to protect itself, on its own turf. The SDK's <code>canUseTool</code> callback is a good illustration of this layered caution: it only gets called if nothing upstream of it (a <code>PreToolUse</code> hook, an allow/deny/ask rule, the permission mode) has already decided, which lets you add custom business validation without duplicating what already exists. The same cautious logic applies to resilience: the <code>fallbackModel</code> mechanism automatically switches to a backup model in case of overload or a server error, but never for an authentication, billing, or rate-limit error. Switching models wouldn't fix those problems anyway: better for the job to fail clearly than to mask a real incident. As for <code>maxBudgetUsd</code>, it caps the spend of an automated run: nobody is watching the meter live, so the setting itself has to cut things off before the bill gets out of hand.</p>
+      <p>One last problem remains: how does a pipeline know, with no human to read the screen, that everything went well? By producing structured output rather than text that has to be interpreted by eye. In <code>--output-format stream-json</code>, the <code>system/init</code> message exposes, for example, a <code>plugin_errors</code> field that lists plugin-loading errors (absent if there are none), which gives you a simple validation gate to write into a CI script. On the keyboard-work side rather than the pipeline side, the same CLI shows up embedded in the VS Code extension (side panel, inline diffs, @ mentions tied to the current selection), and <code>/statusline</code> keeps you informed live about the model, cost, and context in use. Here, in detail, is what that changes in practice.</p>
+
+      <h3 class="section-title">What to remember</h3>
+      <div class="facts">
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.81</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p><code>--bare</code> skips the automatic discovery of hooks, skills, subagents, plugins, MCP, memory, and CLAUDE.md. This is the recommended mode for any scripted or SDK call.</p><div class="how"><b>How to</b><br><code>ANTHROPIC_API_KEY=sk-… claude --bare -p "Summarize README.md" --allowedTools "Read"</code>.</div><a class="src" href="https://code.claude.com/docs/en/headless" target="_blank" rel="noopener">code.claude.com/docs/en/headless</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.259</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p><code>--permission-prompts none</code> automatically turns into a refusal any action that would normally have triggered a confirmation prompt, without waiting for a human response.</p><div class="how"><b>How to</b><br>For a scheduled, unsupervised job: <code>claude -p "…" --permission-mode auto --permission-prompts none</code>.</div><a class="src" href="https://code.claude.com/docs/en/headless" target="_blank" rel="noopener">code.claude.com/docs/en/headless</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.111</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>The <code>plugin_errors</code> field of the <code>system/init</code> message in <code>--output-format stream-json</code> lists plugin-loading errors (absent if there are none), enabling a simple CI gate.</p><div class="how"><b>How to</b><br><code>jq -e '.plugin_errors // [] | length == 0'</code> to fail a CI job on a plugin error.</div><a class="src" href="https://code.claude.com/docs/en/cli-reference" target="_blank" rel="noopener">code.claude.com/docs/en/cli-reference</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.0.0 / 2.0.25</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>The SDK was renamed Claude Agent SDK: <code>@anthropic-ai/claude-agent-sdk</code> (TypeScript) and <code>claude-agent-sdk</code> (Python), with the old entry point removed.</p><div class="how"><b>How to</b><br><code>npm install @anthropic-ai/claude-agent-sdk</code> or <code>pip install claude-agent-sdk</code> for any new project.</div><a class="src" href="https://platform.claude.com/docs/en/agent-sdk/migration-guide" target="_blank" rel="noopener">platform.claude.com/docs/en/agent-sdk/migration-guide</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v1.0.59</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>The SDK's <code>canUseTool</code> callback is only called if nothing upstream of it (a <code>PreToolUse</code> hook, allow/deny/ask rules, the permission mode) has already decided. It is never triggered for a tool that's already been auto-approved.</p><div class="how"><b>How to</b><br>Implement it for custom business validation before a sensitive tool runs.</div><a class="src" href="https://code.claude.com/docs/en/agent-sdk/permissions" target="_blank" rel="noopener">code.claude.com/docs/en/agent-sdk/permissions</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.166</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p><code>fallbackModel</code> accepts up to three models tried in order in case of overload or a server error (never for an auth, billing, or rate-limit error).</p><div class="how"><b>How to</b><br><code>{ "fallbackModel": ["claude-sonnet-5", "claude-haiku-4-5"] }</code> in settings.json.</div><a class="src" href="https://code.claude.com/docs/en/settings-reference" target="_blank" rel="noopener">code.claude.com/docs/en/settings-reference</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.0.28</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>The SDK exposes <code>maxBudgetUsd</code> (the equivalent of the CLI flag <code>--max-budget-usd</code>) to cap the spend of an automated run.</p><div class="how"><b>How to</b><br><code>claude -p "…" --max-budget-usd 2.00</code> for a CI script that must never exceed that cost.</div><a class="src" href="https://code.claude.com/docs/en/costs" target="_blank" rel="noopener">code.claude.com/docs/en/costs</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.0.0</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>The native VS Code extension embeds the same <code>claude</code> CLI, with a side panel, inline diffs, @ mentions tied to the current selection, and a built-in MCP server exposing the IDE's diagnostics.</p><div class="how"><b>How to</b><br>Install "Claude Code" from the VS Code Marketplace (a paid plan or API key required).</div><a class="src" href="https://code.claude.com/docs/en/vs-code" target="_blank" rel="noopener">code.claude.com/docs/en/vs-code</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v1.0.71</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p><code>/statusline</code> generates or configures a script shown at the bottom of the interface, fed by a JSON stream on stdin (model, cost, context, git).</p><div class="how"><b>How to</b><br>"/statusline show the model name and the context percentage" auto-generates a script.</div><a class="src" href="https://code.claude.com/docs/en/statusline" target="_blank" rel="noopener">code.claude.com/docs/en/statusline</a></div></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quick quiz</div>
+        <p class="q-text">In which case does the SDK's fallbackModel mechanism never switch to a backup model?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-infra-2" value="0"> On server overload</label>
+          <label><input type="radio" name="q-infra-2" value="1"> On an authentication, billing, or rate-limit error</label>
+          <label><input type="radio" name="q-infra-2" value="2"> On a generic server error (5xx)</label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">Correct. fallbackModel accepts up to three models tried in order, but only in case of overload or a server error, never for an authentication, billing, or rate-limit error.</span></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">Not quite. Overload and server errors do trigger a switch; it's precisely an authentication, billing, or rate-limit error that never activates fallbackModel.</span></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">Quick quiz</div>
+        <p class="q-text">What does the absence of the plugin_errors field in the system/init message (under --output-format stream-json) mean?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-infra-3" value="0"> That no plugin-loading error occurred</label>
+          <label><input type="radio" name="q-infra-3" value="1"> That no plugin is configured in the project</label>
+          <label><input type="radio" name="q-infra-3" value="2"> That --bare mode is active and disables plugins</label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">Correct. plugin_errors lists plugin-loading errors and doesn't appear if there are none, which enables a simple CI gate, for example jq -e '.plugin_errors // [] | length == 0'.</span></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">Not quite. This field tells you nothing about the number of installed plugins or about --bare: its absence only signals that no plugin-loading error occurred.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Hands-on exercise</div>
+        <p>Write the following command:</p>
+<pre><code class="language-bash">claude --bare -p "Summarize the last 3 commits" --allowedTools "Bash(git log *)" --permission-mode auto --permission-prompts none --output-format json</code></pre>
+<p>Inspect the output with <code>jq</code> to extract <code>.result</code> and <code>.total_cost_usd</code>.</p>
+        <details class="solution"><summary>Solution &amp; verification</summary>
+        <p>The command works because <code>--bare</code> eliminates all automatic discovery of hooks, skills, subagents, plugins, MCP, memory, and CLAUDE.md: only what's passed explicitly on the command line (here <code>--allowedTools "Bash(git log *)"</code>) determines the behavior, which makes the call reproducible for a script. Combined with <code>--permission-prompts none</code>, which automatically turns into a refusal any action that would normally have triggered a confirmation prompt, the job stays non-interactive from start to finish: any command outside the <code>git log</code> scope gets rejected without waiting for a human response. <code>--output-format json</code> then produces a single JSON object from which <code>jq</code> extracts <code>.result</code> (the summary) and <code>.total_cost_usd</code> (the cost of the call).</p>
+        <ul><li>The command exits with status code 0 and prints a single JSON object to stdout (not multiple lines, since the format isn't stream-json).</li><li><code>jq -r '.result'</code> returns non-empty text that properly summarizes the last 3 commits, and <code>jq '.total_cost_usd'</code> returns a positive decimal number (never null).</li><li>No confirmation prompt appears during execution; had a command outside the <code>Bash(git log *)</code> scope been attempted, it would have been automatically refused instead of blocking the terminal while waiting for approval.</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="infra" data-label="Mark as read">Mark as read</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="plugins.html"><span class="dir">&larr; Previous</span><span class="ptitle">Plugins &amp; marketplaces</span></a>
+      <a class="next" href="epilogue.html"><span class="dir">Next &rarr;</span><span class="ptitle">Epilogue &amp; sources</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

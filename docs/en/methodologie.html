@@ -1,17 +1,17 @@
 <!doctype html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Méthodologie</title>
-<meta name="description" content="Comment chaque fait de ce cours est extrait du CHANGELOG officiel de Claude Code, vérifié contre la documentation actuelle, puis classé confirmé, mis à jour ou écarté.">
-<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/methodologie.html">
+<title>Methodology</title>
+<meta name="description" content="How every fact in this course is extracted from the official Claude Code CHANGELOG, verified against current documentation, then classified confirmed, updated, or discarded.">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/en/methodologie.html">
 <meta name="theme-color" content="#1F6F63">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Méthodologie · Vibe to Pro">
-<meta property="og:description" content="395 fonctionnalités candidates extraites du CHANGELOG officiel, chacune vérifiée indépendamment. Voici le détail, y compris ce qui a été écarté.">
+<meta property="og:title" content="Methodology · Vibe to Pro">
+<meta property="og:description" content="395 candidate features extracted from the official CHANGELOG, each verified independently. Here is the detail, including what was discarded.">
 <meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
-<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/methodologie.html">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/en/methodologie.html">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -72,47 +72,47 @@
 <body>
 <div class="wrap">
   <div style="display:flex;justify-content:space-between;align-items:center;">
-    <a class="back" href="index.html">← Retour à l'accueil</a>
+    <a class="back" href="index.html">← Back to home</a>
     <span class="lang-switch" style="display:inline-flex;gap:4px;font-family:'IBM Plex Mono';font-size:11px;">
-      <a href="methodologie.html" class="active" style="padding:3px 7px;border-radius:6px;border:1px solid var(--line);color:var(--accent-ink);border-color:var(--accent);background:var(--accent-soft);">FR</a>
-      <a href="en/methodologie.html" style="padding:3px 7px;border-radius:6px;border:1px solid var(--line);">EN</a>
+      <a href="../methodologie.html" style="padding:3px 7px;border-radius:6px;border:1px solid var(--line);">FR</a>
+      <a href="methodologie.html" class="active" style="padding:3px 7px;border-radius:6px;border:1px solid var(--line);color:var(--accent-ink);border-color:var(--accent);background:var(--accent-soft);">EN</a>
     </span>
   </div>
-  <span class="eyebrow">Méthodologie</span>
-  <h1>Comment ce cours vérifie chaque fait qu'il enseigne.</h1>
-  <p>Ce cours n'est pas écrit de mémoire. Il part du <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">CHANGELOG officiel</a> de Claude Code et fait passer chaque fonctionnalité candidate par un circuit de vérification avant qu'elle ne devienne une ligne du cours.</p>
+  <span class="eyebrow">Methodology</span>
+  <h1>How this course verifies every fact it teaches.</h1>
+  <p>This course isn't written from memory. It starts from the official <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">Claude Code CHANGELOG</a> and runs every candidate feature through a verification pipeline before it becomes a line in the course.</p>
 
   <div class="stats">
-    <div class="stat"><b>385</b><span>versions du changelog analysées</span></div>
-    <div class="stat"><b>395</b><span>fonctionnalités candidates vérifiées</span></div>
-    <div class="stat"><b>371</b><span>confirmées ou mises à jour</span></div>
-    <div class="stat"><b>98</b><span>retenues dans les 14 modules</span></div>
+    <div class="stat"><b>385</b><span>changelog releases analyzed</span></div>
+    <div class="stat"><b>395</b><span>candidate features verified</span></div>
+    <div class="stat"><b>371</b><span>confirmed or updated</span></div>
+    <div class="stat"><b>98</b><span>kept across 14 chapters</span></div>
   </div>
 
-  <h2>Le circuit</h2>
+  <h2>The pipeline</h2>
   <div class="steps">
-    <div class="step"><span class="n">1</span><div><h3>Extraire</h3><p>Les 385 versions du CHANGELOG (de la 0.2.21 à la 2.1.260) sont découpées et passées en revue pour en isoler les fonctionnalités majeures, pas les correctifs mineurs ni les changements internes.</p></div></div>
-    <div class="step"><span class="n">2</span><div><h3>Vérifier</h3><p>Chacune des 395 fonctionnalités candidates est confrontée, indépendamment, à la documentation actuelle sur <code>code.claude.com</code> par une recherche dédiée, jamais par rappel de mémoire du modèle.</p></div></div>
-    <div class="step"><span class="n">3</span><div><h3>Classer</h3><p>Chaque fait reçoit un verdict : <b>confirmé</b> (316, inchangé depuis), <b>mis à jour</b> (55, le comportement a évolué depuis la version du changelog), ou <b>non vérifiable</b> (24, écarté).</p></div></div>
-    <div class="step"><span class="n">4</span><div><h3>Curer</h3><p>Sur les 371 faits confirmés ou mis à jour, 98 ont été retenus dans les 14 modules du cours. Ils sont sélectionnés pour leur pertinence pédagogique et pour garder chaque module lisible, pas parce que le reste serait faux.</p></div></div>
+    <div class="step"><span class="n">1</span><div><h3>Extract</h3><p>All 385 CHANGELOG releases (0.2.21 to 2.1.260) are split up and reviewed to isolate major features, not minor fixes or internal changes.</p></div></div>
+    <div class="step"><span class="n">2</span><div><h3>Verify</h3><p>Each of the 395 candidate features is checked, independently, against current documentation on <code>code.claude.com</code> through a dedicated search, never from the model's memory.</p></div></div>
+    <div class="step"><span class="n">3</span><div><h3>Classify</h3><p>Every fact gets a verdict: <b>confirmed</b> (316, unchanged since), <b>updated</b> (55, behavior has evolved since the changelog entry), or <b>unverifiable</b> (24, discarded).</p></div></div>
+    <div class="step"><span class="n">4</span><div><h3>Curate</h3><p>Of the 371 confirmed or updated facts, 98 were kept across the 14 course chapters. They're chosen for pedagogical relevance and to keep each chapter readable, not because the rest would be false.</p></div></div>
   </div>
 
-  <h2>Ce qui a été écarté</h2>
-  <p>24 fonctionnalités candidates n'ont pas pu être confirmées contre la documentation actuelle : orthographe différente, page disparue, comportement changé sans trace claire. Elles ne figurent nulle part dans le cours, plutôt que d'y être présentées comme acquises.</p>
+  <h2>What got discarded</h2>
+  <p>24 candidate features couldn't be confirmed against current documentation: different spelling, a page that's gone, behavior changed without a clear trace. They appear nowhere in the course, rather than being presented as settled.</p>
   <details class="discard">
-    <summary>Voir 3 exemples réels de faits écartés, sur les 24</summary>
+    <summary>See 3 real examples of discarded facts, out of 24</summary>
     <ul>
-      <li><span class="badge">non vérifiable</span><b>« Commande <code>/approved-tools</code> »</b> (v0.2.26) : le changelog historique la mentionne, mais aucune page actuelle ne la documente ; elle semble avoir été renommée en <code>/permissions</code> à une étape ultérieure, sans confirmation directe du lien entre les deux.</li>
-      <li><span class="badge">non vérifiable</span><b>« Les sous-agents continuent de travailler après un refus de permission, en tentant une approche alternative »</b> (v2.1.0) : plausible et cohérent avec le fonctionnement agentique général, mais aucune source officielle ne décrit ce comportement précis.</li>
-      <li><span class="badge">non vérifiable</span><b>« Les résultats de l'outil Agent incluent le nombre de tokens, le nombre d'appels d'outils et la durée »</b> (v2.1.30) : aucune page de référence des outils ne mentionne explicitement ces trois métriques dans la sortie de l'outil.</li>
+      <li><span class="badge">unverifiable</span><b>"The <code>/approved-tools</code> command"</b> (v0.2.26): the historical changelog mentions it, but no current page documents it; it seems to have been renamed to <code>/permissions</code> at a later stage, with no direct confirmation of the link between the two.</li>
+      <li><span class="badge">unverifiable</span><b>"Sub-agents keep working after a permission denial, by trying an alternative approach"</b> (v2.1.0): plausible and consistent with general agentic behavior, but no official source describes this specific behavior.</li>
+      <li><span class="badge">unverifiable</span><b>"Agent tool results include token count, tool call count, and duration"</b> (v2.1.30): no tool reference page explicitly mentions these three metrics in the tool's output.</li>
     </ul>
   </details>
 
-  <h2>Limites assumées</h2>
-  <p>La vérification s'appuie sur la documentation publique à un instant donné (2 septembre 2026, Claude Code v2.1.260). Claude Code publie de nouvelles versions plusieurs fois par semaine, si bien qu'un détail exact aujourd'hui peut changer demain. Chaque fait du cours affiche sa date de vérification : confirmez toujours avec <code>claude --version</code> et la documentation en vigueur avant de vous y fier en production.</p>
+  <h2>Known limits</h2>
+  <p>Verification relies on public documentation at a given point in time (September 2, 2026, Claude Code v2.1.260). Claude Code ships new releases several times a week, so an exact detail today can change tomorrow. Every fact in the course shows its verification date: always confirm with <code>claude --version</code> and the current documentation before relying on a specific detail in production.</p>
 
   <div class="cta">
-    <a href="prologue.html">Commencer le cours →</a>
+    <a href="prologue.html">Start the course →</a>
   </div>
 </div>
 </body>

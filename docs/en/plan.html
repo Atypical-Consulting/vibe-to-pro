@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan Mode &amp; Extended Thinking · From Vibe-Coding to the Job</title>
+<meta name="description" content="In vibe-coding, you hope it works without visibility into what the AI is about to do. Plan mode forces a research phase before any modification, and the effort level makes the mode">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/en/plan.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Plan Mode &amp; Extended Thinking · From Vibe-Coding to the Job">
+<meta property="og:description" content="In vibe-coding, you hope it works without visibility into what the AI is about to do. Plan mode forces a research phase before any modification, and the effort level makes the mode">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/en/plan.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">Skip to content</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="Modules">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">Field manual</span></a>
+        <span class="lang-switch">
+          <a href="../plan.html" class="" data-swap="fr">FR</a>
+          <a href="plan.html" class="active" data-swap="en">EN</a>
+        </span>
+      </div>
+      <h1>From Vibe-Coding to the Job</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>Progress</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="Modules">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>Prologue</span></a>
+      <a href="controle.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>Control &amp; security</span></a>
+      <a href="memoire.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>Memory</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>Commands &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class="active"><span class="num">04</span><span class="chk" data-chk="plan"></span><span>Plan &amp; reasoning</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>Sub-agents</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>Checkpoints</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="echelle.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>Background &amp; workflows</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>Plugins &amp; marketplaces</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK, CI/CD, IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>Epilogue &amp; sources</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 modules &middot; every cited fact links to its official source (code.claude.com) or is marked unverified.<br>✓ read · ✓✓ verified (all of the module's quizzes passed)<br>
+      <a href="index.html">← Back to home</a> &middot; <a href="methodologie.html">Methodology</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="plan">
+      <div class="module-head"><span class="index">04</span><h2>Plan Mode &amp; Extended Thinking</h2></div>
+      <div class="module-sub">Think before acting, tune the depth</div>
+      <div class="stance"><p>In vibe-coding, you hope it works without visibility into what the AI is about to do. Plan mode forces a research phase before any modification, and the effort level makes the model's reasoning explicit and tunable. That's the foundation of a reproducible practice.</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Level check</div>
+        <p class="q-text">Which of these keywords still triggers deeper reasoning for a single turn?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-plan" value="0"> "think hard"</label>
+          <label><input type="radio" name="q-plan" value="1"> "ultrathink"</label>
+          <label><input type="radio" name="q-plan" value="2"> "think more"</label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">Only "ultrathink" is still recognized as special today. "think", "think hard", and "think more" are passed through as ordinary text. It's a classic trap for anyone who learned Claude Code more than a year ago.</span><br><a class="skip-next" href="agents.html">&rarr; You already know this lever, skip to the next module</a></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">It's "ultrathink": the other historical keywords are no longer recognized as special.</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">What if Claude thought before acting?</h3>
+      <p>You've probably felt this before: you ask Claude Code for a change, and a few seconds later, files have already changed. The result sometimes works, but you discover the logic after the fact, once the action is already done. That's the classic vibe-coding reflex, where you hope it works without seeing the decision coming. Plan mode reverses that order: before touching a single file, Claude explores the existing code, thinks through an approach, then submits a plan to you. Nothing is modified until you've approved that plan.</p>
+      <p>How do you switch into this mode? Two ways: typing <code>/plan</code> (with or without a description of the topic) or pressing the <code>Shift+Tab</code> shortcut. Either way, the switch is immediate, with no confirmation prompt beforehand. Once inside, Claude can read files and run read-only commands to explore your project, but can't write anything. And since a recent update, these read commands no longer even trigger confirmation one by one: an auto mode classifier evaluates them on the fly during planning, a behavior controlled by the <code>useAutoModeDuringPlan</code> setting (on by default). The idea: reading carries no risk, only writing should require your explicit go-ahead.</p>
+      <p>But thinking before acting isn't limited to the structure of plan mode: reasoning depth is also tunable. Add the word "ultrathink" anywhere in your message, and Claude devotes more internal reasoning to that specific turn, without touching the session's overall setting, a kind of one-off spotlight. Watch out if you learned Claude Code more than a year ago: the old keywords "think", "think hard", or "think more" are no longer recognized as special today, they're passed through as ordinary text and so no longer have any effect on reasoning. For a setting that lasts the whole session rather than a single turn, the <code>/effort</code> command opens a five-level selector (low, medium, high, xhigh, max), useful for switching to <code>xhigh</code> on a complex design problem then dropping back to <code>low</code> for simple, cheaper tasks.</p>
+      <p>This reasoning dial can also be turned on continuously, for the whole session, via the <code>Option+T</code> shortcut (or <code>Alt+T</code> on Windows/Linux). The <code>/config</code> command can also make this setting permanent. Good news if you delegate work to a subagent: it automatically inherits the main conversation's extended thinking setting, with nothing to reconfigure on each delegation. And the plans themselves don't vanish into thin air: the <code>plansDirectory</code> setting chooses where Claude Code writes these plan files, for example so you can version them in the repo and review them in code review. Here, in detail, is what this changes concretely in your day-to-day practice.</p>
+
+      <h3 class="section-title">What to remember</h3>
+      <div class="facts">
+<div class="fact"><div class="tag-col"><span class="version">v2.1.0 / 2.1.72</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p><code>/plan</code> (with or without a description) and the <code>Shift+Tab</code> shortcut switch immediately into plan mode, with no confirmation prompt.</p><div class="how"><b>How to</b><br><code>/plan fix the authentication bug</code> starts planning on that exact topic right away.</div><a class="src" href="https://code.claude.com/docs/en/permission-modes" target="_blank" rel="noopener">code.claude.com/docs/en/permission-modes</a></div></div>
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.68 / 0.2.44</span><span class="badge corrected">Updated</span></div><div class="body"><p>Only the keyword <code>ultrathink</code> still triggers deeper reasoning for a turn, without changing the session's effort level. The words "think", "think hard", or "think more" are no longer recognized as special, they're passed through as ordinary text.</p><div class="how"><b>How to</b><br>Add "ultrathink" anywhere in your message for a one-off, deeper reasoning pass.</div><a class="src" href="https://code.claude.com/docs/en/model-config" target="_blank" rel="noopener">code.claude.com/docs/en/model-config</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.76</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p><code>/effort</code> opens a 5-level selector (low, medium, high, xhigh, max); <code>/effort auto</code> resets it. Available on Opus 5, Fable 5, and Opus 4.5-4.8.</p><div class="how"><b>How to</b><br><code>/effort xhigh</code> for complex debugging, <code>/effort low</code> for simple, cheaper tasks.</div><a class="src" href="https://code.claude.com/docs/en/model-config" target="_blank" rel="noopener">code.claude.com/docs/en/model-config</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.9</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>The <code>plansDirectory</code> setting chooses where plan mode writes its plan files, resolved relative to the project root.</p><div class="how"><b>How to</b><br><code>{ \"plansDirectory\": \"./plans\" }</code> to version plans in the repo and review them in a PR.</div><a class="src" href="https://code.claude.com/docs/en/settings-reference" target="_blank" rel="noopener">code.claude.com/docs/en/settings-reference</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.0.0</span><span class="badge corrected">Updated</span></div><div class="body"><p>The shortcut for toggling extended thinking within a session is <code>Option+T</code> (macOS) or <code>Alt+T</code> (Windows/Linux), not the Tab key alone.</p><div class="how"><b>How to</b><br>For a permanent setting, use <code>/config</code>, which writes <code>alwaysThinkingEnabled</code> to <code>~/.claude/settings.json</code>.</div><a class="src" href="https://code.claude.com/docs/en/model-config" target="_blank" rel="noopener">code.claude.com/docs/en/model-config</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.198</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>A subagent automatically inherits the main conversation's extended thinking setting; there's no thinking setting specific to a subagent.</p><div class="how"><b>How to</b><br>Nothing to configure: turn on thinking for the session, and every subagent launched inherits it.</div><a class="src" href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener">code.claude.com/docs/en/sub-agents</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.218</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>As of this version, a plan-mode session without bypass no longer asks for confirmation on every read-only Bash command: the auto mode classifier evaluates these commands during planning.</p><div class="how"><b>How to</b><br>Controlled by <code>useAutoModeDuringPlan</code> (on by default), turn it off to go back to systematic manual confirmation.</div><a class="src" href="https://code.claude.com/docs/en/permission-modes" target="_blank" rel="noopener">code.claude.com/docs/en/permission-modes</a></div></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quick quiz</div>
+        <p class="q-text">In Claude Code's settings.json, which setting determines where plan mode writes its plan files?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-plan-2" value="0"> planMode.directory</label>
+          <label><input type="radio" name="q-plan-2" value="1"> plansDirectory</label>
+          <label><input type="radio" name="q-plan-2" value="2"> claude.planOutputPath</label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">Correct. The plansDirectory setting chooses where plan mode writes its plan files, and it's resolved relative to the project root, which is useful, for example, for versioning these plans in the repo and reviewing them in a PR.</span></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">Not quite. It's plansDirectory, resolved relative to the project root, handy for versioning generated plans and reviewing them.</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quick quiz</div>
+        <p class="q-text">Which shortcut toggles extended thinking mid-session on macOS?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-plan-3" value="0"> Tab alone</label>
+          <label><input type="radio" name="q-plan-3" value="1"> Option+T</label>
+          <label><input type="radio" name="q-plan-3" value="2"> Cmd+Shift+T</label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">Correct. The shortcut is Option+T on macOS (Alt+T on Windows/Linux). The Tab key alone doesn't do this toggle, despite a common belief.</span></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">Not quite. It's Option+T on macOS (Alt+T on Windows/Linux), not the Tab key alone.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Hands-on exercise</div>
+        <p>Run the following command:</p>
+<pre><code class="language-bash">claude --permission-mode plan</code></pre>
+<p>Then ask: "ultrathink: propose an architecture for adding rate limiting to this API". Watch the plan, approve it with "Yes, and use auto mode". In a new session, compare <code>/effort low</code> vs <code>/effort xhigh</code> on the same question to feel the difference in depth.</p>
+        <details class="solution"><summary>Solution &amp; verification</summary>
+        <p>The keyword "ultrathink" is today the only recognized trigger for a one-off, deeper reasoning pass, on a single turn, without changing the session's effort level. That's what pushes Claude to produce a more thoroughly argued rate-limiting plan before you've even approved anything. Once that plan is approved via "Yes, and use auto mode", comparing /effort low vs /effort xhigh then cleanly isolates the depth variable: /effort opens a 5-level selector (low, medium, high, xhigh, max). Running the same question under each of these two settings, in two separate sessions, lets you feel the difference in reasoning without an "ultrathink" effect or conversation history skewing the comparison.</p>
+        <ul><li>As long as you haven't responded to the end-of-plan prompt, no modification command runs: the prompt stays in plan mode and offers options like "Yes, and use auto mode" rather than acting directly.</li><li>After choosing "Yes, and use auto mode", subsequent tool calls run without a per-command confirmation popup, a sign that the session has indeed switched to auto mode for the rest of the work.</li><li>In each of the two new sessions, /effort alone (with no argument) shows the active level (low, then xhigh); the plan produced under xhigh should be noticeably more developed (more steps, more justification for architecture choices) than the one produced under low, confirming that the setting did change the reasoning depth.</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="plan" data-label="Mark as read">Mark as read</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="skills.html"><span class="dir">&larr; Previous</span><span class="ptitle">Commands &amp; Skills</span></a>
+      <a class="next" href="agents.html"><span class="dir">Next &rarr;</span><span class="ptitle">Sub-agents</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

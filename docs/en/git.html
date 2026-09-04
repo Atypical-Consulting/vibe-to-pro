@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Git, Worktrees &amp; PR Automation · From Vibe-Coding to the Job</title>
+<meta name="description" content="Vibe-coding stops the moment code touches a shared repository: without worktrees or Git discipline, you overwrite other people's work or push unreviewed commits. Worktrees and PR a">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/en/git.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git, Worktrees &amp; PR Automation · From Vibe-Coding to the Job">
+<meta property="og:description" content="Vibe-coding stops the moment code touches a shared repository: without worktrees or Git discipline, you overwrite other people's work or push unreviewed commits. Worktrees and PR a">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/en/git.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">Skip to content</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="Modules">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">Field manual</span></a>
+        <span class="lang-switch">
+          <a href="../git.html" class="" data-swap="fr">FR</a>
+          <a href="git.html" class="active" data-swap="en">EN</a>
+        </span>
+      </div>
+      <h1>From Vibe-Coding to the Job</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>Progress</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="Modules">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>Prologue</span></a>
+      <a href="controle.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>Control &amp; security</span></a>
+      <a href="memoire.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>Memory</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>Commands &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>Plan &amp; reasoning</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>Sub-agents</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>Checkpoints</span></a>
+      <a href="git.html" data-mod="git" class="active"><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="echelle.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>Background &amp; workflows</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>Plugins &amp; marketplaces</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK, CI/CD, IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>Epilogue &amp; sources</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 modules &middot; every cited fact links to its official source (code.claude.com) or is marked unverified.<br>✓ read · ✓✓ verified (all of the module's quizzes passed)<br>
+      <a href="index.html">← Back to home</a> &middot; <a href="methodologie.html">Methodology</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="git">
+      <div class="module-head"><span class="index">09</span><h2>Git, Worktrees &amp; PR Automation</h2></div>
+      <div class="module-sub">Working in parallel without collisions</div>
+      <div class="stance"><p>Vibe-coding stops the moment code touches a shared repository: without worktrees or Git discipline, you overwrite other people's work or push unreviewed commits. Worktrees and PR automation let multiple agents run in parallel without collisions, leaving a clean trail.</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Level check</div>
+        <p class="q-text">What happens if you ask <code>/commit-push-pr</code> to run a <code>git push --force</code>?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-git" value="0"> It runs automatically, without confirmation</label>
+          <label><input type="radio" name="q-git" value="1"> It asks for confirmation again before running it</label>
+          <label><input type="radio" name="q-git" value="2"> It is silently ignored</label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">Since v2.1.229, dangerous flags (<code>--force</code>, <code>--amend</code>, <code>--no-verify</code>) are no longer auto-approved by <code>/commit-push-pr</code>: the rest of the workflow stays automated.</span><br><a class="skip-next" href="echelle.html">&rarr; You already know this lever, skip to the next module</a></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">It asks for confirmation again: <code>/commit-push-pr</code> no longer auto-approves dangerous git/gh flags as of v2.1.229.</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">Multiple agents, one repository: how do you avoid the pile-up?</h3>
+      <p>You've probably already run Claude Code on a task, then opened a second window to have it fix something else while the first one was still running. And that's where things jammed: both sessions were modifying the same files on the same branch, and one eventually overwrote the other's work. That's not a bug, it's the logical consequence of a classic Git repository: a single working copy on disk, so only one agent at a time can touch it safely. So how do you run multiple agents in parallel on the same project, without playing musical chairs with branches?</p>
+      <p>The answer lies in a Git tool that's already there but often overlooked: the worktree. A worktree is a second working copy of the same repository, placed in a different folder, but sharing the same Git history: it's not a full clone, just a full-fledged branch you can modify without touching the main branch. Claude Code builds directly on this: the <code>--worktree</code> flag (or <code>-w</code>) creates this isolated folder under <code>.claude/worktrees/&lt;name&gt;/</code>, on a new branch named <code>worktree-&lt;name&gt;</code>, so an agent running inside it simply cannot overwrite what another agent is doing elsewhere. One question remains: where does this new work start from? By default, it starts from <code>origin/&lt;default branch&gt;</code> (a clean, up-to-date base), but if you already have unpushed local work you want to continue, you need to explicitly enable the option that starts from your local HEAD instead.</p>
+      <p>The second friction point of vibe-coding is the end of the task: once the code is written, you still have to commit, push, and open a pull request (a request to merge into the main branch, usually reviewed before being accepted). And that's exactly where a step gets skipped, or where you push directly to the main branch out of habit. Claude Code automates this mechanic: an agent working in the background inside a worktree commits and pushes its work before finishing, and only opens a draft pull request when the task warrants it, while respecting the Git instructions you've left in your CLAUDE.md. But automating doesn't mean letting everything happen unsupervised: in this commit, push, and pull request workflow, flags that could cause hard-to-undo damage (a forced push, an amended commit, a bypassed verification hook) are no longer run automatically, they now ask for explicit confirmation. In other words, automation removes the repetitive chore, not your final say on risky actions.</p>
+      <p>One last detail changes a lot day to day: all worktrees of the same repository share the same configuration (CLAUDE.md, permission settings, custom agents, skills, automatic memory), so there's no need to duplicate everything for each new parallel work stream. And to keep an overview without reopening GitHub every time, the status of the pull request tied to your current branch shows up as a simple colored dot in the interface. Here, in detail, is what that actually changes.</p>
+
+      <h3 class="section-title">What to remember</h3>
+      <div class="facts">
+<div class="fact"><div class="tag-col"><span class="version">v2.1.49</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>The <code>--worktree</code> flag (or <code>-w</code>) creates an isolated worktree under <code>.claude/worktrees/&lt;name&gt;/</code>, on a new branch <code>worktree-&lt;name&gt;</code>.</p><div class="how"><b>How to</b><br><code>claude --worktree feature-auth</code>. Also add <code>.claude/worktrees/</code> to your <code>.gitignore</code>.</div><a class="src" href="https://code.claude.com/docs/en/worktrees" target="_blank" rel="noopener">code.claude.com/docs/en/worktrees</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.133</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p><code>worktree.baseRef</code> defaults to <code>"fresh"</code> (starts from <code>origin/&lt;default branch&gt;</code>) or <code>"head"</code> (starts from your local HEAD, including unpushed commits).</p><div class="how"><b>How to</b><br><code>{ "worktree": { "baseRef": "head" } }</code> if you want every new worktree to start from your current local work.</div><a class="src" href="https://code.claude.com/docs/en/worktrees" target="_blank" rel="noopener">code.claude.com/docs/en/worktrees</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.198 / 2.1.221</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>Background agents that modify code in a worktree commit and push before finishing, and only open a draft pull request when the task warrants it, all while respecting the Git instructions in your CLAUDE.md.</p><div class="how"><b>How to</b><br>The final summary of a background session always shows the branch and, if applicable, the draft PR's URL.</div><a class="src" href="https://code.claude.com/docs/en/agent-view" target="_blank" rel="noopener">code.claude.com/docs/en/agent-view</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.147 / 2.1.152</span><span class="badge corrected">Updated</span></div><div class="body"><p><code>/simplify</code> became <code>/code-review</code> for bug hunting (effort levels low to ultra). <code>/simplify</code> now refers to a separate pure-cleanup command (reuse, simplification), which invokes <code>/code-review --fix</code> internally.</p><div class="how"><b>How to</b><br><code>/code-review high --fix</code> to hunt down and fix bugs; <code>/simplify</code> separately for cleanup without bug hunting.</div><a class="src" href="https://code.claude.com/docs/en/code-review" target="_blank" rel="noopener">code.claude.com/docs/en/code-review</a></div></div>
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.229</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p><code>/commit-push-pr</code> no longer auto-approves git/gh commands with dangerous flags (<code>--force</code>, <code>--amend</code>, <code>--no-verify</code>). They now ask for confirmation.</p><div class="how"><b>How to</b><br>The commit, push, and PR workflow stays automated, but every destructive action now goes through an explicit prompt.</div><a class="src" href="https://code.claude.com/docs/en/changelog" target="_blank" rel="noopener">code.claude.com/docs/en/changelog</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.20</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>A clickable colored dot in the footer shows the status of the current branch's PR: green (approved), yellow (pending), red (changes requested), gray (draft).</p><div class="how"><b>How to</b><br>Click the dot to open the PR directly in your browser.</div><a class="src" href="https://code.claude.com/docs/en/interactive-mode" target="_blank" rel="noopener">code.claude.com/docs/en/interactive-mode</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.63</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>CLAUDE.md, <code>.claude/settings.json</code>, custom agents, skills, and automatic memory are shared across all worktrees of the same Git repository.</p><div class="how"><b>How to</b><br>No manual duplication needed; use <code>autoMemoryDirectory</code> to change this location if needed.</div><a class="src" href="https://code.claude.com/docs/en/claude-directory" target="_blank" rel="noopener">code.claude.com/docs/en/claude-directory</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.76</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p><code>worktree.sparsePaths</code> uses <code>git sparse-checkout</code> to write only the listed directories to disk, which speeds up worktree creation in a large monorepo.</p><div class="how"><b>How to</b><br><code>{ "worktree": { "sparsePaths": [".claude", "packages/api"] } }</code> in <code>.claude/settings.json</code>.</div><a class="src" href="https://code.claude.com/docs/en/large-codebases" target="_blank" rel="noopener">code.claude.com/docs/en/large-codebases</a></div></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">Quick quiz</div>
+        <p class="q-text">With no special configuration, which reference does a new Claude Code worktree start from by default?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-git-2" value="0"> origin/<code>&lt;default branch&gt;</code> (the "fresh" setting)</label>
+          <label><input type="radio" name="q-git-2" value="1"> Your local HEAD, including unpushed commits (the "head" setting)</label>
+          <label><input type="radio" name="q-git-2" value="2"> The repository's latest release tag</label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">Correct. worktree.baseRef defaults to "fresh" as of v2.1.133: every new worktree starts from origin/<code>&lt;default branch&gt;</code>. The "head" setting (which must be explicitly enabled) starts from your local HEAD, including unpushed commits.</span></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">Not quite. The default is "fresh": it starts from origin/<code>&lt;default branch&gt;</code>. "head" also exists, but it's an option you have to enable yourself in order to start from your local HEAD with unpushed commits.</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quick quiz</div>
+        <p class="q-text">Since the command reorganization in v2.1.147/2.1.152, what is /simplify for?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-git-3" value="0"> Hunting bugs, with effort levels from low to ultra</label>
+          <label><input type="radio" name="q-git-3" value="1"> Doing pure cleanup (reuse, simplification) by invoking /code-review --fix internally</label>
+          <label><input type="radio" name="q-git-3" value="2"> Replacing /code-review, which was removed from the product</label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">Correct. Since v2.1.147/2.1.152, /code-review is the one that took over bug hunting (levels low to ultra). /simplify now refers to a separate pure-cleanup command, which invokes /code-review --fix internally.</span></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">Not quite. /code-review is the one that hunts bugs with effort levels; /simplify is the pure-cleanup command, which calls /code-review --fix internally. /code-review hasn't disappeared.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Hands-on exercise</div>
+        <p>Run the following command to start an isolated session:</p>
+      <pre><code class="language-bash">claude --worktree essai-pro</code></pre>
+      <p>Modify a file, then run <code>/code-review high --fix</code> before committing, and finally <code>/commit-push-pr</code>. Check that a <code>git push --force</code> would not be auto-approved, and add <code>worktree.baseRef: "head"</code> to <code>.claude/settings.json</code>.</p>
+        <details class="solution"><summary>Solution &amp; verification</summary>
+        <p><code>claude --worktree essai-pro</code> creates an isolated worktree under <code>.claude/worktrees/essai-pro/</code>, on a new branch <code>worktree-essai-pro</code>, which lets you modify a file without touching the current working branch. Once the file is committed, <code>/commit-push-pr</code> pushes the work and opens the PR. Since v2.1.229, it no longer runs silently for a dangerous flag: a <code>git push --force</code> asks for confirmation again instead of being auto-approved. For this worktree (and future ones) to start from the local HEAD, including unpushed commits, rather than from origin/<code>&lt;default branch&gt;</code>, you need to explicitly add the following configuration to <code>.claude/settings.json</code>:</p>
+      <pre><code class="language-json">{
+  "worktree": { "baseRef": "head" }
+}</code></pre>
+      <p>This is the final setting expected by the exercise.</p>
+        <ul><li>The directory .claude/worktrees/essai-pro/ exists and, inside it, git branch --show-current returns worktree-essai-pro.</li><li>When attempting a git push --force in this worktree via /commit-push-pr, an explicit confirmation prompt appears instead of the push running directly.</li><li>.claude/settings.json contains the key "worktree": { "baseRef": "head" } after the edit, and a new worktree created afterward has the same head commit as the current local branch (not the one from origin/<code>&lt;default branch&gt;</code>).</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="git" data-label="Mark as read">Mark as read</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="rewind.html"><span class="dir">&larr; Previous</span><span class="ptitle">Checkpoints</span></a>
+      <a class="next" href="echelle.html"><span class="dir">Next &rarr;</span><span class="ptitle">Background &amp; workflows</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

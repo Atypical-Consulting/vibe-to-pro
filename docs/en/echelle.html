@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Background &amp; Multi-Agent Workflows · From Vibe-Coding to the Job</title>
+<meta name="description" content="In vibe-coding, you fire off a prompt without knowing how many agents are running or how to stop them. Mastering background tasks and workflows means knowing exactly who's doing wh">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/en/echelle.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Background &amp; Multi-Agent Workflows · From Vibe-Coding to the Job">
+<meta property="og:description" content="In vibe-coding, you fire off a prompt without knowing how many agents are running or how to stop them. Mastering background tasks and workflows means knowing exactly who's doing wh">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/en/echelle.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">Skip to content</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="Modules">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">Field manual</span></a>
+        <span class="lang-switch">
+          <a href="../echelle.html" class="" data-swap="fr">FR</a>
+          <a href="echelle.html" class="active" data-swap="en">EN</a>
+        </span>
+      </div>
+      <h1>From Vibe-Coding to the Job</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>Progress</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="Modules">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>Prologue</span></a>
+      <a href="controle.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>Control &amp; security</span></a>
+      <a href="memoire.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>Memory</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>Commands &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>Plan &amp; reasoning</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>Sub-agents</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>Checkpoints</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="echelle.html" data-mod="echelle" class="active"><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>Background &amp; workflows</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>Plugins &amp; marketplaces</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK, CI/CD, IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>Epilogue &amp; sources</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 modules &middot; every cited fact links to its official source (code.claude.com) or is marked unverified.<br>✓ read · ✓✓ verified (all of the module's quizzes passed)<br>
+      <a href="index.html">← Back to home</a> &middot; <a href="methodologie.html">Methodology</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="echelle">
+      <div class="module-head"><span class="index">10</span><h2>Background &amp; Multi-Agent Workflows</h2></div>
+      <div class="module-sub">Scaling Without Losing Control</div>
+      <div class="stance"><p>In vibe-coding, you fire off a prompt without knowing how many agents are running or how to stop them. Mastering background tasks and workflows means knowing exactly who's doing what, with size and cross-session permission guardrails.</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Level check</div>
+        <p class="q-text">At most, how many agents can a Workflow run concurrently by default?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-echelle" value="0"> 8</label>
+          <label><input type="radio" name="q-echelle" value="1"> 16</label>
+          <label><input type="radio" name="q-echelle" value="2"> 32</label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">16 concurrent agents at most, with a total cap of 1000 agents across a workflow's entire run.</span><br><a class="skip-next" href="plugins.html">&rarr; You already know this lever, skip to the next module</a></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">It's 16: beyond that, additional calls wait in a queue until a slot frees up.</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">What if Claude kept working while you closed your laptop?</h3>
+      <p>In vibe-coding, you've probably picked up this habit: one prompt, you wait for the response, you fire another. The whole session runs in a single thread, right in front of you, and stops the moment you close the terminal. But what if you want Claude to explore three approaches in parallel, or keep running an audit while you're at lunch? That's where background sessions come in: a task launched this way keeps running without blocking your screen, and a dedicated view (<code>claude agents</code>) groups all these sessions by state (waiting for input, working, completed), so you always know who's doing what without having to keep every window open.</p>
+      <p>Once you've had a taste of that, the temptation to scale up is strong: why not have dozens of agents working at once on the same project? That's exactly what the Workflow tool is for: it orchestrates potentially hundreds of background agents, organized with simple primitives: launch a single agent, launch several in parallel, or chain them into a pipeline. But a system that can mobilize that much resource without direct supervision needs guardrails: without a cap, nothing stops a poorly scoped workflow from saturating your machine or your API budget within minutes. That's why, for the Workflow tool specifically (a limit distinct from the one mentioned for simple sub-agent delegation), a default maximum of 16 active agents at once exists (beyond that, new calls wait in a queue), with a total cap of 1000 agents per run. A size guideline even tightens things further, targeting a workflow of fewer than 15 agents by default rather than leaving the scale wide open as it used to be.</p>
+      <p>Scaling without losing control isn't just about limiting the number of agents: it's also about being able to act on each one individually, the way you would with a regular process. A background session can be resumed, inspected via its logs, cleanly stopped, restarted, or removed: a full lifecycle, so you never have a ghost task running without your knowledge. And when several sessions are working on related parts of the same project, they can even flag things to each other, including simply by mentioning one of them in your prompt: you don't need to orchestrate the communication yourself, Claude handles it. A monitoring tool rounds things out by streaming what's happening in a script launched in the background, without ever pausing your conversation.</p>
+      <p>One question remains: how do you know when a background agent should stop, if no one's there to tell it? That's the role of a task completion condition you state in natural language: Claude then continues across multiple turns, and a small model evaluates at each step whether the condition is met, until it stops automatically. This same principle of bounded autonomy shows up in recurring tasks: scheduling a prompt to repeat at a regular interval, again with a per-session cap to avoid a silent buildup of forgotten tasks. Here's what that changes in practice.</p>
+
+      <h3 class="section-title">What to remember</h3>
+      <div class="facts">
+<div class="fact"><div class="tag-col"><span class="version">v2.1.139</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p><code>claude agents</code> opens a full-screen view grouping all sessions by state (Needs input / Working / Completed), with dispatch for new tasks.</p><div class="how"><b>How to</b><br><code>claude agents --json</code> for a scriptable export, useful for a custom status bar.</div><a class="src" href="https://code.claude.com/docs/en/agent-view" target="_blank" rel="noopener">code.claude.com/docs/en/agent-view</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.251</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>The <code>claude attach</code>, <code>logs</code>, <code>stop</code>, <code>respawn</code>, and <code>rm</code> subcommands handle a background session's full lifecycle.</p><div class="how"><b>How to</b><br><code>claude attach &lt;id&gt;</code> to take back control, <code>claude stop &lt;id&gt;</code> to stop it cleanly.</div><a class="src" href="https://code.claude.com/docs/en/cli-reference" target="_blank" rel="noopener">code.claude.com/docs/en/cli-reference</a></div></div>
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.154</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>The Workflow tool orchestrates dozens to hundreds of background agents via the <code>agent()</code>, <code>parallel()</code>, and <code>pipeline()</code> primitives, with a cap of 16 concurrent agents and 1000 total per run.</p><div class="how"><b>How to</b><br>Track progress with <code>/workflows</code>; <code>p</code> to pause/resume, <code>x</code> to stop.</div><a class="src" href="https://code.claude.com/docs/en/workflows" target="_blank" rel="noopener">code.claude.com/docs/en/workflows</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.219</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>The <code>workflowSizeGuideline</code> directive defaults to <code>medium</code> (fewer than 15 agents) as of this version. Before, no limit was specified.</p><div class="how"><b>How to</b><br><code>{ \"workflowSizeGuideline\": \"small\" }</code> to further restrict a dynamic workflow's scale.</div><a class="src" href="https://code.claude.com/docs/en/workflows" target="_blank" rel="noopener">code.claude.com/docs/en/workflows</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.139</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p><code>/goal</code> sets a task completion condition: Claude keeps going across multiple turns until a small model judges the condition met.</p><div class="how"><b>How to</b><br><code>/goal all tests pass and lint is clean</code>; <code>/goal clear</code> to stop.</div><a class="src" href="https://code.claude.com/docs/en/goal" target="_blank" rel="noopener">code.claude.com/docs/en/goal</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.224 / 2.1.232</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>Cross-session messaging (<code>SendMessage</code>/<code>ListAgents</code>) lets Claude Code sessions send each other messages, including via an <code>@mention</code> of a session in your prompt.</p><div class="how"><b>How to</b><br>"Let the session working on the API know" is enough in natural language; Claude calls the tools itself.</div><a class="src" href="https://code.claude.com/docs/en/cross-session-messaging" target="_blank" rel="noopener">code.claude.com/docs/en/cross-session-messaging</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.71</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p><code>/loop</code> runs a prompt or a skill at a regular interval, and the <code>CronCreate</code>/<code>CronList</code>/<code>CronDelete</code> tools schedule recurring tasks (capped at 50 per session).</p><div class="how"><b>How to</b><br><code>/loop 5m check if the deployment is done</code>, or in natural language: "remind me at 3pm to push the branch."</div><a class="src" href="https://code.claude.com/docs/en/scheduled-tasks" target="_blank" rel="noopener">code.claude.com/docs/en/scheduled-tasks</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.98</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>The Monitor tool streams events from a script launched in the background (log, PR/CI, directory) and reacts to changes without pausing the conversation.</p><div class="how"><b>How to</b><br>"Watch the server logs and flag any error" triggers the Monitor tool rather than manual polling via <code>/loop</code>.</div><a class="src" href="https://code.claude.com/docs/en/scheduled-tasks" target="_blank" rel="noopener">code.claude.com/docs/en/scheduled-tasks</a></div></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quick quiz</div>
+        <p class="q-text">What is the cap on recurring tasks that the CronCreate/CronList/CronDelete tools can schedule per session?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-echelle-2" value="0"> 10</label>
+          <label><input type="radio" name="q-echelle-2" value="1"> 50</label>
+          <label><input type="radio" name="q-echelle-2" value="2"> 100</label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">Correct. The cap is 50 recurring tasks per session for the CronCreate/CronList/CronDelete tools; /loop, on the other hand, runs a prompt or a skill at a regular interval directly in the current conversation, without that cap.</span></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">Not quite. It's 50: the Cron tools (CronCreate/CronList/CronDelete) cap recurring tasks scheduled per session at this number, as distinct from /loop, which runs in the current conversation.</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quick quiz</div>
+        <p class="q-text">As of version 2.1.219, what is the default value of the workflowSizeGuideline directive?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-echelle-3" value="0"> small (fewer than 5 agents)</label>
+          <label><input type="radio" name="q-echelle-3" value="1"> medium (fewer than 15 agents)</label>
+          <label><input type="radio" name="q-echelle-3" value="2"> large (unlimited)</label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">Correct. As of 2.1.219, workflowSizeGuideline defaults to medium, i.e. fewer than 15 agents; before this version, no default limit was specified for a dynamic workflow.</span></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">Not quite. The default value as of 2.1.219 is medium (fewer than 15 agents). Before, no limit was set.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Hands-on exercise</div>
+        <p>Run the following command to start a background audit:</p>
+      <pre><code class="language-bash">claude --bg "audit the repo's TODOs"</code></pre>
+      <p>Open <code>claude agents</code>, pin the session (Ctrl+T), then check its logs with <code>claude logs &lt;id&gt;</code>. Then, on a small task, try the following command to watch Claude loop on its own until the condition is met:</p>
+      <pre><code class="language-bash">/goal all tests pass and lint is clean</code></pre>
+        <details class="solution"><summary>Solution &amp; verification</summary>
+        <p>Running the following command creates a background session:</p>
+      <pre><code class="language-bash">claude --bg "audit the repo's TODOs"</code></pre>
+      <p>The full-screen <code>claude agents</code> view groups sessions by state (Needs input / Working / Completed), which makes it easy to spot and pin the right session. The <code>claude logs &lt;id&gt;</code> command is part of the same set of subcommands as <code>attach</code>, <code>stop</code>, <code>respawn</code>, and <code>rm</code>, which together cover a background session's full lifecycle: it lets you check the logs without interrupting the session. The following test works because this directive sets a task completion condition that Claude re-evaluates turn after turn via a small model, until the condition is judged met:</p>
+      <pre><code class="language-bash">/goal all tests pass and lint is clean</code></pre>
+        <ul><li>In <code>claude agents</code>, the session moves from "Working" to "Completed" once the TODO audit is done, and a pin icon stays visible after Ctrl+T.</li><li><code>claude logs &lt;id&gt;</code> returns the session's output stream (the list of TODOs found in the repo) with no "session not found"-style error.</li><li>After <code>/goal all tests pass and lint is clean</code>, the conversation runs through several turns with no new input from you, ending in a final message confirming the condition is met; you can also interrupt the loop beforehand with <code>/goal clear</code>.</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="echelle" data-label="Mark as read">Mark as read</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="git.html"><span class="dir">&larr; Previous</span><span class="ptitle">Git &amp; worktrees</span></a>
+      <a class="next" href="plugins.html"><span class="dir">Next &rarr;</span><span class="ptitle">Plugins &amp; marketplaces</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

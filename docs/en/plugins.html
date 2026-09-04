@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plugins &amp; marketplaces · From Vibe-Coding to the Job</title>
+<meta name="description" content="In vibe-coding, you install a random plugin you found and cross your fingers. Done properly, plugins and marketplaces give you reproducibility (version pinned by SHA), security (se">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/en/plugins.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Plugins &amp; marketplaces · From Vibe-Coding to the Job">
+<meta property="og:description" content="In vibe-coding, you install a random plugin you found and cross your fingers. Done properly, plugins and marketplaces give you reproducibility (version pinned by SHA), security (se">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/en/plugins.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">Skip to content</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="Modules">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">Field manual</span></a>
+        <span class="lang-switch">
+          <a href="../plugins.html" class="" data-swap="fr">FR</a>
+          <a href="plugins.html" class="active" data-swap="en">EN</a>
+        </span>
+      </div>
+      <h1>From Vibe-Coding to the Job</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>Progress</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="Modules">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>Prologue</span></a>
+      <a href="controle.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>Control &amp; security</span></a>
+      <a href="memoire.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>Memory</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>Commands &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>Plan &amp; reasoning</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>Sub-agents</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>Checkpoints</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="echelle.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>Background &amp; workflows</span></a>
+      <a href="plugins.html" data-mod="plugins" class="active"><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>Plugins &amp; marketplaces</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK, CI/CD, IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>Epilogue &amp; sources</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 modules &middot; every cited fact links to its official source (code.claude.com) or is marked unverified.<br>✓ read · ✓✓ verified (all of the module's quizzes passed)<br>
+      <a href="index.html">← Back to home</a> &middot; <a href="methodologie.html">Methodology</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="plugins">
+      <div class="module-head"><span class="index">11</span><h2>Plugins &amp; marketplaces</h2></div>
+      <div class="module-sub">Tooling the whole team, not just yourself</div>
+      <div class="stance"><p>In vibe-coding, you install a random plugin you found and cross your fingers. Done properly, plugins and marketplaces give you reproducibility (version pinned by SHA), security (secrets never injected into a shell), and governance (explicit activation, visible token cost).</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Level check</div>
+        <p class="q-text">A plugin declares <code>defaultEnabled: false</code>. What must the user do before it becomes active&nbsp;?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-plugins" value="0"> Nothing, it activates itself on install</label>
+          <label><input type="radio" name="q-plugins" value="1"> Run <code>claude plugin enable &lt;name&gt;</code></label>
+          <label><input type="radio" name="q-plugins" value="2"> Restart Claude Code</label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">Explicit activation is required even once the plugin is installed&nbsp;: it's a safeguard against silent activation.</span><br><a class="skip-next" href="infra.html">&rarr; You already know this lever, skip to the next module</a></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">You need to run <code>claude plugin enable &lt;name&gt;</code>&nbsp;: installing alone isn't enough to activate a plugin marked <code>defaultEnabled: false</code>.</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">You find a plugin on GitHub, you install it… and then what&nbsp;?</h3>
+      <p>A plugin is tempting&nbsp;: someone wrote it, you install it, and Claude Code suddenly knows how to do one more thing. In vibe-coding, that's often all anyone asks for. It works, so you move on. But a plugin is more than just an extra command&nbsp;: it can bring agents, hooks (scripts that fire automatically at certain moments), and even whole MCP or LSP servers (LSP stands for <em>Language Server Protocol</em>, the protocol that gives an editor a fine-grained understanding of a programming language), all packaged and distributed through a <em>marketplace</em>, a kind of shared catalog. And that's where it gets interesting for a team&nbsp;: by declaring that marketplace once in <code>.claude/settings.json</code> via <code>extraKnownMarketplaces</code>, everyone gets access without reinstalling anything on their own side.</p>
+      <p>But installing a plugin doesn't mean activating it, and that's a deliberate design choice. If its author set <code>defaultEnabled: false</code> in <code>plugin.json</code>, the plugin stays inert until you run <code>claude plugin enable &lt;name&gt;</code> yourself. Why this seemingly redundant step&nbsp;? Because a plugin that activated itself on install would act on your project before you'd even decided to trust it. And before taking that step, you can query <code>claude plugin details &lt;name&gt;</code>&nbsp;: the command lists what the plugin carries and projects the token cost it will add to each session. That way you know what you're activating before you activate it, not after.</p>
+      <p>One classic problem remains&nbsp;: a plugin pointing at a GitHub branch can change under your feet, since a commit pushed next week isn't the one you tested today. That's why <code>marketplace.json</code> can pin a <code>sha</code>, a full git commit, like a frozen snapshot rather than a stream that keeps moving. Same logic when the plugin isn't even on git&nbsp;: a source of type <code>archive</code> installs a zip directly over HTTPS, with no git or npm, also with an optional SHA-256 hash to guarantee the content received is exactly what was expected. The result&nbsp;: what you tested is, down to the commit, what will run on your teammate's machine or in CI.</p>
+      <p>There's still the question of trust around configuration and security. Could a cloned repo quietly slip its own plugin settings into your session&nbsp;? No&nbsp;: <code>pluginConfigs</code> is no longer read from <em>project</em> settings, only your user settings, <code>--settings</code>, or settings managed by your organization count. It's the <code>/plugin</code> command that writes them, into your own <code>~/.claude/settings.json</code>. The same caution applies to a plugin's hooks&nbsp;: the <code>${user_config.*}</code> substitution in shell form is blocked, because it would open an injection flaw if a configuration value contained malicious code&nbsp;; you have to go through the <code>exec</code> form or read the <code>$CLAUDE_PLUGIN_OPTION_&lt;KEY&gt;</code> environment variable. Here, in detail, is what that changes in practice.</p>
+
+      <h3 class="section-title">What to remember</h3>
+      <div class="facts">
+<div class="fact"><div class="tag-col"><span class="version">v2.0.12</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>The plugin system extends Claude Code with commands, agents, hooks, and MCP/LSP servers distributed via marketplaces. <code>extraKnownMarketplaces</code> in <code>.claude/settings.json</code> shares them with the whole team.</p><div class="how"><b>How to</b><br><code>/plugin install &lt;name&gt;@&lt;marketplace&gt;</code> or <code>claude plugin install</code> from the CLI.</div><a class="src" href="https://code.claude.com/docs/en/plugins" target="_blank" rel="noopener">code.claude.com/docs/en/plugins</a></div></div>
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.154</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p><code>defaultEnabled: false</code> in <code>plugin.json</code> requires explicit activation before a plugin becomes active, even once installed.</p><div class="how"><b>How to</b><br><code>claude plugin enable &lt;name&gt;</code> to activate it after installing.</div><a class="src" href="https://code.claude.com/docs/en/plugins-reference" target="_blank" rel="noopener">code.claude.com/docs/en/plugins-reference</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.139</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p><code>claude plugin details &lt;name&gt;</code> lists the plugin's components and projects their token cost per session, before you even activate it.</p><div class="how"><b>How to</b><br>Always check an unknown plugin's token footprint before activating it on an active project.</div><a class="src" href="https://code.claude.com/docs/en/plugins-reference" target="_blank" rel="noopener">code.claude.com/docs/en/plugins-reference</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.14</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>For github/url/git-subdir sources, a <code>sha</code> field (a full git commit) pins an exact version of a plugin, independent of future commits on the branch.</p><div class="how"><b>How to</b><br><code>{ \"source\": \"github\", \"repo\": \"owner/repo\", \"sha\": \"a1b2c3...\" }</code> in <code>marketplace.json</code>.</div><a class="src" href="https://code.claude.com/docs/en/plugin-marketplaces" target="_blank" rel="noopener">code.claude.com/docs/en/plugin-marketplaces</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.207</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p><code>pluginConfigs</code> is no longer read from a project's <code>.claude/settings.json</code>&nbsp;: only user settings, <code>--settings</code>, and managed settings count. A cloned repo therefore cannot configure a user's plugins without their knowledge.</p><div class="how"><b>How to</b><br>Configure options via <code>/plugin</code>, which writes to <code>~/.claude/settings.json</code>.</div><a class="src" href="https://code.claude.com/docs/en/plugins-reference" target="_blank" rel="noopener">code.claude.com/docs/en/plugins-reference</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.207</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>The <code>${user_config.*}</code> substitution in shell form is rejected in plugin hooks/monitors (injection flaw)&nbsp;: you need the <code>exec</code> form, or to read <code>$CLAUDE_PLUGIN_OPTION_&lt;KEY&gt;</code>.</p><div class="how"><b>How to</b><br>Hook in exec form&nbsp;: <code>{ \"command\": \"mon-script\", \"args\": [\"${user_config.cle}\"] }</code>.</div><a class="src" href="https://code.claude.com/docs/en/plugins-reference" target="_blank" rel="noopener">code.claude.com/docs/en/plugins-reference</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.224</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>An <code>archive</code> plugin source installs from a zip over HTTPS with no git or npm, with optional SHA-256 pinning and a maximum size of 256&nbsp;MiB.</p><div class="how"><b>How to</b><br><code>{ \"source\": \"archive\", \"url\": \"https://…/plugin.zip\", \"sha256\": \"…\" }</code> in <code>marketplace.json</code>.</div><a class="src" href="https://code.claude.com/docs/en/plugin-marketplaces" target="_blank" rel="noopener">code.claude.com/docs/en/plugin-marketplaces</a></div></div>
+      </div>
+      <div class="quiz" data-correct="2">
+        <div class="q-label">Quick quiz</div>
+        <p class="q-text">For a github/url/git-subdir plugin source, which marketplace.json field pins an exact version of the plugin, independent of future commits on the branch?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-plugins-2" value="0"> <code>version</code></label>
+          <label><input type="radio" name="q-plugins-2" value="1"> <code>tag</code></label>
+          <label><input type="radio" name="q-plugins-2" value="2"> <code>sha</code></label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">Correct. The sha field (a full git commit) pins a precise version of the plugin, unaffected by later commits pushed to the referenced branch.</span></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">Not quite. It's the sha field (a full git commit) that pins an exact version, independent of future commits on the branch. There is no version field or tag field for this purpose.</span></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">Quick quiz</div>
+        <p class="q-text">Which plugin source type in marketplace.json lets you install from a zip file over HTTPS, without relying on git or npm?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-plugins-3" value="0"> <code>archive</code></label>
+          <label><input type="radio" name="q-plugins-3" value="1"> <code>url</code></label>
+          <label><input type="radio" name="q-plugins-3" value="2"> <code>git-subdir</code></label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">Correct. The archive source installs from a zip over HTTPS, with optional SHA-256 pinning and a maximum size of 256 MiB, without depending on git or npm.</span></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">Not quite. It's the archive source that installs from a zip over HTTPS with no git or npm, with optional SHA-256 pinning and a size limit of 256 MiB.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Hands-on exercise</div>
+        <p>Run the following command&nbsp;:</p>
+<pre><code class="language-bash">claude plugin init mon-plugin --with skills hooks</code></pre>
+<p>Add <code>"defaultEnabled": false</code> to the generated <code>plugin.json</code>, then verify that the following command is required to activate it&nbsp;:</p>
+<pre><code class="language-bash">claude plugin enable mon-plugin</code></pre>
+<p>Finally, run this command to see its projected token cost per session&nbsp;:</p>
+<pre><code class="language-bash">claude plugin details mon-plugin</code></pre>
+        <details class="solution"><summary>Solution &amp; verification</summary>
+        <p>The plugin.json generated by claude plugin init doesn't activate anything on its own. As soon as you add "defaultEnabled": false to it, the plugin reference requires explicit activation before the plugin becomes active, even once installed. That's exactly why claude plugin enable mon-plugin becomes a mandatory step, not an optional one. Once the plugin is activated, claude plugin details mon-plugin lists its declared components (here the skills and hooks requested via --with skills hooks) and projects their token cost per session before you even have to use them, which lets you judge its footprint without running it blind.</p>
+        <ul><li>Before claude plugin enable, a plugin command/skill invoked in the session fails or stays invisible, and claude plugin list (or /plugin in the REPL) shows mon-plugin with a disabled status.</li><li>claude plugin enable mon-plugin exits with status code 0 and moves mon-plugin to active status in claude plugin list.</li><li>claude plugin details mon-plugin displays a numeric estimate of the token cost per session (a numerical value), in addition to the list of declared skills and hooks, not just the component names.</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="plugins" data-label="Mark as read">Mark as read</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="echelle.html"><span class="dir">&larr; Previous</span><span class="ptitle">Background &amp; workflows</span></a>
+      <a class="next" href="infra.html"><span class="dir">Next &rarr;</span><span class="ptitle">SDK, CI/CD, IDE</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arrière‑plan &amp; workflows multi‑agents · Du Vibe-Coding au Métier</title>
+<meta name="description" content="En vibe‑coding, on lance un prompt sans savoir combien d'agents tournent ni comment les arrêter. Maîtriser les tâches en arrière‑plan et les workflows, c'est savoir exactement qui ">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/echelle.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Arrière‑plan &amp; workflows multi‑agents · Du Vibe-Coding au Métier">
+<meta property="og:description" content="En vibe‑coding, on lance un prompt sans savoir combien d'agents tournent ni comment les arrêter. Maîtriser les tâches en arrière‑plan et les workflows, c'est savoir exactement qui ">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/echelle.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">Aller au contenu</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="Modules">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">Manuel de terrain</span></a>
+        <span class="lang-switch">
+          <a href="echelle.html" class="active" data-swap="fr">FR</a>
+          <a href="en/echelle.html" class="" data-swap="en">EN</a>
+        </span>
+      </div>
+      <h1>Du Vibe-Coding au Métier</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>Progression</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="Modules">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>Prologue</span></a>
+      <a href="controle.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>Contrôle &amp; sécurité</span></a>
+      <a href="memoire.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>Mémoire</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>Commandes &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>Plan &amp; réflexion</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>Sous-agents</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>Checkpoints</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="echelle.html" data-mod="echelle" class="active"><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>Arrière-plan &amp; workflows</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>Plugins &amp; marketplaces</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK, CI/CD, IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>Épilogue &amp; sources</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 modules &middot; chaque fait cité renvoie à sa source officielle (code.claude.com) ou est marqué comme non vérifié.<br>✓ lu · ✓✓ vérifié (tous les quiz du module réussis)<br>
+      <a href="index.html">← Retour à l'accueil</a> &middot; <a href="methodologie.html">Méthodologie</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="echelle">
+      <div class="module-head"><span class="index">10</span><h2>Arrière‑plan &amp; workflows multi‑agents</h2></div>
+      <div class="module-sub">Passer à l'échelle sans perdre le contrôle</div>
+      <div class="stance"><p>En vibe‑coding, on lance un prompt sans savoir combien d'agents tournent ni comment les arrêter. Maîtriser les tâches en arrière‑plan et les workflows, c'est savoir exactement qui fait quoi, avec des garde‑fous de taille et de permissions inter‑sessions.</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Test de niveau</div>
+        <p class="q-text">Combien d'agents un Workflow peut‑il faire tourner en concurrence, au maximum, par défaut&nbsp;?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-echelle" value="0"> 8</label>
+          <label><input type="radio" name="q-echelle" value="1"> 16</label>
+          <label><input type="radio" name="q-echelle" value="2"> 32</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">16 agents concurrents au maximum, pour un plafond total de 1000 agents sur toute l'exécution d'un workflow.</span><br><a class="skip-next" href="plugins.html">&rarr; Vous maîtrisez déjà ce levier, passer au module suivant</a></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est 16&nbsp;: au‑delà, les appels supplémentaires attendent en file qu'un emplacement se libère.</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">Et si Claude continuait à travailler pendant que vous fermez l'ordinateur&nbsp;?</h3>
+      <p>En vibe-coding, vous avez sans doute pris cette habitude&nbsp;: un prompt, vous attendez la réponse, vous relancez. Toute la session tourne dans un seul fil, sous vos yeux, et s'arrête dès que vous fermez le terminal. Mais que se passe-t-il si vous voulez que Claude explore trois pistes en parallèle, ou continue un audit pendant que vous déjeunez&nbsp;? C'est là qu'interviennent les sessions en arrière-plan&nbsp;: une tâche lancée ainsi continue de tourner sans bloquer votre écran, et une vue dédiée (<code>claude agents</code>) regroupe toutes ces sessions par état (en attente d'une réponse, en cours, terminée), pour que vous sachiez toujours qui fait quoi, sans avoir à garder chaque fenêtre ouverte.</p>
+      <p>Une fois qu'on a goûté à ça, la tentation est grande de démultiplier&nbsp;: pourquoi ne pas faire travailler des dizaines d'agents à la fois sur un même projet&nbsp;? C'est exactement le rôle du Workflow tool&nbsp;: il orchestre potentiellement des centaines d'agents en arrière-plan, organisés avec des primitives simples&nbsp;: lancer un agent seul, en lancer plusieurs en parallèle, ou les enchaîner en pipeline. Mais un système qui peut mobiliser autant de ressources sans supervision directe a besoin de garde-fous&nbsp;: sans plafond, rien n'empêche un workflow mal cadré de saturer votre machine ou votre budget d'API en quelques minutes. C'est pourquoi, pour le Workflow tool spécifiquement (une limite distincte de celle évoquée pour la délégation simple à un sous-agent), un maximum de 16 agents actifs en même temps existe par défaut (au-delà, les nouveaux appels patientent en file), avec un plafond total de 1000 agents par exécution. Une directive de taille vient même resserrer encore la voilure, en visant par défaut un workflow de moins de 15 agents plutôt que de laisser l'échelle totalement ouverte comme c'était le cas auparavant.</p>
+      <p>Passer à l'échelle sans perdre le contrôle, ce n'est pas seulement limiter le nombre d'agents&nbsp;: c'est aussi pouvoir agir sur chacun d'eux individuellement, comme vous le feriez avec un processus classique. Une session en arrière-plan peut ainsi être reprise en main, consultée via ses journaux, arrêtée proprement, relancée ou supprimée&nbsp;: l'équivalent d'un cycle de vie complet, pour ne jamais avoir une tâche fantôme qui tourne sans que vous le sachiez. Et quand plusieurs sessions travaillent sur des parties liées d'un même projet, elles peuvent même se signaler des choses entre elles, y compris simplement en mentionnant l'une d'elles dans votre prompt&nbsp;: vous n'avez pas besoin d'orchestrer la communication vous-même, Claude s'en charge. Un outil de supervision complète le tableau en suivant en flux ce qui se passe dans un script lancé en arrière-plan, sans jamais mettre votre conversation en pause pour autant.</p>
+      <p>Reste une dernière question&nbsp;: comment savoir quand un agent en arrière-plan doit s'arrêter, si personne n'est là pour le lui dire&nbsp;? C'est le rôle d'une condition de fin de tâche que vous formulez en langage naturel&nbsp;: Claude continue alors sur plusieurs tours, et un petit modèle évalue à chaque étape si la condition est remplie, jusqu'à l'arrêt automatique. Ce même principe d'autonomie encadrée se retrouve dans les tâches récurrentes&nbsp;: planifier un prompt pour qu'il se répète à intervalle régulier, avec là aussi un plafond par session pour éviter l'accumulation silencieuse de tâches oubliées. Voici, en détail, ce que ça change concrètement.</p>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts">
+<div class="fact"><div class="tag-col"><span class="version">v2.1.139</span><span class="badge confirmed">Confirmé</span></div><div class="body"><p><code>claude agents</code> ouvre une vue plein écran regroupant toutes les sessions par état (Needs input / Working / Completed), avec dispatch de nouvelles tâches.</p><div class="how"><b>Comment faire</b><br><code>claude agents --json</code> pour un export scriptable, utile pour une barre de statut personnalisée.</div><a class="src" href="https://code.claude.com/docs/en/agent-view" target="_blank" rel="noopener">code.claude.com/docs/en/agent-view</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.251</span><span class="badge confirmed">Confirmé</span></div><div class="body"><p>Les sous‑commandes <code>claude attach</code>, <code>logs</code>, <code>stop</code>, <code>respawn</code> et <code>rm</code> gèrent le cycle de vie complet d'une session en arrière‑plan.</p><div class="how"><b>Comment faire</b><br><code>claude attach &lt;id&gt;</code> pour reprendre la main, <code>claude stop &lt;id&gt;</code> pour l'arrêter proprement.</div><a class="src" href="https://code.claude.com/docs/en/cli-reference" target="_blank" rel="noopener">code.claude.com/docs/en/cli-reference</a></div></div>
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.154</span><span class="badge confirmed">Confirmé</span></div><div class="body"><p>Le Workflow tool orchestre des dizaines à centaines d'agents en arrière‑plan via des primitives <code>agent()</code>, <code>parallel()</code>, <code>pipeline()</code>, avec un plafond de 16 agents concurrents et 1000 au total par exécution.</p><div class="how"><b>Comment faire</b><br>Suivez la progression avec <code>/workflows</code>&nbsp; ; <code>p</code> pour pause/reprise, <code>x</code> pour arrêter.</div><a class="src" href="https://code.claude.com/docs/en/workflows" target="_blank" rel="noopener">code.claude.com/docs/en/workflows</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.219</span><span class="badge confirmed">Confirmé</span></div><div class="body"><p>La directive <code>workflowSizeGuideline</code> vaut <code>medium</code> (moins de 15 agents) par défaut depuis cette version. Avant, aucune limite n'était indiquée.</p><div class="how"><b>Comment faire</b><br><code>{ \"workflowSizeGuideline\": \"small\" }</code> pour restreindre encore l'échelle d'un workflow dynamique.</div><a class="src" href="https://code.claude.com/docs/en/workflows" target="_blank" rel="noopener">code.claude.com/docs/en/workflows</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.139</span><span class="badge confirmed">Confirmé</span></div><div class="body"><p><code>/goal</code> définit une condition de fin de tâche&nbsp;: Claude continue sur plusieurs tours jusqu'à ce qu'un petit modèle évalue la condition comme atteinte.</p><div class="how"><b>Comment faire</b><br><code>/goal tous les tests passent et le lint est propre</code>&nbsp; ; <code>/goal clear</code> pour arrêter.</div><a class="src" href="https://code.claude.com/docs/en/goal" target="_blank" rel="noopener">code.claude.com/docs/en/goal</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.224 / 2.1.232</span><span class="badge confirmed">Confirmé</span></div><div class="body"><p>La messagerie inter‑sessions (<code>SendMessage</code>/<code>ListAgents</code>) permet à des sessions Claude Code de s'envoyer des messages entre elles, y compris via une <code>@mention</code> de session dans le prompt.</p><div class="how"><b>Comment faire</b><br>« Préviens la session qui travaille sur l'API » suffit en langage naturel&nbsp;; Claude appelle les outils lui‑même.</div><a class="src" href="https://code.claude.com/docs/en/cross-session-messaging" target="_blank" rel="noopener">code.claude.com/docs/en/cross-session-messaging</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.71</span><span class="badge confirmed">Confirmé</span></div><div class="body"><p><code>/loop</code> exécute un prompt ou une skill à intervalle régulier, et les outils <code>CronCreate</code>/<code>CronList</code>/<code>CronDelete</code> planifient des tâches récurrentes (plafond de 50 par session).</p><div class="how"><b>Comment faire</b><br><code>/loop 5m vérifie si le déploiement est fini</code>, ou en langage naturel&nbsp;: « rappelle‑moi à 15h de pousser la branche ».</div><a class="src" href="https://code.claude.com/docs/en/scheduled-tasks" target="_blank" rel="noopener">code.claude.com/docs/en/scheduled-tasks</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.98</span><span class="badge confirmed">Confirmé</span></div><div class="body"><p>L'outil Monitor suit en flux les événements d'un script lancé en arrière‑plan (log, PR/CI, répertoire) et réagit aux changements sans mettre en pause la conversation.</p><div class="how"><b>Comment faire</b><br>« Surveille les logs du serveur et signale toute erreur » déclenche l'outil Monitor plutôt qu'un polling manuel via <code>/loop</code>.</div><a class="src" href="https://code.claude.com/docs/en/scheduled-tasks" target="_blank" rel="noopener">code.claude.com/docs/en/scheduled-tasks</a></div></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Quel est le plafond de tâches récurrentes que les outils CronCreate/CronList/CronDelete peuvent planifier par session ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-echelle-2" value="0"> 10</label>
+          <label><input type="radio" name="q-echelle-2" value="1"> 50</label>
+          <label><input type="radio" name="q-echelle-2" value="2"> 100</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Le plafond est de 50 tâches récurrentes par session pour les outils CronCreate/CronList/CronDelete ; /loop, de son côté, exécute un prompt ou une skill à intervalle régulier directement dans la conversation en cours, sans ce plafond.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. C'est 50&nbsp;: les outils Cron (CronCreate/CronList/CronDelete) plafonnent à ce nombre les tâches récurrentes planifiées par session, à distinguer de /loop qui tourne dans la conversation courante.</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Depuis la version 2.1.219, quelle est la valeur par défaut de la directive workflowSizeGuideline ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-echelle-3" value="0"> small (moins de 5 agents)</label>
+          <label><input type="radio" name="q-echelle-3" value="1"> medium (moins de 15 agents)</label>
+          <label><input type="radio" name="q-echelle-3" value="2"> large (illimité)</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Depuis la 2.1.219, workflowSizeGuideline vaut medium par défaut, soit moins de 15 agents ; avant cette version, aucune limite n'était indiquée par défaut pour un workflow dynamique.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. La valeur par défaut depuis la 2.1.219 est medium (moins de 15 agents). Avant, aucune limite n'était fixée.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Lancez la commande suivante pour démarrer un audit en arrière-plan :</p>
+      <pre><code class="language-bash">claude --bg "audite les TODO du repo"</code></pre>
+      <p>Ouvrez <code>claude agents</code>, épinglez la session (Ctrl+T), puis consultez ses logs avec <code>claude logs &lt;id&gt;</code>. Testez ensuite, sur une petite tâche, la commande suivante pour voir Claude boucler seul jusqu'à la condition :</p>
+      <pre><code class="language-bash">/goal tous les tests passent et le lint est propre</code></pre>
+        <details class="solution"><summary>Solution &amp; vérification</summary>
+        <p>Lancer la commande suivante crée une session en arrière-plan :</p>
+      <pre><code class="language-bash">claude --bg "audite les TODO du repo"</code></pre>
+      <p>La vue plein écran <code>claude agents</code> regroupe les sessions par état (Needs input / Working / Completed), ce qui permet de repérer et d'épingler la bonne session. La commande <code>claude logs &lt;id&gt;</code> fait partie du même jeu de sous-commandes que <code>attach</code>, <code>stop</code>, <code>respawn</code> et <code>rm</code>, qui couvrent ensemble le cycle de vie complet d'une session en arrière-plan&nbsp;: elle permet donc de consulter les journaux sans interrompre la session. Le test suivant fonctionne parce que cette directive définit une condition de fin de tâche que Claude réévalue tour après tour via un petit modèle, jusqu'à ce que la condition soit jugée atteinte :</p>
+      <pre><code class="language-bash">/goal tous les tests passent et le lint est propre</code></pre>
+        <ul><li>Dans <code>claude agents</code>, la session passe de l'état « Working » à « Completed » une fois l'audit des TODO terminé, et une icône d'épingle reste visible après Ctrl+T.</li><li><code>claude logs &lt;id&gt;</code> renvoie le flux de sortie de la session (la liste des TODO trouvés dans le repo) sans message d'erreur du type « session introuvable ».</li><li>Après <code>/goal tous les tests passent et le lint est propre</code>, la conversation enchaîne plusieurs tours sans nouvelle saisie de votre part, jusqu'à un message final confirmant la condition atteinte ; vous pouvez aussi interrompre la boucle avant cela avec <code>/goal clear</code>.</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="echelle" data-label="Marquer comme lu">Marquer comme lu</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="git.html"><span class="dir">&larr; Précédent</span><span class="ptitle">Git &amp; worktrees</span></a>
+      <a class="next" href="plugins.html"><span class="dir">Suivant &rarr;</span><span class="ptitle">Plugins &amp; marketplaces</span></a>
+    </div>
+  </main>
+</div>
+<script src="assets/course.js"></script>
+</body>
+</html>
