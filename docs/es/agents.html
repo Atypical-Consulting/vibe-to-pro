@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subagentes, delegar y paralelizar · Del Vibe-Coding al Oficio</title>
+<meta name="description" content="El vibe-coding es un solo hilo donde todo se mezcla : investigación, escritura, pruebas, un contexto que se dispara. Los subagentes aíslan cada tarea (contexto separado, herramient">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/es/agents.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Subagentes, delegar y paralelizar · Del Vibe-Coding al Oficio">
+<meta property="og:description" content="El vibe-coding es un solo hilo donde todo se mezcla : investigación, escritura, pruebas, un contexto que se dispara. Los subagentes aíslan cada tarea (contexto separado, herramient">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/es/agents.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">Ir al contenido</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="Modules">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">Manual de campo</span></a>
+        <select class="lang-switch" aria-label="Idioma"><option value="../agents.html">FR</option><option value="../en/agents.html">EN</option><option value="agents.html" selected>ES</option></select>
+      </div>
+      <h1>Del Vibe-Coding al Oficio</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>Progreso</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="Modules">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>Prólogo</span></a>
+      <a href="control.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>Control &amp; seguridad</span></a>
+      <a href="memory.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>Memoria</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>Comandos &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>Plan &amp; razonamiento</span></a>
+      <a href="agents.html" data-mod="agents" class="active"><span class="num">05</span><span class="chk" data-chk="agents"></span><span>Subagentes</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>Checkpoints</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="scale.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>Segundo plano &amp; workflows</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>Plugins &amp; marketplaces</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK, CI/CD, IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>Epílogo &amp; fuentes</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 módulos &middot; cada dato citado remite a su fuente oficial (code.claude.com) o se marca como no verificado.<br>✓ leído · ✓✓ verificado (todos los quiz del módulo aprobados)<br>
+      <a href="index.html">← Volver al inicio</a> &middot; <a href="methodology.html">Metodología</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="agents">
+      <div class="module-head"><span class="index">05</span><h2>Subagentes, delegar y paralelizar</h2></div>
+      <div class="module-sub">La herramienta Agent (antes Task)</div>
+      <div class="stance"><p>El vibe-coding es un solo hilo donde todo se mezcla: investigación, escritura, pruebas, un contexto que se dispara. Los subagentes aíslan cada tarea (contexto separado, herramientas restringidas, a veces un worktree dedicado) y permiten elegir conscientemente qué modelo hace cada cosa.</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Prueba de nivel</div>
+        <p class="q-text">Cómo retomar hoy un subagente ya lanzado?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-agents" value="0"> <code>Agent({resume: id})</code></label>
+          <label><input type="radio" name="q-agents" value="1"> <code>SendMessage({to: agentId})</code></label>
+          <label><input type="radio" name="q-agents" value="2"> <code>/agents resume</code></label>
+        </div>
+        <button class="q-check" type="button">Comprobar</button>
+        <div class="q-feedback ok">✓ Correcto. <span class="expl">La herramienta Agent ya no acepta un parámetro <code>resume</code> desde la v2.1.77: se apunta al subagente existente mediante <code>SendMessage({to: agentId})</code>.</span><br><a class="skip-next" href="hooks.html">&rarr; Ya dominas esta palanca, pasa al siguiente módulo</a></div>
+        <div class="q-feedback bad">✗ No exactamente. <span class="expl">Es <code>SendMessage({to: agentId})</code>; el parámetro <code>resume</code> de la herramienta Agent fue eliminado.</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">¿Y si pudieras delegar sin perder el hilo?</h3>
+      <p>Conoces ese momento en el que una sesión de Claude Code se dispersa en todas direcciones: le pides que busque un bug, luego que escriba una corrección, luego que ejecute las pruebas, luego que revise un archivo completamente distinto. En determinado momento, el contexto (todo lo que el modelo «recuerda» de la conversación) está tan cargado que las respuestas se vuelven menos precisas. Este es el síntoma clásico del vibe-coding: un único hilo de conversación que intenta cargar con todo a la vez. La solución no es hacerlo todo más rápido en ese mismo hilo, sino dividirlo: encargar cada tarea a un subagente separado, con su propio contexto, que no viene a contaminar el tuyo.</p>
+      <p>En concreto, este mecanismo de delegación se apoya en una herramienta que Claude Code llama <code>Agent</code> (se llamaba <code>Task</code> originalmente). Por defecto, un subagente hereda todas las herramientas disponibles (incluida la escritura de archivos y la ejecución de comandos Bash), salvo que lo restrinjas explícitamente con <code>tools:</code> o <code>disallowedTools:</code> en su frontmatter (el encabezado de configuración en la parte superior del archivo que define el agente). Esto es lo que permite crear, por ejemplo, un agente de revisión de código estrictamente de solo lectura: técnicamente no podrá romper nada, aunque lo intente. Puedes llevar el aislamiento todavía más lejos con <code>isolation: worktree</code>, que hace que el subagente trabaje en una copia git aparte, creada a partir de tu rama por defecto y eliminada automáticamente si no contiene ninguna modificación. Así puedes experimentar sin tocar nunca tu repositorio principal.</p>
+      <p>¿Pero por qué detenerse en un solo subagente a la vez? Ahí es donde entra la paralelización. <code>/subtask</code> lanza un subagente que permanece vinculado a tu sesión actual, visible en la lista de tareas; <code>/fork</code>, por su parte, duplica toda la conversación en una nueva sesión en segundo plano totalmente independiente, útil para probar un enfoque arriesgado sin bloquear tu trabajo. Este forking está activo por defecto en cuanto estás en una sesión interactiva. Para evitar que una escalada de delegaciones se vuelva incontrolable, existen dos salvaguardas: un límite de 20 subagentes ejecutados en paralelo (ajustable mediante la variable de entorno <code>CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS</code>, y sin límite total para el conjunto de una sesión), y una profundidad de anidamiento limitada a 3 niveles. Más allá de eso, la herramienta <code>Agent</code> desaparece para todos los subagentes salvo los forks, para evitar que un subagente lance indefinidamente otros subagentes.</p>
+      <p>Queda una pregunta: qué modelo hace funcionar cada subagente? No estás obligado a confiarlo todo al modelo más potente (y más costoso). El orden de resolución va del parámetro pasado en la invocación, al campo <code>model:</code> del frontmatter del agente (que también puede simplemente decir <code>inherit</code> para retomar el de la conversación), a la variable <code>CLAUDE_CODE_SUBAGENT_MODEL</code>, hasta el modelo de la conversación principal como último recurso: así puedes asignar conscientemente un modelo ligero a una tarea simple y reservar la potencia para lo que la merece. Un campo <code>memory:</code> incluso permite darle a un subagente una memoria persistente de una ejecución a otra, a nivel de usuario, de proyecto (el alcance recomendado, porque se puede versionar junto con el código) o de equipo local. Y para crear uno de estos subagentes, ya no hace falta un asistente dedicado: basta con pedírselo a Claude en lenguaje natural, o editar directamente un archivo en <code>.claude/agents/</code>. A continuación, en detalle, lo que esto cambia en la práctica.</p>
+
+      <h3 class="section-title">Lo que hay que recordar</h3>
+      <div class="facts">
+<div class="fact"><div class="tag-col"><span class="version">v0.2.74 / 2.1.63</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>La herramienta de subagente (llamada Task originalmente, renombrada Agent) da por defecto todas las herramientas disponibles (incluidas la escritura y Bash), salvo restricción explícita mediante <code>tools:</code> o <code>disallowedTools:</code>.</p><div class="how"><b>Cómo hacerlo</b><br><code>tools: Read, Grep, Glob</code> en el frontmatter para un subagente estrictamente de solo lectura.</div><a class="src" href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener">code.claude.com/docs/en/sub-agents</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.49 / 2.1.50</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p><code>isolation: worktree</code> hace que un subagente se ejecute en una copia git aislada, creada a partir de tu rama por defecto y limpiada automáticamente si no se hizo ninguna modificación.</p><div class="how"><b>Cómo hacerlo</b><br><code>isolation: worktree</code> en el frontmatter de un archivo <code>.claude/agents/&lt;nom&gt;.md</code>.</div><a class="src" href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener">code.claude.com/docs/en/sub-agents</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.212 / 2.1.232</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p><code>/subtask</code> lanza un fork que permanece en la sesión actual; <code>/fork</code> copia toda la conversación en una nueva sesión en segundo plano independiente. El forking está activo por defecto en sesión interactiva.</p><div class="how"><b>Cómo hacerlo</b><br><code>/fork</code> para probar un enfoque en paralelo sin bloquear la sesión actual; <code>/subtask</code> para un subagente visible en <code>/tasks</code>.</div><a class="src" href="https://code.claude.com/docs/en/agents" target="_blank" rel="noopener">code.claude.com/docs/en/agents</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.217</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>Límite de 20 subagentes concurrentes por defecto, ajustable mediante <code>CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS</code>. Ya no existe un límite total por sesión (eliminado en la v2.1.224).</p><div class="how"><b>Cómo hacerlo</b><br><code>{ "env": { "CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS": "50" } }</code> para ajustar el caudal.</div><a class="src" href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener">code.claude.com/docs/en/sub-agents</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.219</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>Profundidad de anidamiento de los subagentes limitada a 3 niveles por defecto. En ese límite, la herramienta Agent se retira de todos los subagentes salvo de los forks.</p><div class="how"><b>Cómo hacerlo</b><br><code>CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1</code> para desactivar cualquier anidamiento.</div><a class="src" href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener">code.claude.com/docs/en/sub-agents</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.251</span><span class="badge corrected">Actualizado</span></div><div class="body"><p>Orden de resolución del modelo de un subagente: parámetro por invocación &gt; campo <code>model:</code> del frontmatter (con <code>inherit</code> posible) &gt; <code>CLAUDE_CODE_SUBAGENT_MODEL</code> &gt; modelo de la conversación principal.</p><div class="how"><b>Cómo hacerlo</b><br><code>{ "env": { "CLAUDE_CODE_SUBAGENT_MODEL": "haiku" } }</code> como valor por defecto, sobreescribible por agente.</div><a class="src" href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener">code.claude.com/docs/en/sub-agents</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.33</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>El campo <code>memory:</code> del frontmatter activa una memoria persistente por subagente, con 3 alcances posibles: <code>user</code>, <code>project</code> (recomendado, versionable), <code>local</code>.</p><div class="how"><b>Cómo hacerlo</b><br><code>memory: project</code> en el frontmatter, y luego pide explícitamente al agente que consulte o actualice su memoria.</div><a class="src" href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener">code.claude.com/docs/en/sub-agents</a></div></div>
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.77</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>La herramienta Agent ya no acepta un parámetro <code>resume</code>: para retomar un subagente ya lanzado, se usa <code>SendMessage({to: agentId})</code>.</p><div class="how"><b>Cómo hacerlo</b><br>Retomar un subagente existente mediante la herramienta SendMessage dirigida a su ID o a su nombre.</div><a class="src" href="https://code.claude.com/docs/en/tools-reference" target="_blank" rel="noopener">code.claude.com/docs/en/tools-reference</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.198</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>El asistente interactivo <code>/agents</code> fue eliminado: se crea un subagente pidiéndoselo a Claude, o editando directamente un archivo en <code>.claude/agents/</code>.</p><div class="how"><b>Cómo hacerlo</b><br>«Crea un subagente llamado X que haga Y, con las herramientas Z» basta, en lenguaje natural.</div><a class="src" href="https://code.claude.com/docs/en/agents" target="_blank" rel="noopener">code.claude.com/docs/en/agents</a></div></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz rápido</div>
+        <p class="q-text">¿Por defecto, cuántos subagentes puede ejecutar Claude Code en paralelo dentro de una sesión?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-agents-2" value="0"> 10 subagentes concurrentes</label>
+          <label><input type="radio" name="q-agents-2" value="1"> 20 subagentes concurrentes</label>
+          <label><input type="radio" name="q-agents-2" value="2"> 50 subagentes concurrentes</label>
+        </div>
+        <button class="q-check" type="button">Comprobar</button>
+        <div class="q-feedback ok">✓ Correcto. <span class="expl">Correcto. El límite por defecto es de 20 subagentes concurrentes, ajustable mediante la variable de entorno CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS; el límite total por sesión, por su parte, fue eliminado en la v2.1.224.</span></div>
+        <div class="q-feedback bad">✗ No exactamente. <span class="expl">No exactamente. El límite por defecto es en realidad de 20 subagentes concurrentes, ajustable mediante CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS.</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz rápido</div>
+        <p class="q-text">¿Cuál es la profundidad de anidamiento de los subagentes (un subagente que a su vez lanza otro subagente) por defecto?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-agents-3" value="0"> 1 nivel</label>
+          <label><input type="radio" name="q-agents-3" value="1"> 3 niveles</label>
+          <label><input type="radio" name="q-agents-3" value="2"> 5 niveles</label>
+        </div>
+        <button class="q-check" type="button">Comprobar</button>
+        <div class="q-feedback ok">✓ Correcto. <span class="expl">Correcto. La profundidad está limitada a 3 niveles por defecto; en ese límite, la herramienta Agent se retira de todos los subagentes salvo de los forks.</span></div>
+        <div class="q-feedback bad">✗ No exactamente. <span class="expl">No exactamente. El límite por defecto es de 3 niveles, más allá de los cuales la herramienta Agent se retira, salvo para los forks.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Ejercicio práctico</div>
+        <p>Pide a Claude que cree un subagente <code>code-reviewer</code> de solo lectura (<code>Read, Grep, Glob</code>), modelo <code>haiku</code>. Lanza <code>/subtask</code> con este agente y observa su ejecución en segundo plano mediante <code>/tasks</code>. Añade después <code>isolation: worktree</code> para que trabaje en una copia git aislada, y luego bloquéalo con una regla <code>permissions.deny: ["Agent(code-reviewer)"]</code>.</p>
+        <details class="solution"><summary>Solución &amp; verificación</summary>
+        <p>La restricción a las herramientas Read, Grep, Glob funciona porque el subagente recibe por defecto todas las herramientas disponibles, escritura y Bash incluidos, salvo restricción explícita mediante el campo <code>tools:</code> o <code>disallowedTools:</code> del frontmatter. Es esa misma declaración <code>tools: Read, Grep, Glob</code> la que lo hace estrictamente de solo lectura. Añadir <code>isolation: worktree</code> después hace que se ejecute en una copia git aislada, creada a partir de la rama por defecto y limpiada automáticamente si no se hizo ninguna modificación, sin tocar el repositorio principal. El ejercicio termina con una regla de permisos que bloquea explícitamente este subagente, del tipo <code>permissions.deny: ["Agent(code-reviewer)"]</code> en los settings.</p>
+        <ul><li>En /tasks, la entrada del subagente code-reviewer pasa de «Working» a «Completed» sin que aparezca ninguna llamada a Edit, Write o Bash en su transcript de herramientas (solo figuran Read, Grep, Glob).</li><li>Una vez añadido isolation: worktree, aparece un nuevo worktree durante la ejecución (visible mediante git worktree list) y luego desaparece solo al final si no se modificó ningún archivo.</li><li>Después de añadir la regla permissions.deny: ["Agent(code-reviewer)"], cualquier nuevo intento de invocar este subagente concreto es rechazado explícitamente mediante un mensaje de permiso bloqueado, en lugar de ejecutarse como antes.</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="agents" data-label="Marquer comme lu">Marcar como leído</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="plan.html"><span class="dir">&larr; Anterior</span><span class="ptitle">Plan &amp; razonamiento</span></a>
+      <a class="next" href="hooks.html"><span class="dir">Siguiente &rarr;</span><span class="ptitle">Hooks</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

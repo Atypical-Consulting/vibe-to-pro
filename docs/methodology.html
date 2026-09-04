@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Méthodologie</title>
+<meta name="description" content="Comment chaque fait de ce cours est extrait du CHANGELOG officiel de Claude Code, vérifié contre la documentation actuelle, puis classé confirmé, mis à jour ou écarté.">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/methodology.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Méthodologie · Vibe to Pro">
+<meta property="og:description" content="395 fonctionnalités candidates extraites du CHANGELOG officiel, chacune vérifiée indépendamment. Voici le détail, y compris ce qui a été écarté.">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/methodology.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#F3F4EF; --paper-raised:#FFFFFF; --ink:#1C211E; --ink-soft:#4B524D; --ink-faint:#7A8079;
+    --line:#DBDED4; --line-soft:#E9EBE3; --accent:#1F6F63; --accent-ink:#0F433A; --accent-soft:#E3EFEC;
+    --ok:#3F7D4A; --ok-soft:#E5F1E3; --warn:#A9691F; --warn-soft:#F5EADA;
+    --shadow: 0 1px 2px rgba(20,25,20,.04), 0 8px 24px -12px rgba(20,25,20,.12);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#14181A; --paper-raised:#1B2022; --ink:#E7E9E4; --ink-soft:#A6ACA6; --ink-faint:#767D77;
+      --line:#2B322D; --line-soft:#242A26; --accent:#5CC0AC; --accent-ink:#8FDBC9; --accent-soft:#1B2E2A;
+      --ok:#7BC97F; --ok-soft:#1D2B1F; --warn:#E0A75E; --warn-soft:#2E2718;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5); color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14181A; --paper-raised:#1B2022; --ink:#E7E9E4; --ink-soft:#A6ACA6; --ink-faint:#767D77;
+    --line:#2B322D; --line-soft:#242A26; --accent:#5CC0AC; --accent-ink:#8FDBC9; --accent-soft:#1B2E2A;
+    --ok:#7BC97F; --ok-soft:#1D2B1F; --warn:#E0A75E; --warn-soft:#2E2718;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5); color-scheme: dark;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:'IBM Plex Sans',system-ui,sans-serif; line-height:1.65; }
+  h1,h2{ font-family:'IBM Plex Serif',Georgia,serif; text-wrap:balance; margin:0; }
+  code,.mono{ font-family:'IBM Plex Mono',ui-monospace,monospace; }
+  a{ color:var(--accent-ink); }
+  p{ margin:0 0 .9em; color:var(--ink-soft); }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 28px 100px; }
+  .eyebrow{ font-family:'IBM Plex Mono'; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink); display:flex; align-items:center; gap:8px; margin-bottom:14px; }
+  .eyebrow::before{ content:"›_"; font-weight:700; }
+  .back{ display:inline-block; margin-bottom:28px; font-family:'IBM Plex Mono'; font-size:12.5px; color:var(--ink-soft); text-decoration:none; }
+  .back:hover{ color:var(--accent-ink); }
+  h1{ font-size:clamp(28px,4vw,38px); line-height:1.15; margin-bottom:18px; }
+  .stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:36px 0; }
+  @media (max-width:600px){ .stats{ grid-template-columns:1fr 1fr; } }
+  .stat{ background:var(--paper-raised); padding:20px 16px; }
+  .stat b{ font-family:'IBM Plex Serif'; font-weight:600; font-size:clamp(22px,3vw,30px); display:block; font-variant-numeric:tabular-nums; }
+  .stat span{ font-family:'IBM Plex Mono'; font-size:11px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.04em; }
+  .steps{ display:flex; flex-direction:column; }
+  .step{ display:grid; grid-template-columns:40px 1fr; gap:16px; padding:18px 0; border-top:1px solid var(--line-soft); }
+  .step:first-child{ border-top:none; }
+  .step .n{ font-family:'IBM Plex Mono'; font-size:13px; color:var(--accent-ink); background:var(--accent-soft); border-radius:8px; width:34px; height:34px; display:flex; align-items:center; justify-content:center; font-weight:600; }
+  .step h3{ font-family:'IBM Plex Sans'; font-size:16px; font-weight:600; margin-bottom:5px; }
+  details.discard{ border:1px solid var(--line); background:var(--paper-raised); border-radius:12px; padding:16px 20px; margin-top:14px; }
+  details.discard summary{ cursor:pointer; font-weight:600; font-size:14.5px; }
+  details.discard ul{ margin:14px 0 0; padding-left:0; list-style:none; display:flex; flex-direction:column; gap:8px; }
+  details.discard li{ font-size:13.5px; color:var(--ink-soft); border-top:1px dashed var(--line); padding-top:8px; }
+  details.discard li:first-child{ border-top:none; padding-top:0; }
+  .badge{ font-family:'IBM Plex Mono'; font-size:10px; text-transform:uppercase; background:var(--warn-soft); color:var(--warn); border-radius:5px; padding:1px 6px; margin-right:6px; }
+  h2{ font-size:19px; margin:44px 0 12px; }
+  .cta{ margin-top:40px; }
+  select.lang-switch{ font-family:'IBM Plex Mono'; font-size:11px; padding:3px 7px; border-radius:6px; border:1px solid var(--accent); background:var(--accent-soft); color:var(--accent-ink); cursor:pointer; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div style="display:flex;justify-content:space-between;align-items:center;">
+    <a class="back" href="index.html">← Retour à l'accueil</a>
+    <select class="lang-switch" aria-label="Langue"><option value="methodology.html" selected>FR</option><option value="en/methodology.html">EN</option><option value="es/methodology.html">ES</option></select>
+  </div>
+  <span class="eyebrow">Méthodologie</span>
+  <h1>Comment ce cours vérifie chaque fait qu'il enseigne.</h1>
+  <p>Ce cours n'est pas écrit de mémoire. Il part du <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">CHANGELOG officiel</a> de Claude Code et fait passer chaque fonctionnalité candidate par un circuit de vérification avant qu'elle ne devienne une ligne du cours.</p>
+
+  <div class="stats">
+    <div class="stat"><b>385</b><span>versions du changelog analysées</span></div>
+    <div class="stat"><b>395</b><span>fonctionnalités candidates vérifiées</span></div>
+    <div class="stat"><b>371</b><span>confirmées ou mises à jour</span></div>
+    <div class="stat"><b>98</b><span>retenues dans les 14 modules</span></div>
+  </div>
+
+  <h2>Le circuit</h2>
+  <div class="steps">
+    <div class="step"><span class="n">1</span><div><h3>Extraire</h3><p>Les 385 versions du CHANGELOG (de la 0.2.21 à la 2.1.260) sont découpées et passées en revue pour en isoler les fonctionnalités majeures, pas les correctifs mineurs ni les changements internes.</p></div></div>
+    <div class="step"><span class="n">2</span><div><h3>Vérifier</h3><p>Chacune des 395 fonctionnalités candidates est confrontée, indépendamment, à la documentation actuelle sur <code>code.claude.com</code> par une recherche dédiée, jamais par rappel de mémoire du modèle.</p></div></div>
+    <div class="step"><span class="n">3</span><div><h3>Classer</h3><p>Chaque fait reçoit un verdict : <b>confirmé</b> (316, inchangé depuis), <b>mis à jour</b> (55, le comportement a évolué depuis la version du changelog), ou <b>non vérifiable</b> (24, écarté).</p></div></div>
+    <div class="step"><span class="n">4</span><div><h3>Curer</h3><p>Sur les 371 faits confirmés ou mis à jour, 98 ont été retenus dans les 14 modules du cours. Ils sont sélectionnés pour leur pertinence pédagogique et pour garder chaque module lisible, pas parce que le reste serait faux.</p></div></div>
+  </div>
+
+  <h2>Ce qui a été écarté</h2>
+  <p>24 fonctionnalités candidates n'ont pas pu être confirmées contre la documentation actuelle : orthographe différente, page disparue, comportement changé sans trace claire. Elles ne figurent nulle part dans le cours, plutôt que d'y être présentées comme acquises.</p>
+  <details class="discard">
+    <summary>Voir 3 exemples réels de faits écartés, sur les 24</summary>
+    <ul>
+      <li><span class="badge">non vérifiable</span><b>« Commande <code>/approved-tools</code> »</b> (v0.2.26) : le changelog historique la mentionne, mais aucune page actuelle ne la documente ; elle semble avoir été renommée en <code>/permissions</code> à une étape ultérieure, sans confirmation directe du lien entre les deux.</li>
+      <li><span class="badge">non vérifiable</span><b>« Les sous-agents continuent de travailler après un refus de permission, en tentant une approche alternative »</b> (v2.1.0) : plausible et cohérent avec le fonctionnement agentique général, mais aucune source officielle ne décrit ce comportement précis.</li>
+      <li><span class="badge">non vérifiable</span><b>« Les résultats de l'outil Agent incluent le nombre de tokens, le nombre d'appels d'outils et la durée »</b> (v2.1.30) : aucune page de référence des outils ne mentionne explicitement ces trois métriques dans la sortie de l'outil.</li>
+    </ul>
+  </details>
+
+  <h2>Limites assumées</h2>
+  <p>La vérification s'appuie sur la documentation publique à un instant donné (2 septembre 2026, Claude Code v2.1.260). Claude Code publie de nouvelles versions plusieurs fois par semaine, si bien qu'un détail exact aujourd'hui peut changer demain. Chaque fait du cours affiche sa date de vérification : confirmez toujours avec <code>claude --version</code> et la documentation en vigueur avant de vous y fier en production.</p>
+
+  <div class="cta">
+    <a href="prologue.html">Commencer le cours →</a>
+  </div>
+</div>
+<script>
+  document.querySelectorAll('select.lang-switch').forEach(function(sel){
+    sel.addEventListener('change', function(){ location.href = sel.value; });
+  });
+</script>
+</body>
+</html>

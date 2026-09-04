@@ -1,9 +1,11 @@
 (function(){
   "use strict";
-  var isEN = document.documentElement.lang === "en";
-  var L = isEN
-    ? { done: "Read ✓", verified: "Verified ✓✓", copy: "Copy", copied: "Copied", ago: "days ago" }
-    : { done: "Lu ✓", verified: "Vérifié ✓✓", copy: "Copier", copied: "Copié", ago: "j" };
+  var LOCALES = {
+    en: { done: "Read ✓", verified: "Verified ✓✓", copy: "Copy", copied: "Copied", ago: "days ago" },
+    fr: { done: "Lu ✓", verified: "Vérifié ✓✓", copy: "Copier", copied: "Copié", ago: "j" },
+    es: { done: "Leído ✓", verified: "Verificado ✓✓", copy: "Copiar", copied: "Copiado", ago: "días" }
+  };
+  var L = LOCALES[document.documentElement.lang] || LOCALES.fr;
 
   var MODULES = ["prologue","controle","memoire","skills","plan","agents","hooks","mcp",
                  "rewind","git","echelle","plugins","infra","epilogue"];

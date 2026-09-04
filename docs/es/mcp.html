@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MCP (conectar herramientas externas con seguridad) · Del Vibe-Coding al Oficio</title>
+<meta name="description" content="En vibe-coding, conectamos herramientas MCP al azar sin saber quién las aprobó ni qué pueden leer. Pasar a profesional es dominar los scopes (.mcp.json versionado), las aprobacione">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/es/mcp.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MCP (conectar herramientas externas con seguridad) · Del Vibe-Coding al Oficio">
+<meta property="og:description" content="En vibe-coding, conectamos herramientas MCP al azar sin saber quién las aprobó ni qué pueden leer. Pasar a profesional es dominar los scopes (.mcp.json versionado), las aprobacione">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/es/mcp.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">Ir al contenido</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="Modules">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">Manual de campo</span></a>
+        <select class="lang-switch" aria-label="Idioma"><option value="../mcp.html">FR</option><option value="../en/mcp.html">EN</option><option value="mcp.html" selected>ES</option></select>
+      </div>
+      <h1>Del Vibe-Coding al Oficio</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>Progreso</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="Modules">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>Prólogo</span></a>
+      <a href="control.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>Control &amp; seguridad</span></a>
+      <a href="memory.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>Memoria</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>Comandos &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>Plan &amp; razonamiento</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>Subagentes</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class="active"><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>Checkpoints</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="scale.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>Segundo plano &amp; workflows</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>Plugins &amp; marketplaces</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK, CI/CD, IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>Epílogo &amp; fuentes</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 módulos &middot; cada dato citado remite a su fuente oficial (code.claude.com) o se marca como no verificado.<br>✓ leído · ✓✓ verificado (todos los quiz del módulo aprobados)<br>
+      <a href="index.html">← Volver al inicio</a> &middot; <a href="methodology.html">Metodología</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="mcp">
+      <div class="module-head"><span class="index">07</span><h2>MCP (conectar herramientas externas con seguridad)</h2></div>
+      <div class="module-sub">Model Context Protocol</div>
+      <div class="stance"><p>En vibe-coding, conectamos herramientas MCP al azar sin saber quién las aprobó ni qué pueden leer. Pasar a profesional es dominar los scopes (<code>.mcp.json</code> versionado), las aprobaciones y las allowlists/denylists.</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Prueba de nivel</div>
+        <p class="q-text">¿Qué estado muestra un servidor MCP de ámbito de proyecto no aprobado en <code>.mcp.json</code>?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-mcp" value="0"> Auto-approved</label>
+          <label><input type="radio" name="q-mcp" value="1"> Pending approval</label>
+          <label><input type="radio" name="q-mcp" value="2"> Denied by default</label>
+        </div>
+        <button class="q-check" type="button">Comprobar</button>
+        <div class="q-feedback ok">✓ Correcto. <span class="expl">Nunca hay aprobación automática silenciosa: <code>claude mcp list</code> muestra el estado de aprobación de cada servidor configurado.</span><br><a class="skip-next" href="rewind.html">&rarr; Ya dominas esta palanca, pasa al módulo siguiente</a></div>
+        <div class="q-feedback bad">✗ No exactamente. <span class="expl">Es «Pending approval»: un servidor MCP de ámbito de proyecto no aprobado nunca se conecta en silencio.</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">Quién ha aprobado realmente esta herramienta MCP conectada a tu proyecto?</h3>
+      <p>Seguramente ya has conectado un servidor MCP pegando un comando encontrado en algún sitio, sin saber muy bien qué podía hacer una vez conectado. Se lanza, las herramientas aparecen y seguimos adelante, hasta el día en que nos preguntamos: ¿a qué datos tiene realmente acceso esa cosa, y quién validó que pudiera conectarse a ellos? Un servidor MCP (siglas de <code>Model Context Protocol</code>) no es un simple script local: es una pasarela hacia una herramienta o un servicio externo, con sus propias credenciales y sus propios permisos. Entender cómo Claude Code regula esta pasarela es la diferencia entre una configuración que «funciona en tu máquina» por casualidad y una configuración que se puede compartir, auditar y en la que el equipo puede confiar.</p>
+      <p>El mecanismo se basa antes que nada en una cuestión de ámbito, o <code>scope</code>: un servidor MCP puede declararse en local (solo para ti, en este proyecto), en <code>user</code> (en todos los sitios donde trabajes), o en <code>project</code>. Este último scope es el más útil en equipo, porque vive en un archivo <code>.mcp.json</code> que se commitea con el resto del código: cualquiera que clone el repositorio recupera automáticamente la misma lista de servidores MCP, sin tener que reconfigurarla a mano. Pero compartir una configuración en Git no significa ejecutarla sin mirar, y precisamente ahí es donde Claude Code coloca una salvaguarda.</p>
+      <p>¿Qué ocurre, en concreto, la primera vez que abres un proyecto que contiene un <code>.mcp.json</code> añadido por otra persona? Claude Code nunca conecta en silencio un servidor de ámbito <code>project</code> hasta que ha sido aprobado: queda mostrado como <code>Pending approval</code> (en espera de aprobación), un estado que también puedes consultar en cualquier momento con <code>claude mcp list</code>. Esta regla (nunca hay aprobación automática) protege contra un escenario simple pero real: un archivo de configuración deslizado en un repositorio, que conectaría discretamente una herramienta a tus archivos o a tus credenciales desde el primer arranque.</p>
+      <p>Una vez aprobado un servidor, sigues teniendo el control individual gracias a las listas <code>allowedMcpServers</code> y <code>deniedMcpServers</code>. Identifican un servidor por su nombre, su URL o su comando (con comodines), incluso para servidores desplegados a escala de empresa. El protocolo también regula cómo circulan los datos con el servidor: el transporte <code>HTTP streamable</code> es hoy el recomendado, mientras que el antiguo <code>SSE</code> sigue siendo compatible pero está explícitamente marcado como obsoleto en la documentación. Dicho de otro modo, asegurar una herramienta MCP no consiste solo en decidir si tiene permiso para conectarse, sino también en cómo lo hace. A continuación, en detalle, lo que esto cambia en la práctica.</p>
+
+      <h3 class="section-title">Lo que hay que recordar</h3>
+      <div class="facts">
+<div class="fact"><div class="tag-col"><span class="version">v0.2.50</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>El modelo de tres ámbitos MCP (local, <code>project</code> mediante <code>.mcp.json</code> commiteado, <code>user</code>) sigue siendo hoy el central para compartir una configuración en equipo vía Git.</p><div class="how"><b>Cómo hacerlo</b><br><code>claude mcp add --scope project --transport http nom url</code> escribe la entrada en <code>.mcp.json</code>, para commitear.</div><a class="src" href="https://code.claude.com/docs/en/mcp-quickstart" target="_blank" rel="noopener">code.claude.com/docs/en/mcp-quickstart</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v1.0.27 / 0.2.54</span><span class="badge corrected">Actualizado</span></div><div class="body"><p>El transporte HTTP streamable es hoy el recomendado siempre que sea posible; SSE sigue siendo compatible pero está explícitamente marcado como obsoleto en la documentación.</p><div class="how"><b>Cómo hacerlo</b><br><code>claude mcp add --transport http mon-serveur https://mcp.exemple.com/mcp</code>.</div><a class="src" href="https://code.claude.com/docs/en/mcp" target="_blank" rel="noopener">code.claude.com/docs/en/mcp</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v1.0.27 / 2.1.186</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>Los servidores remotos son compatibles con OAuth con descubrimiento automático de los puntos de conexión. <code>claude mcp login/logout</code> inicia o revoca este flujo directamente desde la shell.</p><div class="how"><b>Cómo hacerlo</b><br><code>claude mcp login sentry --no-browser</code> para un entorno remoto sin navegador local.</div><a class="src" href="https://code.claude.com/docs/en/mcp" target="_blank" rel="noopener">code.claude.com/docs/en/mcp</a></div></div>
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.154</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>Un servidor <code>.mcp.json</code> de ámbito de proyecto no aprobado muestra «Pending approval» en lugar de conectarse en silencio (nunca hay aprobación automática).</p><div class="how"><b>Cómo hacerlo</b><br><code>claude mcp list</code> muestra el estado de aprobación de cada servidor MCP configurado.</div><a class="src" href="https://code.claude.com/docs/en/mcp-quickstart" target="_blank" rel="noopener">code.claude.com/docs/en/mcp-quickstart</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.0.22 / 2.1.259</span><span class="badge corrected">Actualizado</span></div><div class="body"><p><code>allowedMcpServers</code>/<code>deniedMcpServers</code> coinciden por <code>serverUrl</code>, <code>serverCommand</code> o <code>serverName</code> (con comodines). También se aplican a los servidores desplegados mediante el archivo separado <code>managed-mcp.json</code> en la empresa.</p><div class="how"><b>Cómo hacerlo</b><br><code>{ "deniedMcpServers": [{"serverName": "dangerous-server"}] }</code> en una fuente de settings gestionada.</div><a class="src" href="https://code.claude.com/docs/en/managed-mcp" target="_blank" rel="noopener">code.claude.com/docs/en/managed-mcp</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.7</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>La búsqueda automática de herramientas MCP está activa por defecto en Claude 4.5 y modelos posteriores: más allá del 10&nbsp;% de la ventana de contexto, las herramientas se difieren y se descubren bajo demanda.</p><div class="how"><b>Cómo hacerlo</b><br><code>ENABLE_TOOL_SEARCH=false claude</code> para forzar la carga sistemática de todas las herramientas.</div><a class="src" href="https://code.claude.com/docs/en/agent-sdk/tool-search" target="_blank" rel="noopener">code.claude.com/docs/en/agent-sdk/tool-search</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.76</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>Un servidor MCP puede solicitar una entrada estructurada durante una tarea (elicitation) sin necesidad de configuración. El diálogo aparece automáticamente.</p><div class="how"><b>Cómo hacerlo</b><br>Un hook <code>Elicitation</code> permite automatizar la respuesta en un entorno headless.</div><a class="src" href="https://code.claude.com/docs/en/mcp" target="_blank" rel="noopener">code.claude.com/docs/en/mcp</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.80</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>Los <em>channels</em> (research preview) permiten que un servidor MCP que declare la capacidad <code>claude/channel</code> envíe mensajes (alertas de CI, webhooks) a una sesión activa.</p><div class="how"><b>Cómo hacerlo</b><br><code>claude mcp add --channels --transport stdio alerts -- npx -y telegram-mcp-server</code>.</div><a class="src" href="https://code.claude.com/docs/en/channels" target="_blank" rel="noopener">code.claude.com/docs/en/channels</a></div></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz rápido</div>
+        <p class="q-text">¿Qué tipo de transporte MCP se recomienda hoy para un nuevo servidor, según la documentación?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-mcp-2" value="0"> SSE (Server-Sent Events)</label>
+          <label><input type="radio" name="q-mcp-2" value="1"> HTTP streamable</label>
+          <label><input type="radio" name="q-mcp-2" value="2"> stdio exclusivamente</label>
+        </div>
+        <button class="q-check" type="button">Comprobar</button>
+        <div class="q-feedback ok">✓ Correcto. <span class="expl">Exacto. El transporte HTTP streamable se recomienda siempre que sea posible; SSE sigue siendo compatible pero está explícitamente marcado como obsoleto en la documentación.</span></div>
+        <div class="q-feedback bad">✗ No exactamente. <span class="expl">No exactamente. El que se recomienda es el HTTP streamable: SSE sigue siendo compatible, pero está marcado como obsoleto.</span></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">Quiz rápido</div>
+        <p class="q-text">¿A partir de qué umbral de ocupación de la ventana de contexto se difieren y se descubren bajo demanda las herramientas MCP (búsqueda automática de herramientas)?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-mcp-3" value="0"> 10 % de la ventana de contexto</label>
+          <label><input type="radio" name="q-mcp-3" value="1"> 50 % de la ventana de contexto</label>
+          <label><input type="radio" name="q-mcp-3" value="2"> En cuanto se conecta un solo servidor MCP</label>
+        </div>
+        <button class="q-check" type="button">Comprobar</button>
+        <div class="q-feedback ok">✓ Correcto. <span class="expl">Exacto. En Claude 4.5 y modelos posteriores, la búsqueda automática de herramientas está activa por defecto: más allá del 10 % de la ventana de contexto, las herramientas se difieren y se descubren bajo demanda.</span></div>
+        <div class="q-feedback bad">✗ No exactamente. <span class="expl">No exactamente. El umbral es del 10 % de la ventana de contexto, no el 50 % ni la simple conexión de un servidor.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Ejercicio práctico</div>
+        <p>Crea un <code>.mcp.json</code> en la raíz con un servidor MCP HTTP público, y luego lanza <code>claude</code>. Observa el aviso «Pending approval», acéptalo, y luego comprueba con <code>claude mcp list</code>. Después, bloquea ese mismo servidor para ti mediante <code>deniedMcpServers</code> en <code>~/.claude/settings.json</code>.</p>
+        <details class="solution"><summary>Solución &amp; verificación</summary>
+        <p>Crear un <code>.mcp.json</code> en la raíz coloca el servidor en ámbito <code>project</code> : es este archivo, commiteado, el que permite compartir la configuración en equipo vía Git, pero cualquier entrada aún no aprobada se muestra como «Pending approval» en lugar de conectarse en silencio (nunca hay aprobación automática). Una vez aprobado por parte del equipo, el bloqueo individual pasa por <code>deniedMcpServers</code> en <code>~/.claude/settings.json</code>, que hace coincidir el servidor por <code>serverName</code>, <code>serverUrl</code> o <code>serverCommand</code> :</p>
+<pre><code class="language-json">{ "deniedMcpServers": [{"serverName": "nom-du-serveur"}] }</code></pre>
+        <ul><li>Al lanzar claude, aparece el mensaje exacto «Pending approval» para el servidor del .mcp.json antes de cualquier intento de conexión.</li><li>Tras la aceptación, <code>claude mcp list</code> muestra este servidor con un estado de aprobación pasado a aprobado (en lugar de Pending).</li><li>Tras añadir la entrada deniedMcpServers y relanzar claude, ese mismo servidor ya no aparece como disponible/conectado para ti (sus herramientas ya no se ofrecen), aunque sigue activo para el resto del equipo.</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="mcp" data-label="Marquer comme lu">Marcar como leído</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="hooks.html"><span class="dir">&larr; Anterior</span><span class="ptitle">Hooks</span></a>
+      <a class="next" href="rewind.html"><span class="dir">Siguiente &rarr;</span><span class="ptitle">Checkpoints</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

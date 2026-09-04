@@ -1,6 +1,6 @@
 # Vibe to Pro
 
-A field manual on Claude Code, built from the official [CHANGELOG](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) (385 releases, `0.2.21` to `2.1.260`) and independently fact-checked against current documentation before anything is taught. Available in French and English.
+A field manual on Claude Code, built from the official [CHANGELOG](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) (385 releases, `0.2.21` to `2.1.260`) and independently fact-checked against current documentation before anything is taught. Available in French, English, and Spanish.
 
 **[Read the course →](https://atypical-consulting.github.io/vibe-to-pro/)**
 
@@ -15,16 +15,16 @@ Fourteen chapters that take a "vibe-coder" (someone who prompts and hopes) to a 
 3. **Classify**: every fact is marked `confirmed`, `corrected` (behavior has since changed), or `unverifiable`.
 4. **Publish**: only confirmed/corrected facts make it into the course, each with its source link. Unverifiable claims are dropped, never presented as fact.
 
-Full detail, including examples of discarded facts, on the [methodology page](https://atypical-consulting.github.io/vibe-to-pro/methodologie.html).
+Full detail, including examples of discarded facts, on the [methodology page](https://atypical-consulting.github.io/vibe-to-pro/methodology.html).
 
 ## Structure
 
 ```
 docs/
   index.html          landing page (French)
-  methodologie.html   verification methodology (French)
+  methodology.html   verification methodology (French)
   prologue.html       chapter 00
-  controle.html       chapter 01
+  control.html       chapter 01
   ...                 one file per chapter (see the sidebar for the full list)
   epilogue.html       chapter 13
   assets/
@@ -32,6 +32,8 @@ docs/
     course.js         progress tracking, quizzes, code-block copy buttons
   en/
     (same structure, English)
+  es/
+    (same structure, Spanish)
 ```
 
 Every chapter page is self-contained and links to the next and previous one. Code samples use [Prism](https://prismjs.com/) for syntax highlighting with a copy button; progress and quiz results are tracked per-browser in `localStorage`, nothing is sent to a server. Served via GitHub Pages from `main` / `docs`.

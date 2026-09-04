@@ -1,20 +1,20 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vibe to Pro</title>
-<meta name="description" content="A field course on Claude Code, built from the 385 versions of the official CHANGELOG: every fact checked against current documentation before being taught.">
-<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/en/">
+<meta name="description" content="Un curso de campo sobre Claude Code, construido a partir de las 385 versiones del CHANGELOG oficial: cada hecho verificado contra la documentación actual antes de enseñarse.">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/es/">
 <meta name="theme-color" content="#1F6F63">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Vibe to Pro: vibe-coding stops where control begins">
-<meta property="og:description" content="A free course built from the 385 versions of the official Claude Code CHANGELOG. Every fact is checked against current documentation before being taught.">
+<meta property="og:title" content="Vibe to Pro: el vibe-coding termina donde empieza el control">
+<meta property="og:description" content="Un curso gratuito construido a partir de las 385 versiones del CHANGELOG oficial de Claude Code. Cada hecho se verifica contra la documentación actual antes de enseñarse.">
 <meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
-<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/en/">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/es/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Vibe to Pro: vibe-coding stops where control begins">
-<meta name="twitter:description" content="385 versions of the official Claude Code CHANGELOG, verified one by one against current documentation.">
+<meta name="twitter:title" content="Vibe to Pro: el vibe-coding termina donde empieza el control">
+<meta name="twitter:description" content="385 versiones del CHANGELOG oficial de Claude Code, verificadas una a una contra la documentación actual.">
 <meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -111,6 +111,7 @@
   .wrap{ max-width:880px; margin:0 auto; padding:0 28px; }
   @media (max-width:560px){ .wrap{ padding:0 20px; } }
 
+  /* ---------- Topbar ---------- */
   .topbar{
     display:flex; flex-direction:column; row-gap:14px;
     padding:22px 0; border-bottom:1px solid var(--line);
@@ -122,11 +123,12 @@
     color:var(--ink); text-decoration:none;
   }
   .topbar .mark::before{ content:"›_"; color:var(--accent-ink); font-weight:700; }
-  .topbar .links{ display:flex; gap:20px; flex-wrap:wrap; row-gap:8px; font-family:'IBM Plex Mono'; font-size:12.5px; align-items:center; }
+  .topbar .links{ display:flex; align-items:center; gap:20px; flex-wrap:wrap; row-gap:8px; font-family:'IBM Plex Mono'; font-size:12.5px; }
   .topbar .links a{ color:var(--ink-soft); text-decoration:none; }
   .topbar .links a:hover{ color:var(--accent-ink); }
   select.lang-switch{ font-family:'IBM Plex Mono'; font-size:11px; padding:3px 7px; border-radius:6px; border:1px solid var(--accent); background:var(--accent-soft); color:var(--accent-ink); cursor:pointer; }
 
+  /* ---------- Hero ---------- */
   .hero{ padding:72px 0 56px; }
   .eyebrow{
     font-family:'IBM Plex Mono'; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
@@ -157,11 +159,13 @@
   }
   .meta-pill b{ color:var(--ink); font-weight:600; }
 
+  /* ---------- Sections ---------- */
   section.block{ padding:64px 0; border-top:1px solid var(--line); }
   section.block .head{ max-width:52ch; margin-bottom:36px; }
   section.block h2{ font-size:clamp(24px,3vw,32px); line-height:1.2; margin-top:10px; }
   section.block .head p{ margin-top:14px; font-size:15.5px; }
 
+  /* ---------- Compare (terminal blocks) ---------- */
   .compare{ display:grid; grid-template-columns:1fr 1fr; gap:20px; }
   @media (max-width:700px){ .compare{ grid-template-columns:1fr; } }
   .term{
@@ -186,6 +190,7 @@
   @media (prefers-reduced-motion: reduce){ .caret{ animation:none; } html{ scroll-behavior:auto; } }
   @keyframes blink{ 50%{ opacity:0; } }
 
+  /* ---------- Method steps ---------- */
   .steps{ display:flex; flex-direction:column; gap:0; counter-reset:step; }
   .step{ display:grid; grid-template-columns:44px 1fr; gap:18px; padding:20px 0; border-top:1px solid var(--line-soft); }
   .step:first-child{ border-top:none; }
@@ -193,6 +198,7 @@
   .step h3{ font-size:16.5px; font-weight:600; font-family:'IBM Plex Sans'; margin-bottom:6px; }
   .step p{ font-size:14.5px; }
 
+  /* ---------- Stats ---------- */
   .stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
   @media (max-width:640px){ .stats{ grid-template-columns:1fr; } }
   .stat{ background:var(--paper-raised); padding:26px 22px; }
@@ -200,6 +206,7 @@
   .stat .lbl{ font-family:'IBM Plex Mono'; font-size:12px; color:var(--ink-faint); margin-top:8px; line-height:1.5; }
   .stats-note{ font-size:13px; color:var(--ink-faint); margin-top:16px; }
 
+  /* ---------- Curriculum ---------- */
   .curriculum-list{ display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
   @media (max-width:700px){ .curriculum-list{ grid-template-columns:1fr; } }
   .curriculum-list a{
@@ -214,6 +221,7 @@
   .curriculum-list .csub{ font-size:13px; color:var(--ink-soft); margin-top:3px; }
   .curriculum-cta{ margin-top:28px; display:flex; }
 
+  /* ---------- Footer ---------- */
   footer{ border-top:1px solid var(--line); padding:36px 0 60px; }
   footer .foot-row{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:16px; align-items:flex-start; }
   footer .mark{ font-family:'IBM Plex Mono'; font-size:12.5px; font-weight:600; color:var(--ink); }
@@ -225,18 +233,18 @@
 </style>
 </head>
 <body>
-<a class="skip" href="#contenu">Skip to content</a>
+<a class="skip" href="#contenu">Ir al contenido</a>
 
 <div class="wrap">
   <header class="topbar">
     <div class="topbar-top">
       <a class="mark" href="#top">vibe-to-pro</a>
-      <select class="lang-switch" aria-label="Language"><option value="../index.html">FR</option><option value="index.html" selected>EN</option><option value="../es/index.html">ES</option></select>
+      <select class="lang-switch" aria-label="Idioma"><option value="../index.html">FR</option><option value="../en/index.html">EN</option><option value="index.html" selected>ES</option></select>
     </div>
     <nav class="links">
-      <a href="#problem">Problem</a>
-      <a href="#method">Method</a>
-      <a href="#program">Program</a>
+      <a href="#probleme">Problema</a>
+      <a href="#methode">Método</a>
+      <a href="#programme">Programa</a>
       <a href="https://github.com/Atypical-Consulting/vibe-to-pro">GitHub</a>
     </nav>
   </header>
@@ -246,45 +254,45 @@
 
   <div class="wrap">
     <section class="hero" id="top">
-      <span class="eyebrow">Field course · Claude Code</span>
-      <h1>Vibe-coding stops where control begins.</h1>
-      <p class="dek">A free course built from <b>385&nbsp;versions</b> of the official Claude Code <code>CHANGELOG</code>. Every feature taught here was checked against current documentation on <code>code.claude.com</code> before making the cut: nothing is stated without a source.</p>
+      <span class="eyebrow">Curso práctico · Claude Code</span>
+      <h1>El vibe-coding termina donde empieza el control.</h1>
+      <p class="dek">Un curso gratuito construido a partir de las <b>385&nbsp;versiones</b> del <code>CHANGELOG</code> oficial de Claude Code. Cada función enseñada se contrastó con la documentación actual en <code>code.claude.com</code> antes de incluirse: nada se afirma sin una fuente.</p>
       <div class="ctas">
-        <a class="btn primary" href="prologue.html">Start the course →</a>
-        <a class="btn ghost" href="#method">See the method</a>
+        <a class="btn primary" href="prologue.html">Empezar el curso →</a>
+        <a class="btn ghost" href="#methode">Ver el método</a>
       </div>
       <div class="meta-row">
-        <span class="meta-pill">Source: <b>github.com/anthropics/claude-code</b></span>
-        <span class="meta-pill" data-freshness="2026-09-02">Verified on: <b>Sep 2, 2026</b> (v2.1.260)</span>
-        <span class="meta-pill">14 chapters · <a href="methodology.html">verified method</a></span>
+        <span class="meta-pill">Fuente: <b>github.com/anthropics/claude-code</b></span>
+        <span class="meta-pill" data-freshness="2026-09-02">Verificado al: <b>2 sept. 2026</b> (v2.1.260)</span>
+        <span class="meta-pill">14 módulos · <a href="methodology.html">método verificado</a></span>
       </div>
     </section>
   </div>
 
-  <section class="block" id="problem">
+  <section class="block" id="probleme">
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow">00 · The problem</span>
-        <h2>A prompt that works isn't a practice.</h2>
-        <p>Vibe-coding produces results, but no guarantees: no permission scope, no trail, no safety net if something breaks. Here is the same intent, handled two ways.</p>
+        <span class="eyebrow">00 · El diagnóstico</span>
+        <h2>Un prompt que funciona no es una práctica.</h2>
+        <p>El vibe-coding produce resultados, pero ninguna garantía: sin perímetro de permisos, sin registro, sin red de seguridad en caso de error. Aquí está la misma intención, tratada de dos maneras.</p>
       </div>
       <div class="compare">
         <div class="term vibe">
           <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="label">vibe-coding</span></div>
           <div class="term-body">
             <div class="ln"><span class="prompt">$</span> claude</div>
-            <div class="ln">&gt; fix the login bug</div>
-            <div class="ln muted">...4 files changed, no review</div>
-            <div class="ln ok">✓ "looks like it works"</div>
-            <div class="ln bad">✗ pushed straight to main<span class="caret"></span></div>
+            <div class="ln">&gt; arregla el bug de login</div>
+            <div class="ln muted">…4 archivos modificados, ninguna revisión</div>
+            <div class="ln ok">✓ «parece que funciona»</div>
+            <div class="ln bad">✗ push directo a main<span class="caret"></span></div>
           </div>
         </div>
         <div class="term pro">
-          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="label">pro practice</span></div>
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="label">práctica profesional</span></div>
           <div class="term-body">
             <div class="ln"><span class="prompt">$</span> claude --permission-mode plan</div>
-            <div class="ln">&gt; fix the login bug</div>
-            <div class="ln muted">→ plan proposed · 3 files · 2 tests</div>
+            <div class="ln">&gt; arregla el bug de login</div>
+            <div class="ln muted">→ plan propuesto · 3 archivos · 2 tests</div>
             <div class="ln ok">✓ /code-review high --fix</div>
             <div class="ln ok">✓ /commit-push-pr → PR #142<span class="caret"></span></div>
           </div>
@@ -293,62 +301,62 @@
     </div>
   </section>
 
-  <section class="block" id="method">
+  <section class="block" id="methode">
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow">01 · The method</span>
-        <h2>Nothing is taught without being verified.</h2>
-        <p>This course isn't written from memory. Every fact follows the same pipeline before becoming a line in the course:</p>
+        <span class="eyebrow">01 · El método</span>
+        <h2>Nada se enseña sin haber sido verificado.</h2>
+        <p>Este curso no se escribe de memoria. Cada dato sigue el mismo circuito antes de convertirse en una línea del curso:</p>
       </div>
       <div class="steps">
-        <div class="step"><span class="n">1</span><div><h3>Extract</h3><p>All 385&nbsp;versions of the official CHANGELOG are split up and reviewed to isolate the major features, not the minor fixes.</p></div></div>
-        <div class="step"><span class="n">2</span><div><h3>Verify</h3><p>Each candidate feature is checked, independently, against current documentation on <code>code.claude.com</code> through a dedicated search.</p></div></div>
-        <div class="step"><span class="n">3</span><div><h3>Decide</h3><p>Every fact gets a verdict: <span class="mono">confirmed</span>, <span class="mono">updated</span> (behavior has changed since), or <span class="mono">unverifiable</span>.</p></div></div>
-        <div class="step"><span class="n">4</span><div><h3>Discard or publish</h3><p>Only confirmed or updated facts make it into the course, source cited. Everything else is discarded, never presented as settled.</p></div></div>
+        <div class="step"><span class="n">1</span><div><h3>Extraer</h3><p>Las 385&nbsp;versiones del CHANGELOG oficial se dividen y se revisan para aislar las funciones principales, no las correcciones menores.</p></div></div>
+        <div class="step"><span class="n">2</span><div><h3>Verificar</h3><p>Cada función candidata se contrasta, de forma independiente, con la documentación actual en <code>code.claude.com</code> mediante una búsqueda específica.</p></div></div>
+        <div class="step"><span class="n">3</span><div><h3>Decidir</h3><p>Cada dato recibe un veredicto: <span class="mono">confirmado</span>, <span class="mono">actualizado</span> (el comportamiento cambió desde entonces), o <span class="mono">no verificable</span>.</p></div></div>
+        <div class="step"><span class="n">4</span><div><h3>Descartar o publicar</h3><p>Solo los datos confirmados o actualizados entran en el curso, con la fuente citada. El resto se descarta, nunca se presenta como un hecho establecido.</p></div></div>
       </div>
     </div>
   </section>
 
-  <section class="block" id="numbers">
+  <section class="block" id="chiffres">
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow">02 · By the numbers</span>
-        <h2>Verification, measured.</h2>
+        <span class="eyebrow">02 · En cifras</span>
+        <h2>La verificación, medida.</h2>
       </div>
       <div class="stats">
-        <div class="stat"><div class="num">385</div><div class="lbl">changelog releases analyzed, from 0.2.21 to 2.1.260</div></div>
-        <div class="stat"><div class="num">395</div><div class="lbl">candidate features individually verified</div></div>
-        <div class="stat"><div class="num">14</div><div class="lbl">chapters, from permission control to CI/CD infrastructure</div></div>
+        <div class="stat"><div class="num">385</div><div class="lbl">versiones del changelog analizadas, de la 0.2.21 a la 2.1.260</div></div>
+        <div class="stat"><div class="num">395</div><div class="lbl">funciones candidatas verificadas individualmente</div></div>
+        <div class="stat"><div class="num">14</div><div class="lbl">módulos, desde el control de permisos hasta la infraestructura CI/CD</div></div>
       </div>
-      <p class="stats-note">Unverifiable facts were discarded from the course rather than published by default.</p>
+      <p class="stats-note">Los datos no verificables se descartaron del curso en lugar de publicarse por defecto.</p>
     </div>
   </section>
 
-  <section class="block" id="program">
+  <section class="block" id="programme">
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow">03 · The program</span>
-        <h2>14 chapters, in the order to pick them up.</h2>
-        <p>From baseline security to team scale: each chapter opens on its own page.</p>
+        <span class="eyebrow">03 · El programa</span>
+        <h2>14 módulos, en el orden en que conviene adoptarlos.</h2>
+        <p>De la seguridad básica a la escala en equipo: cada módulo se abre en su propia página.</p>
       </div>
       <div class="curriculum-list">
-        <a href="prologue.html"><span class="cnum">00</span><span><span class="ctitle">Prologue</span><br><span class="csub">Vibe-coding stops where control begins</span></span></a>
-        <a href="control.html"><span class="cnum">01</span><span><span class="ctitle">Control &amp; security</span><br><span class="csub">Permissions, sandbox, auto mode: the foundation</span></span></a>
-        <a href="memory.html"><span class="cnum">02</span><span><span class="ctitle">Memory</span><br><span class="csub">CLAUDE.md and automatic memory</span></span></a>
-        <a href="skills.html"><span class="cnum">03</span><span><span class="ctitle">Commands &amp; Skills</span><br><span class="csub">From an improvised prompt to a versioned procedure</span></span></a>
-        <a href="plan.html"><span class="cnum">04</span><span><span class="ctitle">Plan Mode &amp; reasoning</span><br><span class="csub">Think before acting, tune the depth</span></span></a>
-        <a href="agents.html"><span class="cnum">05</span><span><span class="ctitle">Sub-agents</span><br><span class="csub">Delegate and parallelize without the mess</span></span></a>
-        <a href="hooks.html"><span class="cnum">06</span><span><span class="ctitle">Hooks</span><br><span class="csub">Deterministic rules, not hopes</span></span></a>
-        <a href="mcp.html"><span class="cnum">07</span><span><span class="ctitle">MCP</span><br><span class="csub">Connecting external tools safely</span></span></a>
-        <a href="rewind.html"><span class="cnum">08</span><span><span class="ctitle">Checkpoints &amp; Rewind</span><br><span class="csub">The safety net for exploring without fear</span></span></a>
-        <a href="git.html"><span class="cnum">09</span><span><span class="ctitle">Git &amp; worktrees</span><br><span class="csub">Working together without collisions</span></span></a>
-        <a href="scale.html"><span class="cnum">10</span><span><span class="ctitle">Background &amp; workflows</span><br><span class="csub">Scaling up without losing control</span></span></a>
-        <a href="plugins.html"><span class="cnum">11</span><span><span class="ctitle">Plugins &amp; marketplaces</span><br><span class="csub">Equipping the whole team, not just yourself</span></span></a>
-        <a href="infra.html"><span class="cnum">12</span><span><span class="ctitle">SDK, CI/CD, IDE</span><br><span class="csub">Claude Code as an infrastructure building block</span></span></a>
-        <a href="epilogue.html"><span class="cnum">13</span><span><span class="ctitle">Epilogue</span><br><span class="csub">The pro practitioner's checklist</span></span></a>
+        <a href="prologue.html"><span class="cnum">00</span><span><span class="ctitle">Prólogo</span><br><span class="csub">El vibe-coding termina donde empieza el control</span></span></a>
+        <a href="control.html"><span class="cnum">01</span><span><span class="ctitle">Control &amp; seguridad</span><br><span class="csub">Permisos, sandbox, modo automático: la base</span></span></a>
+        <a href="memory.html"><span class="cnum">02</span><span><span class="ctitle">Memoria</span><br><span class="csub">CLAUDE.md y memoria automática</span></span></a>
+        <a href="skills.html"><span class="cnum">03</span><span><span class="ctitle">Comandos &amp; Skills</span><br><span class="csub">De un prompt improvisado a un procedimiento versionado</span></span></a>
+        <a href="plan.html"><span class="cnum">04</span><span><span class="ctitle">Plan Mode &amp; reflexión</span><br><span class="csub">Pensar antes de actuar, ajustar la profundidad</span></span></a>
+        <a href="agents.html"><span class="cnum">05</span><span><span class="ctitle">Subagentes</span><br><span class="csub">Delegar y paralelizar sin mezclarlo todo</span></span></a>
+        <a href="hooks.html"><span class="cnum">06</span><span><span class="ctitle">Hooks</span><br><span class="csub">Reglas deterministas, no esperanzas</span></span></a>
+        <a href="mcp.html"><span class="cnum">07</span><span><span class="ctitle">MCP</span><br><span class="csub">Conectar herramientas externas con seguridad</span></span></a>
+        <a href="rewind.html"><span class="cnum">08</span><span><span class="ctitle">Checkpoints &amp; Rewind</span><br><span class="csub">La red de seguridad para explorar sin miedo</span></span></a>
+        <a href="git.html"><span class="cnum">09</span><span><span class="ctitle">Git &amp; worktrees</span><br><span class="csub">Trabajar en equipo sin colisiones</span></span></a>
+        <a href="scale.html"><span class="cnum">10</span><span><span class="ctitle">Segundo plano &amp; workflows</span><br><span class="csub">Escalar sin perder el control</span></span></a>
+        <a href="plugins.html"><span class="cnum">11</span><span><span class="ctitle">Plugins &amp; marketplaces</span><br><span class="csub">Equipar a todo el equipo, no solo a uno mismo</span></span></a>
+        <a href="infra.html"><span class="cnum">12</span><span><span class="ctitle">SDK, CI/CD, IDE</span><br><span class="csub">Claude Code como pieza de infraestructura</span></span></a>
+        <a href="epilogue.html"><span class="cnum">13</span><span><span class="ctitle">Epílogo</span><br><span class="csub">La checklist del practicante profesional</span></span></a>
       </div>
       <div class="curriculum-cta">
-        <a class="btn primary" href="prologue.html">Start with the Prologue →</a>
+        <a class="btn primary" href="prologue.html">Empezar por el Prólogo →</a>
       </div>
     </div>
   </section>
@@ -360,14 +368,14 @@
     <div class="foot-row">
       <span class="mark">vibe-to-pro</span>
       <nav class="foot-links">
-        <a href="prologue.html">The course</a>
-        <a href="methodology.html">Methodology</a>
-        <a href="https://github.com/Atypical-Consulting/vibe-to-pro">Source code</a>
-        <a href="https://github.com/Atypical-Consulting/vibe-to-pro/blob/main/LICENSE">MIT License</a>
-        <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">Source CHANGELOG</a>
+        <a href="prologue.html">El curso</a>
+        <a href="methodology.html">Metodología</a>
+        <a href="https://github.com/Atypical-Consulting/vibe-to-pro">Código fuente</a>
+        <a href="https://github.com/Atypical-Consulting/vibe-to-pro/blob/main/LICENSE">Licencia MIT</a>
+        <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">CHANGELOG de origen</a>
       </nav>
     </div>
-    <p class="colophon">Claude Code's commands and settings evolve. This course shows its verification date up top: always confirm with <code>claude --version</code> and the current documentation before relying on a specific detail in production. A project by <a href="https://www.atypical.consulting">Atypical Consulting</a>.</p>
+    <p class="colophon">Los comandos y parámetros de Claude Code evolucionan. Este curso indica su fecha de verificación en el encabezado; confirma siempre con <code>claude --version</code> y la documentación vigente antes de confiar en un detalle preciso en producción. Un proyecto <a href="https://www.atypical.consulting">Atypical Consulting</a>.</p>
   </div>
 </footer>
 
@@ -377,7 +385,7 @@
       var days = Math.floor((Date.now() - new Date(el.dataset.freshness)) / 86400000);
       if(days < 0 || days > 1000) return;
       var tag = document.createElement('b');
-      tag.textContent = ' · ' + days + ' days ago';
+      tag.textContent = ' · il y a ' + days + ' j';
       el.appendChild(tag);
       if(days > 21) el.style.borderColor = 'var(--warn)';
     });

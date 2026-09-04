@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Methodology</title>
+<meta name="description" content="How every fact in this course is extracted from the official Claude Code CHANGELOG, verified against current documentation, then classified confirmed, updated, or discarded.">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/en/methodology.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Methodology · Vibe to Pro">
+<meta property="og:description" content="395 candidate features extracted from the official CHANGELOG, each verified independently. Here is the detail, including what was discarded.">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/en/methodology.html">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#F3F4EF; --paper-raised:#FFFFFF; --ink:#1C211E; --ink-soft:#4B524D; --ink-faint:#7A8079;
+    --line:#DBDED4; --line-soft:#E9EBE3; --accent:#1F6F63; --accent-ink:#0F433A; --accent-soft:#E3EFEC;
+    --ok:#3F7D4A; --ok-soft:#E5F1E3; --warn:#A9691F; --warn-soft:#F5EADA;
+    --shadow: 0 1px 2px rgba(20,25,20,.04), 0 8px 24px -12px rgba(20,25,20,.12);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#14181A; --paper-raised:#1B2022; --ink:#E7E9E4; --ink-soft:#A6ACA6; --ink-faint:#767D77;
+      --line:#2B322D; --line-soft:#242A26; --accent:#5CC0AC; --accent-ink:#8FDBC9; --accent-soft:#1B2E2A;
+      --ok:#7BC97F; --ok-soft:#1D2B1F; --warn:#E0A75E; --warn-soft:#2E2718;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5); color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14181A; --paper-raised:#1B2022; --ink:#E7E9E4; --ink-soft:#A6ACA6; --ink-faint:#767D77;
+    --line:#2B322D; --line-soft:#242A26; --accent:#5CC0AC; --accent-ink:#8FDBC9; --accent-soft:#1B2E2A;
+    --ok:#7BC97F; --ok-soft:#1D2B1F; --warn:#E0A75E; --warn-soft:#2E2718;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5); color-scheme: dark;
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:'IBM Plex Sans',system-ui,sans-serif; line-height:1.65; }
+  h1,h2{ font-family:'IBM Plex Serif',Georgia,serif; text-wrap:balance; margin:0; }
+  code,.mono{ font-family:'IBM Plex Mono',ui-monospace,monospace; }
+  a{ color:var(--accent-ink); }
+  p{ margin:0 0 .9em; color:var(--ink-soft); }
+  .wrap{ max-width:720px; margin:0 auto; padding:56px 28px 100px; }
+  .eyebrow{ font-family:'IBM Plex Mono'; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink); display:flex; align-items:center; gap:8px; margin-bottom:14px; }
+  .eyebrow::before{ content:"›_"; font-weight:700; }
+  .back{ display:inline-block; margin-bottom:28px; font-family:'IBM Plex Mono'; font-size:12.5px; color:var(--ink-soft); text-decoration:none; }
+  .back:hover{ color:var(--accent-ink); }
+  h1{ font-size:clamp(28px,4vw,38px); line-height:1.15; margin-bottom:18px; }
+  .stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:36px 0; }
+  @media (max-width:600px){ .stats{ grid-template-columns:1fr 1fr; } }
+  .stat{ background:var(--paper-raised); padding:20px 16px; }
+  .stat b{ font-family:'IBM Plex Serif'; font-weight:600; font-size:clamp(22px,3vw,30px); display:block; font-variant-numeric:tabular-nums; }
+  .stat span{ font-family:'IBM Plex Mono'; font-size:11px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.04em; }
+  .steps{ display:flex; flex-direction:column; }
+  .step{ display:grid; grid-template-columns:40px 1fr; gap:16px; padding:18px 0; border-top:1px solid var(--line-soft); }
+  .step:first-child{ border-top:none; }
+  .step .n{ font-family:'IBM Plex Mono'; font-size:13px; color:var(--accent-ink); background:var(--accent-soft); border-radius:8px; width:34px; height:34px; display:flex; align-items:center; justify-content:center; font-weight:600; }
+  .step h3{ font-family:'IBM Plex Sans'; font-size:16px; font-weight:600; margin-bottom:5px; }
+  details.discard{ border:1px solid var(--line); background:var(--paper-raised); border-radius:12px; padding:16px 20px; margin-top:14px; }
+  details.discard summary{ cursor:pointer; font-weight:600; font-size:14.5px; }
+  details.discard ul{ margin:14px 0 0; padding-left:0; list-style:none; display:flex; flex-direction:column; gap:8px; }
+  details.discard li{ font-size:13.5px; color:var(--ink-soft); border-top:1px dashed var(--line); padding-top:8px; }
+  details.discard li:first-child{ border-top:none; padding-top:0; }
+  .badge{ font-family:'IBM Plex Mono'; font-size:10px; text-transform:uppercase; background:var(--warn-soft); color:var(--warn); border-radius:5px; padding:1px 6px; margin-right:6px; }
+  h2{ font-size:19px; margin:44px 0 12px; }
+  .cta{ margin-top:40px; }
+  select.lang-switch{ font-family:'IBM Plex Mono'; font-size:11px; padding:3px 7px; border-radius:6px; border:1px solid var(--accent); background:var(--accent-soft); color:var(--accent-ink); cursor:pointer; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div style="display:flex;justify-content:space-between;align-items:center;">
+    <a class="back" href="index.html">← Back to home</a>
+    <select class="lang-switch" aria-label="Language"><option value="../methodology.html">FR</option><option value="methodology.html" selected>EN</option><option value="../es/methodology.html">ES</option></select>
+  </div>
+  <span class="eyebrow">Methodology</span>
+  <h1>How this course verifies every fact it teaches.</h1>
+  <p>This course isn't written from memory. It starts from the official <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">Claude Code CHANGELOG</a> and runs every candidate feature through a verification pipeline before it becomes a line in the course.</p>
+
+  <div class="stats">
+    <div class="stat"><b>385</b><span>changelog releases analyzed</span></div>
+    <div class="stat"><b>395</b><span>candidate features verified</span></div>
+    <div class="stat"><b>371</b><span>confirmed or updated</span></div>
+    <div class="stat"><b>98</b><span>kept across 14 chapters</span></div>
+  </div>
+
+  <h2>The pipeline</h2>
+  <div class="steps">
+    <div class="step"><span class="n">1</span><div><h3>Extract</h3><p>All 385 CHANGELOG releases (0.2.21 to 2.1.260) are split up and reviewed to isolate major features, not minor fixes or internal changes.</p></div></div>
+    <div class="step"><span class="n">2</span><div><h3>Verify</h3><p>Each of the 395 candidate features is checked, independently, against current documentation on <code>code.claude.com</code> through a dedicated search, never from the model's memory.</p></div></div>
+    <div class="step"><span class="n">3</span><div><h3>Classify</h3><p>Every fact gets a verdict: <b>confirmed</b> (316, unchanged since), <b>updated</b> (55, behavior has evolved since the changelog entry), or <b>unverifiable</b> (24, discarded).</p></div></div>
+    <div class="step"><span class="n">4</span><div><h3>Curate</h3><p>Of the 371 confirmed or updated facts, 98 were kept across the 14 course chapters. They're chosen for pedagogical relevance and to keep each chapter readable, not because the rest would be false.</p></div></div>
+  </div>
+
+  <h2>What got discarded</h2>
+  <p>24 candidate features couldn't be confirmed against current documentation: different spelling, a page that's gone, behavior changed without a clear trace. They appear nowhere in the course, rather than being presented as settled.</p>
+  <details class="discard">
+    <summary>See 3 real examples of discarded facts, out of 24</summary>
+    <ul>
+      <li><span class="badge">unverifiable</span><b>"The <code>/approved-tools</code> command"</b> (v0.2.26): the historical changelog mentions it, but no current page documents it; it seems to have been renamed to <code>/permissions</code> at a later stage, with no direct confirmation of the link between the two.</li>
+      <li><span class="badge">unverifiable</span><b>"Sub-agents keep working after a permission denial, by trying an alternative approach"</b> (v2.1.0): plausible and consistent with general agentic behavior, but no official source describes this specific behavior.</li>
+      <li><span class="badge">unverifiable</span><b>"Agent tool results include token count, tool call count, and duration"</b> (v2.1.30): no tool reference page explicitly mentions these three metrics in the tool's output.</li>
+    </ul>
+  </details>
+
+  <h2>Known limits</h2>
+  <p>Verification relies on public documentation at a given point in time (September 2, 2026, Claude Code v2.1.260). Claude Code ships new releases several times a week, so an exact detail today can change tomorrow. Every fact in the course shows its verification date: always confirm with <code>claude --version</code> and the current documentation before relying on a specific detail in production.</p>
+
+  <div class="cta">
+    <a href="prologue.html">Start the course →</a>
+  </div>
+</div>
+<script>
+  document.querySelectorAll('select.lang-switch').forEach(function(sel){
+    sel.addEventListener('change', function(){ location.href = sel.value; });
+  });
+</script>
+</body>
+</html>

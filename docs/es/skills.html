@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comandos &amp; Skills: industrializar tus prompts · Del Vibe-Coding al Oficio</title>
+<meta name="description" content="El vibe-coding consiste en volver a escribir el mismo prompt de memoria, con las variaciones que eso implica. Una skill fija ese prompt en un archivo SKILL.md versionado : reproduc">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/es/skills.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Comandos &amp; Skills: industrializar tus prompts · Del Vibe-Coding al Oficio">
+<meta property="og:description" content="El vibe-coding consiste en volver a escribir el mismo prompt de memoria, con las variaciones que eso implica. Una skill fija ese prompt en un archivo SKILL.md versionado : reproduc">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/es/skills.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">Ir al contenido</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="Modules">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">Manual de campo</span></a>
+        <select class="lang-switch" aria-label="Idioma"><option value="../skills.html">FR</option><option value="../en/skills.html">EN</option><option value="skills.html" selected>ES</option></select>
+      </div>
+      <h1>Del Vibe-Coding al Oficio</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>Progreso</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="Modules">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>Prólogo</span></a>
+      <a href="control.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>Control &amp; seguridad</span></a>
+      <a href="memory.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>Memoria</span></a>
+      <a href="skills.html" data-mod="skills" class="active"><span class="num">03</span><span class="chk" data-chk="skills"></span><span>Comandos &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>Plan &amp; razonamiento</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>Subagentes</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>Checkpoints</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="scale.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>Segundo plano &amp; workflows</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>Plugins &amp; marketplaces</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK, CI/CD, IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>Epílogo &amp; fuentes</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 módulos &middot; cada dato citado remite a su fuente oficial (code.claude.com) o se marca como no verificado.<br>✓ leído · ✓✓ verificado (todos los quiz del módulo aprobados)<br>
+      <a href="index.html">← Volver al inicio</a> &middot; <a href="methodology.html">Metodología</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="skills">
+      <div class="module-head"><span class="index">03</span><h2>Comandos &amp; Skills: industrializar tus prompts</h2></div>
+      <div class="module-sub">De un prompt improvisado a un procedimiento versionado</div>
+      <div class="stance"><p>El vibe-coding consiste en volver a escribir el mismo prompt de memoria, con las variaciones que eso implica. Una skill fija ese prompt en un archivo <code>SKILL.md</code> versionado: reproducible, compartible por git, auditable mediante su <code>allowed-tools</code>.</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Prueba de nivel</div>
+        <p class="q-text">Dónde colocar un comando que también debe incluir archivos anexos (scripts, documentos de referencia)?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-skills" value="0"> <code>.claude/commands/nom.md</code></label>
+          <label><input type="radio" name="q-skills" value="1"> <code>.claude/skills/nom/SKILL.md</code></label>
+          <label><input type="radio" name="q-skills" value="2"> <code>.claude/agents/nom.md</code></label>
+        </div>
+        <button class="q-check" type="button">Comprobar</button>
+        <div class="q-feedback ok">✓ Correcto. <span class="expl">Una carpeta <code>.claude/skills/nom/SKILL.md</code> puede incluir archivos de soporte además del prompt, a diferencia de un simple archivo <code>.claude/commands/nom.md</code>.</span><br><a class="skip-next" href="plan.html">&rarr; Ya dominas esta palanca, pasa al siguiente módulo</a></div>
+        <div class="q-feedback bad">✗ No exactamente. <span class="expl">Es <code>.claude/skills/nom/SKILL.md</code>: el mecanismo sucesor de los comandos slash, que puede incluir archivos anexos.</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">Ese prompt que reescribes sin parar: ¿y si se convirtiera en un archivo?</h3>
+      <p>¿Cuántas veces has vuelto a escribir, casi palabra por palabra, el mismo prompt de veinte líneas para lanzar una revisión de código o generar un changelog? El vibe-coding funciona así: improvisas cada vez, esperando encontrar de nuevo la formulación que funcionó bien la semana pasada. El verdadero problema no es la pereza, es la variabilidad: una instrucción olvidada, un ejemplo que falta, y el resultado cambia sin que entiendas por qué. Un comando o una skill resuelve exactamente ese problema: fija el prompt de una vez por todas en un archivo, que reproduces de forma idéntica cada vez que escribes el comando correspondiente.</p>
+      <p>En concreto, este archivo puede tomar dos formas, y conviene saber cuál viene de cuál. La primera, histórica, es un simple archivo Markdown depositado en <code>.claude/commands/</code>: sigue estando totalmente soportado hoy en día, y basta para una necesidad simple. La segunda, las Skills (una carpeta <code>.claude/skills/nom/</code> que contiene un <code>SKILL.md</code>), es su mecanismo sucesor recomendado, capaz de incluir además archivos anexos (scripts, documentos de referencia) junto al propio prompt. Ambos se han fusionado desde entonces: un <code>.claude/commands/deploy.md</code> y un <code>.claude/skills/deploy/SKILL.md</code> crean ambos el mismo comando <code>/deploy</code> y funcionan igual. Migrar a <code>SKILL.md</code> nunca es, por tanto, una ruptura, solo una ganancia de funcionalidades.</p>
+      <p>Pero lo que realmente transforma un prompt fijado en una herramienta de equipo son los ajustes que se le pueden añadir en su encabezado. Este encabezado, llamado frontmatter, describe cómo debe ejecutarse la skill, antes del propio texto del prompt. El campo <code>disallowed-tools</code> retira, durante toda la duración de la skill, ciertas herramientas del conjunto disponible: útil, por ejemplo, para impedir una pregunta planteada al usuario en medio de un bucle autónomo, donde nadie está presente para responderla. El campo <code>context: fork</code> va más allá: hace que la skill se ejecute como un subagente aislado, sin acceso al historial de la conversación en curso. Este modo se ejecuta ahora en segundo plano por defecto, de modo que sigues trabajando mientras la skill actúa por su cuenta. Añade a esto el campo <code>paths</code>, que limita el desencadenamiento automático de una skill a ciertos archivos mediante patrones glob, y obtienes un prompt que ya no se limita a ser reproducible: se vuelve auditable y predecible en su ámbito de acción.</p>
+      <p>Esas son las verdaderas ganancias frente al copiar y pegar prompts: el control preciso de lo que un procedimiento tiene derecho a hacer, en qué momento se activa, y con qué visibilidad para ti. Una vez que tienes claros estos ajustes, una skill ya no es un simple atajo práctico: es un procedimiento de equipo que puedes versionar, releer y hacer evolucionar como cualquier otro archivo del repositorio. Esto es, en detalle, lo que eso cambia en la práctica.</p>
+
+      <h3 class="section-title">Lo que hay que recordar</h3>
+      <div class="facts">
+<div class="fact key"><div class="tag-col"><span class="version">v0.2.31</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>Los comandos slash personalizados nacieron como simples archivos Markdown en <code>.claude/commands/</code>. Siguen estando totalmente soportados hoy en día, pero las Skills (<code>SKILL.md</code>) son el mecanismo sucesor recomendado.</p><div class="how"><b>Cómo hacerlo</b><br>Crea <code>.claude/commands/deploy.md</code> para una necesidad simple, o <code>.claude/skills/deploy/SKILL.md</code> para incluir también archivos anexos.</div><a class="src" href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">code.claude.com/docs/en/skills</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.3</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>Los comandos slash y las Skills se han fusionado: un archivo <code>.claude/commands/deploy.md</code> y una skill <code>.claude/skills/deploy/SKILL.md</code> crean ambos <code>/deploy</code> y funcionan igual.</p><div class="how"><b>Cómo hacerlo</b><br>Migra a <code>SKILL.md</code> para beneficiarte de los archivos de soporte y de un control más fino de invocación.</div><a class="src" href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">code.claude.com/docs/en/skills</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v1.0.57</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>El campo <code>model:</code> del frontmatter fija el modelo utilizado durante la ejecución de un comando o skill, pero solo para ese turno: la sesión retoma su modelo después.</p><div class="how"><b>Cómo hacerlo</b><br><code>model: haiku</code> en el encabezado YAML para dirigir las tareas mecánicas y baratas hacia un modelo rápido.</div><a class="src" href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">code.claude.com/docs/en/skills</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.0</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p><code>context: fork</code> ejecuta una skill como un subagente aislado (sin acceso al historial); el campo <code>agent:</code> elige el tipo de agente de ejecución (Explore, Plan, general-purpose o un agente personalizado).</p><div class="how"><b>Cómo hacerlo</b><br>Combina <code>context: fork</code> y <code>agent: Explore</code> para una skill de búsqueda equipada solo de lectura.</div><a class="src" href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">code.claude.com/docs/en/skills</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.152</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>El campo <code>disallowed-tools</code> del frontmatter retira herramientas del conjunto disponible mientras la skill está activa, lo cual es útil para impedir <code>AskUserQuestion</code> en un bucle autónomo.</p><div class="how"><b>Cómo hacerlo</b><br><code>disallowed-tools: AskUserQuestion</code> en el frontmatter de un SKILL.md.</div><a class="src" href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">code.claude.com/docs/en/skills</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.84</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>El campo <code>paths:</code> acepta una lista de patrones glob: Claude solo carga automáticamente la skill para los archivos correspondientes.</p><div class="how"><b>Cómo hacerlo</b><br><code>paths: ["src/api/**/*.ts"]</code> para limitar la activación automática a esa zona del código.</div><a class="src" href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">code.claude.com/docs/en/skills</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.178</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>Una skill en un <code>.claude/skills/</code> anidado se carga en cuanto Claude toca un archivo de ese subdirectorio. En caso de conflicto de nombre, se vuelve accesible mediante <code>&lt;dossier&gt;:&lt;nom&gt;</code>.</p><div class="how"><b>Cómo hacerlo</b><br>Coloca una skill en <code>packages/frontend/.claude/skills/deploy/SKILL.md</code>, invocable mediante <code>/packages/frontend:deploy</code> en caso de colisión.</div><a class="src" href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">code.claude.com/docs/en/skills</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.199</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>Se pueden encadenar hasta 6 skills como prefijo de un mismo mensaje (<code>/skill-a /skill-b faire XYZ</code>), y la expansión se detiene en el primer token que no sea una skill invocable en línea.</p><div class="how"><b>Cómo hacerlo</b><br><code>/write-tests /fix-issue 123</code> carga las dos skills, que reciben «123» como argumento.</div><a class="src" href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">code.claude.com/docs/en/skills</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.218</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>Una skill <code>context: fork</code> se ejecuta ahora en segundo plano por defecto (sigues trabajando mientras se ejecuta), salvo que <code>background: false</code> esté definido.</p><div class="how"><b>Cómo hacerlo</b><br>Añade <code>background: false</code> si, por el contrario, quieres esperar su resultado antes de continuar.</div><a class="src" href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">code.claude.com/docs/en/skills</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.181</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p><code>/config clé=valeur</code> ajusta cualquier parámetro directamente desde el prompt, tanto en modo interactivo como en modo <code>-p</code> o mediante Remote Control.</p><div class="how"><b>Cómo hacerlo</b><br><code>/config theme=dark</code> o <code>/config model=sonnet</code>; <code>/config --help</code> lista todas las claves disponibles.</div><a class="src" href="https://code.claude.com/docs/en/commands" target="_blank" rel="noopener">code.claude.com/docs/en/commands</a></div></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">Quiz rápido</div>
+        <p class="q-text">¿Qué hace el campo disallowed-tools en el frontmatter de un SKILL.md?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-skills-2" value="0"> Retira herramientas del conjunto disponible mientras la skill está activa</label>
+          <label><input type="radio" name="q-skills-2" value="1"> Indica las herramientas que el usuario debe instalar manualmente antes de ejecutar la skill</label>
+          <label><input type="radio" name="q-skills-2" value="2"> Bloquea la skill mientras esas herramientas no se hayan usado al menos una vez en la sesión</label>
+        </div>
+        <button class="q-check" type="button">Comprobar</button>
+        <div class="q-feedback ok">✓ Correcto. <span class="expl">Correcto. disallowed-tools reduce el conjunto de herramientas disponible durante la ejecución de la skill. Es útil, por ejemplo, para impedir AskUserQuestion en un bucle autónomo donde nadie puede responder a una pregunta.</span></div>
+        <div class="q-feedback bad">✗ No exactamente. <span class="expl">Es disallowed-tools quien retira, durante la duración de la skill, herramientas del conjunto disponible, típicamente para impedir AskUserQuestion en un bucle autónomo.</span></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">Quiz rápido</div>
+        <p class="q-text">Hoy en día, cuando una skill se declara con context: fork, ¿qué ocurre por defecto?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-skills-3" value="0"> Se ejecuta en segundo plano mientras sigues trabajando, salvo que se indique background: false</label>
+          <label><input type="radio" name="q-skills-3" value="1"> Bloquea la sesión en curso hasta que termina, salvo que se indique background: true</label>
+          <label><input type="radio" name="q-skills-3" value="2"> Solo se ejecuta si se lanza explícitamente mediante /subtask</label>
+        </div>
+        <button class="q-check" type="button">Comprobar</button>
+        <div class="q-feedback ok">✓ Correcto. <span class="expl">Correcto. Desde esta versión, una skill context: fork se ejecuta en segundo plano por defecto (sigues trabajando mientras se ejecuta), salvo que background: false esté definido en su frontmatter.</span></div>
+        <div class="q-feedback bad">✗ No exactamente. <span class="expl">Hoy es al revés: una skill context: fork se ejecuta ahora en segundo plano por defecto, salvo que background: false esté explícitamente definido.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Ejercicio práctico</div>
+        <p>Crea <code>.claude/skills/resume-diff/SKILL.md</code> con un frontmatter mínimo (<code>description</code>, <code>disable-model-invocation: true</code>) y un cuerpo que inyecte el siguiente comando y luego pida un resumen en 3 puntos:</p>
+      <pre><code class="language-bash">!git diff HEAD</code></pre>
+      <p>Pruébalo con <code>/resume-diff</code>, luego añade <code>context: fork</code> y <code>agent: Explore</code> para hacerlo funcionar como subagente en segundo plano.</p>
+        <details class="solution"><summary>Solución &amp; verificación</summary>
+        <p>Crear .claude/skills/resume-diff/SKILL.md basta para que exista /resume-diff. Desde la fusión de los comandos slash y las Skills, un archivo SKILL.md en .claude/skills/nombre/ crea, en efecto, el mismo comando /nombre que un simple .claude/commands/nombre.md, con la posibilidad adicional de incluir archivos anexos.</p>
+      <p>Añadir context: fork y agent: Explore en el frontmatter hace que la skill se ejecute a continuación como un subagente aislado, sin acceso al historial de la conversación, ejecutado por un agente de tipo Explore. Como este modo fork se ejecuta ahora en segundo plano por defecto, recuperas el control de inmediato mientras se genera el resumen del diff, salvo que añadas background: false para volver a una ejecución bloqueante.</p>
+        <ul><li>Tras crear el archivo, /resume-diff aparece en el menú de autocompletado de los slash commands sin reiniciar Claude Code.</li><li>Una vez añadidos context: fork y agent: Explore, al lanzar /resume-diff se devuelve el control de inmediato al prompt y la tarea aparece listada en /tasks como ejecución en segundo plano, en lugar de bloquear el prompt.</li><li>El resumen producido cabe en exactamente 3 puntos sobre los archivos del git diff HEAD realmente modificados, sin referencia a intercambios anteriores de la sesión, lo que prueba que el subagente se ejecuta aislado, sin historial.</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="skills" data-label="Marquer comme lu">Marcar como leído</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="memory.html"><span class="dir">&larr; Anterior</span><span class="ptitle">Memoria</span></a>
+      <a class="next" href="plan.html"><span class="dir">Siguiente &rarr;</span><span class="ptitle">Plan &amp; razonamiento</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Control &amp; seguridad: permisos, sandbox, modo auto · Del Vibe-Coding al Oficio</title>
+<meta name="description" content="El vibe-coding es dejar que un agente ejecute comandos sobre la marcha sin preguntarse nunca qué podría romper o filtrar. Dominar los permisos y el sandbox es definir con precisión">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/es/control.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Control &amp; seguridad: permisos, sandbox, modo auto · Del Vibe-Coding al Oficio">
+<meta property="og:description" content="El vibe-coding es dejar que un agente ejecute comandos sobre la marcha sin preguntarse nunca qué podría romper o filtrar. Dominar los permisos y el sandbox es definir con precisión">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/es/control.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">Ir al contenido</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="Modules">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">Manual de campo</span></a>
+        <select class="lang-switch" aria-label="Idioma"><option value="../control.html">FR</option><option value="../en/control.html">EN</option><option value="control.html" selected>ES</option></select>
+      </div>
+      <h1>Del Vibe-Coding al Oficio</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>Progreso</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="Modules">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>Prólogo</span></a>
+      <a href="control.html" data-mod="controle" class="active"><span class="num">01</span><span class="chk" data-chk="controle"></span><span>Control &amp; seguridad</span></a>
+      <a href="memory.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>Memoria</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>Comandos &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>Plan &amp; razonamiento</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>Subagentes</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>Checkpoints</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="scale.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>Segundo plano &amp; workflows</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>Plugins &amp; marketplaces</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK, CI/CD, IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>Epílogo &amp; fuentes</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 módulos &middot; cada dato citado remite a su fuente oficial (code.claude.com) o se marca como no verificado.<br>✓ leído · ✓✓ verificado (todos los quiz del módulo aprobados)<br>
+      <a href="index.html">← Volver al inicio</a> &middot; <a href="methodology.html">Metodología</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="controle">
+      <div class="module-head"><span class="index">01</span><h2>Control &amp; seguridad: permisos, sandbox, modo auto</h2></div>
+      <div class="module-sub">La base antes que todo lo demás</div>
+      <div class="stance"><p>El vibe-coding es dejar que un agente ejecute comandos sobre la marcha sin preguntarse nunca qué podría romper o filtrar. Dominar los permisos y el sandbox es definir con precisión el perímetro: qué archivos puede leer Claude, a qué dominios de red puede acceder, y qué comandos destructivos quedan bloqueados por defecto. Esto forma una base reproducible y auditable en equipo mediante <code>.claude/settings.json</code>.</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Prueba de nivel</div>
+        <p class="q-text">¿Cuál de estos comandos está bloqueado por defecto en modo auto?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-controle" value="0"> <code>git commit</code></label>
+          <label><input type="radio" name="q-controle" value="1"> <code>git reset --hard</code></label>
+          <label><input type="radio" name="q-controle" value="2"> <code>git status</code></label>
+        </div>
+        <button class="q-check" type="button">Comprobar</button>
+        <div class="q-feedback ok">✓ Correcto. <span class="expl">Una lista de comandos destructivos (<code>git reset --hard</code>, <code>git clean -fd</code>, <code>terraform destroy</code>…) está bloqueada por defecto en modo auto; se levanta caso por caso si formulas la intención explícitamente.</span><br><a class="skip-next" href="memory.html">&rarr; Ya dominas este mecanismo, pasa al siguiente módulo</a></div>
+        <div class="q-feedback bad">✗ No exactamente. <span class="expl">Es <code>git reset --hard</code> el que está bloqueado por defecto en modo auto, junto con otros comandos destructivos, y no los comandos de lectura como <code>git status</code> o <code>git commit</code>.</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">¿Quién decide realmente lo que Claude Code tiene permitido hacer?</h3>
+      <p>Cuando «vibe-codeas», seguramente ya has sentido ese pequeño vértigo: el agente propone un comando, tú lo apruebas sin pensarlo demasiado, y en algún momento te preguntas qué pasaría si escribiera <code>git push --force</code> o rebuscara en una carpeta que no querías mostrarle. Ese es exactamente el problema que el modo auto intenta resolver. Desde hace un tiempo, incluso se ha convertido en el modo de inicio por defecto en los planes Pro, Max y Team: simplemente ejecutas <code>claude</code>, sin ningún flag especial, y la sesión ya arranca en ese modo. <code>Shift+Tab</code> permite cambiar a otro modo en cualquier momento. El antiguo modo «por defecto», por cierto, también cambió de nombre: ahora se llama «Manual» en toda la interfaz, precisamente para recordar que te hace validar cada acción una por una.</p>
+      <p>Pero, ¿qué bloquea exactamente el modo auto para merecer tu confianza? No te pide que confirmes cada comando, porque sería tedioso y acabarías haciendo clic en «sí» sin leer. En su lugar, mantiene una lista de comandos reconocidos como destructivos (<code>git reset --hard</code>, <code>git clean -fd</code>, <code>git stash drop</code>, <code>terraform destroy</code>, entre otros) y los bloquea por defecto, sin que hayas configurado nada. El principio es astuto: este bloqueo no es definitivo, se levanta caso por caso si formulas la intención explícitamente («haz force-push de esta rama»), lo que te deja el control sin obligarte a vigilarlo todo en permanencia. En el otro extremo del abanico, el modo bypass (<code>--dangerously-skip-permissions</code>) elimina la mayoría de las salvaguardas, incluso en rutas normalmente protegidas como <code>.claude/</code> o <code>.git/</code>, pero una red de seguridad sobre las eliminaciones realmente catastróficas (<code>rm -rf /</code> o <code>~</code>) sigue activa pase lo que pase; es un modo que hay que reservar para contenedores o VM aisladas, nunca para tu máquina de uso diario. Y si quieres lo contrario (un perímetro deliberadamente reducido para abrir un repositorio desconocido o hacer que un principiante descubra la herramienta), el flag <code>--restricted</code> va todavía más lejos: elimina las herramientas de ejecución de comandos y el acceso web, confina las herramientas de archivos al directorio de trabajo, y rechaza cualquier vuelta al modo bypass, sin posibilidad de cambiar de opinión durante la sesión.</p>
+      <p>Luego hay una segunda línea de defensa, más abajo en la pila: el sandbox, literalmente una «caja de arena». La idea general de un sandbox es simple. En lugar de confiar en un programa por su palabra, se lo encierra en un entorno aislado donde técnicamente no puede salir de un perímetro dado, ni siquiera si lo intenta. Claude Code integra un sandbox nativo para su herramienta Bash, que se apoya en Seatbelt (el mecanismo de confinamiento integrado en macOS) y en bubblewrap (su equivalente en Linux) bajo Linux o WSL2. Windows nativo, en cambio, no está soportado: hay que pasar por WSL2 para aprovecharlo. Lo activas simplemente con <code>/sandbox</code> durante la sesión, sin instalación adicional en macOS. Este sandbox confina los accesos a archivos y red, pero no bloquea ningún identificador sensible por defecto: eres tú quien debe declarar reglas <code>sandbox.credentials.files</code> o <code>envVars</code> para rechazar (<code>deny</code>) u ocultar (<code>mode: "mask"</code>) un secreto concreto, y estos ajustes deben vivir obligatoriamente en <code>~/.claude/settings.json</code>, tus settings personales, porque simplemente se ignoran si están en los settings de proyecto.</p>
+      <p>Queda la cuestión del equipo: ¿cómo compartir estas reglas sin que cada quien empiece de cero? Claude Code separa dos archivos: <code>.claude/settings.json</code>, versionado y compartido, para las reglas comunes, y <code>.claude/settings.local.json</code>, personal e ignorado por git, para tus propias preferencias. Estas reglas incluso pueden usar comodines en los comandos Bash autorizados, como <code>Bash(npm *)</code> o <code>Bash(git * main)</code>. Una trampa clásica: un patrón tan amplio como este último también permite <code>git -c ...</code>, que puede ejecutar un programa arbitrario. De ahí el interés de verificar siempre las reglas con <code>--verbose</code> antes de desplegarlas. E incluso en modo auto, la primera lectura de un archivo ubicado fuera del directorio de trabajo activa un aviso único, que te deja elegir entre autorizar de forma permanente, bloquear, o volver a preguntar la próxima vez. Veamos, en detalle, qué cambia esto en la práctica.</p>
+
+      <h3 class="section-title">Lo que hay que recordar</h3>
+      <div class="facts">
+<div class="fact"><div class="tag-col"><span class="version">v2.1.111</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>El modo auto es el modo de inicio por defecto en los planes Pro, Max y Team: ya no hace falta ningún flag de activación.</p><div class="how"><b>Cómo hacerlo</b><br>Simplemente ejecuta <code>claude</code> en un plan Pro/Max/Team: la sesión arranca en modo auto. <code>Shift+Tab</code> permite cambiar de modo.</div><a class="src" href="https://code.claude.com/docs/en/permission-modes" target="_blank" rel="noopener">code.claude.com/docs/en/permission-modes</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.200</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>El modo históricamente llamado «default» ahora se llama «Manual» en toda la interfaz (CLI, VS Code, JetBrains).</p><div class="how"><b>Cómo hacerlo</b><br><code>claude --permission-mode manual</code> y <code>--permission-mode default</code> son equivalentes.</div><a class="src" href="https://code.claude.com/docs/en/permission-modes" target="_blank" rel="noopener">code.claude.com/docs/en/permission-modes</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.248</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>El flag <code>--restricted</code> elimina las herramientas de ejecución de comandos y WebFetch, confina las herramientas de archivos al directorio de trabajo, y rechaza el modo bypass, sin posibilidad de volver atrás durante la sesión.</p><div class="how"><b>Cómo hacerlo</b><br><code>claude --restricted</code> para abrir un repositorio no confiable o dejar experimentar a un junior sin riesgo de evasión del sandbox.</div><a class="src" href="https://code.claude.com/docs/en/permission-modes" target="_blank" rel="noopener">code.claude.com/docs/en/permission-modes</a></div></div>
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.183</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>En modo auto, una lista de comandos destructivos está bloqueada por defecto: <code>git reset --hard</code>, <code>git clean -fd</code>, <code>git stash drop</code>, <code>terraform destroy</code>, etc.</p><div class="how"><b>Cómo hacerlo</b><br>Estos bloqueos están activos sin necesidad de configuración; se levantan caso por caso si formulas explícitamente la intención («haz force-push de esta rama»).</div><a class="src" href="https://code.claude.com/docs/en/auto-mode-config" target="_blank" rel="noopener">code.claude.com/docs/en/auto-mode-config</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.126</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p><code>--dangerously-skip-permissions</code> (bypass) evita las «protected paths» (<code>.claude/</code>, <code>.git/</code>, configs de shell) pero una salvaguarda sobre las eliminaciones catastróficas (<code>rm -rf /</code> o <code>~</code>) sigue activa pase lo que pase.</p><div class="how"><b>Cómo hacerlo</b><br>Reservar para contenedores o VM aisladas, nunca en una máquina de producción.</div><a class="src" href="https://code.claude.com/docs/en/permission-modes" target="_blank" rel="noopener">code.claude.com/docs/en/permission-modes</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.0.24</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>Claude Code integra un sandbox nativo para la herramienta Bash (Seatbelt en macOS, bubblewrap en Linux/WSL2). Windows nativo no está soportado: hay que pasar por WSL2.</p><div class="how"><b>Cómo hacerlo</b><br>Ejecuta <code>/sandbox</code> durante la sesión para activarlo de inmediato, sin instalación adicional en macOS.</div><a class="src" href="https://code.claude.com/docs/en/sandboxing" target="_blank" rel="noopener">code.claude.com/docs/en/sandboxing</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.187 / 2.1.221</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p><code>sandbox.credentials.files</code>/<code>envVars</code> permite bloquear (<code>deny</code>) u ocultar (<code>mode: "mask"</code>) identificadores para los comandos en sandbox, sin una lista de denegación integrada por defecto.</p><div class="how"><b>Cómo hacerlo</b><br>Coloca estos ajustes en <code>~/.claude/settings.json</code> (nunca en los settings de proyecto, que se ignoran para estas claves).</div><a class="src" href="https://code.claude.com/docs/en/sandboxing" target="_blank" rel="noopener">code.claude.com/docs/en/sandboxing</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v0.2.67</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>Las reglas de permisos compartidas viven en <code>.claude/settings.json</code> (versionado, compartido en equipo), distintas de <code>.claude/settings.local.json</code> (personal, ignorado por git).</p><div class="how"><b>Cómo hacerlo</b><br>Haz commit de las reglas allow/deny/ask del equipo en <code>.claude/settings.json</code>; guarda tus preferencias personales en el archivo local.</div><a class="src" href="https://code.claude.com/docs/en/permissions" target="_blank" rel="noopener">code.claude.com/docs/en/permissions</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.257</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>En modo auto, la primera lectura (Read/Grep/Glob) fuera del directorio de trabajo activa un aviso único: autorizar siempre, bloquear definitivamente, o volver a preguntar.</p><div class="how"><b>Cómo hacerlo</b><br>El bloqueo definitivo escribe <code>permissions.blockReadsOutsideWorkingDirectories: true</code> en los settings de usuario.</div><a class="src" href="https://code.claude.com/docs/en/permission-modes" target="_blank" rel="noopener">code.claude.com/docs/en/permission-modes</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.0</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>Las reglas Bash aceptan comodines en cualquier posición: <code>Bash(npm *)</code>, <code>Bash(* install)</code>, <code>Bash(git * main)</code>. Cuidado, este último también permite <code>git -c ...</code>, que puede ejecutar un programa arbitrario.</p><div class="how"><b>Cómo hacerlo</b><br>Prueba siempre tus reglas con <code>--verbose</code> para ver la coincidencia exacta antes de desplegarlas en equipo.</div><a class="src" href="https://code.claude.com/docs/en/permissions" target="_blank" rel="noopener">code.claude.com/docs/en/permissions</a></div></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">Quiz rápido</div>
+        <p class="q-text">¿Qué hace exactamente el flag --restricted, en comparación con una sesión en modo bypass?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-controle-2" value="0"> Elimina las herramientas de ejecución de comandos y WebFetch, confina las herramientas de archivos al directorio de trabajo, y rechaza el modo bypass, sin posibilidad de volver atrás durante la sesión.</label>
+          <label><input type="radio" name="q-controle-2" value="1"> Solo corta el acceso a la red, dejando sin cambios los comandos Bash y el acceso a archivos fuera del proyecto.</label>
+          <label><input type="radio" name="q-controle-2" value="2"> Equivale al modo manual con confirmación sistemática de cada comando, dejando el modo bypass disponible si hace falta.</label>
+        </div>
+        <button class="q-check" type="button">Comprobar</button>
+        <div class="q-feedback ok">✓ Correcto. <span class="expl">Correcto. --restricted elimina las herramientas de ejecución de comandos y WebFetch, confina las herramientas de archivos al directorio de trabajo, y rechaza el modo bypass; esta elección no se puede revertir durante la sesión. Se reserva para abrir un repositorio no confiable o para que un principiante experimente sin riesgo de evasión del sandbox.</span></div>
+        <div class="q-feedback bad">✗ No exactamente. <span class="expl">No exactamente: --restricted va más allá de un simple corte de red o de un modo manual clásico: también elimina las herramientas de ejecución de comandos y WebFetch, confina los archivos al directorio de trabajo, y prohíbe cualquier vuelta al modo bypass durante la sesión.</span></div>
+      </div>
+      <div class="quiz" data-correct="2">
+        <div class="q-label">Quiz rápido</div>
+        <p class="q-text">¿En qué sistema no está soportado directamente el sandbox nativo de la herramienta Bash de Claude Code?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-controle-3" value="0"> macOS</label>
+          <label><input type="radio" name="q-controle-3" value="1"> Linux</label>
+          <label><input type="radio" name="q-controle-3" value="2"> Windows nativo</label>
+        </div>
+        <button class="q-check" type="button">Comprobar</button>
+        <div class="q-feedback ok">✓ Correcto. <span class="expl">Correcto. El sandbox nativo se apoya en Seatbelt (macOS) y bubblewrap (Linux/WSL2); Windows nativo no está soportado, hay que pasar por WSL2 para beneficiarse de él.</span></div>
+        <div class="q-feedback bad">✗ No exactamente. <span class="expl">No: macOS (mediante Seatbelt) y Linux, incluso bajo WSL2 (mediante bubblewrap), sí están soportados de forma nativa. Es Windows nativo el que no lo está, hay que pasar por WSL2.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Ejercicio práctico</div>
+        <p>Crea (o reutiliza) un <b>repositorio de entrenamiento</b>: un repositorio desechable, nunca tu repositorio principal, que retomarás a lo largo de los siguientes módulos para acumular una configuración real <code>.claude/</code>. En este repositorio: activa el sandbox con <code>/sandbox</code>, elige el modo auto, y luego pide a Claude que liste <code>~/.ssh</code> y que haga un <code>git push --force</code>. Observa el bloqueo de red/lectura, y luego añade en <code>~/.claude/settings.json</code> un bloque <code>sandbox.credentials.files</code> con <code>mode: "deny"</code> sobre un archivo sensible, y verifica el resultado a través de la pestaña <code>/sandbox</code> → Config.</p>
+        <details class="solution"><summary>Solución &amp; verificación</summary>
+        <p>El sandbox nativo de Claude Code se apoya en Seatbelt (macOS) o bubblewrap (Linux/WSL2) para confinar de verdad los accesos a archivos y red de la herramienta Bash: una vez activado mediante /sandbox, bloquea por sí solo la lectura de ~/.ssh y la conexión de red del git push --force, sin configuración adicional. Este mecanismo, en cambio, no bloquea ningún identificador concreto por defecto: hay que añadir explícitamente una entrada sandbox.credentials.files con mode: "deny" para rechazar el acceso a un archivo sensible específico, y este ajuste debe escribirse en ~/.claude/settings.json (settings de usuario), porque estas claves se ignoran si están en los settings de proyecto.</p>
+        <ul><li>El comando que lista ~/.ssh falla con un mensaje de rechazo emitido por el sandbox (acceso a archivo fuera del perímetro autorizado) en lugar de un simple rechazo de permiso clásico de Claude Code.</li><li>El git push --force falla del lado de la red (conexión rechazada o host inalcanzable) en lugar de completarse o simplemente pedir confirmación.</li><li>En la pestaña /sandbox → Config, el archivo señalado aparece con la regla deny aplicada solo si se declaró en ~/.claude/settings.json; la misma entrada colocada en los settings de proyecto no aparece como activa.</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="controle" data-label="Marquer comme lu">Marcar como leído</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="prologue.html"><span class="dir">&larr; Anterior</span><span class="ptitle">Prólogo</span></a>
+      <a class="next" href="memory.html"><span class="dir">Siguiente &rarr;</span><span class="ptitle">Memoria</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

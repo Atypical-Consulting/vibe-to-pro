@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memory: CLAUDE.md and automatic memory · From Vibe-Coding to the Job</title>
+<meta name="description" content="In vibe-coding, every session starts from zero : you repeat the same conventions, the same corrections. Mastering CLAUDE.md and automatic memory turns this volatile context into ve">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/en/memory.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Memory: CLAUDE.md and automatic memory · From Vibe-Coding to the Job">
+<meta property="og:description" content="In vibe-coding, every session starts from zero : you repeat the same conventions, the same corrections. Mastering CLAUDE.md and automatic memory turns this volatile context into ve">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/en/memory.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">Skip to content</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="Modules">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">Field manual</span></a>
+        <select class="lang-switch" aria-label="Language"><option value="../memory.html">FR</option><option value="memory.html" selected>EN</option><option value="../es/memory.html">ES</option></select>
+      </div>
+      <h1>From Vibe-Coding to the Job</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>Progress</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="Modules">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>Prologue</span></a>
+      <a href="control.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>Control &amp; security</span></a>
+      <a href="memory.html" data-mod="memoire" class="active"><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>Memory</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>Commands &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>Plan &amp; reasoning</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>Sub-agents</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>Checkpoints</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="scale.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>Background &amp; workflows</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>Plugins &amp; marketplaces</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK, CI/CD, IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>Epilogue &amp; sources</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 modules &middot; every cited fact links to its official source (code.claude.com) or is marked unverified.<br>✓ read · ✓✓ verified (all of the module's quizzes passed)<br>
+      <a href="index.html">← Back to home</a> &middot; <a href="methodology.html">Methodology</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="memoire">
+      <div class="module-head"><span class="index">02</span><h2>Memory: CLAUDE.md and automatic memory</h2></div>
+      <div class="module-sub">Stop re-explaining everything every session</div>
+      <div class="stance"><p>In vibe-coding, every session starts from zero&nbsp;: you repeat the same conventions, the same corrections. Mastering CLAUDE.md and automatic memory turns this volatile context into versioned configuration, shared across the team and auditable via <code>/context</code>.</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Level check</div>
+        <p class="q-text">How many types of notes does Claude Code's auto-memory record&nbsp;?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-memoire" value="0"> 2</label>
+          <label><input type="radio" name="q-memoire" value="1"> 4</label>
+          <label><input type="radio" name="q-memoire" value="2"> 6</label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">4 types&nbsp;: <code>user</code> (preferences), <code>feedback</code> (confirmed corrections), <code>project</code> (project context that can't be inferred from the code), <code>reference</code> (where to find external information).</span><br><a class="skip-next" href="skills.html">&rarr; You already know this lever, skip to the next module</a></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">The answer is 4&nbsp;: <code>user</code>, <code>feedback</code>, <code>project</code>, <code>reference</code>.</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">Why do you keep repeating the same instructions to Claude&nbsp;?</h3>
+      <p>You've probably already lived through this&nbsp;: you open a new session, and you have to explain everything again&nbsp;: which package manager to use, your team's naming convention, that trap in the legacy code you discovered last week. None of it is retained&nbsp;: every session starts with an empty context, as if Claude had never learned anything about your project. It's annoying, but above all it's a matter of method&nbsp;: what gets said out loud, session after session, needs to become written, versioned configuration, shared with the team and auditable, rather than lost in a conversation's history.</p>
+      <p>The first tool for this is the CLAUDE.md file at the project root&nbsp;: a permanent memo that Claude re-reads at every startup. You can even have it point to other files through an import syntax (<code>@path/to/file.md</code>), with a maximum depth of 4 hops to avoid endless import chains&nbsp;; and if you instead want to prevent a path from being loaded automatically, just wrap it in backticks (<code>`@README`</code>). One small but revealing practical detail about the system's logic&nbsp;: you can also drop HTML comments into this file to leave notes for the humans who will read it. They're stripped out before being injected into the session's context, so they cost no tokens at all, while staying visible if someone opens the file directly.</p>
+      <p>But what happens when you correct Claude mid-task, rather than writing a rule ahead of time in CLAUDE.md&nbsp;? That's where automatic memory comes in, enabled by default&nbsp;: it captures what happens during a session as notes sorted into 4 categories&nbsp;: your preferences (<code>user</code>), corrections you've confirmed (<code>feedback</code>), project-specific context that can't be inferred from the code (<code>project</code>), and pointers to external information (<code>reference</code>). Just say “remember that…” in natural language to trigger a save&nbsp;; these notes live by default in a per-project folder that you can relocate via the <code>autoMemoryDirectory</code> setting, and you can turn off the whole mechanism via <code>/memory</code> or the <code>CLAUDE_CODE_DISABLE_AUTO_MEMORY=1</code> variable if you'd rather keep everything manual.</p>
+      <p>Why bother with this rather than letting the context rebuild itself every time&nbsp;? Because a memory that keeps accumulating without ever being cleaned up quickly becomes just as cumbersome as no memory at all&nbsp;: a CLAUDE.md that keeps growing with information Claude could deduce from the code anyway. That's why <code>/doctor</code> can do the sorting for you&nbsp;: it spots what's redundant with the code, keeps the traps and non-standard conventions, proposes migrating the rest to skills or nested CLAUDE.md files, and applies nothing without your explicit confirmation. This accumulated memory doesn't just benefit you, either&nbsp;: <code>/team-onboarding</code> draws on it to generate an onboarding guide for a new teammate. Here, in detail, is what that changes in practice.</p>
+
+      <h3 class="section-title">What to remember</h3>
+      <div class="facts">
+<div class="fact"><div class="tag-col"><span class="version">v0.2.107</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>CLAUDE.md accepts <code>@path/to/file.md</code> imports (max depth 4 hops). Wrapping a path in backticks (<code>`@README`</code>) prevents it from being imported.</p><div class="how"><b>How to</b><br>Write “See @README for the overview” in CLAUDE.md to automatically load that file into context.</div><a class="src" href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">code.claude.com/docs/en/memory</a></div></div>
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.59</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>Auto-memory records 4 types of notes&nbsp;: <code>user</code> (preferences), <code>feedback</code> (confirmed corrections), <code>project</code> (context that can't be inferred from the code), <code>reference</code> (where to find external information).</p><div class="how"><b>How to</b><br>Enabled by default&nbsp;; can be disabled via <code>/memory</code> or <code>CLAUDE_CODE_DISABLE_AUTO_MEMORY=1</code>. Say “remember that…” in natural language to trigger a save.</div><a class="src" href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">code.claude.com/docs/en/memory</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.74</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>The <code>autoMemoryDirectory</code> setting moves the auto-memory folder out of the default location <code>~/.claude/projects/&lt;project&gt;/memory/</code>.</p><div class="how"><b>How to</b><br><code>{ "autoMemoryDirectory": "~/my-memory-folder" }</code> in a settings.json file, at any level (user, project, local).</div><a class="src" href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">code.claude.com/docs/en/memory</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.72</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>Block HTML comments (<code>&lt;!-- … --&gt;</code>) in CLAUDE.md are stripped before being injected into context, but remain visible if you open the file directly.</p><div class="how"><b>How to</b><br>Use them for annotations meant for humans without consuming any context tokens.</div><a class="src" href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">code.claude.com/docs/en/memory</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.206</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p><code>/doctor</code> proposes deduplicating CLAUDE.md files against the code (file tree, dependencies already inferable), keeping traps and non-standard conventions, and migrates the rest to skills or nested CLAUDE.md files.</p><div class="how"><b>How to</b><br>Run <code>/doctor</code> in a session&nbsp;: it presents its findings then asks for confirmation before making changes.</div><a class="src" href="https://code.claude.com/docs/en/commands" target="_blank" rel="noopener">code.claude.com/docs/en/commands</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.101</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p><code>/team-onboarding</code> generates an onboarding guide for a new teammate from recent local usage (sessions, commands, MCP servers) and the project's CLAUDE.md.</p><div class="how"><b>How to</b><br>Run it in a project you know well&nbsp;; the guide can be pasted as the new member's first message.</div><a class="src" href="https://code.claude.com/docs/en/whats-new/2026-w15" target="_blank" rel="noopener">code.claude.com/docs/en/whats-new/2026-w15</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.20</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>By default, CLAUDE.md files in directories added via <code>--add-dir</code> are not loaded&nbsp;: you need to set <code>CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1</code>.</p><div class="how"><b>How to</b><br><code>CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1 claude --add-dir ../shared-config</code> to also load that folder's memory files.</div><a class="src" href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">code.claude.com/docs/en/memory</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.214</span><span class="badge confirmed">Confirmed</span></div><div class="body"><p>When Claude writes a memory file that already has YAML frontmatter, it records a <code>modified</code> field (ISO 8601) there. This field is never added to a file that has no frontmatter.</p><div class="how"><b>How to</b><br>Open a file via <code>/memory</code> and check the <code>modified</code> field to judge whether a note is stale.</div><a class="src" href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">code.claude.com/docs/en/memory</a></div></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">Quick quiz</div>
+        <p class="q-text">How do you prevent an @path/to/file.md path from being automatically imported into CLAUDE.md?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-memoire-2" value="0"> By wrapping it in backticks, for example <code>@README</code></label>
+          <label><input type="radio" name="q-memoire-2" value="1"> By preceding it with an HTML comment</label>
+          <label><input type="radio" name="q-memoire-2" value="2"> By exceeding the maximum import depth of 4 hops</label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">Correct. Wrapping a path in backticks (<code>@README</code>) prevents it from being automatically imported; without backticks, an @path/to/file.md path is indeed imported, with a maximum depth of 4 hops.</span></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">Not quite. It's the use of backticks around the path (<code>@README</code>) that blocks the import&nbsp;: HTML comments and import depth don't play that role.</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quick quiz</div>
+        <p class="q-text">What happens to block HTML comments (<code>&lt;!-- … --&gt;</code>) present in a CLAUDE.md file when it's loaded into context?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-memoire-3" value="0"> They're injected as-is into the session's context</label>
+          <label><input type="radio" name="q-memoire-3" value="1"> They're stripped before being injected into context, but remain visible if you open the file directly</label>
+          <label><input type="radio" name="q-memoire-3" value="2"> They cause a file-loading error</label>
+        </div>
+        <button class="q-check" type="button">Check</button>
+        <div class="q-feedback ok">✓ Correct. <span class="expl">Correct. Block HTML comments are stripped before being injected into context (so they don't consume any tokens), but remain readable in the file if you open it directly, which lets you use them as annotations meant for humans.</span></div>
+        <div class="q-feedback bad">✗ Not quite. <span class="expl">Not quite. These comments aren't injected into context&nbsp;: they're stripped out before loading, while remaining visible if you open the CLAUDE.md file directly.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Hands-on exercise</div>
+        <p>Run <code>/init</code> to generate a basic CLAUDE.md, add a specific rule (“use pnpm, never npm”), then deliberately correct Claude on a preference during a task. Check with <code>/memory</code> that the correction was recorded in auto-memory, confirm the loading with <code>/context</code>, then run <code>/doctor</code> to see whether it proposes trimming your CLAUDE.md.</p>
+        <details class="solution"><summary>Solution &amp; verification</summary>
+        <p>The correction made mid-task about the pnpm preference is captured as a note of type feedback, one of the 4 types that auto-memory records (along with user, project and reference) to track confirmed corrections. It's this note that /memory should show, and that /context should list among the sources loaded in the session.</p>
+      <p>The final step through /doctor relies on the fact that it proposes deduplicating CLAUDE.md against the code, while keeping traps and non-standard conventions like the pnpm rule. It migrates the rest to skills or nested CLAUDE.md files, but only after your explicit confirmation, never silently.</p>
+        <ul><li>/memory shows a new feedback-type entry corresponding to the pnpm correction, distinct from the user/project/reference notes already present.</li><li>/context lists a file under ~/.claude/projects/<code>&lt;project&gt;</code>/memory/ among the loaded sources, with its size in tokens counted in the displayed total.</li><li>/doctor first presents its findings on CLAUDE.md (what it proposes to remove because it's inferable from the code, what it keeps as a non-standard trap) and waits for confirmation before making any changes. No rewriting of the file should happen without this step.</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="memoire" data-label="Mark as read">Mark as read</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="control.html"><span class="dir">&larr; Previous</span><span class="ptitle">Control &amp; security</span></a>
+      <a class="next" href="skills.html"><span class="dir">Next &rarr;</span><span class="ptitle">Commands &amp; Skills</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

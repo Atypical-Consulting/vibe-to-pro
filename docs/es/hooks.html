@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hooks: automatizar sin depender del modelo · Del Vibe-Coding al Oficio</title>
+<meta name="description" content="En el vibe-coding, dejamos que el modelo decida solo cuándo formatear, probar o pedir confirmación, y a veces se olvida. Los hooks convierten esos hábitos en reglas que se ejecutan">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/es/hooks.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hooks: automatizar sin depender del modelo · Del Vibe-Coding al Oficio">
+<meta property="og:description" content="En el vibe-coding, dejamos que el modelo decida solo cuándo formatear, probar o pedir confirmación, y a veces se olvida. Los hooks convierten esos hábitos en reglas que se ejecutan">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/es/hooks.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">Ir al contenido</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="Modules">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">Manual de campo</span></a>
+        <select class="lang-switch" aria-label="Idioma"><option value="../hooks.html">FR</option><option value="../en/hooks.html">EN</option><option value="hooks.html" selected>ES</option></select>
+      </div>
+      <h1>Del Vibe-Coding al Oficio</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>Progreso</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="Modules">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>Prólogo</span></a>
+      <a href="control.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>Control &amp; seguridad</span></a>
+      <a href="memory.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>Memoria</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>Comandos &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>Plan &amp; razonamiento</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>Subagentes</span></a>
+      <a href="hooks.html" data-mod="hooks" class="active"><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>Checkpoints</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="scale.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>Segundo plano &amp; workflows</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>Plugins &amp; marketplaces</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK, CI/CD, IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>Epílogo &amp; fuentes</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 módulos &middot; cada dato citado remite a su fuente oficial (code.claude.com) o se marca como no verificado.<br>✓ leído · ✓✓ verificado (todos los quiz del módulo aprobados)<br>
+      <a href="index.html">← Volver al inicio</a> &middot; <a href="methodology.html">Metodología</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="hooks">
+      <div class="module-head"><span class="index">06</span><h2>Hooks: automatizar sin depender del modelo</h2></div>
+      <div class="module-sub">Reglas deterministas, no esperanzas</div>
+      <div class="stance"><p>En el vibe-coding, dejamos que el modelo decida solo cuándo formatear, probar o pedir confirmación, y a veces se olvida. Los hooks convierten esos hábitos en reglas que se ejecutan <strong>siempre</strong> en el momento preciso, programables y compartibles en equipo.</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Prueba de nivel</div>
+        <p class="q-text">¿Qué hace <code>continueOnBlock: true</code> en un hook <code>PostToolUse</code>?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-hooks" value="0"> Bloquea definitivamente el turno en curso</label>
+          <label><input type="radio" name="q-hooks" value="1"> Devuelve el motivo del bloqueo a Claude en lugar de detener el turno</label>
+          <label><input type="radio" name="q-hooks" value="2"> Desactiva el siguiente hook de la cadena</label>
+        </div>
+        <button class="q-check" type="button">Comprobar</button>
+        <div class="q-feedback ok">✓ Correcto. <span class="expl">Así, un typecheck que falla puede ser corregido automáticamente por Claude, en lugar de interrumpir la sesión.</span><br><a class="skip-next" href="mcp.html">&rarr; Ya dominas esta palanca, pasa al siguiente módulo</a></div>
+        <div class="q-feedback bad">✗ No exactamente. <span class="expl">Devuelve el motivo del bloqueo a Claude como resultado de herramienta, lo que le permite corregir y continuar en lugar de detenerse.</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">¿Y si las buenas prácticas se ejecutaran solas, sin que tuvieras que volver a pedirlas?</h3>
+      <p>En el vibe-coding, todos hemos vivido esto: le pedimos a Claude que ejecute las pruebas antes de hacer commit, o que formatee el código correctamente. Nueve de cada diez veces lo hace. Luego, un día, se le olvida, ocupado respondiendo a otra cosa. Nada anormal: en cada paso, el modelo decide por sí mismo qué hacer, y una decisión, aunque sea acertada en la inmensa mayoría de los casos, sigue siendo una decisión, no una garantía. Un <em>hook</em> cambia completamente las reglas del juego: es una regla que escribes una vez y que se ejecuta automáticamente cada vez que ocurre un evento concreto en la sesión, piense en ello el modelo o no.</p>
+      <p>En concreto, ¿cómo funciona? Un hook se engancha a un evento del ciclo de vida de Claude Code (justo antes de que se ejecute una herramienta, justo después, antes de una compactación del contexto que resume la conversación para liberar espacio, y muchos otros) y dispara en ese momento preciso una acción que tú defines: ejecutar un script local (<code>type: "command"</code>), llamar directamente a una herramienta MCP ya instalada interpolando los campos del evento (<code>type: "mcp_tool"</code>), o enviar el JSON del evento mediante POST a un servicio externo y esperar su respuesta (<code>type: "http"</code>). Incluso puedes definir con mucha precisión cuándo se dispara el hook, gracias a un campo <code>if</code> que reutiliza la sintaxis de las reglas de permisos, por ejemplo reaccionar solo a los comandos git con algo como <code>Bash(git *)</code>. El hook no le pide nada al modelo: se ejecuta, punto final, lo que lo convierte en una red de seguridad determinista en lugar de una esperanza.</p>
+      <p>Pero un hook no es necesariamente una barrera que lo detiene todo en seco. Ahí es donde se pone interesante: en un hook <code>PostToolUse</code> (el que se dispara justo después de usar una herramienta), la opción <code>continueOnBlock: true</code> permite devolver el motivo de un bloqueo a Claude como un simple resultado de herramienta, en lugar de interrumpir bruscamente el turno. Un typecheck que falla, por ejemplo, puede así ser corregido automáticamente por Claude sobre la marcha, sin que tengas que relanzar nada tú mismo. En el otro extremo de la sesión, un hook <code>PreCompact</code> puede directamente impedir que se produzca una compactación (devolviendo un código de salida 2), el tiempo necesario para archivar lo importante antes de que el historial se resuma.</p>
+      <p>Y como estas reglas pueden vivir en un archivo de configuración compartido por todo el equipo, o incluso limitarse al ciclo de vida de un skill o un agente concreto mediante su <code>frontmatter</code>, todo el mundo trabaja con las mismas barreras de protección, sin tener que repetir las mismas instrucciones en cada sesión. A continuación, en detalle, lo que esto cambia en la práctica.</p>
+
+      <h3 class="section-title">Lo que hay que recordar</h3>
+      <div class="facts">
+<div class="fact"><div class="tag-col"><span class="version">v1.0.38</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>El sistema de hooks se lanzó oficialmente, con tipos ahora ampliados a <code>command</code>, <code>http</code>, <code>mcp_tool</code>, <code>prompt</code>, <code>agent</code>, en decenas de eventos.</p><div class="how"><b>Cómo hacerlo</b><br>Consulta <code>/docs/en/hooks-guide</code> para un tutorial paso a paso de creación de un primer hook.</div><a class="src" href="https://code.claude.com/docs/en/hooks" target="_blank" rel="noopener">code.claude.com/docs/en/hooks</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.85</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>Un hook puede condicionarse con un campo <code>if</code> que usa la sintaxis de las reglas de permisos, ej. <code>Bash(git *)</code>, incluso en subcomandos concretos.</p><div class="how"><b>Cómo hacerlo</b><br><code>{ "type": "command", "if": "Bash(git *)", "command": "./check-branch.sh" }</code> para disparar el script solo en los comandos git.</div><a class="src" href="https://code.claude.com/docs/en/hooks" target="_blank" rel="noopener">code.claude.com/docs/en/hooks</a></div></div>
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.139</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>La opción <code>continueOnBlock: true</code> en un hook <code>PostToolUse</code> devuelve el motivo del bloqueo a Claude como resultado de herramienta, en lugar de detener el turno.</p><div class="how"><b>Cómo hacerlo</b><br>Así, un typecheck que falla puede ser corregido automáticamente por Claude en lugar de interrumpir la sesión.</div><a class="src" href="https://code.claude.com/docs/en/hooks-guide" target="_blank" rel="noopener">code.claude.com/docs/en/hooks-guide</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v1.0.48 / 2.1.105</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p><code>PreCompact</code> se dispara justo antes de una compactación y puede bloquearla (código de salida 2); <code>PostCompact</code> se dispara justo después.</p><div class="how"><b>Cómo hacerlo</b><br>Útil para archivar información importante justo antes de que se compacte.</div><a class="src" href="https://code.claude.com/docs/en/hooks" target="_blank" rel="noopener">code.claude.com/docs/en/hooks</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.118</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>Un hook puede llamar directamente a una herramienta MCP mediante <code>type: "mcp_tool"</code>, con interpolación de los campos de la entrada JSON del hook.</p><div class="how"><b>Cómo hacerlo</b><br>Delega una verificación de seguridad a una herramienta MCP ya instalada, sin reescribir ningún script shell.</div><a class="src" href="https://code.claude.com/docs/en/hooks" target="_blank" rel="noopener">code.claude.com/docs/en/hooks</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.63</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>Los hooks HTTP (<code>type: "http"</code>) envían el JSON del evento mediante POST a una URL y esperan una respuesta JSON, como alternativa a la ejecución shell.</p><div class="how"><b>Cómo hacerlo</b><br>Útil para centralizar la lógica de validación en un servicio existente en lugar de un script local.</div><a class="src" href="https://code.claude.com/docs/en/hooks" target="_blank" rel="noopener">code.claude.com/docs/en/hooks</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.0</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>Los hooks pueden declararse directamente en el frontmatter de un skill o de un agente, activos solo durante su ciclo de vida.</p><div class="how"><b>Cómo hacerlo</b><br>Un bloque <code>hooks:</code> en el frontmatter YAML de un archivo <code>.claude/agents/mon-agent.md</code>.</div><a class="src" href="https://code.claude.com/docs/en/hooks" target="_blank" rel="noopener">code.claude.com/docs/en/hooks</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.214</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>El campo <code>source</code> de un hook <code>SessionStart</code> distingue <code>startup</code>, <code>resume</code>, <code>clear</code>, <code>compact</code> y <code>fork</code>.</p><div class="how"><b>Cómo hacerlo</b><br>Filtra con <code>matcher: "fork"</code> para una lógica específica al iniciar un fork de sesión.</div><a class="src" href="https://code.claude.com/docs/en/hooks" target="_blank" rel="noopener">code.claude.com/docs/en/hooks</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.89</span><span class="badge confirmed">Confirmado</span></div><div class="body"><p>En modo no interactivo (<code>-p</code>), un hook <code>PreToolUse</code> puede devolver la decisión <code>defer</code> para suspender una llamada a herramienta, reanudada más tarde mediante <code>claude -p --resume</code>.</p><div class="how"><b>Cómo hacerlo</b><br>Útil para un wrapper externo que recopila una decisión humana antes de dejar que Claude continúe.</div><a class="src" href="https://code.claude.com/docs/en/hooks-guide" target="_blank" rel="noopener">code.claude.com/docs/en/hooks-guide</a></div></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">Quiz rápido</div>
+        <p class="q-text">Según la documentación de los hooks, ¿qué evento se dispara justo antes de una compactación del contexto y puede bloquearla con un código de salida 2?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-hooks-2" value="0"> PreCompact</label>
+          <label><input type="radio" name="q-hooks-2" value="1"> PostCompact</label>
+          <label><input type="radio" name="q-hooks-2" value="2"> SessionStart</label>
+        </div>
+        <button class="q-check" type="button">Comprobar</button>
+        <div class="q-feedback ok">✓ Correcto. <span class="expl">PreCompact se dispara justo antes de una compactación y puede bloquearla (código de salida 2). PostCompact, en cambio, se dispara solo justo después, lo cual es útil, por ejemplo, para archivar información importante antes de que se compacte.</span></div>
+        <div class="q-feedback bad">✗ No exactamente. <span class="expl">Es PreCompact: interviene antes de la compactación y puede bloquearla con un código de salida 2. PostCompact se dispara después, una vez que la compactación ya se ha efectuado, por lo que es demasiado tarde para impedirla.</span></div>
+      </div>
+      <div class="quiz" data-correct="2">
+        <div class="q-label">Quiz rápido</div>
+        <p class="q-text">¿Qué tipo de hook permite llamar directamente a una herramienta MCP ya instalada, con interpolación de los campos de la entrada JSON del hook?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-hooks-3" value="0"> type: "command"</label>
+          <label><input type="radio" name="q-hooks-3" value="1"> type: "http"</label>
+          <label><input type="radio" name="q-hooks-3" value="2"> type: "mcp_tool"</label>
+        </div>
+        <button class="q-check" type="button">Comprobar</button>
+        <div class="q-feedback ok">✓ Correcto. <span class="expl">El tipo mcp_tool llama directamente a una herramienta MCP ya instalada, con interpolación de los campos de la entrada JSON del hook. Es útil, por ejemplo, para delegar una verificación de seguridad a una herramienta MCP existente, sin reescribir ningún script shell.</span></div>
+        <div class="q-feedback bad">✗ No exactamente. <span class="expl">Es el tipo mcp_tool: permite llamar directamente a una herramienta MCP ya instalada, interpolando los campos de la entrada JSON del hook, en lugar de ejecutar un script (command) o enviar una petición de red (http).</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Ejercicio práctico</div>
+        <p>Crea un hook <code>PreToolUse</code> en Bash con <code>if: "Bash(rm *)"</code> que bloquee (código de salida 2) cualquier comando <code>rm</code>. Añade un hook <code>PostToolUse</code> en <code>Edit|Write</code> con <code>continueOnBlock: true</code> que ejecute un linter y devuelva el error a Claude en lugar de detener el turno. Inspecciona <code>/hooks</code> para ver la procedencia de cada hook activo.</p>
+        <details class="solution"><summary>Solución &amp; verificación</summary>
+        <p>El primer hook se apoya en el campo if, que acepta la sintaxis de las reglas de permisos (por ejemplo Bash(git *)) para dirigirse con precisión a un subcomando. Con if: "Bash(rm *)", el hook PreToolUse solo se dispara en los comandos rm, y un script que termina con código de salida 2 bloquea la llamada a la herramienta. El segundo hook aprovecha la opción continueOnBlock: true en PostToolUse, que devuelve el motivo del bloqueo a Claude como resultado de herramienta en lugar de detener el turno. Un linter que falla puede así ser corregido automáticamente por Claude en lugar de interrumpir la sesión. La configuración final esperada consta, por tanto, de dos entradas en la configuración de los hooks: una en PreToolUse (matcher Bash, if: "Bash(rm *)", comando que sale con código 2) y otra en PostToolUse (matcher Edit|Write, continueOnBlock: true, comando que ejecuta el linter).</p>
+        <ul><li>Un comando rm que Claude intenta ejecutar se rechaza de inmediato: la herramienta Bash no se ejecuta y el mensaje de error devuelto por el hook (código de salida 2) aparece como resultado de herramienta en la conversación.</li><li>Tras una modificación mediante Edit o Write que rompe el linter, el turno no se detiene: el error del linter aparece como resultado de herramienta y Claude propone una corrección en el siguiente mensaje, en lugar de que la sesión se interrumpa.</li><li>El comando /hooks efectivamente lista los dos hooks como activos, con su procedencia (el archivo de settings donde se declaran) y sus respectivos matchers: Bash para el hook PreToolUse, Edit|Write para el hook PostToolUse.</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="hooks" data-label="Marquer comme lu">Marcar como leído</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="agents.html"><span class="dir">&larr; Anterior</span><span class="ptitle">Subagentes</span></a>
+      <a class="next" href="mcp.html"><span class="dir">Siguiente &rarr;</span><span class="ptitle">MCP</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>
