@@ -112,9 +112,10 @@
   @media (max-width:560px){ .wrap{ padding:0 20px; } }
 
   .topbar{
-    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; row-gap:12px;
+    display:flex; flex-direction:column; row-gap:14px;
     padding:22px 0; border-bottom:1px solid var(--line);
   }
+  .topbar-top{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
   .topbar .mark{
     display:inline-flex; align-items:center; gap:8px; white-space:nowrap;
     font-family:'IBM Plex Mono'; font-size:13px; letter-spacing:.04em; font-weight:600;
@@ -124,7 +125,6 @@
   .topbar .links{ display:flex; gap:20px; flex-wrap:wrap; row-gap:8px; font-family:'IBM Plex Mono'; font-size:12.5px; align-items:center; }
   .topbar .links a{ color:var(--ink-soft); text-decoration:none; }
   .topbar .links a:hover{ color:var(--accent-ink); }
-  @media (max-width:640px){ .topbar .links{ order:3; flex-basis:100%; gap:16px; } }
   select.lang-switch{ font-family:'IBM Plex Mono'; font-size:11px; padding:3px 7px; border-radius:6px; border:1px solid var(--accent); background:var(--accent-soft); color:var(--accent-ink); cursor:pointer; }
 
   .hero{ padding:72px 0 56px; }
@@ -229,13 +229,15 @@
 
 <div class="wrap">
   <header class="topbar">
-    <a class="mark" href="#top">vibe-to-pro</a>
+    <div class="topbar-top">
+      <a class="mark" href="#top">vibe-to-pro</a>
+      <select class="lang-switch" aria-label="Language"><option value="../index.html">FR</option><option value="index.html" selected>EN</option></select>
+    </div>
     <nav class="links">
       <a href="#problem">Problem</a>
       <a href="#method">Method</a>
       <a href="#program">Program</a>
       <a href="https://github.com/Atypical-Consulting/vibe-to-pro">GitHub</a>
-      <select class="lang-switch" aria-label="Language"><option value="../index.html">FR</option><option value="index.html" selected>EN</option></select>
     </nav>
   </header>
 </div>
