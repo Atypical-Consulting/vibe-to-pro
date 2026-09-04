@@ -80,7 +80,8 @@ h1,h2,h3,h4{
   color:var(--ink);
   margin:0;
 }
-code, .mono{ font-family:'IBM Plex Mono', ui-monospace, monospace; }
+code, .mono{ font-family:'IBM Plex Mono', ui-monospace, monospace; overflow-wrap:anywhere; }
+.code-block code{ overflow-wrap:normal; }
 a{ color:var(--accent-ink); }
 p{ margin:0 0 .9em; color:var(--ink); }
 p:last-child{ margin-bottom:0; }
@@ -97,11 +98,6 @@ a:focus-visible, button:focus-visible, input:focus-visible{ outline:2px solid va
   margin:0 auto;
   align-items:start;
 }
-@media (max-width: 880px){
-  .shell{ grid-template-columns: 1fr; }
-  .sidebar{ position:static; height:auto; border-right:none; border-bottom:1px solid var(--line); }
-}
-
 .sidebar{
   position:sticky; top:0;
   height:100vh;
@@ -109,6 +105,10 @@ a:focus-visible, button:focus-visible, input:focus-visible{ outline:2px solid va
   padding:28px 22px 40px;
   border-right:1px solid var(--line);
   display:flex; flex-direction:column; gap:22px;
+}
+@media (max-width: 880px){
+  .shell{ grid-template-columns: 1fr; }
+  .sidebar{ position:static; height:auto; border-right:none; border-bottom:1px solid var(--line); }
 }
 .brand{ display:flex; flex-direction:column; gap:4px; }
 .brand-row{ display:flex; align-items:center; justify-content:space-between; gap:10px; }
@@ -302,11 +302,12 @@ h3.section-title.lesson-title{
 .exercise details.solution li{ margin-bottom:6px; }
 
 /* ---------- Code blocks (Prism syntax highlighting + copy button) ---------- */
-.code-block{ position:relative; margin:14px 0; }
+.code-block{ position:relative; margin:14px 0; max-width:100%; }
 .code-block pre[class*="language-"]{
   margin:0 !important; border-radius:10px !important; padding:16px 46px 16px 18px !important;
   font-size:13px !important; line-height:1.65 !important;
   background:var(--code-bg) !important; text-shadow:none !important;
+  overflow-x:auto !important; white-space:pre !important; max-width:100%;
 }
 .code-block pre[class*="language-"] code{ background:none !important; padding:0 !important; }
 .copy-btn{
