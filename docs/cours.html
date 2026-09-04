@@ -164,6 +164,8 @@
   }
   nav.toc a .chk.done{ background:var(--ok); border-color:var(--ok); }
   nav.toc a .chk.done::after{ content:"✓"; color:var(--paper-raised); font-size:9px; font-weight:700; }
+  nav.toc a .chk.verified{ background:var(--accent-ink); border-color:var(--accent-ink); }
+  nav.toc a .chk.verified::after{ content:"✓✓"; font-size:7px; letter-spacing:-1px; }
 
   .sidebar-foot{ margin-top:auto; font-size:11.5px; color:var(--ink-faint); border-top:1px solid var(--line); padding-top:14px; }
 
@@ -241,6 +243,8 @@
   .fact .how b{ color:var(--ink); font-weight:600; font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase; letter-spacing:.04em; }
   .fact .src{ display:block; margin-top:6px; font-size:12px; }
   .fact code{ background:var(--line-soft); border-radius:4px; padding:1px 5px; font-size:.92em; }
+  .fact.key{ border-left:3px solid var(--accent); }
+  .fact.key .tag-col::before{ content:"clé"; font-family:'IBM Plex Mono'; font-size:9.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--accent-ink); }
 
   .exercise{
     margin-top:26px; border-radius:12px; padding:20px 22px;
@@ -308,6 +312,14 @@
   .quiz .q-feedback.ok{ color:var(--ok); }
   .quiz .q-feedback.bad{ color:var(--warn); }
   .quiz .q-feedback .expl{ color:var(--ink-soft); display:block; margin-top:4px; }
+  .quiz .skip-next{ display:inline-block; margin-top:8px; font-family:'IBM Plex Mono'; font-size:12.5px; }
+  .quiz.quiz-pretest{ border-color:var(--accent); }
+
+  .exercise details.solution{ margin-top:14px; border-top:1px dashed var(--line); padding-top:12px; }
+  .exercise details.solution summary{ cursor:pointer; font-family:'IBM Plex Mono'; font-size:11.5px; text-transform:uppercase; letter-spacing:.05em; color:var(--accent-ink); font-weight:600; }
+  .exercise details.solution p{ font-size:14.5px; color:var(--ink); margin-top:10px; }
+  .exercise details.solution ul{ margin:10px 0 0; padding-left:18px; font-size:13.5px; color:var(--ink-soft); }
+  .exercise details.solution li{ margin-bottom:6px; }
 </style>
 </head>
 <body>
@@ -340,7 +352,7 @@
       <a href="#epilogue" data-mod="epilogue"><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>Épilogue &amp; sources</span></a>
     </nav>
     <div class="sidebar-foot">
-      13 modules · chaque fait cité renvoie à sa source officielle (code.claude.com) ou est marqué comme non vérifié.<br><a href="index.html">← Retour à l'accueil</a> · <a href="methodologie.html">Méthodologie</a>
+      13 modules · chaque fait cité renvoie à sa source officielle (code.claude.com) ou est marqué comme non vérifié.<br>✓ lu · ✓✓ vérifié (tous les quiz du module réussis)<br><a href="index.html">← Retour à l'accueil</a> · <a href="methodologie.html">Méthodologie</a>
     </div>
   </aside>
 
@@ -378,15 +390,8 @@
       <div class="module-sub">La fondation avant tout le reste</div>
       <div class="stance"><p>Le vibe‑coding, c'est laisser un agent exécuter des commandes au fil de l'eau sans jamais se demander ce qu'il pourrait casser ou exfiltrer. Maîtriser les permissions et le sandbox, c'est définir précisément le périmètre&nbsp;: quels fichiers Claude peut lire, quels domaines réseau il peut joindre, quelles commandes destructrices restent bloquées par défaut — un socle reproductible et auditable en équipe via <code>.claude/settings.json</code>.</p></div>
 
-      <h3 class="section-title">Ce qu'il faut retenir</h3>
-      <div class="facts" id="facts-controle"></div>
-
-      <div class="exercise">
-        <div class="ex-label">Exercice pratique</div>
-        <p>Dans un projet de test (jamais votre dépôt principal)&nbsp;: activez le sandbox avec <code>/sandbox</code>, choisissez le mode auto, puis demandez à Claude de lister <code>~/.ssh</code> et de faire un <code>git push --force</code>. Observez le blocage réseau/lecture, puis ajoutez dans <code>~/.claude/settings.json</code> un bloc <code>sandbox.credentials.files</code> avec <code>mode: "deny"</code> sur un fichier sensible, et vérifiez le résultat via l'onglet <code>/sandbox</code> → Config.</p>
-      </div>
-      <div class="quiz" data-correct="1">
-        <div class="q-label">Quiz éclair</div>
+            <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Test de niveau</div>
         <p class="q-text">En mode auto, laquelle de ces commandes est bloquée par défaut&nbsp;?</p>
         <div class="q-opts">
           <label><input type="radio" name="q-controle" value="0"> <code>git commit</code></label>
@@ -394,8 +399,41 @@
           <label><input type="radio" name="q-controle" value="2"> <code>git status</code></label>
         </div>
         <button class="q-check" type="button">Vérifier</button>
-        <div class="q-feedback ok">✓ Exact. <span class="expl">Une liste de commandes destructrices (<code>git reset --hard</code>, <code>git clean -fd</code>, <code>terraform destroy</code>…) est bloquée par défaut en mode auto ; elles se lèvent au cas par cas si vous formulez l'intention explicitement.</span></div>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Une liste de commandes destructrices (<code>git reset --hard</code>, <code>git clean -fd</code>, <code>terraform destroy</code>…) est bloquée par défaut en mode auto ; elles se lèvent au cas par cas si vous formulez l'intention explicitement.</span><br><a class="skip-next" href="#memoire">&rarr; Vous maîtrisez déjà ce levier, passer au module suivant</a></div>
         <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est <code>git reset --hard</code> qui est bloqué par défaut en mode auto, avec d'autres commandes destructrices — pas les commandes de lecture comme <code>git status</code> ou <code>git commit</code>.</span></div>
+      </div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-controle"></div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Que fait précisément le flag --restricted, par rapport à une session en mode bypass ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-controle-2" value="0"> Il retire les outils d'exécution de commandes et WebFetch, confine les outils fichiers au répertoire de travail, et refuse le mode bypass — sans retour possible en cours de session.</label>
+          <label><input type="radio" name="q-controle-2" value="1"> Il coupe uniquement l'accès réseau, en laissant les commandes Bash et l'accès aux fichiers hors du projet inchangés.</label>
+          <label><input type="radio" name="q-controle-2" value="2"> Il équivaut au mode manual avec confirmation systématique de chaque commande, tout en laissant le mode bypass disponible si besoin.</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. --restricted retire les outils d'exécution de commandes et WebFetch, confine les outils fichiers au répertoire de travail, et refuse le mode bypass ; ce choix ne peut pas être annulé en cours de session — à réserver à l'ouverture d'un dépôt non fiable ou à l'expérimentation d'un débutant sans risque d'évasion de sandbox.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait : --restricted va plus loin qu'une simple coupure réseau ou qu'un mode manual classique — il retire aussi les outils d'exécution de commandes et WebFetch, confine les fichiers au répertoire de travail, et interdit tout retour au mode bypass pendant la session.</span></div>
+      </div>
+      <div class="quiz" data-correct="2">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Sur quel système le sandbox natif de l'outil Bash de Claude Code n'est-il pas pris en charge directement ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-controle-3" value="0"> macOS</label>
+          <label><input type="radio" name="q-controle-3" value="1"> Linux</label>
+          <label><input type="radio" name="q-controle-3" value="2"> Windows natif</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Le sandbox natif s'appuie sur Seatbelt (macOS) et bubblewrap (Linux/WSL2) ; Windows natif n'est pas supporté, il faut passer par WSL2 pour en bénéficier.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Non : macOS (via Seatbelt) et Linux, y compris sous WSL2 (via bubblewrap), sont bien pris en charge nativement — c'est Windows natif qui ne l'est pas, il faut passer par WSL2.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Créez (ou réutilisez) un <b>dépôt d'entraînement</b>&nbsp;: un dépôt jetable, jamais votre dépôt principal, que vous reprendrez au fil des modules suivants pour accumuler une vraie configuration <code>.claude/</code>. Dans ce dépôt&nbsp;: activez le sandbox avec <code>/sandbox</code>, choisissez le mode auto, puis demandez à Claude de lister <code>~/.ssh</code> et de faire un <code>git push --force</code>. Observez le blocage réseau/lecture, puis ajoutez dans <code>~/.claude/settings.json</code> un bloc <code>sandbox.credentials.files</code> avec <code>mode: "deny"</code> sur un fichier sensible, et vérifiez le résultat via l'onglet <code>/sandbox</code> → Config.</p>
+      <details class="solution"><summary>Solution &amp; vérification</summary><p>Le sandbox natif de Claude Code s'appuie sur Seatbelt (macOS) ou bubblewrap (Linux/WSL2) pour confiner réellement les accès fichiers et réseau de l'outil Bash : une fois activé via /sandbox, il bloque donc de lui-même la lecture de ~/.ssh et la connexion réseau du git push --force, sans configuration additionnelle. Ce mécanisme ne bloque en revanche aucun identifiant particulier par défaut : il faut ajouter explicitement une entrée sandbox.credentials.files avec mode: "deny" pour refuser l'accès à un fichier sensible précis, et ce réglage doit être écrit dans ~/.claude/settings.json (settings utilisateur), car ces clés sont ignorées si elles se trouvent dans les settings de projet.</p><ul><li>La commande listant ~/.ssh échoue avec un message de refus émis par le sandbox (accès fichier hors périmètre autorisé) plutôt qu'un simple refus de permission Claude Code classique.</li><li>Le git push --force échoue côté réseau (connexion refusée ou hôte injoignable) au lieu d'aboutir ou de simplement demander confirmation.</li><li>Dans l'onglet /sandbox → Config, le fichier ciblé apparaît avec la règle deny appliquée uniquement s'il a été déclaré dans ~/.claude/settings.json ; la même entrée placée dans les settings de projet n'apparaît pas comme active.</li></ul></details>
       </div>
       <div class="module-foot"><button class="mark-done" data-mark="controle">Marquer comme lu</button></div>
     </section>
@@ -406,15 +444,8 @@
       <div class="module-sub">Arrêter de tout réexpliquer à chaque session</div>
       <div class="stance"><p>En vibe‑coding, chaque session repart de zéro&nbsp;: on répète les mêmes conventions, les mêmes corrections. Maîtriser CLAUDE.md et la mémoire automatique transforme ce contexte volatil en configuration versionnée, partagée en équipe et auditable via <code>/context</code>.</p></div>
 
-      <h3 class="section-title">Ce qu'il faut retenir</h3>
-      <div class="facts" id="facts-memoire"></div>
-
-      <div class="exercise">
-        <div class="ex-label">Exercice pratique</div>
-        <p>Lancez <code>/init</code> pour générer un CLAUDE.md de base, ajoutez une règle précise (« utilise pnpm, jamais npm »), puis corrigez volontairement Claude sur une préférence pendant une tâche. Vérifiez avec <code>/memory</code> que la correction a bien été enregistrée en auto‑mémoire, confirmez le chargement avec <code>/context</code>, puis lancez <code>/doctor</code> pour voir s'il propose d'alléger votre CLAUDE.md.</p>
-      </div>
-      <div class="quiz" data-correct="1">
-        <div class="q-label">Quiz éclair</div>
+            <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Test de niveau</div>
         <p class="q-text">Combien de types de notes l'auto‑mémoire de Claude Code enregistre‑t‑elle&nbsp;?</p>
         <div class="q-opts">
           <label><input type="radio" name="q-memoire" value="0"> 2</label>
@@ -422,8 +453,41 @@
           <label><input type="radio" name="q-memoire" value="2"> 6</label>
         </div>
         <button class="q-check" type="button">Vérifier</button>
-        <div class="q-feedback ok">✓ Exact. <span class="expl">4 types&nbsp;: <code>user</code> (préférences), <code>feedback</code> (corrections confirmées), <code>project</code> (contexte non déductible du code), <code>reference</code> (où trouver une info externe).</span></div>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">4 types&nbsp;: <code>user</code> (préférences), <code>feedback</code> (corrections confirmées), <code>project</code> (contexte non déductible du code), <code>reference</code> (où trouver une info externe).</span><br><a class="skip-next" href="#skills">&rarr; Vous maîtrisez déjà ce levier, passer au module suivant</a></div>
         <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">La réponse est 4&nbsp;: <code>user</code>, <code>feedback</code>, <code>project</code>, <code>reference</code>.</span></div>
+      </div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-memoire"></div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Comment empêcher qu'un chemin @chemin/vers/fichier.md soit importé automatiquement dans CLAUDE.md ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-memoire-2" value="0"> En l'entourant de backticks, par exemple <code>@README</code></label>
+          <label><input type="radio" name="q-memoire-2" value="1"> En le faisant précéder d'un commentaire HTML</label>
+          <label><input type="radio" name="q-memoire-2" value="2"> En dépassant la profondeur maximale de 4 sauts d'import</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Entourer un chemin de backticks (<code>@README</code>) empêche son import automatique ; sans backticks, un chemin @chemin/vers/fichier.md est bien importé, avec une profondeur maximale de 4 sauts.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas exactement. C'est l'usage des backticks autour du chemin (<code>@README</code>) qui bloque l'import — les commentaires HTML et la profondeur des sauts n'ont pas ce rôle.</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Que deviennent les commentaires HTML de bloc (<code>&lt;!-- … --&gt;</code>) présents dans un CLAUDE.md lors de son chargement en contexte ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-memoire-3" value="0"> Ils sont injectés tels quels dans le contexte de la session</label>
+          <label><input type="radio" name="q-memoire-3" value="1"> Ils sont retirés avant l'injection en contexte, mais restent visibles si on ouvre le fichier directement</label>
+          <label><input type="radio" name="q-memoire-3" value="2"> Ils provoquent une erreur de chargement du fichier</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Les commentaires HTML de bloc sont retirés avant l'injection en contexte — ils ne consomment donc pas de tokens — mais restent lisibles dans le fichier si on l'ouvre directement, ce qui permet de les utiliser comme annotations destinées aux humains.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. Ces commentaires ne sont pas injectés dans le contexte : ils en sont retirés avant chargement, tout en restant visibles si on ouvre le fichier CLAUDE.md directement.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Lancez <code>/init</code> pour générer un CLAUDE.md de base, ajoutez une règle précise (« utilise pnpm, jamais npm »), puis corrigez volontairement Claude sur une préférence pendant une tâche. Vérifiez avec <code>/memory</code> que la correction a bien été enregistrée en auto‑mémoire, confirmez le chargement avec <code>/context</code>, puis lancez <code>/doctor</code> pour voir s'il propose d'alléger votre CLAUDE.md.</p>
+      <details class="solution"><summary>Solution &amp; vérification</summary><p>La correction faite en cours de tâche sur la préférence pnpm est capturée comme une note de type feedback, l'un des 4 types que l'auto‑mémoire enregistre (avec user, project et reference) pour tracer les corrections confirmées — c'est cette note que /memory doit faire apparaître, et que /context doit lister parmi les sources chargées en session. Le passage final par /doctor s'appuie sur le fait qu'il propose de dédupliquer le CLAUDE.md par rapport au code tout en gardant les pièges et conventions non standard comme la règle pnpm, en migrant le reste vers des skills ou des CLAUDE.md imbriqués — mais seulement après confirmation explicite de l'utilisateur, jamais en silence.</p><ul><li>/memory affiche une nouvelle entrée de type feedback correspondant à la correction pnpm, distincte des notes user/project/reference déjà présentes.</li><li>/context liste un fichier sous ~/.claude/projects/<code>&lt;projet&gt;</code>/memory/ parmi les sources chargées, avec sa taille en tokens dans le total affiché.</li><li>/doctor présente d'abord ses constats sur le CLAUDE.md (ce qu'il propose de retirer car déductible du code, ce qu'il garde comme piège non standard) et attend une confirmation avant toute modification — aucune réécriture du fichier ne doit se produire sans cette étape.</li></ul></details>
       </div>
       <div class="module-foot"><button class="mark-done" data-mark="memoire">Marquer comme lu</button></div>
     </section>
@@ -434,15 +498,8 @@
       <div class="module-sub">D'un prompt improvisé à une procédure versionnée</div>
       <div class="stance"><p>Le vibe‑coding, c'est retaper le même prompt de mémoire, avec les variations que ça implique. Une skill fige ce prompt dans un fichier <code>SKILL.md</code> versionné&nbsp;: reproductible, partageable par git, auditable via son <code>allowed-tools</code>.</p></div>
 
-      <h3 class="section-title">Ce qu'il faut retenir</h3>
-      <div class="facts" id="facts-skills"></div>
-
-      <div class="exercise">
-        <div class="ex-label">Exercice pratique</div>
-        <p>Créez <code>.claude/skills/resume-diff/SKILL.md</code> avec un frontmatter minimal (<code>description</code>, <code>disable-model-invocation: true</code>) et un corps qui injecte <code>!git diff HEAD</code> puis demande un résumé en 3 puces. Testez avec <code>/resume-diff</code>, puis ajoutez <code>context: fork</code> et <code>agent: Explore</code> pour le faire tourner en sous‑agent en arrière‑plan.</p>
-      </div>
-      <div class="quiz" data-correct="1">
-        <div class="q-label">Quiz éclair</div>
+            <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Test de niveau</div>
         <p class="q-text">Où placer une commande qui doit aussi embarquer des fichiers annexes (scripts, docs de référence)&nbsp;?</p>
         <div class="q-opts">
           <label><input type="radio" name="q-skills" value="0"> <code>.claude/commands/nom.md</code></label>
@@ -450,8 +507,41 @@
           <label><input type="radio" name="q-skills" value="2"> <code>.claude/agents/nom.md</code></label>
         </div>
         <button class="q-check" type="button">Vérifier</button>
-        <div class="q-feedback ok">✓ Exact. <span class="expl">Un dossier <code>.claude/skills/nom/SKILL.md</code> peut embarquer des fichiers de support en plus du prompt, contrairement à un simple fichier <code>.claude/commands/nom.md</code>.</span></div>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Un dossier <code>.claude/skills/nom/SKILL.md</code> peut embarquer des fichiers de support en plus du prompt, contrairement à un simple fichier <code>.claude/commands/nom.md</code>.</span><br><a class="skip-next" href="#plan">&rarr; Vous maîtrisez déjà ce levier, passer au module suivant</a></div>
         <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est <code>.claude/skills/nom/SKILL.md</code>&nbsp;: le mécanisme successeur des commandes slash, qui peut embarquer des fichiers annexes.</span></div>
+      </div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-skills"></div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Que fait le champ disallowed-tools dans le frontmatter d'un SKILL.md ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-skills-2" value="0"> Il retire des outils du pool disponible tant que la skill est active</label>
+          <label><input type="radio" name="q-skills-2" value="1"> Il indique les outils que l'utilisateur doit installer manuellement avant d'exécuter la skill</label>
+          <label><input type="radio" name="q-skills-2" value="2"> Il bloque la skill tant que ces outils n'ont pas été utilisés au moins une fois dans la session</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. disallowed-tools réduit le pool d'outils disponible pendant l'exécution de la skill — utile par exemple pour empêcher AskUserQuestion dans une boucle autonome où personne ne peut répondre à une question.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est disallowed-tools qui retire, pour la durée de la skill, des outils du pool disponible — typiquement pour empêcher AskUserQuestion dans une boucle autonome.</span></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Aujourd'hui, quand une skill est déclarée avec context: fork, que se passe-t-il par défaut ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-skills-3" value="0"> Elle s'exécute en arrière-plan pendant que vous continuez à travailler, sauf si background: false est précisé</label>
+          <label><input type="radio" name="q-skills-3" value="1"> Elle bloque la session en cours jusqu'à ce qu'elle se termine, sauf si background: true est précisé</label>
+          <label><input type="radio" name="q-skills-3" value="2"> Elle ne s'exécute que si elle est lancée explicitement via /subtask</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Depuis cette version, une skill context: fork tourne en arrière-plan par défaut — vous continuez à travailler pendant son exécution — sauf si background: false est défini dans son frontmatter.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est l'inverse aujourd'hui : une skill context: fork s'exécute désormais en arrière-plan par défaut, sauf si background: false est explicitement défini.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Créez <code>.claude/skills/resume-diff/SKILL.md</code> avec un frontmatter minimal (<code>description</code>, <code>disable-model-invocation: true</code>) et un corps qui injecte <code>!git diff HEAD</code> puis demande un résumé en 3 puces. Testez avec <code>/resume-diff</code>, puis ajoutez <code>context: fork</code> et <code>agent: Explore</code> pour le faire tourner en sous‑agent en arrière‑plan.</p>
+      <details class="solution"><summary>Solution &amp; vérification</summary><p>Créer .claude/skills/resume-diff/SKILL.md suffit à faire exister /resume-diff : depuis la fusion des commandes slash et des Skills, un fichier SKILL.md dans .claude/skills/nom/ crée la même commande /nom qu'un simple .claude/commands/nom.md, avec en plus la possibilité d'embarquer des fichiers annexes. Ajouter context: fork et agent: Explore dans le frontmatter fait ensuite tourner la skill comme un sous-agent isolé, sans accès à l'historique de la conversation, exécuté par un agent de type Explore ; et comme ce mode fork s'exécute désormais en arrière-plan par défaut, vous récupérez la main immédiatement pendant que le résumé du diff se génère, sauf à ajouter background: false pour revenir à une exécution bloquante.</p><ul><li>Après création du fichier, /resume-diff apparaît dans le menu d'auto-complétion des slash commands sans redémarrer Claude Code.</li><li>Une fois context: fork et agent: Explore ajoutés, lancer /resume-diff rend la main tout de suite à l'invite et la tâche apparaît listée dans /tasks comme exécution en arrière-plan, au lieu de bloquer le prompt.</li><li>Le résumé produit tient en exactement 3 puces portant sur les fichiers du git diff HEAD réellement modifiés, sans référence à des échanges antérieurs de la session — preuve que le sous-agent tourne isolé, sans historique.</li></ul></details>
       </div>
       <div class="module-foot"><button class="mark-done" data-mark="skills">Marquer comme lu</button></div>
     </section>
@@ -462,15 +552,8 @@
       <div class="module-sub">Réfléchir avant d'agir, régler la profondeur</div>
       <div class="stance"><p>En vibe‑coding, on espère que ça marche sans visibilité sur ce que l'IA va faire. Le mode plan force une phase de recherche avant toute modification, et le niveau d'effort rend le raisonnement du modèle explicite et réglable — la base d'une pratique reproductible.</p></div>
 
-      <h3 class="section-title">Ce qu'il faut retenir</h3>
-      <div class="facts" id="facts-plan"></div>
-
-      <div class="exercise">
-        <div class="ex-label">Exercice pratique</div>
-        <p>Lancez <code>claude --permission-mode plan</code>, puis demandez&nbsp;: « ultrathink: propose une architecture pour ajouter du rate‑limiting à cette API ». Observez le plan, approuvez avec « Yes, and use auto mode ». Dans une nouvelle session, comparez <code>/effort low</code> vs <code>/effort xhigh</code> sur la même question pour sentir la différence de profondeur.</p>
-      </div>
-      <div class="quiz" data-correct="1">
-        <div class="q-label">Quiz éclair</div>
+            <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Test de niveau</div>
         <p class="q-text">Lequel de ces mots‑clés déclenche encore un raisonnement plus profond pour un seul tour&nbsp;?</p>
         <div class="q-opts">
           <label><input type="radio" name="q-plan" value="0"> « think hard »</label>
@@ -478,8 +561,41 @@
           <label><input type="radio" name="q-plan" value="2"> « think more »</label>
         </div>
         <button class="q-check" type="button">Vérifier</button>
-        <div class="q-feedback ok">✓ Exact. <span class="expl">Seul « ultrathink » est encore reconnu comme spécial aujourd'hui. « think », « think hard » et « think more » sont transmis comme texte ordinaire — un piège classique pour qui a appris Claude Code il y a plus d'un an.</span></div>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Seul « ultrathink » est encore reconnu comme spécial aujourd'hui. « think », « think hard » et « think more » sont transmis comme texte ordinaire — un piège classique pour qui a appris Claude Code il y a plus d'un an.</span><br><a class="skip-next" href="#agents">&rarr; Vous maîtrisez déjà ce levier, passer au module suivant</a></div>
         <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est « ultrathink »&nbsp;: les autres mots‑clés historiques ne sont plus reconnus comme spéciaux.</span></div>
+      </div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-plan"></div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Dans les settings.json de Claude Code, quel paramètre détermine où le mode plan écrit ses fichiers de plan ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-plan-2" value="0"> planMode.directory</label>
+          <label><input type="radio" name="q-plan-2" value="1"> plansDirectory</label>
+          <label><input type="radio" name="q-plan-2" value="2"> claude.planOutputPath</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Le paramètre plansDirectory choisit où le mode plan écrit ses fichiers de plan, et il est résolu relativement à la racine du projet — utile par exemple pour versionner ces plans dans le dépôt et les relire en revue de PR.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. C'est plansDirectory, résolu relativement à la racine du projet — pratique pour versionner les plans générés et les relire en revue.</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Quel raccourci bascule l'extended thinking en cours de session sur macOS ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-plan-3" value="0"> Tab seule</label>
+          <label><input type="radio" name="q-plan-3" value="1"> Option+T</label>
+          <label><input type="radio" name="q-plan-3" value="2"> Cmd+Shift+T</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Le raccourci est Option+T sur macOS (Alt+T sous Windows/Linux) — la touche Tab seule ne fait pas ce basculement, contrairement à une croyance répandue.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. C'est Option+T sur macOS (Alt+T sous Windows/Linux), pas la touche Tab seule.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Lancez <code>claude --permission-mode plan</code>, puis demandez&nbsp;: « ultrathink: propose une architecture pour ajouter du rate‑limiting à cette API ». Observez le plan, approuvez avec « Yes, and use auto mode ». Dans une nouvelle session, comparez <code>/effort low</code> vs <code>/effort xhigh</code> sur la même question pour sentir la différence de profondeur.</p>
+      <details class="solution"><summary>Solution &amp; vérification</summary><p>Le mot-clé « ultrathink » est aujourd'hui le seul déclencheur reconnu pour un raisonnement plus profond ponctuel, sur un seul tour, sans modifier le niveau d'effort de la session — c'est ce qui pousse Claude à produire un plan de rate-limiting plus argumenté avant même que vous ayez validé quoi que ce soit. Une fois ce plan approuvé via « Yes, and use auto mode », la comparaison /effort low vs /effort xhigh isole ensuite proprement la variable de profondeur : /effort ouvre un sélecteur à 5 niveaux (low, medium, high, xhigh, max), donc lancer la même question sous chacun de ces deux réglages, dans deux sessions séparées, permet de sentir l'écart de raisonnement sans qu'un effet « ultrathink » ou un historique de conversation ne vienne fausser la comparaison.</p><ul><li>Tant que vous n'avez pas répondu à l'invite de fin de plan, aucune commande de modification n'est exécutée : le prompt reste en mode plan et propose des options du type « Yes, and use auto mode » plutôt que d'agir directement.</li><li>Après avoir choisi « Yes, and use auto mode », les appels d'outils suivants s'exécutent sans popup de confirmation individuelle par commande — signe que la session est bien repassée en mode auto pour la suite du travail.</li><li>Dans chacune des deux nouvelles sessions, /effort seul (sans argument) affiche le niveau actif (low puis xhigh) ; le plan produit sous xhigh doit être visiblement plus étoffé (plus d'étapes, plus de justifications de choix d'architecture) que celui produit sous low, ce qui confirme que le réglage a bien changé la profondeur du raisonnement.</li></ul></details>
       </div>
       <div class="module-foot"><button class="mark-done" data-mark="plan">Marquer comme lu</button></div>
     </section>
@@ -490,15 +606,8 @@
       <div class="module-sub">L'outil Agent (ex‑Task)</div>
       <div class="stance"><p>Le vibe‑coding, c'est un seul fil où tout se mélange&nbsp;: recherche, écriture, tests, contexte qui explose. Les sous‑agents isolent chaque tâche (contexte séparé, outils restreints, parfois un worktree dédié) et laissent choisir consciemment quel modèle fait quoi.</p></div>
 
-      <h3 class="section-title">Ce qu'il faut retenir</h3>
-      <div class="facts" id="facts-agents"></div>
-
-      <div class="exercise">
-        <div class="ex-label">Exercice pratique</div>
-        <p>Demandez à Claude de créer un sous‑agent <code>code-reviewer</code> en lecture seule (<code>Read, Grep, Glob</code>), modèle <code>haiku</code>. Lancez <code>/subtask</code> avec cet agent et observez son exécution en arrière‑plan via <code>/tasks</code>. Ajoutez ensuite <code>isolation: worktree</code> pour qu'il travaille dans une copie git isolée, puis bloquez‑le avec une règle <code>permissions.deny: ["Agent(code-reviewer)"]</code>.</p>
-      </div>
-      <div class="quiz" data-correct="1">
-        <div class="q-label">Quiz éclair</div>
+            <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Test de niveau</div>
         <p class="q-text">Comment reprendre aujourd'hui un sous‑agent déjà lancé&nbsp;?</p>
         <div class="q-opts">
           <label><input type="radio" name="q-agents" value="0"> <code>Agent({resume: id})</code></label>
@@ -506,8 +615,41 @@
           <label><input type="radio" name="q-agents" value="2"> <code>/agents resume</code></label>
         </div>
         <button class="q-check" type="button">Vérifier</button>
-        <div class="q-feedback ok">✓ Exact. <span class="expl">L'outil Agent n'accepte plus de paramètre <code>resume</code> depuis la v2.1.77&nbsp;: on cible le sous‑agent existant via <code>SendMessage({to: agentId})</code>.</span></div>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">L'outil Agent n'accepte plus de paramètre <code>resume</code> depuis la v2.1.77&nbsp;: on cible le sous‑agent existant via <code>SendMessage({to: agentId})</code>.</span><br><a class="skip-next" href="#hooks">&rarr; Vous maîtrisez déjà ce levier, passer au module suivant</a></div>
         <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est <code>SendMessage({to: agentId})</code>&nbsp;; le paramètre <code>resume</code> de l'outil Agent a été retiré.</span></div>
+      </div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-agents"></div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Par défaut, combien de sous-agents Claude Code peut-il exécuter en parallèle dans une session ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-agents-2" value="0"> 10 sous-agents concurrents</label>
+          <label><input type="radio" name="q-agents-2" value="1"> 20 sous-agents concurrents</label>
+          <label><input type="radio" name="q-agents-2" value="2"> 50 sous-agents concurrents</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Le plafond par défaut est de 20 sous-agents concurrents, ajustable via la variable d'environnement CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS ; le plafond total par session, lui, a été supprimé en v2.1.224.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. Le plafond par défaut est en réalité de 20 sous-agents concurrents, ajustable via CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS.</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Quelle est la profondeur d'imbrication des sous-agents (un sous-agent qui lance lui-même un sous-agent) par défaut ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-agents-3" value="0"> 1 niveau</label>
+          <label><input type="radio" name="q-agents-3" value="1"> 3 niveaux</label>
+          <label><input type="radio" name="q-agents-3" value="2"> 5 niveaux</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. La profondeur est limitée à 3 niveaux par défaut ; à cette limite, l'outil Agent est retiré de tous les sous-agents sauf des forks.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. La limite par défaut est de 3 niveaux, au-delà desquels l'outil Agent est retiré sauf pour les forks.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Demandez à Claude de créer un sous‑agent <code>code-reviewer</code> en lecture seule (<code>Read, Grep, Glob</code>), modèle <code>haiku</code>. Lancez <code>/subtask</code> avec cet agent et observez son exécution en arrière‑plan via <code>/tasks</code>. Ajoutez ensuite <code>isolation: worktree</code> pour qu'il travaille dans une copie git isolée, puis bloquez‑le avec une règle <code>permissions.deny: ["Agent(code-reviewer)"]</code>.</p>
+      <details class="solution"><summary>Solution &amp; vérification</summary><p>La restriction aux outils Read, Grep, Glob fonctionne parce que le sous-agent reçoit par défaut tous les outils disponibles, écriture et Bash compris, sauf restriction explicite via le champ tools: ou disallowedTools: du frontmatter — c'est cette même déclaration tools: Read, Grep, Glob qui le rend strictement lecture seule. Ajouter isolation: worktree ensuite le fait tourner dans une copie git isolée, branchée depuis la branche par défaut et nettoyée automatiquement si aucune modification n'est faite, sans toucher au dépôt principal. L'exercice se termine par une règle de permission bloquant explicitement ce sous-agent, du type permissions.deny: ["Agent(code-reviewer)"] dans les settings.</p><ul><li>Dans /tasks, l'entrée du sous-agent code-reviewer passe de « Working » à « Completed » sans qu'aucun appel à Edit, Write ou Bash n'apparaisse dans son transcript d'outils — seuls Read, Grep, Glob y figurent.</li><li>Une fois isolation: worktree ajouté, un nouveau worktree apparaît le temps de l'exécution (visible via git worktree list) puis disparaît tout seul à la fin si aucun fichier n'a été modifié.</li><li>Après avoir ajouté la règle permissions.deny: ["Agent(code-reviewer)"], toute nouvelle tentative d'invoquer ce sous-agent précis est explicitement refusée par un message de permission bloquée, au lieu de s'exécuter comme avant.</li></ul></details>
       </div>
       <div class="module-foot"><button class="mark-done" data-mark="agents">Marquer comme lu</button></div>
     </section>
@@ -518,15 +660,8 @@
       <div class="module-sub">Des règles déterministes, pas des espoirs</div>
       <div class="stance"><p>En vibe‑coding, on laisse le modèle décider seul quand formatter, tester ou demander une confirmation — et il oublie parfois. Les hooks transforment ces habitudes en règles qui s'exécutent <strong>toujours</strong> au bon moment, scriptables et partageables en équipe.</p></div>
 
-      <h3 class="section-title">Ce qu'il faut retenir</h3>
-      <div class="facts" id="facts-hooks"></div>
-
-      <div class="exercise">
-        <div class="ex-label">Exercice pratique</div>
-        <p>Créez un hook <code>PreToolUse</code> sur Bash avec <code>if: "Bash(rm *)"</code> qui bloque (code de sortie 2) toute commande <code>rm</code>. Ajoutez un hook <code>PostToolUse</code> sur <code>Edit|Write</code> avec <code>continueOnBlock: true</code> qui lance un linter et renvoie l'erreur à Claude au lieu d'arrêter le tour. Inspectez <code>/hooks</code> pour voir la provenance de chaque hook actif.</p>
-      </div>
-      <div class="quiz" data-correct="1">
-        <div class="q-label">Quiz éclair</div>
+            <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Test de niveau</div>
         <p class="q-text">Que fait <code>continueOnBlock: true</code> sur un hook <code>PostToolUse</code>&nbsp;?</p>
         <div class="q-opts">
           <label><input type="radio" name="q-hooks" value="0"> Il bloque définitivement le tour en cours</label>
@@ -534,8 +669,41 @@
           <label><input type="radio" name="q-hooks" value="2"> Il désactive le hook suivant dans la chaîne</label>
         </div>
         <button class="q-check" type="button">Vérifier</button>
-        <div class="q-feedback ok">✓ Exact. <span class="expl">Un typecheck qui échoue peut ainsi être corrigé automatiquement par Claude, au lieu d'interrompre la session.</span></div>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Un typecheck qui échoue peut ainsi être corrigé automatiquement par Claude, au lieu d'interrompre la session.</span><br><a class="skip-next" href="#mcp">&rarr; Vous maîtrisez déjà ce levier, passer au module suivant</a></div>
         <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Il renvoie la raison du blocage à Claude comme résultat d'outil, ce qui lui permet de corriger et continuer au lieu de s'arrêter.</span></div>
+      </div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-hooks"></div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">D'après la documentation des hooks, quel événement se déclenche juste avant une compaction du contexte et peut la bloquer avec un code de sortie 2 ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-hooks-2" value="0"> PreCompact</label>
+          <label><input type="radio" name="q-hooks-2" value="1"> PostCompact</label>
+          <label><input type="radio" name="q-hooks-2" value="2"> SessionStart</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">PreCompact se déclenche juste avant une compaction et peut la bloquer (code de sortie 2) ; PostCompact, lui, se déclenche seulement juste après — utile par exemple pour archiver des informations importantes avant qu'elles ne soient compactées.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est PreCompact : il intervient avant la compaction et peut la bloquer avec un code de sortie 2. PostCompact se déclenche après coup, une fois la compaction déjà effectuée, donc trop tard pour l'empêcher.</span></div>
+      </div>
+      <div class="quiz" data-correct="2">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Quel type de hook permet d'appeler directement un outil MCP déjà installé, avec interpolation des champs de l'entrée JSON du hook ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-hooks-3" value="0"> type: "command"</label>
+          <label><input type="radio" name="q-hooks-3" value="1"> type: "http"</label>
+          <label><input type="radio" name="q-hooks-3" value="2"> type: "mcp_tool"</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Le type mcp_tool appelle directement un outil MCP déjà installé, avec interpolation des champs de l'entrée JSON du hook — utile par exemple pour déléguer une vérification de sécurité à un outil MCP existant, sans réécrire de script shell.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est le type mcp_tool : il permet d'appeler directement un outil MCP déjà installé, en interpolant les champs de l'entrée JSON du hook, plutôt que d'exécuter un script (command) ou d'envoyer une requête réseau (http).</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Créez un hook <code>PreToolUse</code> sur Bash avec <code>if: "Bash(rm *)"</code> qui bloque (code de sortie 2) toute commande <code>rm</code>. Ajoutez un hook <code>PostToolUse</code> sur <code>Edit|Write</code> avec <code>continueOnBlock: true</code> qui lance un linter et renvoie l'erreur à Claude au lieu d'arrêter le tour. Inspectez <code>/hooks</code> pour voir la provenance de chaque hook actif.</p>
+      <details class="solution"><summary>Solution &amp; vérification</summary><p>Le premier hook s'appuie sur le champ if, qui accepte la syntaxe des règles de permission (par exemple Bash(git *)) pour cibler finement une sous-commande : avec if: "Bash(rm *)", le hook PreToolUse ne se déclenche que sur les commandes rm, et un script qui se termine en code de sortie 2 bloque l'appel d'outil. Le second hook exploite l'option continueOnBlock: true sur PostToolUse, qui renvoie la raison du blocage à Claude comme résultat d'outil au lieu d'arrêter le tour — un linter en échec peut ainsi être corrigé automatiquement par Claude plutôt que d'interrompre la session. Le réglage final attendu est donc deux entrées dans la configuration des hooks : une sur PreToolUse (matcher Bash, if: "Bash(rm *)", commande qui sort en code 2) et une sur PostToolUse (matcher Edit|Write, continueOnBlock: true, commande qui lance le linter).</p><ul><li>Une commande rm tentée par Claude est immédiatement refusée : l'outil Bash ne s'exécute pas et le message d'erreur renvoyé par le hook (code de sortie 2) apparaît comme résultat d'outil dans la conversation.</li><li>Après une modification via Edit ou Write qui casse le linter, le tour ne s'arrête pas : l'erreur du linter apparaît comme résultat d'outil et Claude propose une correction dans le message suivant, au lieu que la session s'interrompe.</li><li>La commande /hooks liste bien les deux hooks comme actifs, avec leur provenance (le fichier de settings où ils sont déclarés) et leurs matchers respectifs : Bash pour le hook PreToolUse, Edit|Write pour le hook PostToolUse.</li></ul></details>
       </div>
       <div class="module-foot"><button class="mark-done" data-mark="hooks">Marquer comme lu</button></div>
     </section>
@@ -546,15 +714,8 @@
       <div class="module-sub">Model Context Protocol</div>
       <div class="stance"><p>En vibe‑coding, on branche des outils MCP au hasard sans savoir qui les a approuvés ni ce qu'ils peuvent lire. Passer pro, c'est maîtriser les scopes (<code>.mcp.json</code> versionné), les approbations et les allowlists/denylists.</p></div>
 
-      <h3 class="section-title">Ce qu'il faut retenir</h3>
-      <div class="facts" id="facts-mcp"></div>
-
-      <div class="exercise">
-        <div class="ex-label">Exercice pratique</div>
-        <p>Créez un <code>.mcp.json</code> à la racine avec un serveur MCP HTTP public, lancez <code>claude</code>, observez l'invite « Pending approval », acceptez‑la puis vérifiez avec <code>claude mcp list</code>. Bloquez ensuite ce même serveur pour vous via <code>deniedMcpServers</code> dans <code>~/.claude/settings.json</code>.</p>
-      </div>
-      <div class="quiz" data-correct="1">
-        <div class="q-label">Quiz éclair</div>
+            <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Test de niveau</div>
         <p class="q-text">Quel statut affiche un serveur MCP de portée projet non approuvé dans <code>.mcp.json</code>&nbsp;?</p>
         <div class="q-opts">
           <label><input type="radio" name="q-mcp" value="0"> Auto‑approved</label>
@@ -562,8 +723,41 @@
           <label><input type="radio" name="q-mcp" value="2"> Denied by default</label>
         </div>
         <button class="q-check" type="button">Vérifier</button>
-        <div class="q-feedback ok">✓ Exact. <span class="expl">Jamais d'auto‑approbation silencieuse&nbsp;: <code>claude mcp list</code> affiche le statut d'approbation de chaque serveur configuré.</span></div>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Jamais d'auto‑approbation silencieuse&nbsp;: <code>claude mcp list</code> affiche le statut d'approbation de chaque serveur configuré.</span><br><a class="skip-next" href="#rewind">&rarr; Vous maîtrisez déjà ce levier, passer au module suivant</a></div>
         <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est « Pending approval »&nbsp;: un serveur MCP de portée projet non approuvé ne se connecte jamais silencieusement.</span></div>
+      </div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-mcp"></div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Quel type de transport MCP est aujourd'hui recommandé pour un nouveau serveur, d'après la documentation ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-mcp-2" value="0"> SSE (Server-Sent Events)</label>
+          <label><input type="radio" name="q-mcp-2" value="1"> HTTP streamable</label>
+          <label><input type="radio" name="q-mcp-2" value="2"> stdio exclusivement</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Le transport HTTP streamable est recommandé partout où c'est possible ; SSE reste supporté mais est explicitement marqué déprécié dans la documentation.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. C'est le HTTP streamable qui est recommandé : SSE reste supporté, mais il est marqué comme déprécié.</span></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">À partir de quel seuil d'occupation de la fenêtre de contexte les outils MCP sont-ils différés et découverts à la demande (recherche automatique d'outils) ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-mcp-3" value="0"> 10 % de la fenêtre de contexte</label>
+          <label><input type="radio" name="q-mcp-3" value="1"> 50 % de la fenêtre de contexte</label>
+          <label><input type="radio" name="q-mcp-3" value="2"> Dès qu'un seul serveur MCP est connecté</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Sur Claude 4.5 et modèles ultérieurs, la recherche automatique d'outils est active par défaut : au-delà de 10 % de la fenêtre de contexte, les outils sont différés et découverts à la demande.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. Le seuil est de 10 % de la fenêtre de contexte, pas 50 % ni la simple connexion d'un serveur.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Créez un <code>.mcp.json</code> à la racine avec un serveur MCP HTTP public, lancez <code>claude</code>, observez l'invite « Pending approval », acceptez‑la puis vérifiez avec <code>claude mcp list</code>. Bloquez ensuite ce même serveur pour vous via <code>deniedMcpServers</code> dans <code>~/.claude/settings.json</code>.</p>
+      <details class="solution"><summary>Solution &amp; vérification</summary><p>Créer un <code>.mcp.json</code> à la racine place le serveur en portée <code>project</code> : c'est ce fichier, committé, qui permet de partager la configuration en équipe via Git, mais toute entrée non encore approuvée s'affiche « Pending approval » plutôt que de se connecter silencieusement — jamais d'auto-approbation. Une fois approuvé côté équipe, le blocage individuel passe par <code>deniedMcpServers</code> dans <code>~/.claude/settings.json</code>, qui matche le serveur par <code>serverName</code>, <code>serverUrl</code> ou <code>serverCommand</code> : <code>{ "deniedMcpServers": [{"serverName": "nom-du-serveur"}] }</code>.</p><ul><li>Au lancement de claude, le message exact « Pending approval » apparaît pour le serveur du .mcp.json avant toute tentative de connexion.</li><li>Après acceptation, <code>claude mcp list</code> affiche ce serveur avec un statut d'approbation passé à approuvé (au lieu de Pending).</li><li>Après avoir ajouté l'entrée deniedMcpServers et relancé claude, ce même serveur n'apparaît plus comme disponible/connecté pour vous (ses outils ne sont plus proposés), alors qu'il reste actif pour le reste de l'équipe.</li></ul></details>
       </div>
       <div class="module-foot"><button class="mark-done" data-mark="mcp">Marquer comme lu</button></div>
     </section>
@@ -574,15 +768,8 @@
       <div class="module-sub">Explorer sans crainte</div>
       <div class="stance"><p>Le vibe‑coding enchaîne des prompts à l'aveugle sans filet si Claude part dans la mauvaise direction. Les checkpoints transforment cette improvisation en pratique pro&nbsp;: chaque prompt devient un point restaurable, code et/ou conversation, avant même un commit Git.</p></div>
 
-      <h3 class="section-title">Ce qu'il faut retenir</h3>
-      <div class="facts" id="facts-rewind"></div>
-
-      <div class="exercise">
-        <div class="ex-label">Exercice pratique</div>
-        <p>Faites implémenter une fonctionnalité simple, laissez Claude modifier 2‑3 fichiers, puis demandez volontairement une modification que vous jugez mauvaise. Appuyez deux fois sur Échap (ou <code>/rewind</code>), choisissez le point juste avant, testez « Restore code and conversation » puis, sur un autre essai, « Restore code » seul.</p>
-      </div>
-      <div class="quiz" data-correct="1">
-        <div class="q-label">Quiz éclair</div>
+            <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Test de niveau</div>
         <p class="q-text">Depuis la v2.1.216, quels fichiers <code>/rewind</code> ignore‑t‑il lors d'une restauration de code&nbsp;?</p>
         <div class="q-opts">
           <label><input type="radio" name="q-rewind" value="0"> Les fichiers <code>.env</code></label>
@@ -590,8 +777,41 @@
           <label><input type="radio" name="q-rewind" value="2"> Les fichiers binaires</label>
         </div>
         <button class="q-check" type="button">Vérifier</button>
-        <div class="q-feedback ok">✓ Exact. <span class="expl">Ces fichiers gardent leur contenu actuel, avec un message « Restored the code, but skipped N files » — utile à savoir pour les dotfiles liés symboliquement.</span></div>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Ces fichiers gardent leur contenu actuel, avec un message « Restored the code, but skipped N files » — utile à savoir pour les dotfiles liés symboliquement.</span><br><a class="skip-next" href="#git">&rarr; Vous maîtrisez déjà ce levier, passer au module suivant</a></div>
         <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Ce sont les liens symboliques et liens physiques (hard links) qui sont ignorés, pas les fichiers <code>.env</code> ou binaires.</span></div>
+      </div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-rewind"></div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Que fait précisément l'option « Summarize up to here » du menu /rewind ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-rewind-2" value="0"> Elle supprime définitivement les fichiers modifiés avant le point choisi</label>
+          <label><input type="radio" name="q-rewind-2" value="1"> Elle compresse la conversation avant le point choisi, sans toucher aux fichiers sur disque</label>
+          <label><input type="radio" name="q-rewind-2" value="2"> Elle crée automatiquement un commit Git avant de revenir en arrière</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. « Summarize up to here » agit uniquement sur l'historique de conversation : elle le compresse avant le point choisi, sans modifier les fichiers sur disque — utile pour libérer du contexte sans perdre le travail de code déjà effectué.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. Cette option ne touche à aucun fichier et ne crée aucun commit : elle compresse seulement la conversation avant le point choisi, en laissant le code intact.</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Quelle est la différence entre --continue (-c) et --resume (-r) ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-rewind-3" value="0"> --continue et --resume font exactement la même chose, ce sont de simples alias</label>
+          <label><input type="radio" name="q-rewind-3" value="1"> --continue reprend la conversation la plus récente du répertoire courant ; --resume ouvre un sélecteur ou reprend un ID de session précis</label>
+          <label><input type="radio" name="q-rewind-3" value="2"> --continue liste toutes les sessions de la machine ; --resume se limite au répertoire courant</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. --continue (-c) reprend directement la conversation la plus récente du répertoire courant, sans choix à faire, tandis que --resume (-r) ouvre un sélecteur de sessions ou reprend un ID de session précis que vous lui indiquez.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. Les deux options ne sont pas interchangeables : --continue reprend automatiquement la dernière conversation du répertoire courant, --resume ouvre un sélecteur ou cible une session par son ID.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Faites implémenter une fonctionnalité simple, laissez Claude modifier 2‑3 fichiers, puis demandez volontairement une modification que vous jugez mauvaise. Appuyez deux fois sur Échap (ou <code>/rewind</code>), choisissez le point juste avant, testez « Restore code and conversation » puis, sur un autre essai, « Restore code » seul.</p>
+      <details class="solution"><summary>Solution &amp; vérification</summary><p>Appuyer deux fois sur Échap (ou taper /rewind) ouvre le menu de checkpoints, qui liste un point restaurable par prompt envoyé — c'est ce que décrit le fait sur /rewind (v2.0.0) — ce qui permet de repérer sans ambiguïté le tour juste avant la modification jugée mauvaise, plutôt que de compter des commits Git. En choisissant « Restore code and conversation » sur ce point, le code des 2‑3 fichiers modifiés et l'historique de conversation reviennent tous deux à cet état ; en refaisant l'essai avec « Restore code » seul, seuls les fichiers sur disque sont restaurés, la conversation gardant elle la trace de la demande jugée mauvaise. La manipulation attendue se résume donc à /rewind (ou Échap x2), puis sélection du checkpoint immédiatement antérieur à la mauvaise demande, testé une fois avec chaque option de restauration.</p><ul><li>Avec « Restore code and conversation » : le prompt jugé mauvais et la réponse de Claude qui a suivi disparaissent visiblement du fil de conversation affiché, et le contenu des 2‑3 fichiers modifiés correspond à leur état d'avant ce prompt (vérifiable en les rouvrant ou via un diff).</li><li>Avec « Restore code » seul : le contenu des fichiers revient au même état d'avant le prompt, mais le fil de conversation continue d'afficher intégralement le prompt jugé mauvais et la réponse de Claude — c'est ce contraste qui prouve que seule la restauration du code a eu lieu.</li><li>Aucun message du type « Restored the code, but skipped N files » n'apparaît pour ces fichiers ordinaires ; un tel message ne doit surgir que si l'un des 2‑3 fichiers concernés est un lien symbolique ou physique.</li></ul></details>
       </div>
       <div class="module-foot"><button class="mark-done" data-mark="rewind">Marquer comme lu</button></div>
     </section>
@@ -602,15 +822,8 @@
       <div class="module-sub">Travailler à plusieurs sans collision</div>
       <div class="stance"><p>Le vibe‑coding s'arrête là où le code touche un dépôt partagé&nbsp;: sans worktrees ni discipline Git, on écrase le travail des autres ou on pousse des commits non relus. Les worktrees et l'automatisation PR font tourner plusieurs agents en parallèle sans collision, avec une trace propre.</p></div>
 
-      <h3 class="section-title">Ce qu'il faut retenir</h3>
-      <div class="facts" id="facts-git"></div>
-
-      <div class="exercise">
-        <div class="ex-label">Exercice pratique</div>
-        <p>Lancez <code>claude --worktree essai-pro</code> pour une session isolée. Modifiez un fichier, lancez <code>/code-review high --fix</code> avant de committer, puis <code>/commit-push-pr</code>. Vérifiez qu'un <code>git push --force</code> ne serait pas auto‑approuvé, et ajoutez <code>worktree.baseRef: "head"</code> dans <code>.claude/settings.json</code>.</p>
-      </div>
-      <div class="quiz" data-correct="1">
-        <div class="q-label">Quiz éclair</div>
+            <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Test de niveau</div>
         <p class="q-text">Que se passe‑t‑il si vous demandez à <code>/commit-push-pr</code> un <code>git push --force</code>&nbsp;?</p>
         <div class="q-opts">
           <label><input type="radio" name="q-git" value="0"> Il l'exécute automatiquement, sans confirmation</label>
@@ -618,8 +831,41 @@
           <label><input type="radio" name="q-git" value="2"> Il est silencieusement ignoré</label>
         </div>
         <button class="q-check" type="button">Vérifier</button>
-        <div class="q-feedback ok">✓ Exact. <span class="expl">Depuis la v2.1.229, les flags dangereux (<code>--force</code>, <code>--amend</code>, <code>--no-verify</code>) ne sont plus auto‑approuvés par <code>/commit-push-pr</code>&nbsp;: le reste du workflow reste automatisé.</span></div>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Depuis la v2.1.229, les flags dangereux (<code>--force</code>, <code>--amend</code>, <code>--no-verify</code>) ne sont plus auto‑approuvés par <code>/commit-push-pr</code>&nbsp;: le reste du workflow reste automatisé.</span><br><a class="skip-next" href="#echelle">&rarr; Vous maîtrisez déjà ce levier, passer au module suivant</a></div>
         <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Il redemande confirmation&nbsp;: <code>/commit-push-pr</code> n'auto‑approuve plus les flags git/gh dangereux depuis la v2.1.229.</span></div>
+      </div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-git"></div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Sans configuration particulière, depuis quelle référence un nouveau worktree Claude Code démarre-t-il par défaut ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-git-2" value="0"> origin/<code>&lt;branche par défaut&gt;</code> (réglage "fresh")</label>
+          <label><input type="radio" name="q-git-2" value="1"> Votre HEAD local, commits non poussés inclus (réglage "head")</label>
+          <label><input type="radio" name="q-git-2" value="2"> Le dernier tag de release du dépôt</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. worktree.baseRef vaut "fresh" par défaut depuis la v2.1.133 : chaque nouveau worktree part d'origin/<code>&lt;branche par défaut&gt;</code>. Le réglage "head" (à activer explicitement) part de votre HEAD local, commits non poussés compris.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. Le défaut est "fresh" : il part d'origin/<code>&lt;branche par défaut&gt;</code>. "head" existe aussi, mais c'est une option qu'il faut activer soi-même pour partir de son HEAD local avec les commits non poussés.</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Depuis la réorganisation des commandes en v2.1.147/2.1.152, à quoi sert /simplify ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-git-3" value="0"> Chasser les bugs, avec des niveaux d'effort de low à ultra</label>
+          <label><input type="radio" name="q-git-3" value="1"> Faire du nettoyage pur (réutilisation, simplification) en invoquant /code-review --fix en interne</label>
+          <label><input type="radio" name="q-git-3" value="2"> Remplacer /code-review, qui a été retiré du produit</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Depuis la v2.1.147/2.1.152, c'est /code-review qui a repris la chasse aux bugs (niveaux low à ultra) ; /simplify désigne aujourd'hui une commande distincte de nettoyage pur, qui invoque /code-review --fix en interne.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. C'est /code-review qui chasse les bugs avec des niveaux d'effort ; /simplify est la commande de nettoyage pur, qui appelle /code-review --fix en interne — /code-review n'a pas disparu.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Lancez <code>claude --worktree essai-pro</code> pour une session isolée. Modifiez un fichier, lancez <code>/code-review high --fix</code> avant de committer, puis <code>/commit-push-pr</code>. Vérifiez qu'un <code>git push --force</code> ne serait pas auto‑approuvé, et ajoutez <code>worktree.baseRef: "head"</code> dans <code>.claude/settings.json</code>.</p>
+      <details class="solution"><summary>Solution &amp; vérification</summary><p>claude --worktree essai-pro crée un worktree isolé sous .claude/worktrees/essai-pro/, sur une nouvelle branche worktree-essai-pro, ce qui permet de modifier un fichier sans toucher la branche de travail courante. Une fois le fichier committé, /commit-push-pr pousse et ouvre la PR, mais depuis la v2.1.229 il ne s'exécute plus silencieusement pour un flag dangereux : un git push --force redemande confirmation au lieu d'être auto-approuvé. Pour que ce worktree (et les suivants) démarrent depuis le HEAD local, commits non poussés compris, plutôt que depuis origin/<code>&lt;branche par défaut&gt;</code>, il faut ajouter explicitement { "worktree": { "baseRef": "head" } } dans .claude/settings.json — c'est le réglage final attendu par l'exercice.</p><ul><li>Le répertoire .claude/worktrees/essai-pro/ existe et, à l'intérieur, git branch --show-current renvoie worktree-essai-pro.</li><li>En tentant un git push --force dans ce worktree via /commit-push-pr, une invite de confirmation explicite apparaît au lieu d'un push exécuté directement.</li><li>.claude/settings.json contient la clé "worktree": { "baseRef": "head" } après l'édition, et un nouveau worktree créé ensuite a le même commit de tête que la branche locale courante (et non celui d'origin/<code>&lt;branche par défaut&gt;</code>).</li></ul></details>
       </div>
       <div class="module-foot"><button class="mark-done" data-mark="git">Marquer comme lu</button></div>
     </section>
@@ -630,15 +876,8 @@
       <div class="module-sub">Passer à l'échelle sans perdre le contrôle</div>
       <div class="stance"><p>En vibe‑coding, on lance un prompt sans savoir combien d'agents tournent ni comment les arrêter. Maîtriser les tâches en arrière‑plan et les workflows, c'est savoir exactement qui fait quoi, avec des garde‑fous de taille et de permissions inter‑sessions.</p></div>
 
-      <h3 class="section-title">Ce qu'il faut retenir</h3>
-      <div class="facts" id="facts-echelle"></div>
-
-      <div class="exercise">
-        <div class="ex-label">Exercice pratique</div>
-        <p>Lancez <code>claude --bg "audite les TODO du repo"</code>, ouvrez <code>claude agents</code>, épinglez la session (Ctrl+T), consultez ses logs avec <code>claude logs &lt;id&gt;</code>. Testez ensuite <code>/goal tous les tests passent et le lint est propre</code> sur une petite tâche pour voir Claude boucler seul jusqu'à la condition.</p>
-      </div>
-      <div class="quiz" data-correct="1">
-        <div class="q-label">Quiz éclair</div>
+            <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Test de niveau</div>
         <p class="q-text">Combien d'agents un Workflow peut‑il faire tourner en concurrence, au maximum, par défaut&nbsp;?</p>
         <div class="q-opts">
           <label><input type="radio" name="q-echelle" value="0"> 8</label>
@@ -646,8 +885,41 @@
           <label><input type="radio" name="q-echelle" value="2"> 32</label>
         </div>
         <button class="q-check" type="button">Vérifier</button>
-        <div class="q-feedback ok">✓ Exact. <span class="expl">16 agents concurrents au maximum, pour un plafond total de 1000 agents sur toute l'exécution d'un workflow.</span></div>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">16 agents concurrents au maximum, pour un plafond total de 1000 agents sur toute l'exécution d'un workflow.</span><br><a class="skip-next" href="#plugins">&rarr; Vous maîtrisez déjà ce levier, passer au module suivant</a></div>
         <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est 16&nbsp;: au‑delà, les appels supplémentaires attendent en file qu'un emplacement se libère.</span></div>
+      </div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-echelle"></div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Quel est le plafond de tâches récurrentes que les outils CronCreate/CronList/CronDelete peuvent planifier par session ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-echelle-2" value="0"> 10</label>
+          <label><input type="radio" name="q-echelle-2" value="1"> 50</label>
+          <label><input type="radio" name="q-echelle-2" value="2"> 100</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Le plafond est de 50 tâches récurrentes par session pour les outils CronCreate/CronList/CronDelete ; /loop, de son côté, exécute un prompt ou une skill à intervalle régulier directement dans la conversation en cours, sans ce plafond.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. C'est 50&nbsp;: les outils Cron (CronCreate/CronList/CronDelete) plafonnent à ce nombre les tâches récurrentes planifiées par session, à distinguer de /loop qui tourne dans la conversation courante.</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Depuis la version 2.1.219, quelle est la valeur par défaut de la directive workflowSizeGuideline ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-echelle-3" value="0"> small (moins de 5 agents)</label>
+          <label><input type="radio" name="q-echelle-3" value="1"> medium (moins de 15 agents)</label>
+          <label><input type="radio" name="q-echelle-3" value="2"> large (illimité)</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Depuis la 2.1.219, workflowSizeGuideline vaut medium par défaut, soit moins de 15 agents ; avant cette version, aucune limite n'était indiquée par défaut pour un workflow dynamique.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. La valeur par défaut depuis la 2.1.219 est medium (moins de 15 agents)&nbsp;— avant, aucune limite n'était fixée.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Lancez <code>claude --bg "audite les TODO du repo"</code>, ouvrez <code>claude agents</code>, épinglez la session (Ctrl+T), consultez ses logs avec <code>claude logs &lt;id&gt;</code>. Testez ensuite <code>/goal tous les tests passent et le lint est propre</code> sur une petite tâche pour voir Claude boucler seul jusqu'à la condition.</p>
+      <details class="solution"><summary>Solution &amp; vérification</summary><p>Lancer <code>claude --bg "audite les TODO du repo"</code> crée une session en arrière-plan que la vue plein écran <code>claude agents</code> regroupe par état (Needs input / Working / Completed), ce qui permet de repérer et d'épingler la bonne session ; <code>claude logs <code>&lt;id&gt;</code></code> fait partie du même jeu de sous-commandes que <code>attach</code>, <code>stop</code>, <code>respawn</code> et <code>rm</code>, qui couvrent ensemble le cycle de vie complet d'une session en arrière-plan, d'où la possibilité de consulter ses journaux sans l'interrompre. Le test suivant avec <code>/goal tous les tests passent et le lint est propre</code> fonctionne parce que cette directive définit une condition de fin de tâche que Claude réévalue tour après tour via un petit modèle, jusqu'à ce que la condition soit jugée atteinte.</p><ul><li>Dans <code>claude agents</code>, la session passe de l'état « Working » à « Completed » une fois l'audit des TODO terminé, et une icône d'épingle reste visible après Ctrl+T.</li><li><code>claude logs <code>&lt;id&gt;</code></code> renvoie le flux de sortie de la session (la liste des TODO trouvés dans le repo) sans message d'erreur du type « session introuvable ».</li><li>Après <code>/goal tous les tests passent et le lint est propre</code>, la conversation enchaîne plusieurs tours sans nouvelle saisie de votre part, jusqu'à un message final confirmant la condition atteinte — ou <code>/goal clear</code> interrompt la boucle si vous voulez arrêter avant.</li></ul></details>
       </div>
       <div class="module-foot"><button class="mark-done" data-mark="echelle">Marquer comme lu</button></div>
     </section>
@@ -658,15 +930,8 @@
       <div class="module-sub">Outiller toute l'équipe, pas juste soi</div>
       <div class="stance"><p>En vibe‑coding, on installe un plugin trouvé au hasard et on croise les doigts. En pro, les plugins et marketplaces donnent la reproductibilité (version épinglée par SHA), la sécurité (secrets jamais injectés en shell) et la gouvernance (activation explicite, coût en tokens visible).</p></div>
 
-      <h3 class="section-title">Ce qu'il faut retenir</h3>
-      <div class="facts" id="facts-plugins"></div>
-
-      <div class="exercise">
-        <div class="ex-label">Exercice pratique</div>
-        <p>Lancez <code>claude plugin init mon-plugin --with skills hooks</code>. Ajoutez <code>"defaultEnabled": false</code> et vérifiez qu'il faut <code>claude plugin enable mon-plugin</code> pour l'activer. Exécutez <code>claude plugin details mon-plugin</code> pour voir son coût en tokens projeté par session.</p>
-      </div>
-      <div class="quiz" data-correct="1">
-        <div class="q-label">Quiz éclair</div>
+            <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Test de niveau</div>
         <p class="q-text">Un plugin déclare <code>defaultEnabled: false</code>. Que doit faire l'utilisateur avant qu'il ne soit actif&nbsp;?</p>
         <div class="q-opts">
           <label><input type="radio" name="q-plugins" value="0"> Rien, il s'active seul à l'installation</label>
@@ -674,8 +939,41 @@
           <label><input type="radio" name="q-plugins" value="2"> Redémarrer Claude Code</label>
         </div>
         <button class="q-check" type="button">Vérifier</button>
-        <div class="q-feedback ok">✓ Exact. <span class="expl">Une activation explicite est requise même une fois le plugin installé — une protection contre l'activation silencieuse.</span></div>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Une activation explicite est requise même une fois le plugin installé — une protection contre l'activation silencieuse.</span><br><a class="skip-next" href="#infra">&rarr; Vous maîtrisez déjà ce levier, passer au module suivant</a></div>
         <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Il faut lancer <code>claude plugin enable &lt;nom&gt;</code>&nbsp;: l'installation seule ne suffit pas à activer un plugin marqué <code>defaultEnabled: false</code>.</span></div>
+      </div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-plugins"></div>
+      <div class="quiz" data-correct="2">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Pour une source de plugin github/url/git-subdir, quel champ de marketplace.json épingle une version exacte du plugin, indépendamment des futurs commits sur la branche ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-plugins-2" value="0"> <code>version</code></label>
+          <label><input type="radio" name="q-plugins-2" value="1"> <code>tag</code></label>
+          <label><input type="radio" name="q-plugins-2" value="2"> <code>sha</code></label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Le champ sha (un commit git complet) épingle une version précise du plugin, insensible aux commits ultérieurs poussés sur la branche référencée.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. C'est le champ sha (un commit git complet) qui épingle une version exacte, indépendamment des futurs commits sur la branche — il n'existe ni champ version ni champ tag pour cet usage.</span></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Quel type de source de plugin dans marketplace.json permet d'installer depuis un fichier zip via HTTPS, sans recourir à git ni npm ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-plugins-3" value="0"> <code>archive</code></label>
+          <label><input type="radio" name="q-plugins-3" value="1"> <code>url</code></label>
+          <label><input type="radio" name="q-plugins-3" value="2"> <code>git-subdir</code></label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. La source archive installe depuis un zip via HTTPS, avec un épinglage SHA-256 optionnel et une taille maximale de 256 Mio, sans dépendre de git ni de npm.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. C'est la source archive qui installe depuis un zip via HTTPS sans git ni npm, avec un épinglage SHA-256 optionnel et une limite de taille de 256 Mio.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Lancez <code>claude plugin init mon-plugin --with skills hooks</code>. Ajoutez <code>"defaultEnabled": false</code> et vérifiez qu'il faut <code>claude plugin enable mon-plugin</code> pour l'activer. Exécutez <code>claude plugin details mon-plugin</code> pour voir son coût en tokens projeté par session.</p>
+      <details class="solution"><summary>Solution &amp; vérification</summary><p>Le plugin.json généré par claude plugin init n'active rien tout seul : dès que vous y ajoutez "defaultEnabled": false, la référence des plugins exige une activation explicite avant que le plugin ne soit actif, même une fois installé — c'est exactement pourquoi claude plugin enable mon-plugin devient une étape obligatoire et non facultative. Une fois le plugin activé, claude plugin details mon-plugin liste ses composants déclarés (ici les skills et hooks demandés via --with skills hooks) et projette leur coût en tokens par session avant même que vous n'ayez à les utiliser, ce qui permet de juger son empreinte sans le laisser tourner à l'aveugle.</p><ul><li>Avant claude plugin enable, une commande/skill du plugin invoquée dans la session échoue ou reste invisible, et claude plugin list (ou /plugin dans le REPL) affiche mon-plugin avec un statut désactivé.</li><li>claude plugin enable mon-plugin se termine avec un code de sortie 0 et fait passer mon-plugin au statut actif dans claude plugin list.</li><li>claude plugin details mon-plugin affiche une estimation chiffrée du coût en tokens par session (une valeur numérique), en plus de la liste des skills et hooks déclarés — pas seulement les noms des composants.</li></ul></details>
       </div>
       <div class="module-foot"><button class="mark-done" data-mark="plugins">Marquer comme lu</button></div>
     </section>
@@ -686,15 +984,8 @@
       <div class="module-sub">Faire de Claude Code une brique d'infrastructure</div>
       <div class="stance"><p>Le vibe‑coding valide chaque action à l'instinct en mode interactif&nbsp;: ça ne passe pas à l'échelle. Le mode headless et le SDK transforment Claude Code en brique reproductible&nbsp;: scripts déterministes, garde‑fous explicites, sortie structurée exploitable en CI.</p></div>
 
-      <h3 class="section-title">Ce qu'il faut retenir</h3>
-      <div class="facts" id="facts-infra"></div>
-
-      <div class="exercise">
-        <div class="ex-label">Exercice pratique</div>
-        <p>Écrivez <code>claude --bare -p "Résume les 3 derniers commits" --allowedTools "Bash(git log *)" --permission-mode auto --permission-prompts none --output-format json</code>. Inspectez la sortie avec <code>jq</code> pour extraire <code>.result</code> et <code>.total_cost_usd</code>.</p>
-      </div>
-      <div class="quiz" data-correct="1">
-        <div class="q-label">Quiz éclair</div>
+            <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">Test de niveau</div>
         <p class="q-text">Quel flag saute la découverte automatique de hooks, skills, sous‑agents, plugins, MCP et CLAUDE.md&nbsp;?</p>
         <div class="q-opts">
           <label><input type="radio" name="q-infra" value="0"> <code>--headless</code></label>
@@ -702,8 +993,41 @@
           <label><input type="radio" name="q-infra" value="2"> <code>--no-context</code></label>
         </div>
         <button class="q-check" type="button">Vérifier</button>
-        <div class="q-feedback ok">✓ Exact. <span class="expl">C'est le mode recommandé pour tout appel scripté ou SDK&nbsp;: comportement prévisible, sans configuration locale implicite.</span></div>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">C'est le mode recommandé pour tout appel scripté ou SDK&nbsp;: comportement prévisible, sans configuration locale implicite.</span><br><a class="skip-next" href="#epilogue">&rarr; Vous maîtrisez déjà ce levier, passer au module suivant</a></div>
         <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est <code>--bare</code>&nbsp;: il élimine toute découverte automatique de configuration locale pour un comportement scripté prévisible.</span></div>
+      </div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-infra"></div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Dans quel cas le mécanisme fallbackModel du SDK ne bascule-t-il jamais sur un modèle de secours ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-infra-2" value="0"> En cas de surcharge du serveur</label>
+          <label><input type="radio" name="q-infra-2" value="1"> En cas d'erreur d'authentification, de facturation ou de rate-limit</label>
+          <label><input type="radio" name="q-infra-2" value="2"> En cas d'erreur serveur générique (5xx)</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. fallbackModel accepte jusqu'à trois modèles essayés dans l'ordre, mais uniquement en cas de surcharge ou d'erreur serveur — jamais pour une erreur d'authentification, de facturation ou de rate-limit.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. La surcharge et l'erreur serveur déclenchent bien un basculement ; c'est justement l'erreur d'authentification, de facturation ou de rate-limit qui n'active jamais fallbackModel.</span></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">Quiz éclair</div>
+        <p class="q-text">Que signifie l'absence du champ plugin_errors dans le message system/init (en --output-format stream-json) ?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-infra-3" value="0"> Qu'aucune erreur de chargement de plugin ne s'est produite</label>
+          <label><input type="radio" name="q-infra-3" value="1"> Qu'aucun plugin n'est configuré dans le projet</label>
+          <label><input type="radio" name="q-infra-3" value="2"> Que le mode --bare est actif et désactive les plugins</label>
+        </div>
+        <button class="q-check" type="button">Vérifier</button>
+        <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. plugin_errors liste les erreurs de chargement de plugin et n'apparaît pas s'il n'y en a aucune — ce qui permet une porte CI simple, par exemple jq -e '.plugin_errors // [] | length == 0'.</span></div>
+        <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. Ce champ ne renseigne ni sur le nombre de plugins installés ni sur --bare : son absence signale seulement qu'aucune erreur de chargement de plugin ne s'est produite.</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Écrivez <code>claude --bare -p "Résume les 3 derniers commits" --allowedTools "Bash(git log *)" --permission-mode auto --permission-prompts none --output-format json</code>. Inspectez la sortie avec <code>jq</code> pour extraire <code>.result</code> et <code>.total_cost_usd</code>.</p>
+      <details class="solution"><summary>Solution &amp; vérification</summary><p>La commande fonctionne parce que <code>--bare</code> élimine toute découverte automatique de hooks, skills, sous-agents, plugins, MCP, mémoire et CLAUDE.md : seul ce qui est passé explicitement sur la ligne de commande (ici <code>--allowedTools "Bash(git log *)"</code>) détermine le comportement, ce qui rend l'appel reproductible pour un script. Combiné à <code>--permission-prompts none</code>, qui transforme automatiquement en refus toute action qui aurait normalement déclenché une invite de confirmation, le job reste non interactif de bout en bout : toute commande hors du périmètre <code>git log</code> est rejetée sans attendre de réponse humaine. <code>--output-format json</code> produit ensuite un objet JSON unique dont <code>jq</code> extrait <code>.result</code> (le résumé) et <code>.total_cost_usd</code> (le coût de l'appel).</p><ul><li>La commande se termine avec un code de sortie 0 et affiche un unique objet JSON sur stdout (pas plusieurs lignes, puisque le format n'est pas stream-json).</li><li><code>jq -r '.result'</code> renvoie un texte non vide résumant bien les 3 derniers commits, et <code>jq '.total_cost_usd'</code> renvoie un nombre décimal positif (jamais null).</li><li>Aucune invite de confirmation n'apparaît pendant l'exécution ; si une commande hors du périmètre <code>Bash(git log *)</code> avait été tentée, elle aurait été refusée automatiquement au lieu de bloquer le terminal en attente d'une validation.</li></ul></details>
       </div>
       <div class="module-foot"><button class="mark-done" data-mark="infra">Marquer comme lu</button></div>
     </section>
@@ -712,6 +1036,12 @@
     <section class="module" id="epilogue">
       <div class="module-head"><span class="index">13</span><h2>Épilogue — checklist du praticien &amp; sources</h2></div>
       <div class="stance"><p>Douze leviers, un seul objectif&nbsp;: ne plus jamais avoir à espérer. Voici la checklist qui résume ce cours — cochez‑la avant de dire qu'un projet Claude Code est « prêt pour la prod ».</p></div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice de synthèse</div>
+        <p>Reprenez votre <b>dépôt d'entraînement</b> du module 01 et combinez trois leviers déjà pratiqués dans une seule configuration cohérente&nbsp;: (1) le sandbox actif avec une règle <code>sandbox.credentials.files</code> (module Contrôle &amp; sécurité), (2) un hook <code>PreToolUse</code> qui bloque <code>rm</code> sans confirmation (module Hooks), (3) une session ouverte dans un <code>claude --worktree</code> isolé (module Git &amp; worktrees). Lancez une session dans ce worktree et vérifiez que les trois protections restent actives simultanément&nbsp;: c'est exactement la configuration <code>.claude/</code> que la checklist ci‑dessous décrit — pas trois réglages isolés testés un par un.</p>
+      </div>
+
 
       <h3 class="section-title">Checklist du praticien pro</h3>
       <ul class="checklist">
@@ -728,6 +1058,154 @@
         <li>Les plugins installés sont épinglés par SHA et leur coût en tokens est connu (<code>claude plugin details</code>).</li>
         <li>Les intégrations CI utilisent <code>--bare</code>, une sortie <code>--output-format json</code> et des permissions explicites — jamais un <code>--dangerously-skip-permissions</code> dans un pipeline partagé.</li>
       </ul>
+
+            <h3 class="section-title">Quiz de synthèse — un peu de chaque module</h3>
+      <div class="quiz-synthesis">
+        <div class="quiz" data-correct="0">
+          <div class="q-label">Synthèse &middot; controle</div>
+          <p class="q-text">Que fait précisément le flag --restricted, par rapport à une session en mode bypass ?</p>
+          <div class="q-opts">
+          <label><input type="radio" name="q-epi-controle" value="0"> Il retire les outils d'exécution de commandes et WebFetch, confine les outils fichiers au répertoire de travail, et refuse le mode bypass — sans retour possible en cours de session.</label>
+          <label><input type="radio" name="q-epi-controle" value="1"> Il coupe uniquement l'accès réseau, en laissant les commandes Bash et l'accès aux fichiers hors du projet inchangés.</label>
+          <label><input type="radio" name="q-epi-controle" value="2"> Il équivaut au mode manual avec confirmation systématique de chaque commande, tout en laissant le mode bypass disponible si besoin.</label>
+          </div>
+          <button class="q-check" type="button">Vérifier</button>
+          <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. --restricted retire les outils d'exécution de commandes et WebFetch, confine les outils fichiers au répertoire de travail, et refuse le mode bypass ; ce choix ne peut pas être annulé en cours de session — à réserver à l'ouverture d'un dépôt non fiable ou à l'expérimentation d'un débutant sans risque d'évasion de sandbox.</span></div>
+          <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait : --restricted va plus loin qu'une simple coupure réseau ou qu'un mode manual classique — il retire aussi les outils d'exécution de commandes et WebFetch, confine les fichiers au répertoire de travail, et interdit tout retour au mode bypass pendant la session.</span></div>
+        </div>
+        <div class="quiz" data-correct="0">
+          <div class="q-label">Synthèse &middot; memoire</div>
+          <p class="q-text">Comment empêcher qu'un chemin @chemin/vers/fichier.md soit importé automatiquement dans CLAUDE.md ?</p>
+          <div class="q-opts">
+          <label><input type="radio" name="q-epi-memoire" value="0"> En l'entourant de backticks, par exemple <code>@README</code></label>
+          <label><input type="radio" name="q-epi-memoire" value="1"> En le faisant précéder d'un commentaire HTML</label>
+          <label><input type="radio" name="q-epi-memoire" value="2"> En dépassant la profondeur maximale de 4 sauts d'import</label>
+          </div>
+          <button class="q-check" type="button">Vérifier</button>
+          <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Entourer un chemin de backticks (<code>@README</code>) empêche son import automatique ; sans backticks, un chemin @chemin/vers/fichier.md est bien importé, avec une profondeur maximale de 4 sauts.</span></div>
+          <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas exactement. C'est l'usage des backticks autour du chemin (<code>@README</code>) qui bloque l'import — les commentaires HTML et la profondeur des sauts n'ont pas ce rôle.</span></div>
+        </div>
+        <div class="quiz" data-correct="0">
+          <div class="q-label">Synthèse &middot; skills</div>
+          <p class="q-text">Que fait le champ disallowed-tools dans le frontmatter d'un SKILL.md ?</p>
+          <div class="q-opts">
+          <label><input type="radio" name="q-epi-skills" value="0"> Il retire des outils du pool disponible tant que la skill est active</label>
+          <label><input type="radio" name="q-epi-skills" value="1"> Il indique les outils que l'utilisateur doit installer manuellement avant d'exécuter la skill</label>
+          <label><input type="radio" name="q-epi-skills" value="2"> Il bloque la skill tant que ces outils n'ont pas été utilisés au moins une fois dans la session</label>
+          </div>
+          <button class="q-check" type="button">Vérifier</button>
+          <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. disallowed-tools réduit le pool d'outils disponible pendant l'exécution de la skill — utile par exemple pour empêcher AskUserQuestion dans une boucle autonome où personne ne peut répondre à une question.</span></div>
+          <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est disallowed-tools qui retire, pour la durée de la skill, des outils du pool disponible — typiquement pour empêcher AskUserQuestion dans une boucle autonome.</span></div>
+        </div>
+        <div class="quiz" data-correct="1">
+          <div class="q-label">Synthèse &middot; plan</div>
+          <p class="q-text">Dans les settings.json de Claude Code, quel paramètre détermine où le mode plan écrit ses fichiers de plan ?</p>
+          <div class="q-opts">
+          <label><input type="radio" name="q-epi-plan" value="0"> planMode.directory</label>
+          <label><input type="radio" name="q-epi-plan" value="1"> plansDirectory</label>
+          <label><input type="radio" name="q-epi-plan" value="2"> claude.planOutputPath</label>
+          </div>
+          <button class="q-check" type="button">Vérifier</button>
+          <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Le paramètre plansDirectory choisit où le mode plan écrit ses fichiers de plan, et il est résolu relativement à la racine du projet — utile par exemple pour versionner ces plans dans le dépôt et les relire en revue de PR.</span></div>
+          <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. C'est plansDirectory, résolu relativement à la racine du projet — pratique pour versionner les plans générés et les relire en revue.</span></div>
+        </div>
+        <div class="quiz" data-correct="1">
+          <div class="q-label">Synthèse &middot; agents</div>
+          <p class="q-text">Par défaut, combien de sous-agents Claude Code peut-il exécuter en parallèle dans une session ?</p>
+          <div class="q-opts">
+          <label><input type="radio" name="q-epi-agents" value="0"> 10 sous-agents concurrents</label>
+          <label><input type="radio" name="q-epi-agents" value="1"> 20 sous-agents concurrents</label>
+          <label><input type="radio" name="q-epi-agents" value="2"> 50 sous-agents concurrents</label>
+          </div>
+          <button class="q-check" type="button">Vérifier</button>
+          <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Le plafond par défaut est de 20 sous-agents concurrents, ajustable via la variable d'environnement CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS ; le plafond total par session, lui, a été supprimé en v2.1.224.</span></div>
+          <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. Le plafond par défaut est en réalité de 20 sous-agents concurrents, ajustable via CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS.</span></div>
+        </div>
+        <div class="quiz" data-correct="0">
+          <div class="q-label">Synthèse &middot; hooks</div>
+          <p class="q-text">D'après la documentation des hooks, quel événement se déclenche juste avant une compaction du contexte et peut la bloquer avec un code de sortie 2 ?</p>
+          <div class="q-opts">
+          <label><input type="radio" name="q-epi-hooks" value="0"> PreCompact</label>
+          <label><input type="radio" name="q-epi-hooks" value="1"> PostCompact</label>
+          <label><input type="radio" name="q-epi-hooks" value="2"> SessionStart</label>
+          </div>
+          <button class="q-check" type="button">Vérifier</button>
+          <div class="q-feedback ok">✓ Exact. <span class="expl">PreCompact se déclenche juste avant une compaction et peut la bloquer (code de sortie 2) ; PostCompact, lui, se déclenche seulement juste après — utile par exemple pour archiver des informations importantes avant qu'elles ne soient compactées.</span></div>
+          <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">C'est PreCompact : il intervient avant la compaction et peut la bloquer avec un code de sortie 2. PostCompact se déclenche après coup, une fois la compaction déjà effectuée, donc trop tard pour l'empêcher.</span></div>
+        </div>
+        <div class="quiz" data-correct="1">
+          <div class="q-label">Synthèse &middot; mcp</div>
+          <p class="q-text">Quel type de transport MCP est aujourd'hui recommandé pour un nouveau serveur, d'après la documentation ?</p>
+          <div class="q-opts">
+          <label><input type="radio" name="q-epi-mcp" value="0"> SSE (Server-Sent Events)</label>
+          <label><input type="radio" name="q-epi-mcp" value="1"> HTTP streamable</label>
+          <label><input type="radio" name="q-epi-mcp" value="2"> stdio exclusivement</label>
+          </div>
+          <button class="q-check" type="button">Vérifier</button>
+          <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Le transport HTTP streamable est recommandé partout où c'est possible ; SSE reste supporté mais est explicitement marqué déprécié dans la documentation.</span></div>
+          <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. C'est le HTTP streamable qui est recommandé : SSE reste supporté, mais il est marqué comme déprécié.</span></div>
+        </div>
+        <div class="quiz" data-correct="1">
+          <div class="q-label">Synthèse &middot; rewind</div>
+          <p class="q-text">Que fait précisément l'option « Summarize up to here » du menu /rewind ?</p>
+          <div class="q-opts">
+          <label><input type="radio" name="q-epi-rewind" value="0"> Elle supprime définitivement les fichiers modifiés avant le point choisi</label>
+          <label><input type="radio" name="q-epi-rewind" value="1"> Elle compresse la conversation avant le point choisi, sans toucher aux fichiers sur disque</label>
+          <label><input type="radio" name="q-epi-rewind" value="2"> Elle crée automatiquement un commit Git avant de revenir en arrière</label>
+          </div>
+          <button class="q-check" type="button">Vérifier</button>
+          <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. « Summarize up to here » agit uniquement sur l'historique de conversation : elle le compresse avant le point choisi, sans modifier les fichiers sur disque — utile pour libérer du contexte sans perdre le travail de code déjà effectué.</span></div>
+          <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. Cette option ne touche à aucun fichier et ne crée aucun commit : elle compresse seulement la conversation avant le point choisi, en laissant le code intact.</span></div>
+        </div>
+        <div class="quiz" data-correct="0">
+          <div class="q-label">Synthèse &middot; git</div>
+          <p class="q-text">Sans configuration particulière, depuis quelle référence un nouveau worktree Claude Code démarre-t-il par défaut ?</p>
+          <div class="q-opts">
+          <label><input type="radio" name="q-epi-git" value="0"> origin/<code>&lt;branche par défaut&gt;</code> (réglage "fresh")</label>
+          <label><input type="radio" name="q-epi-git" value="1"> Votre HEAD local, commits non poussés inclus (réglage "head")</label>
+          <label><input type="radio" name="q-epi-git" value="2"> Le dernier tag de release du dépôt</label>
+          </div>
+          <button class="q-check" type="button">Vérifier</button>
+          <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. worktree.baseRef vaut "fresh" par défaut depuis la v2.1.133 : chaque nouveau worktree part d'origin/<code>&lt;branche par défaut&gt;</code>. Le réglage "head" (à activer explicitement) part de votre HEAD local, commits non poussés compris.</span></div>
+          <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. Le défaut est "fresh" : il part d'origin/<code>&lt;branche par défaut&gt;</code>. "head" existe aussi, mais c'est une option qu'il faut activer soi-même pour partir de son HEAD local avec les commits non poussés.</span></div>
+        </div>
+        <div class="quiz" data-correct="1">
+          <div class="q-label">Synthèse &middot; echelle</div>
+          <p class="q-text">Quel est le plafond de tâches récurrentes que les outils CronCreate/CronList/CronDelete peuvent planifier par session ?</p>
+          <div class="q-opts">
+          <label><input type="radio" name="q-epi-echelle" value="0"> 10</label>
+          <label><input type="radio" name="q-epi-echelle" value="1"> 50</label>
+          <label><input type="radio" name="q-epi-echelle" value="2"> 100</label>
+          </div>
+          <button class="q-check" type="button">Vérifier</button>
+          <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Le plafond est de 50 tâches récurrentes par session pour les outils CronCreate/CronList/CronDelete ; /loop, de son côté, exécute un prompt ou une skill à intervalle régulier directement dans la conversation en cours, sans ce plafond.</span></div>
+          <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. C'est 50&nbsp;: les outils Cron (CronCreate/CronList/CronDelete) plafonnent à ce nombre les tâches récurrentes planifiées par session, à distinguer de /loop qui tourne dans la conversation courante.</span></div>
+        </div>
+        <div class="quiz" data-correct="2">
+          <div class="q-label">Synthèse &middot; plugins</div>
+          <p class="q-text">Pour une source de plugin github/url/git-subdir, quel champ de marketplace.json épingle une version exacte du plugin, indépendamment des futurs commits sur la branche ?</p>
+          <div class="q-opts">
+          <label><input type="radio" name="q-epi-plugins" value="0"> <code>version</code></label>
+          <label><input type="radio" name="q-epi-plugins" value="1"> <code>tag</code></label>
+          <label><input type="radio" name="q-epi-plugins" value="2"> <code>sha</code></label>
+          </div>
+          <button class="q-check" type="button">Vérifier</button>
+          <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. Le champ sha (un commit git complet) épingle une version précise du plugin, insensible aux commits ultérieurs poussés sur la branche référencée.</span></div>
+          <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. C'est le champ sha (un commit git complet) qui épingle une version exacte, indépendamment des futurs commits sur la branche — il n'existe ni champ version ni champ tag pour cet usage.</span></div>
+        </div>
+        <div class="quiz" data-correct="1">
+          <div class="q-label">Synthèse &middot; infra</div>
+          <p class="q-text">Dans quel cas le mécanisme fallbackModel du SDK ne bascule-t-il jamais sur un modèle de secours ?</p>
+          <div class="q-opts">
+          <label><input type="radio" name="q-epi-infra" value="0"> En cas de surcharge du serveur</label>
+          <label><input type="radio" name="q-epi-infra" value="1"> En cas d'erreur d'authentification, de facturation ou de rate-limit</label>
+          <label><input type="radio" name="q-epi-infra" value="2"> En cas d'erreur serveur générique (5xx)</label>
+          </div>
+          <button class="q-check" type="button">Vérifier</button>
+          <div class="q-feedback ok">✓ Exact. <span class="expl">Exact. fallbackModel accepte jusqu'à trois modèles essayés dans l'ordre, mais uniquement en cas de surcharge ou d'erreur serveur — jamais pour une erreur d'authentification, de facturation ou de rate-limit.</span></div>
+          <div class="q-feedback bad">✗ Pas tout à fait. <span class="expl">Pas tout à fait. La surcharge et l'erreur serveur déclenchent bien un basculement ; c'est justement l'erreur d'authentification, de facturation ou de rate-limit qui n'active jamais fallbackModel.</span></div>
+        </div>
+      </div>
 
       <h3 class="section-title">Sources officielles citées dans ce cours</h3>
       <div class="sources-grid" id="sources-grid"></div>
@@ -753,7 +1231,7 @@
       {v:"2.1.111", s:"confirmed", t:"Le mode auto est le mode de démarrage par défaut sur les plans Pro, Max et Team — aucun flag d'activation n'est plus nécessaire.", h:"Lancez simplement <code>claude</code> sur un plan Pro/Max/Team&nbsp;: la session démarre en mode auto. <code>Shift+Tab</code> permet de changer de mode.", src:"https://code.claude.com/docs/en/permission-modes"},
       {v:"2.1.200", s:"confirmed", t:"Le mode historiquement appelé « default » s'appelle désormais « Manual » dans toute l'interface (CLI, VS Code, JetBrains).", h:"<code>claude --permission-mode manual</code> et <code>--permission-mode default</code> sont équivalents.", src:"https://code.claude.com/docs/en/permission-modes"},
       {v:"2.1.248", s:"confirmed", t:"Le flag <code>--restricted</code> retire les outils d'exécution de commandes et WebFetch, confine les outils fichiers au répertoire de travail, et refuse le mode bypass — sans retour possible en cours de session.", h:"<code>claude --restricted</code> pour ouvrir un dépôt non fiable ou faire expérimenter un junior sans risque d'évasion de sandbox.", src:"https://code.claude.com/docs/en/permission-modes"},
-      {v:"2.1.183", s:"confirmed", t:"En mode auto, une liste de commandes destructrices est bloquée par défaut&nbsp;: <code>git reset --hard</code>, <code>git clean -fd</code>, <code>git stash drop</code>, <code>terraform destroy</code>, etc.", h:"Ces blocages sont actifs sans configuration&nbsp;; ils se lèvent au cas par cas si vous formulez explicitement l'intention (« force‑push cette branche »).", src:"https://code.claude.com/docs/en/auto-mode-config"},
+      {v:"2.1.183", k:true, s:"confirmed", t:"En mode auto, une liste de commandes destructrices est bloquée par défaut&nbsp;: <code>git reset --hard</code>, <code>git clean -fd</code>, <code>git stash drop</code>, <code>terraform destroy</code>, etc.", h:"Ces blocages sont actifs sans configuration&nbsp;; ils se lèvent au cas par cas si vous formulez explicitement l'intention (« force‑push cette branche »).", src:"https://code.claude.com/docs/en/auto-mode-config"},
       {v:"2.1.126", s:"confirmed", t:"<code>--dangerously-skip-permissions</code> (bypass) contourne les « protected paths » (<code>.claude/</code>, <code>.git/</code>, configs shell) mais un garde‑fou sur les suppressions catastrophiques (<code>rm -rf /</code> ou <code>~</code>) reste actif quoi qu'il arrive.", h:"À réserver à des conteneurs ou VM isolés — jamais sur une machine de production.", src:"https://code.claude.com/docs/en/permission-modes"},
       {v:"2.0.24", s:"confirmed", t:"Claude Code embarque un sandbox natif pour l'outil Bash (Seatbelt sur macOS, bubblewrap sur Linux/WSL2) — Windows natif n'est pas supporté, il faut passer par WSL2.", h:"Lancez <code>/sandbox</code> en session pour l'activer immédiatement, sans installation supplémentaire sur macOS.", src:"https://code.claude.com/docs/en/sandboxing"},
       {v:"2.1.187 / 2.1.221", s:"confirmed", t:"<code>sandbox.credentials.files</code>/<code>envVars</code> permet de bloquer (<code>deny</code>) ou masquer (<code>mode: \"mask\"</code>) des identifiants pour les commandes sandboxées, sans liste de déni intégrée par défaut.", h:"Placez ces réglages dans <code>~/.claude/settings.json</code> (jamais dans les settings de projet, qui sont ignorés pour ces clés).", src:"https://code.claude.com/docs/en/sandboxing"},
@@ -763,7 +1241,7 @@
     ],
     memoire: [
       {v:"0.2.107", s:"confirmed", t:"CLAUDE.md accepte des imports <code>@chemin/vers/fichier.md</code> (profondeur max 4 sauts). Entourer un chemin de backticks (<code>`@README`</code>) l'empêche d'être importé.", h:"Écrivez « Voir @README pour la vue d'ensemble » dans CLAUDE.md pour charger automatiquement ce fichier en contexte.", src:"https://code.claude.com/docs/en/memory"},
-      {v:"2.1.59", s:"confirmed", t:"L'auto‑mémoire enregistre 4 types de notes&nbsp;: <code>user</code> (préférences), <code>feedback</code> (corrections confirmées), <code>project</code> (contexte non déductible du code), <code>reference</code> (où trouver une info externe).", h:"Activée par défaut&nbsp;; désactivable via <code>/memory</code> ou <code>CLAUDE_CODE_DISABLE_AUTO_MEMORY=1</code>. Dites « souviens‑toi que… » en langage naturel pour déclencher un enregistrement.", src:"https://code.claude.com/docs/en/memory"},
+      {v:"2.1.59", k:true, s:"confirmed", t:"L'auto‑mémoire enregistre 4 types de notes&nbsp;: <code>user</code> (préférences), <code>feedback</code> (corrections confirmées), <code>project</code> (contexte non déductible du code), <code>reference</code> (où trouver une info externe).", h:"Activée par défaut&nbsp;; désactivable via <code>/memory</code> ou <code>CLAUDE_CODE_DISABLE_AUTO_MEMORY=1</code>. Dites « souviens‑toi que… » en langage naturel pour déclencher un enregistrement.", src:"https://code.claude.com/docs/en/memory"},
       {v:"2.1.74", s:"confirmed", t:"Le paramètre <code>autoMemoryDirectory</code> déplace le dossier d'auto‑mémoire hors de l'emplacement par défaut <code>~/.claude/projects/&lt;projet&gt;/memory/</code>.", h:"<code>{ \"autoMemoryDirectory\": \"~/mon-dossier-memoire\" }</code> dans un fichier settings.json, à n'importe quel niveau (user, projet, local).", src:"https://code.claude.com/docs/en/memory"},
       {v:"2.1.72", s:"confirmed", t:"Les commentaires HTML de bloc (<code>&lt;!-- … --&gt;</code>) dans CLAUDE.md sont retirés avant l'injection en contexte, mais restent visibles si vous ouvrez le fichier directement.", h:"Utilisez‑les pour des annotations destinées aux humains sans consommer de tokens de contexte.", src:"https://code.claude.com/docs/en/memory"},
       {v:"2.1.206", s:"confirmed", t:"<code>/doctor</code> propose de déduplique les CLAUDE.md face au code (arborescence, dépendances déjà déductibles), en gardant pièges et conventions non standard, et migre le reste vers des skills ou CLAUDE.md imbriqués.", h:"Lancez <code>/doctor</code> en session&nbsp;: il présente ses constats puis demande confirmation avant modification.", src:"https://code.claude.com/docs/en/commands"},
@@ -772,7 +1250,7 @@
       {v:"2.1.214", s:"confirmed", t:"Quand Claude écrit un fichier mémoire qui possède déjà un frontmatter YAML, il y enregistre un champ <code>modified</code> (ISO 8601) — jamais ajouté à un fichier qui n'a pas de frontmatter.", h:"Ouvrez un fichier via <code>/memory</code> et regardez le champ <code>modified</code> pour juger si une note est périmée.", src:"https://code.claude.com/docs/en/memory"}
     ],
     skills: [
-      {v:"0.2.31", s:"confirmed", t:"Les commandes slash personnalisées sont nées comme de simples fichiers Markdown dans <code>.claude/commands/</code> — toujours pleinement supportées aujourd'hui, mais les Skills (<code>SKILL.md</code>) sont le mécanisme successeur recommandé.", h:"Créez <code>.claude/commands/deploy.md</code> pour un besoin simple, ou <code>.claude/skills/deploy/SKILL.md</code> pour embarquer aussi des fichiers annexes.", src:"https://code.claude.com/docs/en/skills"},
+      {v:"0.2.31", k:true, s:"confirmed", t:"Les commandes slash personnalisées sont nées comme de simples fichiers Markdown dans <code>.claude/commands/</code> — toujours pleinement supportées aujourd'hui, mais les Skills (<code>SKILL.md</code>) sont le mécanisme successeur recommandé.", h:"Créez <code>.claude/commands/deploy.md</code> pour un besoin simple, ou <code>.claude/skills/deploy/SKILL.md</code> pour embarquer aussi des fichiers annexes.", src:"https://code.claude.com/docs/en/skills"},
       {v:"2.1.3", s:"confirmed", t:"Commandes slash et Skills ont été fusionnées&nbsp;: un fichier <code>.claude/commands/deploy.md</code> et un skill <code>.claude/skills/deploy/SKILL.md</code> créent tous deux <code>/deploy</code> et fonctionnent pareil.", h:"Migrez vers <code>SKILL.md</code> pour bénéficier des fichiers de support et d'un contrôle plus fin d'invocation.", src:"https://code.claude.com/docs/en/skills"},
       {v:"1.0.57", s:"confirmed", t:"Le champ <code>model:</code> du frontmatter fixe le modèle utilisé pendant l'exécution d'une commande ou skill — pour ce tour seulement, la session reprend son modèle ensuite.", h:"<code>model: haiku</code> dans l'en‑tête YAML pour router les tâches mécaniques bon marché vers un modèle rapide.", src:"https://code.claude.com/docs/en/skills"},
       {v:"2.1.0", s:"confirmed", t:"<code>context: fork</code> exécute une skill comme un sous‑agent isolé (sans accès à l'historique) ; le champ <code>agent:</code> choisit le type d'agent d'exécution (Explore, Plan, general‑purpose ou un agent personnalisé).", h:"Combinez <code>context: fork</code> et <code>agent: Explore</code> pour une skill de recherche outillée en lecture seule.", src:"https://code.claude.com/docs/en/skills"},
@@ -785,7 +1263,7 @@
     ],
     plan: [
       {v:"2.1.0 / 2.1.72", s:"confirmed", t:"<code>/plan</code> (avec ou sans description) et le raccourci <code>Shift+Tab</code> font basculer immédiatement en mode plan, sans invite de confirmation.", h:"<code>/plan corrige le bug d'authentification</code> démarre aussitôt la planification sur ce sujet précis.", src:"https://code.claude.com/docs/en/permission-modes"},
-      {v:"2.1.68 / 0.2.44", s:"corrected", t:"Seul le mot‑clé <code>ultrathink</code> déclenche encore un raisonnement plus profond pour un tour, sans changer le niveau d'effort de la session. Les mots « think », « think hard » ou « think more » ne sont plus reconnus comme spéciaux — ils sont transmis comme texte ordinaire.", h:"Ajoutez « ultrathink » n'importe où dans votre message pour un raisonnement ponctuel plus poussé.", src:"https://code.claude.com/docs/en/model-config"},
+      {v:"2.1.68 / 0.2.44", k:true, s:"corrected", t:"Seul le mot‑clé <code>ultrathink</code> déclenche encore un raisonnement plus profond pour un tour, sans changer le niveau d'effort de la session. Les mots « think », « think hard » ou « think more » ne sont plus reconnus comme spéciaux — ils sont transmis comme texte ordinaire.", h:"Ajoutez « ultrathink » n'importe où dans votre message pour un raisonnement ponctuel plus poussé.", src:"https://code.claude.com/docs/en/model-config"},
       {v:"2.1.76", s:"confirmed", t:"<code>/effort</code> ouvre un sélecteur à 5 niveaux (low, medium, high, xhigh, max) ; <code>/effort auto</code> réinitialise. Disponible sur Opus 5, Fable 5 et Opus 4.5‑4.8.", h:"<code>/effort xhigh</code> pour du debugging complexe, <code>/effort low</code> pour des tâches simples et moins coûteuses.", src:"https://code.claude.com/docs/en/model-config"},
       {v:"2.1.9", s:"confirmed", t:"Le paramètre <code>plansDirectory</code> choisit où le mode plan écrit ses fichiers de plan, résolu relativement à la racine du projet.", h:"<code>{ \"plansDirectory\": \"./plans\" }</code> pour versionner les plans dans le dépôt et les relire en revue de PR.", src:"https://code.claude.com/docs/en/settings-reference"},
       {v:"2.0.0", s:"corrected", t:"Le raccourci pour basculer l'extended thinking en session est <code>Option+T</code> (macOS) ou <code>Alt+T</code> (Windows/Linux) — pas la touche Tab seule.", h:"Pour un réglage permanent, passez par <code>/config</code>, qui écrit <code>alwaysThinkingEnabled</code> dans <code>~/.claude/settings.json</code>.", src:"https://code.claude.com/docs/en/model-config"},
@@ -800,13 +1278,13 @@
       {v:"2.1.219", s:"confirmed", t:"Profondeur d'imbrication des sous‑agents limitée à 3 niveaux par défaut. À la limite, l'outil Agent est retiré de tous les sous‑agents sauf des forks.", h:"<code>CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1</code> pour désactiver toute imbrication.", src:"https://code.claude.com/docs/en/sub-agents"},
       {v:"2.1.251", s:"corrected", t:"Ordre de résolution du modèle d'un sous‑agent&nbsp;: paramètre par invocation &gt; champ <code>model:</code> du frontmatter (avec <code>inherit</code> possible) &gt; <code>CLAUDE_CODE_SUBAGENT_MODEL</code> &gt; modèle de la conversation principale.", h:"<code>{ \"env\": { \"CLAUDE_CODE_SUBAGENT_MODEL\": \"haiku\" } }</code> comme valeur par défaut, surchargeable par agent.", src:"https://code.claude.com/docs/en/sub-agents"},
       {v:"2.1.33", s:"confirmed", t:"Le champ <code>memory:</code> du frontmatter active une mémoire persistante par sous‑agent, à 3 portées possibles&nbsp;: <code>user</code>, <code>project</code> (recommandée, versionnable), <code>local</code>.", h:"<code>memory: project</code> dans le frontmatter, puis demandez explicitement à l'agent de consulter/mettre à jour sa mémoire.", src:"https://code.claude.com/docs/en/sub-agents"},
-      {v:"2.1.77", s:"confirmed", t:"L'outil Agent n'accepte plus de paramètre <code>resume</code>&nbsp;: pour reprendre un sous‑agent déjà lancé, on utilise <code>SendMessage({to: agentId})</code>.", h:"Reprise d'un sous‑agent existant via l'outil SendMessage ciblant son ID ou son nom.", src:"https://code.claude.com/docs/en/tools-reference"},
+      {v:"2.1.77", k:true, s:"confirmed", t:"L'outil Agent n'accepte plus de paramètre <code>resume</code>&nbsp;: pour reprendre un sous‑agent déjà lancé, on utilise <code>SendMessage({to: agentId})</code>.", h:"Reprise d'un sous‑agent existant via l'outil SendMessage ciblant son ID ou son nom.", src:"https://code.claude.com/docs/en/tools-reference"},
       {v:"2.1.198", s:"confirmed", t:"L'assistant interactif <code>/agents</code> a été supprimé&nbsp;: on crée un sous‑agent en le demandant à Claude, ou en éditant directement un fichier dans <code>.claude/agents/</code>.", h:"« Crée un sous‑agent nommé X qui fait Y, avec les outils Z » suffit en langage naturel.", src:"https://code.claude.com/docs/en/agents"}
     ],
     hooks: [
       {v:"1.0.38", s:"confirmed", t:"Le système de hooks est sorti officiellement, avec des types désormais étendus à <code>command</code>, <code>http</code>, <code>mcp_tool</code>, <code>prompt</code>, <code>agent</code>, sur des dizaines d'événements.", h:"Consultez <code>/docs/en/hooks-guide</code> pour un tutoriel pas à pas de création d'un premier hook.", src:"https://code.claude.com/docs/en/hooks"},
       {v:"2.1.85", s:"confirmed", t:"Un hook peut être conditionné avec un champ <code>if</code> utilisant la syntaxe des règles de permission, ex. <code>Bash(git *)</code>, y compris sur des sous‑commandes fines.", h:"<code>{ \"type\": \"command\", \"if\": \"Bash(git *)\", \"command\": \"./check-branch.sh\" }</code> pour ne déclencher le script que sur les commandes git.", src:"https://code.claude.com/docs/en/hooks"},
-      {v:"2.1.139", s:"confirmed", t:"L'option <code>continueOnBlock: true</code> sur un hook <code>PostToolUse</code> renvoie la raison du blocage à Claude comme résultat d'outil, au lieu d'arrêter le tour.", h:"Un typecheck qui échoue peut ainsi être corrigé automatiquement par Claude au lieu d'interrompre la session.", src:"https://code.claude.com/docs/en/hooks-guide"},
+      {v:"2.1.139", k:true, s:"confirmed", t:"L'option <code>continueOnBlock: true</code> sur un hook <code>PostToolUse</code> renvoie la raison du blocage à Claude comme résultat d'outil, au lieu d'arrêter le tour.", h:"Un typecheck qui échoue peut ainsi être corrigé automatiquement par Claude au lieu d'interrompre la session.", src:"https://code.claude.com/docs/en/hooks-guide"},
       {v:"1.0.48 / 2.1.105", s:"confirmed", t:"<code>PreCompact</code> se déclenche juste avant une compaction et peut la bloquer (code de sortie 2) ; <code>PostCompact</code> se déclenche juste après.", h:"Utile pour archiver des informations importantes juste avant qu'elles ne soient compactées.", src:"https://code.claude.com/docs/en/hooks"},
       {v:"2.1.118", s:"confirmed", t:"Un hook peut appeler directement un outil MCP via <code>type: \"mcp_tool\"</code>, avec interpolation des champs de l'entrée JSON du hook.", h:"Déléguez une vérification de sécurité à un outil MCP déjà installé, sans réécrire de script shell.", src:"https://code.claude.com/docs/en/hooks"},
       {v:"2.1.63", s:"confirmed", t:"Les hooks HTTP (<code>type: \"http\"</code>) envoient le JSON de l'événement en POST vers une URL et attendent une réponse JSON, en alternative à l'exécution shell.", h:"Utile pour centraliser la logique de validation dans un service existant plutôt qu'un script local.", src:"https://code.claude.com/docs/en/hooks"},
@@ -818,7 +1296,7 @@
       {v:"0.2.50", s:"confirmed", t:"Le modèle à trois portées MCP (local, <code>project</code> via <code>.mcp.json</code> committé, <code>user</code>) reste central aujourd'hui pour partager une configuration en équipe via Git.", h:"<code>claude mcp add --scope project --transport http nom url</code> écrit l'entrée dans <code>.mcp.json</code>, à committer.", src:"https://code.claude.com/docs/en/mcp-quickstart"},
       {v:"1.0.27 / 0.2.54", s:"corrected", t:"Le transport HTTP streamable est aujourd'hui recommandé partout où c'est possible&nbsp;; SSE reste supporté mais est explicitement marqué déprécié dans la documentation.", h:"<code>claude mcp add --transport http mon-serveur https://mcp.exemple.com/mcp</code>.", src:"https://code.claude.com/docs/en/mcp"},
       {v:"1.0.27 / 2.1.186", s:"confirmed", t:"Les serveurs distants supportent OAuth avec découverte automatique des points de terminaison ; <code>claude mcp login/logout</code> lance ou révoque ce flux directement depuis le shell.", h:"<code>claude mcp login sentry --no-browser</code> pour un environnement distant sans navigateur local.", src:"https://code.claude.com/docs/en/mcp"},
-      {v:"2.1.154", s:"confirmed", t:"Un serveur <code>.mcp.json</code> de portée projet non approuvé s'affiche « Pending approval » au lieu de se connecter silencieusement — jamais d'auto‑approbation.", h:"<code>claude mcp list</code> affiche le statut d'approbation de chaque serveur MCP configuré.", src:"https://code.claude.com/docs/en/mcp-quickstart"},
+      {v:"2.1.154", k:true, s:"confirmed", t:"Un serveur <code>.mcp.json</code> de portée projet non approuvé s'affiche « Pending approval » au lieu de se connecter silencieusement — jamais d'auto‑approbation.", h:"<code>claude mcp list</code> affiche le statut d'approbation de chaque serveur MCP configuré.", src:"https://code.claude.com/docs/en/mcp-quickstart"},
       {v:"2.0.22 / 2.1.259", s:"corrected", t:"<code>allowedMcpServers</code>/<code>deniedMcpServers</code> matchent par <code>serverUrl</code>, <code>serverCommand</code> ou <code>serverName</code> (avec jokers), et s'appliquent aussi aux serveurs déployés via le fichier séparé <code>managed-mcp.json</code> en entreprise.", h:"<code>{ \"deniedMcpServers\": [{\"serverName\": \"dangerous-server\"}] }</code> dans une source de settings gérée.", src:"https://code.claude.com/docs/en/managed-mcp"},
       {v:"2.1.7", s:"confirmed", t:"La recherche automatique d'outils MCP est active par défaut sur Claude 4.5 et modèles ultérieurs&nbsp;: au‑delà de 10&nbsp;% de la fenêtre de contexte, les outils sont différés et découverts à la demande.", h:"<code>ENABLE_TOOL_SEARCH=false claude</code> pour forcer le chargement systématique de tous les outils.", src:"https://code.claude.com/docs/en/agent-sdk/tool-search"},
       {v:"2.1.76", s:"confirmed", t:"Un serveur MCP peut demander une saisie structurée en cours de tâche (elicitation) sans configuration nécessaire — le dialogue apparaît automatiquement.", h:"Un hook <code>Elicitation</code> permet d'automatiser la réponse en environnement headless.", src:"https://code.claude.com/docs/en/mcp"},
@@ -827,7 +1305,7 @@
     rewind: [
       {v:"2.0.0", s:"confirmed", t:"<code>/rewind</code> ouvre un menu listant les checkpoints (un par prompt envoyé), ou accepte un argument direct&nbsp;: nom de checkpoint, numéro de tour, ou description.", h:"<code>/rewind 5</code> pour revenir directement au 5ᵉ tour de la conversation.", src:"https://code.claude.com/docs/en/commands"},
       {v:"2.1.141", s:"confirmed", t:"L'option « Summarize up to here » du menu <code>/rewind</code> compresse la conversation avant le point choisi, sans toucher aux fichiers sur disque.", h:"Utile pour libérer du contexte sans perdre le travail de code déjà effectué.", src:"https://code.claude.com/docs/en/checkpointing"},
-      {v:"2.1.216", s:"confirmed", t:"Une restauration de code ignore les liens symboliques et liens physiques&nbsp;: ces fichiers gardent leur contenu actuel, avec un message « Restored the code, but skipped N files ».", h:"Activez <code>/debug</code> avant une restauration pour voir la liste exacte des chemins ignorés.", src:"https://code.claude.com/docs/en/checkpointing"},
+      {v:"2.1.216", k:true, s:"confirmed", t:"Une restauration de code ignore les liens symboliques et liens physiques&nbsp;: ces fichiers gardent leur contenu actuel, avec un message « Restored the code, but skipped N files ».", h:"Activez <code>/debug</code> avant une restauration pour voir la liste exacte des chemins ignorés.", src:"https://code.claude.com/docs/en/checkpointing"},
       {v:"0.2.93", s:"confirmed", t:"<code>--continue</code> (<code>-c</code>) reprend la conversation la plus récente du répertoire courant ; <code>--resume</code> (<code>-r</code>) ouvre un sélecteur ou reprend un ID de session précis.", h:"<code>claude --continue</code> pour reprendre instantanément là où vous étiez.", src:"https://code.claude.com/docs/en/sessions"},
       {v:"2.1.83", s:"corrected", t:"Dans l'extension VS Code, on survole n'importe quel message pour faire apparaître un bouton de rewind proposant trois options&nbsp;: « Fork conversation from here », « Rewind code to here », ou les deux.", h:"Dans le terminal CLI, le raccourci reste Échap deux fois ou <code>/rewind</code>.", src:"https://code.claude.com/docs/en/vs-code"}
     ],
@@ -836,7 +1314,7 @@
       {v:"2.1.133", s:"confirmed", t:"<code>worktree.baseRef</code> vaut <code>\"fresh\"</code> par défaut (part de <code>origin/&lt;branche par défaut&gt;</code>) ou <code>\"head\"</code> (part de votre HEAD local, commits non poussés inclus).", h:"<code>{ \"worktree\": { \"baseRef\": \"head\" } }</code> si vous voulez que chaque nouveau worktree parte de votre travail local en cours.", src:"https://code.claude.com/docs/en/worktrees"},
       {v:"2.1.198 / 2.1.221", s:"confirmed", t:"Les agents en arrière‑plan qui modifient du code dans un worktree committent et poussent avant de terminer, et n'ouvrent une pull request en brouillon que lorsque la tâche le justifie — en respectant les instructions Git de votre CLAUDE.md.", h:"Le résumé final d'une session en arrière‑plan indique toujours la branche et, le cas échéant, l'URL de la PR en brouillon.", src:"https://code.claude.com/docs/en/agent-view"},
       {v:"2.1.147 / 2.1.152", s:"corrected", t:"<code>/simplify</code> est devenu <code>/code-review</code> pour la chasse aux bugs (niveaux d'effort low à ultra) ; <code>/simplify</code> désigne aujourd'hui une commande distincte de nettoyage pur (réutilisation, simplification), qui invoque <code>/code-review --fix</code> en interne.", h:"<code>/code-review high --fix</code> pour chasser et corriger des bugs ; <code>/simplify</code> séparément pour du nettoyage sans recherche de bugs.", src:"https://code.claude.com/docs/en/code-review"},
-      {v:"2.1.229", s:"confirmed", t:"<code>/commit-push-pr</code> n'auto‑approuve plus les commandes git/gh à flags dangereux (<code>--force</code>, <code>--amend</code>, <code>--no-verify</code>) — elles redemandent désormais confirmation.", h:"Le workflow commit → push → PR reste automatisé, mais toute action destructrice repasse par une invite explicite.", src:"https://code.claude.com/docs/en/changelog"},
+      {v:"2.1.229", k:true, s:"confirmed", t:"<code>/commit-push-pr</code> n'auto‑approuve plus les commandes git/gh à flags dangereux (<code>--force</code>, <code>--amend</code>, <code>--no-verify</code>) — elles redemandent désormais confirmation.", h:"Le workflow commit → push → PR reste automatisé, mais toute action destructrice repasse par une invite explicite.", src:"https://code.claude.com/docs/en/changelog"},
       {v:"2.1.20", s:"confirmed", t:"Un point coloré cliquable dans le pied de page indique l'état de la PR de la branche courante&nbsp;: vert (approuvée), jaune (en attente), rouge (changements demandés), gris (brouillon).", h:"Cliquez sur le point pour ouvrir la PR directement dans le navigateur.", src:"https://code.claude.com/docs/en/interactive-mode"},
       {v:"2.1.63", s:"confirmed", t:"CLAUDE.md, <code>.claude/settings.json</code>, agents personnalisés, skills et mémoire automatique sont partagés entre tous les worktrees d'un même dépôt Git.", h:"Aucune duplication manuelle nécessaire&nbsp; ; utilisez <code>autoMemoryDirectory</code> pour changer cet emplacement au besoin.", src:"https://code.claude.com/docs/en/claude-directory"},
       {v:"2.1.76", s:"confirmed", t:"<code>worktree.sparsePaths</code> utilise <code>git sparse-checkout</code> pour n'écrire sur le disque que les répertoires listés — utile pour accélérer la création de worktrees dans un grand monorepo.", h:"<code>{ \"worktree\": { \"sparsePaths\": [\".claude\", \"packages/api\"] } }</code> dans <code>.claude/settings.json</code>.", src:"https://code.claude.com/docs/en/large-codebases"}
@@ -844,7 +1322,7 @@
     echelle: [
       {v:"2.1.139", s:"confirmed", t:"<code>claude agents</code> ouvre une vue plein écran regroupant toutes les sessions par état (Needs input / Working / Completed), avec dispatch de nouvelles tâches.", h:"<code>claude agents --json</code> pour un export scriptable, utile pour une barre de statut personnalisée.", src:"https://code.claude.com/docs/en/agent-view"},
       {v:"2.1.251", s:"confirmed", t:"Les sous‑commandes <code>claude attach</code>, <code>logs</code>, <code>stop</code>, <code>respawn</code> et <code>rm</code> gèrent le cycle de vie complet d'une session en arrière‑plan.", h:"<code>claude attach &lt;id&gt;</code> pour reprendre la main, <code>claude stop &lt;id&gt;</code> pour l'arrêter proprement.", src:"https://code.claude.com/docs/en/cli-reference"},
-      {v:"2.1.154", s:"confirmed", t:"Le Workflow tool orchestre des dizaines à centaines d'agents en arrière‑plan via des primitives <code>agent()</code>, <code>parallel()</code>, <code>pipeline()</code>, avec un plafond de 16 agents concurrents et 1000 au total par exécution.", h:"Suivez la progression avec <code>/workflows</code>&nbsp; ; <code>p</code> pour pause/reprise, <code>x</code> pour arrêter.", src:"https://code.claude.com/docs/en/workflows"},
+      {v:"2.1.154", k:true, s:"confirmed", t:"Le Workflow tool orchestre des dizaines à centaines d'agents en arrière‑plan via des primitives <code>agent()</code>, <code>parallel()</code>, <code>pipeline()</code>, avec un plafond de 16 agents concurrents et 1000 au total par exécution.", h:"Suivez la progression avec <code>/workflows</code>&nbsp; ; <code>p</code> pour pause/reprise, <code>x</code> pour arrêter.", src:"https://code.claude.com/docs/en/workflows"},
       {v:"2.1.219", s:"confirmed", t:"La directive <code>workflowSizeGuideline</code> vaut <code>medium</code> (moins de 15 agents) par défaut depuis cette version — avant, aucune limite n'était indiquée.", h:"<code>{ \"workflowSizeGuideline\": \"small\" }</code> pour restreindre encore l'échelle d'un workflow dynamique.", src:"https://code.claude.com/docs/en/workflows"},
       {v:"2.1.139", s:"confirmed", t:"<code>/goal</code> définit une condition de fin de tâche&nbsp;: Claude continue sur plusieurs tours jusqu'à ce qu'un petit modèle évalue la condition comme atteinte.", h:"<code>/goal tous les tests passent et le lint est propre</code>&nbsp; ; <code>/goal clear</code> pour arrêter.", src:"https://code.claude.com/docs/en/goal"},
       {v:"2.1.224 / 2.1.232", s:"confirmed", t:"La messagerie inter‑sessions (<code>SendMessage</code>/<code>ListAgents</code>) permet à des sessions Claude Code de s'envoyer des messages entre elles, y compris via une <code>@mention</code> de session dans le prompt.", h:"« Préviens la session qui travaille sur l'API » suffit en langage naturel&nbsp;; Claude appelle les outils lui‑même.", src:"https://code.claude.com/docs/en/cross-session-messaging"},
@@ -853,7 +1331,7 @@
     ],
     plugins: [
       {v:"2.0.12", s:"confirmed", t:"Le système de plugins étend Claude Code avec commandes, agents, hooks et serveurs MCP/LSP distribués via des marketplaces&nbsp;— <code>extraKnownMarketplaces</code> dans <code>.claude/settings.json</code> les partage à toute l'équipe.", h:"<code>/plugin install &lt;nom&gt;@&lt;marketplace&gt;</code> ou <code>claude plugin install</code> en CLI.", src:"https://code.claude.com/docs/en/plugins"},
-      {v:"2.1.154", s:"confirmed", t:"<code>defaultEnabled: false</code> dans <code>plugin.json</code> exige une activation explicite avant qu'un plugin ne soit actif, même une fois installé.", h:"<code>claude plugin enable &lt;nom&gt;</code> pour l'activer après installation.", src:"https://code.claude.com/docs/en/plugins-reference"},
+      {v:"2.1.154", k:true, s:"confirmed", t:"<code>defaultEnabled: false</code> dans <code>plugin.json</code> exige une activation explicite avant qu'un plugin ne soit actif, même une fois installé.", h:"<code>claude plugin enable &lt;nom&gt;</code> pour l'activer après installation.", src:"https://code.claude.com/docs/en/plugins-reference"},
       {v:"2.1.139", s:"confirmed", t:"<code>claude plugin details &lt;nom&gt;</code> liste les composants du plugin et projette leur coût en tokens par session, avant même de l'activer.", h:"Vérifiez toujours l'empreinte en tokens d'un plugin inconnu avant de l'activer sur un projet actif.", src:"https://code.claude.com/docs/en/plugins-reference"},
       {v:"2.1.14", s:"confirmed", t:"Pour les sources github/url/git-subdir, un champ <code>sha</code> (commit git complet) épingle une version exacte d'un plugin, indépendamment des futurs commits sur la branche.", h:"<code>{ \"source\": \"github\", \"repo\": \"owner/repo\", \"sha\": \"a1b2c3...\" }</code> dans <code>marketplace.json</code>.", src:"https://code.claude.com/docs/en/plugin-marketplaces"},
       {v:"2.1.207", s:"confirmed", t:"<code>pluginConfigs</code> n'est plus lu depuis <code>.claude/settings.json</code> de projet&nbsp;: seuls les settings utilisateur, <code>--settings</code> et les settings managés comptent — un dépôt cloné ne peut donc pas configurer les plugins d'un utilisateur à son insu.", h:"Configurez les options via <code>/plugin</code>, qui écrit dans <code>~/.claude/settings.json</code>.", src:"https://code.claude.com/docs/en/plugins-reference"},
@@ -861,7 +1339,7 @@
       {v:"2.1.224", s:"confirmed", t:"Une source de plugin <code>archive</code> installe depuis un zip via HTTPS sans git ni npm, avec un épinglage SHA‑256 optionnel et une taille maximale de 256&nbsp;MiB.", h:"<code>{ \"source\": \"archive\", \"url\": \"https://…/plugin.zip\", \"sha256\": \"…\" }</code> dans <code>marketplace.json</code>.", src:"https://code.claude.com/docs/en/plugin-marketplaces"}
     ],
     infra: [
-      {v:"2.1.81", s:"confirmed", t:"<code>--bare</code> saute la découverte automatique de hooks, skills, subagents, plugins, MCP, mémoire et CLAUDE.md — c'est le mode recommandé pour tout appel scripté ou SDK.", h:"<code>ANTHROPIC_API_KEY=sk-… claude --bare -p \"Résume README.md\" --allowedTools \"Read\"</code>.", src:"https://code.claude.com/docs/en/headless"},
+      {v:"2.1.81", k:true, s:"confirmed", t:"<code>--bare</code> saute la découverte automatique de hooks, skills, subagents, plugins, MCP, mémoire et CLAUDE.md — c'est le mode recommandé pour tout appel scripté ou SDK.", h:"<code>ANTHROPIC_API_KEY=sk-… claude --bare -p \"Résume README.md\" --allowedTools \"Read\"</code>.", src:"https://code.claude.com/docs/en/headless"},
       {v:"2.1.259", s:"confirmed", t:"<code>--permission-prompts none</code> transforme automatiquement en refus toute action qui aurait normalement déclenché une invite de confirmation, sans attendre de réponse humaine.", h:"Pour un job planifié sans supervision&nbsp;: <code>claude -p \"…\" --permission-mode auto --permission-prompts none</code>.", src:"https://code.claude.com/docs/en/headless"},
       {v:"2.1.111", s:"confirmed", t:"Le champ <code>plugin_errors</code> du message <code>system/init</code> en <code>--output-format stream-json</code> liste les erreurs de chargement de plugin — absent s'il n'y en a aucune, ce qui permet une porte CI simple.", h:"<code>jq -e '.plugin_errors // [] | length == 0'</code> pour faire échouer un job CI en cas d'erreur de plugin.", src:"https://code.claude.com/docs/en/cli-reference"},
       {v:"2.0.0 / 2.0.25", s:"confirmed", t:"Le SDK a été renommé Claude Agent SDK&nbsp;: <code>@anthropic-ai/claude-agent-sdk</code> (TypeScript) et <code>claude-agent-sdk</code> (Python), l'ancien point d'entrée étant supprimé.", h:"<code>npm install @anthropic-ai/claude-agent-sdk</code> ou <code>pip install claude-agent-sdk</code> pour tout nouveau projet.", src:"https://platform.claude.com/docs/en/agent-sdk/migration-guide"},
@@ -880,7 +1358,7 @@
       var html = DATA[mod].map(function(f){
         var badgeLabel = f.s === "confirmed" ? "Confirmé" : "Mis à jour";
         return (
-          '<div class="fact">' +
+          '<div class="fact' + (f.k ? ' key' : '') + '">' +
             '<div class="tag-col"><span class="version">v' + esc(f.v) + '</span><span class="badge ' + f.s + '">' + badgeLabel + '</span></div>' +
             '<div class="body">' +
               '<p>' + f.t + '</p>' +
@@ -927,13 +1405,14 @@
     var count = 0;
     MODULES.forEach(function(m){
       var isDone = !!done[m];
+      var isVerified = done[m] === "verified";
       if(isDone) count++;
       var chk = document.querySelector('.chk[data-chk="' + m + '"]');
-      if(chk){ chk.classList.toggle("done", isDone); }
+      if(chk){ chk.classList.toggle("done", isDone); chk.classList.toggle("verified", isVerified); }
       var btn = document.querySelector('.mark-done[data-mark="' + m + '"]');
       if(btn){
         btn.classList.toggle("is-done", isDone);
-        btn.textContent = isDone ? "Lu ✓" : "Marquer comme lu";
+        btn.textContent = isVerified ? "Vérifié ✓✓" : (isDone ? "Lu ✓" : "Marquer comme lu");
       }
     });
     document.getElementById("progress-text").textContent = count + " / " + MODULES.length;
@@ -972,7 +1451,15 @@
 
   // -------- Quiz éclair (active recall) --------
   function initQuizzes(){
+    var byModule = {};
     document.querySelectorAll(".quiz").forEach(function(quiz){
+      var section = quiz.closest(".module");
+      var modId = section ? section.id : null;
+      if(modId){
+        if(!byModule[modId]) byModule[modId] = { total: 0, correct: {} };
+        byModule[modId].total++;
+        quiz.dataset.quizIdx = byModule[modId].total - 1;
+      }
       var btn = quiz.querySelector(".q-check");
       var ok = quiz.querySelector(".q-feedback.ok");
       var bad = quiz.querySelector(".q-feedback.bad");
@@ -983,6 +1470,15 @@
         if(!picked) return;
         var correct = picked.value === quiz.getAttribute("data-correct");
         (correct ? ok : bad).style.display = "block";
+        if(correct && modId){
+          byModule[modId].correct[quiz.dataset.quizIdx] = true;
+          if(Object.keys(byModule[modId].correct).length === byModule[modId].total){
+            var done = loadDone();
+            done[modId] = "verified";
+            saveDone(done);
+            refreshProgressUI(done);
+          }
+        }
       });
     });
   }
