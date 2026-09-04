@@ -1,17 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Methodology</title>
-<meta name="description" content="How every fact in this course is extracted from the official Claude Code CHANGELOG, verified against current documentation, then classified confirmed, updated, or discarded.">
-<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/en/methodology.html">
+<title>方法论</title>
+<meta name="description" content="本课程的每条事实如何从 Claude Code 的官方 CHANGELOG 中提取、与当前文档核实，再分类为已确认、已更新或无法核实。">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/zh/methodology.html">
 <meta name="theme-color" content="#1F6F63">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Methodology · Vibe to Pro">
-<meta property="og:description" content="395 candidate features extracted from the official CHANGELOG, each verified independently. Here is the detail, including what was discarded.">
+<meta property="og:title" content="方法论 · Vibe to Pro">
+<meta property="og:description" content="从官方 CHANGELOG 中提取 395 项候选功能，每一项都独立核实。这里是全部细节，包括被剔除的部分。">
 <meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
-<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/en/methodology.html">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/zh/methodology.html">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -73,44 +73,44 @@
 <body>
 <div class="wrap">
   <div style="display:flex;justify-content:space-between;align-items:center;">
-    <a class="back" href="index.html">← Back to home</a>
-    <select class="lang-switch" aria-label="Language"><option value="../methodology.html">FR</option><option value="methodology.html" selected>EN</option><option value="../es/methodology.html">ES</option><option value="../zh/methodology.html">ZH</option></select>
+    <a class="back" href="index.html">← 返回首页</a>
+    <select class="lang-switch" aria-label="语言"><option value="../methodology.html">FR</option><option value="../en/methodology.html">EN</option><option value="../es/methodology.html">ES</option><option value="methodology.html" selected>ZH</option></select>
   </div>
-  <span class="eyebrow">Methodology</span>
-  <h1>How this course verifies every fact it teaches.</h1>
-  <p>This course isn't written from memory. It starts from the official <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">Claude Code CHANGELOG</a> and runs every candidate feature through a verification pipeline before it becomes a line in the course.</p>
+  <span class="eyebrow">方法论</span>
+  <h1>本课程如何核实它教给你的每一条事实。</h1>
+  <p>本课程不是凭记忆写成的。它从 Claude Code 的 <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">官方 CHANGELOG</a> 出发，让每一项候选功能都先走完一套核实流程，然后才会成为课程中的一行内容。</p>
 
   <div class="stats">
-    <div class="stat"><b>385</b><span>changelog releases analyzed</span></div>
-    <div class="stat"><b>395</b><span>candidate features verified</span></div>
-    <div class="stat"><b>371</b><span>confirmed or updated</span></div>
-    <div class="stat"><b>98</b><span>kept across 14 chapters</span></div>
+    <div class="stat"><b>385</b><span>个 changelog 版本已分析</span></div>
+    <div class="stat"><b>395</b><span>项候选功能已核实</span></div>
+    <div class="stat"><b>371</b><span>项已确认或已更新</span></div>
+    <div class="stat"><b>98</b><span>项收入 14 个模块</span></div>
   </div>
 
-  <h2>The pipeline</h2>
+  <h2>核实流程</h2>
   <div class="steps">
-    <div class="step"><span class="n">1</span><div><h3>Extract</h3><p>All 385 CHANGELOG releases (0.2.21 to 2.1.260) are split up and reviewed to isolate major features, not minor fixes or internal changes.</p></div></div>
-    <div class="step"><span class="n">2</span><div><h3>Verify</h3><p>Each of the 395 candidate features is checked, independently, against current documentation on <code>code.claude.com</code> through a dedicated search, never from the model's memory.</p></div></div>
-    <div class="step"><span class="n">3</span><div><h3>Classify</h3><p>Every fact gets a verdict: <b>confirmed</b> (316, unchanged since), <b>updated</b> (55, behavior has evolved since the changelog entry), or <b>unverifiable</b> (24, discarded).</p></div></div>
-    <div class="step"><span class="n">4</span><div><h3>Curate</h3><p>Of the 371 confirmed or updated facts, 98 were kept across the 14 course chapters. They're chosen for pedagogical relevance and to keep each chapter readable, not because the rest would be false.</p></div></div>
+    <div class="step"><span class="n">1</span><div><h3>提取</h3><p>385 个 CHANGELOG 版本（从 0.2.21 到 2.1.260）被逐条拆解和审阅，从中筛出重要功能，而不是小修复或内部改动。</p></div></div>
+    <div class="step"><span class="n">2</span><div><h3>核实</h3><p>395 项候选功能中的每一项，都会独立地与 <code>code.claude.com</code> 上的当前文档比对，比对通过专门的检索完成，绝不依赖模型的记忆。</p></div></div>
+    <div class="step"><span class="n">3</span><div><h3>分类</h3><p>每条事实都会得到一个结论：<b>已确认</b> 共 316 项，此后未发生变化；<b>已更新</b> 共 55 项，行为在该 changelog 版本之后有所变化；或 <b>无法核实</b> 共 24 项，已剔除。</p></div></div>
+    <div class="step"><span class="n">4</span><div><h3>筛选</h3><p>在 371 条已确认或已更新的事实中，有 98 条收入课程的 14 个模块。它们是按教学价值挑选出来的，也是为了让每个模块保持可读，而不是因为其余的都是错的。</p></div></div>
   </div>
 
-  <h2>What got discarded</h2>
-  <p>24 candidate features couldn't be confirmed against current documentation: different spelling, a page that's gone, behavior changed without a clear trace. They appear nowhere in the course, rather than being presented as settled.</p>
+  <h2>被剔除的部分</h2>
+  <p>有 24 项候选功能无法与当前文档核对一致：写法不同、页面已下线、行为变了却没有清晰记录。它们不会出现在课程的任何地方，而不是被当作既定事实呈现出来。</p>
   <details class="discard">
-    <summary>See 3 real examples of discarded facts, out of 24</summary>
+    <summary>查看 24 条被剔除事实中的 3 个真实例子</summary>
     <ul>
-      <li><span class="badge">unverifiable</span><b>"The <code>/approved-tools</code> command"</b> (v0.2.26): the historical changelog mentions it, but no current page documents it; it seems to have been renamed to <code>/permissions</code> at a later stage, with no direct confirmation of the link between the two.</li>
-      <li><span class="badge">unverifiable</span><b>"Sub-agents keep working after a permission denial, by trying an alternative approach"</b> (v2.1.0): plausible and consistent with general agentic behavior, but no official source describes this specific behavior.</li>
-      <li><span class="badge">unverifiable</span><b>"Agent tool results include token count, tool call count, and duration"</b> (v2.1.30): no tool reference page explicitly mentions these three metrics in the tool's output.</li>
+      <li><span class="badge">无法核实</span><b>「命令 <code>/approved-tools</code>」</b> (v0.2.26)：历史 changelog 提到过它，但当前没有任何页面为它提供文档；它似乎在后来的某个阶段被改名为 <code>/permissions</code> (但两者之间的关联没有得到直接确认)。</li>
+      <li><span class="badge">无法核实</span><b>「子代理在权限被拒绝后仍会继续工作，尝试另一种替代方案」</b> (v2.1.0)：这个说法合理，也符合通用的智能体工作方式，但没有任何官方来源描述过这一具体行为。</li>
+      <li><span class="badge">无法核实</span><b>「Agent 工具的返回结果包含 token 数量、工具调用次数和耗时」</b> (v2.1.30)：没有任何工具参考页面明确提到输出中包含这三项指标。</li>
     </ul>
   </details>
 
-  <h2>Known limits</h2>
-  <p>Verification relies on public documentation at a given point in time (September 2, 2026, Claude Code v2.1.260). Claude Code ships new releases several times a week, so an exact detail today can change tomorrow. Every fact in the course shows its verification date: always confirm with <code>claude --version</code> and the current documentation before relying on a specific detail in production.</p>
+  <h2>已知的局限</h2>
+  <p>核实工作基于某一时点的公开文档（2026 年 9 月 2 日，Claude Code v2.1.260）。Claude Code 每周都会发布多个新版本，所以今天准确的细节明天可能就变了。课程中的每条事实都标注了核实日期：在生产环境中依赖它之前，请始终用 <code>claude --version</code> 和当时生效的文档再确认一次。</p>
 
   <div class="cta">
-    <a href="prologue.html">Start the course →</a>
+    <a href="prologue.html">开始课程 →</a>
   </div>
 </div>
 <script>

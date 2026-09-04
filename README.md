@@ -1,6 +1,6 @@
 # Vibe to Pro
 
-A field manual on Claude Code, built from the official [CHANGELOG](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) (385 releases, `0.2.21` to `2.1.260`) and independently fact-checked against current documentation before anything is taught. Available in French, English, and Spanish.
+A field manual on Claude Code, built from the official [CHANGELOG](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) (385 releases, `0.2.21` to `2.1.260`) and independently fact-checked against current documentation before anything is taught. Available in French, English, Spanish, and Simplified Chinese.
 
 **[Read the course →](https://atypical-consulting.github.io/vibe-to-pro/)**
 
@@ -34,6 +34,8 @@ docs/
     (same structure, English)
   es/
     (same structure, Spanish)
+  zh/
+    (same structure, Simplified Chinese)
 ```
 
 Every chapter page is self-contained and links to the next and previous one. Code samples use [Prism](https://prismjs.com/) for syntax highlighting with a copy button; progress and quiz results are tracked per-browser in `localStorage`, nothing is sent to a server. Served via GitHub Pages from `main` / `docs`.

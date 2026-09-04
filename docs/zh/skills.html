@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>命令 &amp; Skills：将提示词工程化 · 从 Vibe Coding 到专业匠艺</title>
+<meta name="description" content="Vibe Coding 就是凭记忆一遍遍重打同一段提示词，每次都会有些出入。Skill 把这段提示词固化进一个纳入版本管理的 SKILL.md 文件：可复现、可通过 git 共享">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/zh/skills.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="命令 &amp; Skills：将提示词工程化 · 从 Vibe Coding 到专业匠艺">
+<meta property="og:description" content="Vibe Coding 就是凭记忆一遍遍重打同一段提示词，每次都会有些出入。Skill 把这段提示词固化进一个纳入版本管理的 SKILL.md 文件：可复现、可通过 git 共享">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/zh/skills.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">跳到主要内容</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="模块">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">实战手册</span></a>
+        <select class="lang-switch" aria-label="语言"><option value="../skills.html">FR</option><option value="../en/skills.html">EN</option><option value="../es/skills.html">ES</option><option value="skills.html" selected>ZH</option></select>
+      </div>
+      <h1>从 Vibe Coding 到专业匠艺</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>进度</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="模块">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>序章</span></a>
+      <a href="control.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>控制 &amp; 安全</span></a>
+      <a href="memory.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>记忆</span></a>
+      <a href="skills.html" data-mod="skills" class="active"><span class="num">03</span><span class="chk" data-chk="skills"></span><span>命令 &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>计划 &amp; 推理</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>子代理</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>检查点</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="scale.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>后台 &amp; 工作流</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>插件 &amp; 市场</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK、CI/CD、IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>终章 &amp; 参考来源</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 个模块 &middot; 每条引用的事实都会链接到官方来源（code.claude.com），否则会被标注为未经核实。<br>✓ 已读 · ✓✓ 已验证（本模块所有测验均已通过）<br>
+      <a href="index.html">← 返回首页</a> &middot; <a href="methodology.html">方法论</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="skills">
+      <div class="module-head"><span class="index">03</span><h2>命令 &amp; Skills：将提示词工程化</h2></div>
+      <div class="module-sub">从即兴提示词到版本化的流程</div>
+      <div class="stance"><p>Vibe Coding 就是凭记忆一遍遍重打同一段提示词，每次都会有些出入。Skill 把这段提示词固化进一个纳入版本管理的 <code>SKILL.md</code> 文件：可复现、可通过 git 共享，审计则看它声明的 <code>allowed-tools</code>.</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">水平测试</div>
+        <p class="q-text">如果一个命令还需要附带辅助文件（脚本、参考文档），应该放在哪里？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-skills" value="0"> <code>.claude/commands/name.md</code></label>
+          <label><input type="radio" name="q-skills" value="1"> <code>.claude/skills/name/SKILL.md</code></label>
+          <label><input type="radio" name="q-skills" value="2"> <code>.claude/agents/name.md</code></label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">目录形式的 <code>.claude/skills/name/SKILL.md</code> 除提示词之外还能附带支持文件，不同于单个的 <code>.claude/commands/name.md</code>.</span><br><a class="skip-next" href="plan.html">&rarr; 你已经掌握这一手，直接进入下一模块</a></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">答案是 <code>.claude/skills/name/SKILL.md</code>：斜杠命令的后继机制，可以附带辅助文件。</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">那段你反复重打的提示词：要是把它变成一个文件呢？</h3>
+      <p>你有多少次几乎一字不差地重打同一段二十行的提示词，只为发起一次代码评审或生成一份变更日志？Vibe Coding 就是这样运作的：每次都临场发挥，指望能找回上周效果不错的那种说法。真正的问题不是懒，而是不稳定：漏掉一条要求、少一个例子，结果就变了，而你不知道为什么。一个命令或一个 skill 恰好解决这个问题：它把提示词一次性固化到文件里，之后每次敲对应的命令，都会原样重放。</p>
+      <p>具体来说，这个文件有两种形态，弄清谁源自谁很有用。第一种是早期做法，就是往下面这个目录里放一个普通的 Markdown 文件：<code>.claude/commands/</code>。它今天依然完全受支持，简单需求用它就够。第二种是 Skills，即一个 <code>.claude/skills/name/</code> 目录，里面放一个 <code>SKILL.md</code>，这是官方推荐的后继机制，除提示词本身外还能附带辅助文件（脚本、参考文档）。两者后来已经合并：一个 <code>.claude/commands/deploy.md</code> 和一个 <code>.claude/skills/deploy/SKILL.md</code> 都会创建同一个命令 <code>/deploy</code>，行为完全一致。因此迁移到 <code>SKILL.md</code> 从来不是断裂式变更，只是多了一些能力。</p>
+      <p>但真正把固化的提示词变成团队工具的，是可以挂在它头部的那些配置。这个头部叫 frontmatter，写在提示词正文之前，描述这个 skill 该如何执行。字段 <code>disallowed-tools</code> 会在 skill 运行的整个期间，把某些工具从可用工具池里移除：比如可以避免在无人值守的自主循环中向用户抛出提问。字段 <code>context: fork</code> 更进一步：它让 skill 作为一个隔离的子代理运行，无法访问当前会话的历史。这种模式现在默认在后台执行，你可以在 skill 自行工作的同时继续做别的事。再加上字段 <code>paths</code>，它用 glob 模式把 skill 的自动触发限制在特定文件上，你得到的提示词就不只是可复现：它的作用范围也变得可审计、可预期。</p>
+      <p>这才是相比复制粘贴提示词的真正收益：对一套流程有权做什么、何时触发、对你有多大可见度的精细掌控。理解这些配置之后，skill 就不再只是一个顺手的快捷方式：它是一份团队流程，可以像仓库里任何其他文件一样版本化、评审和演进。下面具体看看它带来的变化。</p>
+
+      <h3 class="section-title">要点回顾</h3>
+      <div class="facts">
+<div class="fact key"><div class="tag-col"><span class="version">v0.2.31</span><span class="badge confirmed">已确认</span></div><div class="body"><p>自定义斜杠命令最早只是放在 <code>.claude/commands/</code>里的普通 Markdown 文件。它们今天仍然完全受支持，但 Skills（<code>SKILL.md</code>）才是推荐的后继机制。</p><div class="how"><b>怎么做</b><br>简单需求就创建 <code>.claude/commands/deploy.md</code>；另一个选择是 <code>.claude/skills/deploy/SKILL.md</code>，它还能附带辅助文件。</div><a class="src" href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">code.claude.com/docs/en/skills</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.3</span><span class="badge confirmed">已确认</span></div><div class="body"><p>斜杠命令与 Skills 已经合并：一个文件 <code>.claude/commands/deploy.md</code> 和一个 skill <code>.claude/skills/deploy/SKILL.md</code> 都会创建 <code>/deploy</code>，行为完全一致。</p><div class="how"><b>怎么做</b><br>迁移到 <code>SKILL.md</code>，即可获得支持文件和更精细的调用控制。</div><a class="src" href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">code.claude.com/docs/en/skills</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v1.0.57</span><span class="badge confirmed">已确认</span></div><div class="body"><p>frontmatter 中的 <code>model:</code> 字段指定某个命令或 skill 执行期间使用的模型，但只作用于这一轮：之后会话会恢复原来的模型。</p><div class="how"><b>怎么做</b><br><code>model: haiku</code> 写在 YAML 头部，把廉价的机械任务路由到快速模型。</div><a class="src" href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">code.claude.com/docs/en/skills</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.0</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>context: fork</code> 把 skill 作为隔离的子代理执行（无法访问对话历史）；而 <code>agent:</code> 字段选择执行用的代理类型（Explore、Plan、general-purpose 或自定义代理）。</p><div class="how"><b>怎么做</b><br>组合 <code>context: fork</code> 和 <code>agent: Explore</code>，做一个只读的调研型 skill。</div><a class="src" href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">code.claude.com/docs/en/skills</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.152</span><span class="badge confirmed">已确认</span></div><div class="body"><p>frontmatter 中的 <code>disallowed-tools</code> 字段会在 skill 处于活动状态期间，从可用工具池中移除若干工具，很适合用来阻止 <code>AskUserQuestion</code> 在无人值守的自主循环中被调用。</p><div class="how"><b>怎么做</b><br><code>disallowed-tools: AskUserQuestion</code> 写在 SKILL.md 的 frontmatter 里。</div><a class="src" href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">code.claude.com/docs/en/skills</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.84</span><span class="badge confirmed">已确认</span></div><div class="body"><p>frontmatter 的 <code>paths:</code> 接受一组 glob 模式：Claude 只会在匹配的文件上自动加载该 skill。</p><div class="how"><b>怎么做</b><br><code>paths: ["src/api/**/*.ts"]</code>，把自动激活限制在这块代码区域。</div><a class="src" href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">code.claude.com/docs/en/skills</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.178</span><span class="badge confirmed">已确认</span></div><div class="body"><p>放在嵌套的 <code>.claude/skills/</code> 目录里的 skill，只要 Claude 碰到该子目录下的文件就会被加载。若出现名称冲突，它的访问方式就变成 <code>&lt;folder&gt;:&lt;name&gt;</code>.</p><div class="how"><b>怎么做</b><br>把一个 skill 放在 <code>packages/frontend/.claude/skills/deploy/SKILL.md</code>，发生冲突时通过 <code>/packages/frontend:deploy</code> 调用。</div><a class="src" href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">code.claude.com/docs/en/skills</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.199</span><span class="badge confirmed">已确认</span></div><div class="body"><p>同一条消息的开头最多可以连续叠加 6 个 skill（<code>/skill-a /skill-b faire XYZ</code>），展开会在第一个不可内联调用的 token 处停止。</p><div class="how"><b>怎么做</b><br><code>/write-tests /fix-issue 123</code> 会加载这两个 skill，它们都收到「123」作为参数。</div><a class="src" href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">code.claude.com/docs/en/skills</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.218</span><span class="badge confirmed">已确认</span></div><div class="body"><p>声明了 <code>context: fork</code> 的 skill 现在默认在后台执行（执行期间你可以继续工作），除非把 <code>background: false</code> 写进 frontmatter。</p><div class="how"><b>怎么做</b><br>加上 <code>background: false</code>，就会反过来先等它的结果再继续。</div><a class="src" href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">code.claude.com/docs/en/skills</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.181</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>/config key=value</code> 可以直接在提示行里设置任意配置项，交互模式下可用，<code>-p</code> 模式或 Remote Control 下同样可用。</p><div class="how"><b>怎么做</b><br><code>/config theme=dark</code> 或 <code>/config model=sonnet</code>; <code>/config --help</code> 会列出所有可用的配置键。</div><a class="src" href="https://code.claude.com/docs/en/commands" target="_blank" rel="noopener">code.claude.com/docs/en/commands</a></div></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">快速测验</div>
+        <p class="q-text">在 SKILL.md 的 frontmatter 里，disallowed-tools 字段有什么作用？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-skills-2" value="0"> 在 skill 处于活动状态期间，从可用工具池中移除若干工具</label>
+          <label><input type="radio" name="q-skills-2" value="1"> 它列出用户必须在执行 skill 之前手动安装的工具</label>
+          <label><input type="radio" name="q-skills-2" value="2"> 在这些工具于本次会话中至少被使用过一次之前，它会阻止该 skill</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。disallowed-tools 会在 skill 执行期间缩小可用工具池。典型用途是阻止 AskUserQuestion 在无人应答的自主循环中被调用。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">在 skill 执行期间从可用工具池中移除工具的是 disallowed-tools，典型用途是阻止 AskUserQuestion 在自主循环中被调用。</span></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">快速测验</div>
+        <p class="q-text">如今，一个声明了 context: fork 的 skill，默认会发生什么？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-skills-3" value="0"> 它在后台执行，你可以继续工作，除非指定了 background: false</label>
+          <label><input type="radio" name="q-skills-3" value="1"> 它会阻塞当前会话直到执行结束，除非指定了 background: true</label>
+          <label><input type="radio" name="q-skills-3" value="2"> 只有通过 /subtask 显式启动时它才会执行</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。从这个版本起，context: fork 的 skill 默认在后台运行（执行期间你可以继续工作），除非在它的 frontmatter 中设置了 background: false。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">如今正好相反：context: fork 的 skill 现在默认在后台执行，除非显式设置了 background: false。</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">实践练习</div>
+        <p>创建 <code>.claude/skills/resume-diff/SKILL.md</code>，只写最小的 frontmatter（<code>description</code>, <code>disable-model-invocation: true</code>），正文注入下面这条命令，然后要求给出 3 条要点的摘要：</p>
+      <pre><code class="language-bash">!git diff HEAD</code></pre>
+      <p>用 <code>/resume-diff</code>测试，然后加上 <code>context: fork</code> 和 <code>agent: Explore</code>，让它作为子代理在后台运行。</p>
+        <details class="solution"><summary>解答 &amp; 验证</summary>
+        <p>只要创建 .claude/skills/resume-diff/SKILL.md，/resume-diff 就存在了。自从斜杠命令与 Skills 合并之后，放在 .claude/skills/name/ 下的 SKILL.md 文件确实会创建与普通 .claude/commands/name.md 相同的 /nom 命令，而且还能额外附带辅助文件。</p>
+      <p>接着在 frontmatter 里加上 context: fork 和 agent: Explore，这个 skill 就会作为隔离的子代理运行，无法访问对话历史，由 Explore 类型的代理执行。由于 fork 模式现在默认在后台执行，你会立刻拿回控制权，diff 摘要在后台生成，除非加上 background: false 回到阻塞式执行。</p>
+        <ul><li>文件创建后，/resume-diff 会出现在斜杠命令的自动补全菜单里，无需重启 Claude Code。</li><li>加上 context: fork 和 agent: Explore 之后，运行 /resume-diff 会立刻把控制权交回提示行，任务会作为后台执行出现在 /tasks 列表里，而不是阻塞提示行。</li><li>生成的摘要正好是 3 条要点，只涉及 git diff HEAD 中真正被修改的文件，不引用会话中更早的对话内容，这证明子代理是隔离运行、没有历史的。</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="skills" data-label="标记为已读">标记为已读</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="memory.html"><span class="dir">&larr; 上一章</span><span class="ptitle">记忆</span></a>
+      <a class="next" href="plan.html"><span class="dir">下一章 &rarr;</span><span class="ptitle">计划 &amp; 推理</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

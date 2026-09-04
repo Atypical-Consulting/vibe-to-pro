@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>子代理：委派与并行 · 从 Vibe Coding 到专业匠艺</title>
+<meta name="description" content="Vibe Coding 是一条什么都混在一起的线程：检索、写代码、跑测试、上下文不断膨胀。子代理把每个任务隔离开（独立上下文、受限工具，有时还有专属 worktree），并让你有意识地选择由哪个模型做哪件事。">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/zh/agents.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="子代理：委派与并行 · 从 Vibe Coding 到专业匠艺">
+<meta property="og:description" content="Vibe Coding 是一条什么都混在一起的线程：检索、写代码、跑测试、上下文不断膨胀。子代理把每个任务隔离开（独立上下文、受限工具，有时还有专属 worktree），并让你有意识地选择由哪个模型做哪件事。">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/zh/agents.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">跳到主要内容</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="模块">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">实战手册</span></a>
+        <select class="lang-switch" aria-label="语言"><option value="../agents.html">FR</option><option value="../en/agents.html">EN</option><option value="../es/agents.html">ES</option><option value="agents.html" selected>ZH</option></select>
+      </div>
+      <h1>从 Vibe Coding 到专业匠艺</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>进度</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="模块">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>序章</span></a>
+      <a href="control.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>控制 &amp; 安全</span></a>
+      <a href="memory.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>记忆</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>命令 &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>计划 &amp; 推理</span></a>
+      <a href="agents.html" data-mod="agents" class="active"><span class="num">05</span><span class="chk" data-chk="agents"></span><span>子代理</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>检查点</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="scale.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>后台 &amp; 工作流</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>插件 &amp; 市场</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK、CI/CD、IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>终章 &amp; 参考来源</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 个模块 &middot; 每条引用的事实都会链接到官方来源（code.claude.com），否则会被标注为未经核实。<br>✓ 已读 · ✓✓ 已验证（本模块所有测验均已通过）<br>
+      <a href="index.html">← 返回首页</a> &middot; <a href="methodology.html">方法论</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="agents">
+      <div class="module-head"><span class="index">05</span><h2>子代理：委派与并行</h2></div>
+      <div class="module-sub">Agent 工具（原名 Task）</div>
+      <div class="stance"><p>Vibe Coding 是一条什么都混在一起的线程：检索、写代码、跑测试、上下文不断膨胀。子代理把每个任务隔离开（独立上下文、受限工具，有时还有专属 worktree），并让你有意识地选择由哪个模型做哪件事。</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">水平测试</div>
+        <p class="q-text">如今要恢复一个已经启动的子代理，应该怎么做？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-agents" value="0"> <code>Agent({resume: id})</code></label>
+          <label><input type="radio" name="q-agents" value="1"> <code>SendMessage({to: agentId})</code></label>
+          <label><input type="radio" name="q-agents" value="2"> <code>/agents resume</code></label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">Agent 工具不再接受 <code>resume</code> 参数：自 v2.1.77 起，已存在的子代理改用 <code>SendMessage({to: agentId})</code>.</span><br><a class="skip-next" href="hooks.html">&rarr; 你已经掌握这一点，直接进入下一个模块</a></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">正确答案是 <code>SendMessage({to: agentId})</code>；Agent 工具的 <code>resume</code> 参数已被移除。</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">如果既能委派任务，又不丢失思路呢？</h3>
+      <p>你一定遇到过这种时刻：一个 Claude Code 会话开始四处发散，你让它先找一个 bug，再写补丁，接着跑测试，然后又去读一个毫不相干的文件。过一阵子，上下文（模型「记住」的全部对话内容）被塞得太满，回答就不再精准。这正是 Vibe Coding 的典型症状：用一条对话线程扛下所有事情。解决办法不是在同一条线程里做得更快，而是把它拆开：把每个任务交给一个独立的子代理，它有自己的上下文，不会污染你的上下文。</p>
+      <p>具体来说，这套委派机制依赖一个 Claude Code 称为 <code>Agent</code> 的工具（它最初叫 <code>Task</code>）。默认情况下，子代理会继承所有可用工具（包括写文件和执行 Bash 命令），除非你在它的 frontmatter（定义该代理的文件顶部那段配置头）里用 <code>tools:</code> 或 <code>disallowedTools:</code> 明确加以限制。正因如此，你可以创建一个严格只读的代码审查代理：即使它想，技术上也破坏不了任何东西。你还可以用 <code>isolation: worktree</code>把隔离推得更远，它让子代理在一份独立的 git 副本中工作，这份副本从你的默认分支创建，如果不含任何修改就会被自动删除。这样就能放心实验，永远不碰你的主仓库。</p>
+      <p>但为什么每次只用一个子代理？这就轮到并行化登场了。<code>/subtask</code> 会启动一个仍然挂在当前会话上的子代理，可以在任务列表里看到；<code>/fork</code>则把整个对话复制到一个完全独立的后台会话中，适合在不阻塞当前工作的前提下尝试有风险的方案。只要你处于交互式会话，forking 默认就是开启的。为了避免委派层层升级、最终失控，这里有两道护栏：并行执行的子代理上限为 20 个（可通过环境变量 <code>CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS</code>调整，且整个会话没有总量限制），以及最多 3 层的嵌套深度。超过之后，<code>Agent</code> 工具会对除 fork 之外的所有子代理消失，以防某个子代理无限地再去启动别的子代理。</p>
+      <p>还剩一个问题：每个子代理由哪个模型驱动？你不必把一切都交给最强（也最贵）的模型。解析顺序依次是：调用时传入的参数，代理 frontmatter 中的 <code>model:</code> 字段（它也可以直接写成 <code>inherit</code>，表示沿用当前对话的模型），环境变量 <code>CLAUDE_CODE_SUBAGENT_MODEL</code>，最后才回退到主对话的模型。这样你就能有意识地把轻量模型分配给简单任务，把算力留给真正值得的地方。还有一个 <code>memory:</code> 字段，可以让子代理在多次执行之间拥有持久记忆，作用范围可以是用户级、项目级（推荐的范围，因为可以和代码一起版本化）或本机级。而要创建这样一个子代理，已经不需要专门的向导：用自然语言告诉 Claude 即可，或者直接编辑 <code>.claude/agents/</code>中的文件。下面就详细看看这具体带来了什么变化。</p>
+
+      <h3 class="section-title">要点回顾</h3>
+      <div class="facts">
+<div class="fact"><div class="tag-col"><span class="version">v0.2.74 / 2.1.63</span><span class="badge confirmed">已确认</span></div><div class="body"><p>子代理工具（最初名为 Task，后改名 Agent）默认给出所有可用工具（包括写入和 Bash），除非在 frontmatter 中显式使用 <code>tools:</code> 或 <code>disallowedTools:</code>.</p><div class="how"><b>怎么做</b><br><code>tools: Read, Grep, Glob</code> 写在 frontmatter 中，即可得到一个严格只读的子代理。</div><a class="src" href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener">code.claude.com/docs/en/sub-agents</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.49 / 2.1.50</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>isolation: worktree</code> 让子代理在一份隔离的 git 副本中运行，该副本从你的默认分支切出，若没有任何修改则自动清理。</p><div class="how"><b>怎么做</b><br><code>isolation: worktree</code> 放在这个文件的 frontmatter 中：<code>.claude/agents/&lt;name&gt;.md</code>.</div><a class="src" href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener">code.claude.com/docs/en/sub-agents</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.212 / 2.1.232</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>/subtask</code> 启动一个留在当前会话中的 fork；<code>/fork</code> 把整个对话复制到一个独立的新后台会话中。在交互式会话中，forking 默认开启。</p><div class="how"><b>怎么做</b><br><code>/fork</code> 用于并行尝试一种方案而不阻塞当前会话；<code>/subtask</code> 则用于创建一个子代理，可见于 <code>/tasks</code>.</div><a class="src" href="https://code.claude.com/docs/en/agents" target="_blank" rel="noopener">code.claude.com/docs/en/agents</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.217</span><span class="badge confirmed">已确认</span></div><div class="body"><p>默认并发子代理上限为 20 个，可通过 <code>CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS</code>调整。每个会话的总量上限已不复存在（在 v2.1.224 中移除）。</p><div class="how"><b>怎么做</b><br><code>{ "env": { "CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS": "50" } }</code> 用于调整吞吐量。</div><a class="src" href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener">code.claude.com/docs/en/sub-agents</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.219</span><span class="badge confirmed">已确认</span></div><div class="body"><p>子代理的嵌套深度默认限制为 3 层。到达上限时，Agent 工具会从除 fork 之外的所有子代理中移除。</p><div class="how"><b>怎么做</b><br><code>CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1</code> 用于彻底禁用嵌套。</div><a class="src" href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener">code.claude.com/docs/en/sub-agents</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.251</span><span class="badge corrected">已更新</span></div><div class="body"><p>子代理的模型解析顺序：调用时传入的参数 &gt; frontmatter 的 <code>model:</code> 字段（可用 <code>inherit</code>） &gt; <code>CLAUDE_CODE_SUBAGENT_MODEL</code> &gt; 主对话的模型。</p><div class="how"><b>怎么做</b><br><code>{ "env": { "CLAUDE_CODE_SUBAGENT_MODEL": "haiku" } }</code> 作为默认值，可按代理逐个覆盖。</div><a class="src" href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener">code.claude.com/docs/en/sub-agents</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.33</span><span class="badge confirmed">已确认</span></div><div class="body"><p>frontmatter 中的 <code>memory:</code> 字段可为每个子代理启用持久记忆，共有 3 种作用范围：<code>user</code>, <code>project</code> （推荐，可版本化），<code>local</code>.</p><div class="how"><b>怎么做</b><br><code>memory: project</code> 写在 frontmatter 中，然后明确要求该代理查阅或更新自己的记忆。</div><a class="src" href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener">code.claude.com/docs/en/sub-agents</a></div></div>
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.77</span><span class="badge confirmed">已确认</span></div><div class="body"><p>Agent 工具不再接受 <code>resume</code>参数：要恢复一个已经启动的子代理，请使用 <code>SendMessage({to: agentId})</code>.</p><div class="how"><b>怎么做</b><br>通过 SendMessage 工具指定其 ID 或名称，恢复一个已存在的子代理。</div><a class="src" href="https://code.claude.com/docs/en/tools-reference" target="_blank" rel="noopener">code.claude.com/docs/en/tools-reference</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.198</span><span class="badge confirmed">已确认</span></div><div class="body"><p>交互式向导 <code>/agents</code> 已被移除：创建子代理的方式是直接告诉 Claude，或者直接编辑一个文件，放在 <code>.claude/agents/</code>.</p><div class="how"><b>怎么做</b><br>「创建一个名为 X 的子代理，负责 Y，工具为 Z」这样的自然语言就够了。</div><a class="src" href="https://code.claude.com/docs/en/agents" target="_blank" rel="noopener">code.claude.com/docs/en/agents</a></div></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">快速测验</div>
+        <p class="q-text">默认情况下，Claude Code 在一个会话中最多可以并行运行多少个子代理？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-agents-2" value="0"> 10 个并发子代理</label>
+          <label><input type="radio" name="q-agents-2" value="1"> 20 个并发子代理</label>
+          <label><input type="radio" name="q-agents-2" value="2"> 50 个并发子代理</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。默认上限是 20 个并发子代理，可通过环境变量 CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS 调整；而每个会话的总量上限已在 v2.1.224 中移除。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。默认上限其实是 20 个并发子代理，可通过 CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS 调整。</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">快速测验</div>
+        <p class="q-text">子代理的默认嵌套深度（即一个子代理自己再启动一个子代理）是多少？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-agents-3" value="0"> 1 层</label>
+          <label><input type="radio" name="q-agents-3" value="1"> 3 层</label>
+          <label><input type="radio" name="q-agents-3" value="2"> 5 层</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。默认深度限制为 3 层；到达这个上限时，Agent 工具会从除 fork 之外的所有子代理中移除。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。默认限制是 3 层，超过之后 Agent 工具会被移除，fork 除外。</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">实践练习</div>
+        <p>请 Claude 创建一个名为 <code>code-reviewer</code> 的只读子代理（工具为<code>Read, Grep, Glob</code>），模型用 <code>haiku</code>。用这个代理运行 <code>/subtask</code>，并通过 <code>/tasks</code>观察它在后台的执行。然后加上 <code>isolation: worktree</code>，让它在一份隔离的 git 副本中工作，最后用一条权限规则把它挡住：<code>permissions.deny: ["Agent(code-reviewer)"]</code>.</p>
+        <details class="solution"><summary>解答 &amp; 验证</summary>
+        <p>把工具限制为 Read、Grep、Glob 之所以有效，是因为子代理默认会拿到所有可用工具，包括写入和 Bash，除非通过 frontmatter 的 <code>tools:</code> 或 <code>disallowedTools:</code> 字段显式限制。正是这条声明 <code>tools: Read, Grep, Glob</code> 让它变成严格只读。随后加上 <code>isolation: worktree</code>，它就会在一份隔离的 git 副本中运行，该副本从默认分支切出，若没有任何修改则自动清理，完全不触及主仓库。练习的最后一步是用一条权限规则明确阻止这个子代理，形如 <code>permissions.deny: ["Agent(code-reviewer)"]</code>，写在 settings 中。</p>
+        <ul><li>在 /tasks 里，code-reviewer 子代理的条目从「Working」变为「Completed」，而它的工具记录中没有出现任何 Edit、Write 或 Bash 调用（只有 Read、Grep、Glob）。</li><li>加上 isolation: worktree 之后，执行期间会出现一个新的 worktree（用 git worktree list 可以看到），如果没有文件被修改，结束时它会自行消失。</li><li>添加 permissions.deny: ["Agent(code-reviewer)"] 规则之后，再尝试调用这个特定的子代理时会被明确拒绝，并给出权限被阻止的提示，而不再像之前那样执行。</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="agents" data-label="标记为已读">标记为已读</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="plan.html"><span class="dir">&larr; 上一章</span><span class="ptitle">计划 &amp; 推理</span></a>
+      <a class="next" href="hooks.html"><span class="dir">下一章 &rarr;</span><span class="ptitle">Hooks</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

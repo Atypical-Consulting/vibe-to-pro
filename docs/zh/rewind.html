@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>检查点 &amp; Rewind：安全网 · 从 Vibe Coding 到专业匠艺</title>
+<meta name="description" content="Vibe Coding 只是盲目地一个接一个发 prompt，一旦 Claude 走偏就没有任何退路。检查点把这种即兴操作变成专业做法：每一个 prompt 都成为一个可恢复的还原点。">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/zh/rewind.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="检查点 &amp; Rewind：安全网 · 从 Vibe Coding 到专业匠艺">
+<meta property="og:description" content="Vibe Coding 只是盲目地一个接一个发 prompt，一旦 Claude 走偏就没有任何退路。检查点把这种即兴操作变成专业做法：每一个 prompt 都成为一个可恢复的还原点。">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/zh/rewind.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">跳到主要内容</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="模块">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">实战手册</span></a>
+        <select class="lang-switch" aria-label="语言"><option value="../rewind.html">FR</option><option value="../en/rewind.html">EN</option><option value="../es/rewind.html">ES</option><option value="rewind.html" selected>ZH</option></select>
+      </div>
+      <h1>从 Vibe Coding 到专业匠艺</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>进度</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="模块">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>序章</span></a>
+      <a href="control.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>控制 &amp; 安全</span></a>
+      <a href="memory.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>记忆</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>命令 &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>计划 &amp; 推理</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>子代理</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class="active"><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>检查点</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="scale.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>后台 &amp; 工作流</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>插件 &amp; 市场</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK、CI/CD、IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>终章 &amp; 参考来源</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 个模块 &middot; 每条引用的事实都会链接到官方来源（code.claude.com），否则会被标注为未经核实。<br>✓ 已读 · ✓✓ 已验证（本模块所有测验均已通过）<br>
+      <a href="index.html">← 返回首页</a> &middot; <a href="methodology.html">方法论</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="rewind">
+      <div class="module-head"><span class="index">08</span><h2>检查点 &amp; Rewind：安全网</h2></div>
+      <div class="module-sub">无所畏惧地探索</div>
+      <div class="stance"><p>Vibe Coding 只是盲目地一个接一个发 prompt，一旦 Claude 走偏就没有任何退路。检查点把这种即兴操作变成专业做法：每一个 prompt 都成为一个可恢复的还原点，涵盖代码和／或对话，甚至不需要先做一次 Git commit。</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">水平测试</div>
+        <p class="q-text">自 v2.1.216 起，<code>/rewind</code> 在恢复代码时会跳过哪些文件？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-rewind" value="0"> 配置文件 <code>.env</code></label>
+          <label><input type="radio" name="q-rewind" value="1"> 符号链接和硬链接</label>
+          <label><input type="radio" name="q-rewind" value="2"> 二进制文件</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">这些文件会保留当前内容，并给出一条「Restored the code, but skipped N files」提示。对于用符号链接管理的 dotfiles，这一点值得知道。</span><br><a class="skip-next" href="git.html">&rarr; 你已经掌握这一手段，直接进入下一模块</a></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">被跳过的是符号链接和硬链接（hard links），而不是 <code>.env</code> 或二进制文件。</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">如果一个失败的 prompt 只需一次往返就能挽回呢？</h3>
+      <p>你多半已经熟悉 Vibe Coding 中的这种感觉：你一个接一个地发 prompt，Claude 每次改动两三个文件，然后某一次请求突然走偏了。本能的反应是手工补救，一个 prompt 接一个 prompt 地改，指望大致回到之前的状态。检查点（还原点，每一步一个）要解决的正是这个问题：你发出的每一个 prompt 都会自动成为一个可以回退到的点，而不需要事先做一次 Git commit 来保护自己。</p>
+      <p>具体怎么用？连按两次 Esc，或者输入 <code>/rewind</code>，就会打开一个菜单，按顺序列出这些还原点：每发出一个 prompt 就有一个。你也可以直接传入参数一步到位（轮次编号，例如 <code>/rewind 5</code>、检查点名称或一段描述），而不必翻看整个列表。之所以按 prompt 而不是按单纯的文件保存来划分，是因为 Vibe Coding 的工作单元就是一次交流：一个请求、Claude 的一次回应、以及随之改动的文件。回到「就在这个 prompt 之前」，正好对应你思考自己错误的方式。</p>
+      <p>那么选中一个还原点时，究竟恢复了什么？这里的机制同样贴合真实需求：你可以同时恢复代码和对话，一并抹掉改动过的文件和那次错误请求的痕迹；也可以只恢复代码，让对话保留发生过什么的记录。如果你想事后弄清 Claude 为什么会走上那个方向，这很有用。第三个选项「Summarize up to here」满足的是另一种需求：它压缩所选点之前的对话历史，完全不动磁盘上的文件。所以它不是用来挽回错误的工具，而是在对话拉得太长时腾出空间，同时不丢失已经完成的代码工作。</p>
+      <p>不过仍有一点需要留意：代码恢复并非完全不加区分。符号链接和硬链接（这类文件指向另一个文件，本身并不存放数据）在恢复时会被有意跳过：它们保留当前内容，Claude Code 会用一条提示明确告知你，而不是悄悄修改它们。安全网也不止于当前会话内的代码，跨会话的连续性还有一个互补的习惯：<code>--continue</code> 会直接恢复当前目录中最近的一次会话，而 <code>--resume</code> 会打开一个选择器，或通过标识符定位到指定会话。下面详细说明这在实践中带来什么改变。</p>
+
+      <h3 class="section-title">要点回顾</h3>
+      <div class="facts">
+<div class="fact"><div class="tag-col"><span class="version">v2.0.0</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>/rewind</code> 会打开一个列出检查点的菜单（每发出一个 prompt 对应一个），也接受直接传入的参数：检查点名称、轮次编号或描述。</p><div class="how"><b>怎么做</b><br><code>/rewind 5</code> 可以直接回到对话的第 5 轮。</div><a class="src" href="https://code.claude.com/docs/en/commands" target="_blank" rel="noopener">code.claude.com/docs/en/commands</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.141</span><span class="badge confirmed">已确认</span></div><div class="body"><p>「Summarize up to here」选项位于 <code>/rewind</code> 菜单中，它会压缩所选点之前的对话，不改动磁盘上的文件。</p><div class="how"><b>怎么做</b><br>适合在不丢失已完成代码工作的前提下腾出上下文空间。</div><a class="src" href="https://code.claude.com/docs/en/checkpointing" target="_blank" rel="noopener">code.claude.com/docs/en/checkpointing</a></div></div>
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.216</span><span class="badge confirmed">已确认</span></div><div class="body"><p>代码恢复会跳过符号链接和硬链接：这些文件保留当前内容，并给出一条「Restored the code, but skipped N files」提示。</p><div class="how"><b>怎么做</b><br>先启用 <code>/debug</code>，再执行恢复，就能看到被跳过路径的准确列表。</div><a class="src" href="https://code.claude.com/docs/en/checkpointing" target="_blank" rel="noopener">code.claude.com/docs/en/checkpointing</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v0.2.93</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>--continue</code> (<code>-c</code>) 会恢复当前目录中最近的一次会话；<code>--resume</code> (<code>-r</code>) 会打开一个选择器，或恢复指定的会话 ID。</p><div class="how"><b>怎么做</b><br><code>claude --continue</code> 可以立刻回到上次中断的地方。</div><a class="src" href="https://code.claude.com/docs/en/sessions" target="_blank" rel="noopener">code.claude.com/docs/en/sessions</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.83</span><span class="badge corrected">已更新</span></div><div class="body"><p>在 VS Code 扩展中，把鼠标悬停在任意一条消息上就会出现一个 rewind 按钮，提供三个选项：「Fork conversation from here」、「Rewind code to here」，或两者一起。</p><div class="how"><b>怎么做</b><br>在 CLI 终端中，快捷方式仍然是连按两次 Esc 或 <code>/rewind</code>.</div><a class="src" href="https://code.claude.com/docs/en/vs-code" target="_blank" rel="noopener">code.claude.com/docs/en/vs-code</a></div></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">快速测验</div>
+        <p class="q-text">/rewind 菜单中的「Summarize up to here」选项具体做什么？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-rewind-2" value="0"> 永久删除所选点之前改动过的文件</label>
+          <label><input type="radio" name="q-rewind-2" value="1"> 压缩所选点之前的对话，不改动磁盘上的文件</label>
+          <label><input type="radio" name="q-rewind-2" value="2"> 在回退之前自动创建一次 Git commit</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。「Summarize up to here」只作用于对话历史：它压缩所选点之前的内容，不修改磁盘上的文件。这适合在不丢失已完成代码工作的前提下腾出上下文空间。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。这个选项不碰任何文件，也不创建任何 commit：它只压缩所选点之前的对话，代码保持不变。</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">快速测验</div>
+        <p class="q-text">--continue (-c) 和 --resume (-r) 有什么区别？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-rewind-3" value="0"> --continue 和 --resume 完全相同，只是互为别名</label>
+          <label><input type="radio" name="q-rewind-3" value="1"> --continue 恢复当前目录中最近的一次会话；--resume 打开一个选择器或恢复指定的会话 ID</label>
+          <label><input type="radio" name="q-rewind-3" value="2"> --continue 列出本机的所有会话；--resume 只限于当前目录</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。--continue (-c) 直接恢复当前目录中最近的一次会话，无需做任何选择；而 --resume (-r) 会打开会话选择器，或恢复你指定的某个会话 ID。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。这两个选项并不可以互换：--continue 自动恢复当前目录中最近的一次对话，--resume 打开一个选择器或按 ID 定位某个会话。</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">实践练习</div>
+        <p>让 Claude 实现一个简单功能，让它改动 2 到 3 个文件，然后故意提出一个你认为糟糕的修改要求。连按两次 Esc（或 <code>/rewind</code>），选择就在那之前的还原点，先试「Restore code and conversation」，再在另一次尝试中只用「Restore code」。</p>
+        <details class="solution"><summary>解答 &amp; 验证</summary>
+        <p>连按两次 Esc（或输入 /rewind）会打开检查点菜单，其中每发出一个 prompt 就列出一个可恢复的还原点，正如关于 /rewind 的事实（v2.0.0）所描述。这样就能毫不含糊地找到那次糟糕修改之前的轮次，而不用去数 Git commit。在这个还原点上选择「Restore code and conversation」，被改动的 2 到 3 个文件的代码和对话历史都会回到那个状态；再用「Restore code」重做一次，则只恢复磁盘上的文件，对话仍保留那次糟糕请求的痕迹。因此预期操作就是：/rewind（或连按两次 Esc），选中紧邻糟糕请求之前的检查点，两种恢复选项各测试一次。</p>
+        <ul><li>使用「Restore code and conversation」时：那个糟糕的 prompt 以及 Claude 随后的回应会明显从显示的对话流中消失，被改动的 2 到 3 个文件的内容回到该 prompt 之前的状态（重新打开文件或用 diff 即可验证）。</li><li>只用「Restore code」时：文件内容同样回到该 prompt 之前的状态，但对话流依然完整显示那个糟糕的 prompt 和 Claude 的回应。正是这一对比证明只发生了代码恢复。</li><li>对这些普通文件不会出现「Restored the code, but skipped N files」之类的提示；只有当这 2 到 3 个文件之一是符号链接或硬链接时，才应该出现这种提示。</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="rewind" data-label="标记为已读">标记为已读</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="mcp.html"><span class="dir">&larr; 上一章</span><span class="ptitle">MCP</span></a>
+      <a class="next" href="git.html"><span class="dir">下一章 &rarr;</span><span class="ptitle">Git &amp; worktrees</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

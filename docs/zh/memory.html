@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>记忆：CLAUDE.md 与自动记忆 · 从 Vibe Coding 到专业匠艺</title>
+<meta name="description" content="在 Vibe Coding 中，每次会话都从零开始：同样的约定、同样的修正要一再重复。掌握 CLAUDE.md 与自动记忆，就能把这种易失的上下文变成有版本管理、可在团队中共享、并可审计的配置。">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/zh/memory.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记忆：CLAUDE.md 与自动记忆 · 从 Vibe Coding 到专业匠艺">
+<meta property="og:description" content="在 Vibe Coding 中，每次会话都从零开始：同样的约定、同样的修正要一再重复。掌握 CLAUDE.md 与自动记忆，就能把这种易失的上下文变成有版本管理、可在团队中共享、并可审计的配置。">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/zh/memory.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">跳到主要内容</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="模块">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">实战手册</span></a>
+        <select class="lang-switch" aria-label="语言"><option value="../memory.html">FR</option><option value="../en/memory.html">EN</option><option value="../es/memory.html">ES</option><option value="memory.html" selected>ZH</option></select>
+      </div>
+      <h1>从 Vibe Coding 到专业匠艺</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>进度</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="模块">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>序章</span></a>
+      <a href="control.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>控制 &amp; 安全</span></a>
+      <a href="memory.html" data-mod="memoire" class="active"><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>记忆</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>命令 &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>计划 &amp; 推理</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>子代理</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>检查点</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="scale.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>后台 &amp; 工作流</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>插件 &amp; 市场</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK、CI/CD、IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>终章 &amp; 参考来源</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 个模块 &middot; 每条引用的事实都会链接到官方来源（code.claude.com），否则会被标注为未经核实。<br>✓ 已读 · ✓✓ 已验证（本模块所有测验均已通过）<br>
+      <a href="index.html">← 返回首页</a> &middot; <a href="methodology.html">方法论</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="memoire">
+      <div class="module-head"><span class="index">02</span><h2>记忆：CLAUDE.md 与自动记忆</h2></div>
+      <div class="module-sub">不再每次会话都从头解释一遍</div>
+      <div class="stance"><p>在 Vibe Coding 中，每次会话都从零开始：同样的约定、同样的修正要一再重复。掌握 CLAUDE.md 与自动记忆，就能把这种易失的上下文变成有版本管理、可在团队中共享、并可审计的配置，审计手段就是 <code>/context</code>.</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">水平测试</div>
+        <p class="q-text">Claude Code 的自动记忆会记录多少种类型的笔记？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-memoire" value="0"> 2</label>
+          <label><input type="radio" name="q-memoire" value="1"> 4</label>
+          <label><input type="radio" name="q-memoire" value="2"> 6</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">4 种类型：<code>user</code> （偏好），<code>feedback</code> （已确认的修正），<code>project</code> （无法从代码推断的上下文），<code>reference</code> （在哪里找到外部信息）。</span><br><a class="skip-next" href="skills.html">&rarr; 你已经掌握这一手段，直接进入下一个模块</a></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">答案是 4：<code>user</code>, <code>feedback</code>, <code>project</code>, <code>reference</code>.</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">为什么你总是要向 Claude 重复同样的指示？</h3>
+      <p>你多半经历过这种情况：打开一个新会话，一切都得重新解释一遍：该用哪个包管理器、团队内部的命名约定、上周你在遗留代码里发现的那个坑。这些都没有被记住：每次会话都以空白的上下文重新开始，就像 Claude 从来没有了解过你的项目。这很烦人，但更重要的是方法问题：那些一次次口头说明的内容，应该变成写下来的配置，有版本管理、与团队共享、可以审计，而不是消失在某次对话的历史记录里。</p>
+      <p>为此的第一个工具，就是项目根目录下的 CLAUDE.md 文件：一份 Claude 每次启动都会重读的常驻备忘。你甚至可以用导入语法（<code>@path/to/file.md</code>）让它指向其他文件，最大深度为 4 跳，以避免无止境的导入链；反过来，如果你想阻止某个路径被自动加载，只需用反引号把它包起来（<code>`@README`</code>）。一个实用但很能说明系统逻辑的小细节：你还可以在这个文件里放 HTML 注释，给之后阅读它的人留言。它们会在注入会话上下文之前被移除，因此不消耗任何 token，同时如果有人直接打开文件，仍然能看到它们。</p>
+      <p>但如果你是在任务过程中纠正 Claude，而不是提前在 CLAUDE.md 里写好规则，会发生什么？这时默认开启的自动记忆就派上用场了：它把会话中发生的事情记成笔记，分为 4 类：你的偏好（<code>user</code>）、你已确认的修正（<code>feedback</code>）、无法从代码推断的项目专有上下文（<code>project</code>）、以及指向外部信息的指针（<code>reference</code>）。只要用自然语言说「记住…」就能触发一次记录；这些笔记默认存放在按项目划分的目录中，你可以通过参数 <code>autoMemoryDirectory</code>把它移到别处；如果你更愿意全部手动管理，也可以通过 <code>/memory</code> 或变量 <code>CLAUDE_CODE_DISABLE_AUTO_MEMORY=1</code> 关闭整个机制。</p>
+      <p>为什么要费这个劲，而不是让上下文每次重建？因为一份只增不减、从不清理的记忆，很快就会和没有记忆一样碍事：CLAUDE.md 不断膨胀，塞满了 Claude 本来就能从代码本身推断出来的信息。正因如此，<code>/doctor</code> 可以替你做筛选：它会找出与代码重复的部分，保留那些陷阱和非标准约定，建议把其余内容迁移到 skills 或嵌套的 CLAUDE.md，并且没有你的明确确认就不会做任何改动。这份积累下来的记忆也不只对你自己有用：<code>/team-onboarding</code> 会基于它生成一份面向新队友的上手指南。下面就具体看看，这带来了什么改变。</p>
+
+      <h3 class="section-title">要点回顾</h3>
+      <div class="facts">
+<div class="fact"><div class="tag-col"><span class="version">v0.2.107</span><span class="badge confirmed">已确认</span></div><div class="body"><p>CLAUDE.md 支持导入 <code>@path/to/file.md</code> （最大深度 4 跳）。用反引号包裹路径（<code>`@README`</code>）会阻止它被导入。</p><div class="how"><b>怎么做</b><br>在 CLAUDE.md 中写「查看 @README 了解总体情况」，即可自动把该文件加载进上下文。</div><a class="src" href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">code.claude.com/docs/en/memory</a></div></div>
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.59</span><span class="badge confirmed">已确认</span></div><div class="body"><p>自动记忆会记录 4 种类型的笔记：<code>user</code> （偏好），<code>feedback</code> （已确认的修正），<code>project</code> （无法从代码推断的上下文），<code>reference</code> （在哪里找到外部信息）。</p><div class="how"><b>怎么做</b><br>默认开启；可通过 <code>/memory</code> 或 <code>CLAUDE_CODE_DISABLE_AUTO_MEMORY=1</code>关闭。用自然语言说「记住…」即可触发一次记录。</div><a class="src" href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">code.claude.com/docs/en/memory</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.74</span><span class="badge confirmed">已确认</span></div><div class="body"><p>参数 <code>autoMemoryDirectory</code> 可以把自动记忆目录移出默认位置 <code>~/.claude/projects/&lt;projet&gt;/memory/</code>.</p><div class="how"><b>怎么做</b><br><code>{ "autoMemoryDirectory": "~/my-memory-folder" }</code> 写入 settings.json 文件，任意层级均可（user、项目、local）。</div><a class="src" href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">code.claude.com/docs/en/memory</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.72</span><span class="badge confirmed">已确认</span></div><div class="body"><p>CLAUDE.md 中的块级 HTML 注释（<code>&lt;!-- … --&gt;</code>）会在注入上下文之前被移除，但如果你直接打开文件，它们仍然可见。</p><div class="how"><b>怎么做</b><br>用它们写给人看的注解，不会消耗上下文 token。</div><a class="src" href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">code.claude.com/docs/en/memory</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.206</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>/doctor</code> 会建议对照代码给 CLAUDE.md 去重（目录结构、依赖等已经可以推断出来的信息），保留陷阱和非标准约定，并把其余内容迁移到 skills 或嵌套的 CLAUDE.md。</p><div class="how"><b>怎么做</b><br>在会话中运行 <code>/doctor</code>：它会先给出自己的判断，再在修改前请求确认。</div><a class="src" href="https://code.claude.com/docs/en/commands" target="_blank" rel="noopener">code.claude.com/docs/en/commands</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.101</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>/team-onboarding</code> 会根据最近的本地使用情况（会话、命令、MCP 服务器）以及项目的 CLAUDE.md，生成一份面向新队友的上手指南。</p><div class="how"><b>怎么做</b><br>在你熟悉的项目里运行；新成员可以把这份指南作为第一条消息粘贴使用。</div><a class="src" href="https://code.claude.com/docs/en/whats-new/2026-w15" target="_blank" rel="noopener">code.claude.com/docs/en/whats-new/2026-w15</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.20</span><span class="badge confirmed">已确认</span></div><div class="body"><p>默认情况下，通过 <code>--add-dir</code> 添加的目录中的 CLAUDE.md 不会被加载：需要设置 <code>CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1</code>.</p><div class="how"><b>怎么做</b><br><code>CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1 claude --add-dir ../shared-config</code>，这样也会一并加载该目录中的记忆文件。</div><a class="src" href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">code.claude.com/docs/en/memory</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.214</span><span class="badge confirmed">已确认</span></div><div class="body"><p>当 Claude 写入一个已经带有 YAML frontmatter 的记忆文件时，会在其中记录一个 <code>modified</code> 字段（ISO 8601）。这个字段绝不会被添加到没有 frontmatter 的文件中。</p><div class="how"><b>怎么做</b><br>通过 <code>/memory</code> 打开一个文件，查看 <code>modified</code> 字段，判断某条笔记是否已经过时。</div><a class="src" href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">code.claude.com/docs/en/memory</a></div></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">快速测验</div>
+        <p class="q-text">如何阻止路径 @path/to/file.md 在 CLAUDE.md 中被自动导入？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-memoire-2" value="0"> 用反引号把它包起来，例如 <code>@README</code></label>
+          <label><input type="radio" name="q-memoire-2" value="1"> 在它前面加一条 HTML 注释</label>
+          <label><input type="radio" name="q-memoire-2" value="2"> 超过 4 跳的最大导入深度</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。用反引号包裹路径（<code>@README</code>）会阻止它被自动导入；不加反引号时，@path/to/file.md 这样的路径会被正常导入，最大深度为 4 跳。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不太对。真正阻止导入的，是在路径两侧使用反引号（<code>@README</code>）：HTML 注释和跳数深度都起不到这个作用。</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">快速测验</div>
+        <p class="q-text">CLAUDE.md 加载进上下文时，其中的块级 HTML 注释（<code>&lt;!-- … --&gt;</code>）会怎样？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-memoire-3" value="0"> 它们会原样注入会话上下文</label>
+          <label><input type="radio" name="q-memoire-3" value="1"> 它们会在注入上下文之前被移除，但直接打开文件时仍然可见</label>
+          <label><input type="radio" name="q-memoire-3" value="2"> 它们会导致文件加载失败</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。块级 HTML 注释会在注入上下文之前被移除（因此不消耗 token），但直接打开文件时仍然可读，所以可以用它们写给人看的注解。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。这些注释不会被注入上下文：它们在加载前就被移除了，同时如果直接打开 CLAUDE.md 文件，仍然可以看到它们。</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">实践练习</div>
+        <p>运行 <code>/init</code> 生成一份基础的 CLAUDE.md，加入一条明确的规则（「使用 pnpm，绝不用 npm」），然后在任务过程中故意就某个偏好纠正 Claude。用 <code>/memory</code> 确认这次纠正确实被记入了自动记忆，再用 <code>/context</code>确认它已被加载，最后运行 <code>/doctor</code>，看看它是否建议为你的 CLAUDE.md 瘦身。</p>
+        <details class="solution"><summary>解答 &amp; 验证</summary>
+        <p>在任务过程中对 pnpm 偏好所做的纠正，会被记为 feedback 类型的笔记，这是自动记忆记录的 4 种类型之一（另外还有 user、project 和 reference），用来追踪已确认的修正。这条笔记应该能在 /memory 中看到，也应该出现在 /context 列出的本次会话已加载来源中。</p>
+      <p>最后走一遍 /doctor，依据的是它会建议对照代码给 CLAUDE.md 去重，同时保留像 pnpm 规则这样的陷阱和非标准约定。它会把其余内容迁移到 skills 或嵌套的 CLAUDE.md，但只有在用户明确确认之后才会动手，绝不会悄悄进行。</p>
+        <ul><li>/memory 显示一条新的 feedback 类型条目，对应 pnpm 那次纠正，与已有的 user/project/reference 笔记区分开。</li><li>/context 在已加载的来源中列出一个位于 ~/.claude/projects/<code>&lt;projet&gt;</code>/memory/ 下的文件，并把它的 token 大小计入显示的总量。</li><li>/doctor 会先给出它对 CLAUDE.md 的判断（哪些因为可以从代码推断而建议移除，哪些作为非标准陷阱予以保留），并在做任何修改之前等待确认。没有这一步，不应该发生任何文件改写。</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="memoire" data-label="标记为已读">标记为已读</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="control.html"><span class="dir">&larr; 上一章</span><span class="ptitle">控制 &amp; 安全</span></a>
+      <a class="next" href="skills.html"><span class="dir">下一章 &rarr;</span><span class="ptitle">命令 &amp; Skills</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

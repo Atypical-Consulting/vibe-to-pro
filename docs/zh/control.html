@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>控制 &amp; 安全：权限、沙箱与自动模式 · 从 Vibe Coding 到专业匠艺</title>
+<meta name="description" content="Vibe Coding 就是让代理随手执行命令，却从不追问它可能破坏什么、又可能把什么带出去。掌握权限与沙箱">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/zh/control.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="控制 &amp; 安全：权限、沙箱与自动模式 · 从 Vibe Coding 到专业匠艺">
+<meta property="og:description" content="Vibe Coding 就是让代理随手执行命令，却从不追问它可能破坏什么、又可能把什么带出去。掌握权限与沙箱">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/zh/control.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">跳到主要内容</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="模块">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">实战手册</span></a>
+        <select class="lang-switch" aria-label="语言"><option value="../control.html">FR</option><option value="../en/control.html">EN</option><option value="../es/control.html">ES</option><option value="control.html" selected>ZH</option></select>
+      </div>
+      <h1>从 Vibe Coding 到专业匠艺</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>进度</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="模块">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>序章</span></a>
+      <a href="control.html" data-mod="controle" class="active"><span class="num">01</span><span class="chk" data-chk="controle"></span><span>控制 &amp; 安全</span></a>
+      <a href="memory.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>记忆</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>命令 &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>计划 &amp; 推理</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>子代理</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>检查点</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="scale.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>后台 &amp; 工作流</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>插件 &amp; 市场</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK、CI/CD、IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>终章 &amp; 参考来源</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 个模块 &middot; 每条引用的事实都会链接到官方来源（code.claude.com），否则会被标注为未经核实。<br>✓ 已读 · ✓✓ 已验证（本模块所有测验均已通过）<br>
+      <a href="index.html">← 返回首页</a> &middot; <a href="methodology.html">方法论</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="controle">
+      <div class="module-head"><span class="index">01</span><h2>控制 &amp; 安全：权限、沙箱与自动模式</h2></div>
+      <div class="module-sub">一切的地基</div>
+      <div class="stance"><p>Vibe Coding 就是让代理随手执行命令，却从不追问它可能破坏什么、又可能把什么带出去。掌握权限与沙箱，就是把范围划清楚：Claude 能读哪些文件、能访问哪些网络域名、哪些破坏性命令默认保持拦截。这会形成一份可复现、可在团队中审计的基础配置，靠的是 <code>.claude/settings.json</code>。</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">水平测试</div>
+        <p class="q-text">在自动模式下，以下哪条命令默认会被拦截？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-controle" value="0"> <code>git commit</code></label>
+          <label><input type="radio" name="q-controle" value="1"> <code>git reset --hard</code></label>
+          <label><input type="radio" name="q-controle" value="2"> <code>git status</code></label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">一批破坏性命令（<code>git reset --hard</code>, <code>git clean -fd</code>, <code>terraform destroy</code>…）在自动模式下默认被拦截；只要你明确表达意图，就会逐条放行。</span><br><a class="skip-next" href="memory.html">&rarr; 你已经掌握这一环，直接进入下一模块</a></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">在自动模式下默认被拦截的是 <code>git reset --hard</code> 以及其他破坏性命令，而不是只读命令，例如 <code>git status</code> 或 <code>git commit</code>。</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">到底是谁在决定 Claude Code 有权做什么？</h3>
+      <p>当你在做 Vibe Coding 时，多半已经体会过那种轻微的眩晕：代理提议一条命令，你没怎么细想就点了同意，然后某一刻突然想到，要是它敲的是 <code>git push --force</code>，或者去翻一个你并不想让它看到的目录，会发生什么。这正是自动模式想要解决的问题。一段时间以来，它已经成为 Pro、Max 和 Team 套餐的默认启动模式：你只需运行 <code>claude</code>，不带任何额外标志，会话就已经处于该模式。<code>Shift+Tab</code> 可以随时切换到其他模式。至于原来的「默认」模式，它也改了名字：现在整个界面里都叫「Manual」，正是为了提醒你，它要求你逐个确认每一次操作。</p>
+      <p>但自动模式究竟拦截了什么，才配得上你的信任？它不会要求你确认每一条命令，因为那样太繁琐，你最后只会不看内容就点「是」。取而代之的是，它维护一份公认具有破坏性的命令清单（<code>git reset --hard</code>, <code>git clean -fd</code>, <code>git stash drop</code>, <code>terraform destroy</code>等），并默认拦截它们，你什么都不用配置。这个设计很巧妙：拦截并非不可撤销，只要你明确表达意图（「强推这个分支」），就会逐条放行，既把主动权留给你，又不必时刻盯着。在标尺的另一端，bypass 模式（<code>--dangerously-skip-permissions</code>）移除了大部分护栏，包括那些通常受保护的路径，例如 <code>.claude/</code> 或 <code>.git/</code>，但针对真正灾难性删除的安全网（<code>rm -rf /</code> 或 <code>~</code>）无论如何都保持生效；这个模式只应留给隔离的容器或虚拟机，绝不要用在你的日常机器上。如果你想要的恰恰相反（为打开一个陌生仓库、或让新手上手而主动收窄范围），<code>--restricted</code> 标志走得更远：它移除命令执行工具和网页访问，把文件工具限制在工作目录内，并拒绝切回 bypass 模式，会话中途无法反悔。</p>
+      <p>接下来还有第二道防线，位于更底层：沙箱，字面意思就是「装沙子的盒子」。沙箱的总体思路很简单。与其听信一个程序的口头承诺，不如把它关进一个隔离环境，让它在技术上根本走不出既定范围，哪怕它想。Claude Code 为它的 Bash 工具内置了原生沙箱，依托 Seatbelt（macOS 自带的隔离机制），在 Linux 或 WSL2 上则依托 bubblewrap（Linux 侧的对应实现）。原生 Windows 则不受支持：要用上它必须走 WSL2。你只需在会话中运行 <code>/sandbox</code> 即可启用，在 macOS 上无需额外安装。这个沙箱会限制文件和网络访问，但默认不会拦截任何敏感凭据：需要你自己声明 <code>sandbox.credentials.files</code> 或 <code>envVars</code> 规则，用来拒绝（<code>deny</code>）或掩码（<code>mode: "mask"</code>）某个具体的密钥，而这些设置必须写在 <code>~/.claude/settings.json</code>，也就是你的个人设置里，因为一旦放进项目设置，它们会被直接忽略。</p>
+      <p>还剩团队协作的问题：怎样共享这些规则，才不用每个人从零开始？Claude Code 把它拆成两个文件：<code>.claude/settings.json</code>，纳入版本控制并共享，存放公共规则；以及 <code>.claude/settings.local.json</code>，属于个人、被 gitignore 忽略，存放你自己的偏好。这些规则甚至可以在允许的 Bash 命令里使用通配符，比如 <code>Bash(npm *)</code> 或 <code>Bash(git * main)</code>。一个经典陷阱：后者这么宽的模式同时也放行了 <code>git -c ...</code>，而它可以执行任意程序。所以务必先用 <code>--verbose</code> 检查规则，再把它们发布出去。而且即便在自动模式下，首次读取工作目录之外的文件也会触发一次性确认提示，让你选择永久允许、拦截，或者下次再问。下面具体看看这带来了什么变化。</p>
+
+      <h3 class="section-title">要点回顾</h3>
+      <div class="facts">
+<div class="fact"><div class="tag-col"><span class="version">v2.1.111</span><span class="badge confirmed">已确认</span></div><div class="body"><p>自动模式是 Pro、Max 和 Team 套餐的默认启动模式：不再需要任何启用标志。</p><div class="how"><b>怎么做</b><br>直接运行 <code>claude</code>，在 Pro/Max/Team 套餐上，会话即以自动模式启动。<code>Shift+Tab</code> 可以切换模式。</div><a class="src" href="https://code.claude.com/docs/en/permission-modes" target="_blank" rel="noopener">code.claude.com/docs/en/permission-modes</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.200</span><span class="badge confirmed">已确认</span></div><div class="body"><p>历史上称为「default」的模式，现在在整个界面（CLI、VS Code、JetBrains）里都叫「Manual」。</p><div class="how"><b>怎么做</b><br><code>claude --permission-mode manual</code> 和 <code>--permission-mode default</code> 等价。</div><a class="src" href="https://code.claude.com/docs/en/permission-modes" target="_blank" rel="noopener">code.claude.com/docs/en/permission-modes</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.248</span><span class="badge confirmed">已确认</span></div><div class="body"><p>使用 <code>--restricted</code> 标志会移除命令执行工具和 WebFetch，把文件工具限制在工作目录内，并拒绝 bypass 模式，会话中途无法恢复。</p><div class="how"><b>怎么做</b><br><code>claude --restricted</code> 用于打开不可信的仓库，或让新人放手实验，不必担心逃逸出沙箱。</div><a class="src" href="https://code.claude.com/docs/en/permission-modes" target="_blank" rel="noopener">code.claude.com/docs/en/permission-modes</a></div></div>
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.183</span><span class="badge confirmed">已确认</span></div><div class="body"><p>在自动模式下，一批破坏性命令默认被拦截：<code>git reset --hard</code>, <code>git clean -fd</code>, <code>git stash drop</code>, <code>terraform destroy</code>等。</p><div class="how"><b>怎么做</b><br>这些拦截无需配置即生效；只要你明确表达意图（「强推这个分支」），就会逐条放行。</div><a class="src" href="https://code.claude.com/docs/en/auto-mode-config" target="_blank" rel="noopener">code.claude.com/docs/en/auto-mode-config</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.126</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>--dangerously-skip-permissions</code> （bypass）会绕过「受保护路径」（<code>.claude/</code>, <code>.git/</code>、shell 配置），但针对灾难性删除的护栏（<code>rm -rf /</code> 或 <code>~</code>）无论如何都保持生效。</p><div class="how"><b>怎么做</b><br>只应留给隔离的容器或虚拟机，绝不要用在生产机器上。</div><a class="src" href="https://code.claude.com/docs/en/permission-modes" target="_blank" rel="noopener">code.claude.com/docs/en/permission-modes</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.0.24</span><span class="badge confirmed">已确认</span></div><div class="body"><p>Claude Code 为 Bash 工具内置了原生沙箱（macOS 上是 Seatbelt，Linux/WSL2 上是 bubblewrap）。原生 Windows 不受支持：必须走 WSL2。</p><div class="how"><b>怎么做</b><br>运行 <code>/sandbox</code> 即可在会话中立即启用，在 macOS 上无需额外安装。</div><a class="src" href="https://code.claude.com/docs/en/sandboxing" target="_blank" rel="noopener">code.claude.com/docs/en/sandboxing</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.187 / 2.1.221</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>sandbox.credentials.files</code>/<code>envVars</code> 可以为沙箱化的命令拦截（<code>deny</code>）或掩码（<code>mode: "mask"</code>）凭据，默认没有内置的拒绝清单。</p><div class="how"><b>怎么做</b><br>把这些设置放进 <code>~/.claude/settings.json</code> （绝不要放进项目设置，这些键在那里会被忽略）。</div><a class="src" href="https://code.claude.com/docs/en/sandboxing" target="_blank" rel="noopener">code.claude.com/docs/en/sandboxing</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v0.2.67</span><span class="badge confirmed">已确认</span></div><div class="body"><p>共享的权限规则存放在 <code>.claude/settings.json</code> （纳入版本控制、团队共享），区别于 <code>.claude/settings.local.json</code> （个人所有、被 gitignore 忽略）。</p><div class="how"><b>怎么做</b><br>把团队的 allow/deny/ask 规则提交到 <code>.claude/settings.json</code>；个人偏好留在本地文件里。</div><a class="src" href="https://code.claude.com/docs/en/permissions" target="_blank" rel="noopener">code.claude.com/docs/en/permissions</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.257</span><span class="badge confirmed">已确认</span></div><div class="body"><p>在自动模式下，首次读取（Read/Grep/Glob）工作目录之外的内容会触发一次性提示：始终允许、永久拦截，或下次再问。</p><div class="how"><b>怎么做</b><br>选择永久拦截会把 <code>permissions.blockReadsOutsideWorkingDirectories: true</code> 写入用户设置。</div><a class="src" href="https://code.claude.com/docs/en/permission-modes" target="_blank" rel="noopener">code.claude.com/docs/en/permission-modes</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.0</span><span class="badge confirmed">已确认</span></div><div class="body"><p>Bash 规则允许通配符出现在任意位置：<code>Bash(npm *)</code>, <code>Bash(* install)</code>, <code>Bash(git * main)</code>。注意，最后这条同时也放行了 <code>git -c ...</code>，而它可以执行任意程序。</p><div class="how"><b>怎么做</b><br>务必先用 <code>--verbose</code> 测试你的规则，看清确切的匹配结果，再推广到团队。</div><a class="src" href="https://code.claude.com/docs/en/permissions" target="_blank" rel="noopener">code.claude.com/docs/en/permissions</a></div></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">快速测验</div>
+        <p class="q-text">与 bypass 模式的会话相比，--restricted 标志具体做了什么？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-controle-2" value="0"> 它移除命令执行工具和 WebFetch，把文件工具限制在工作目录内，并拒绝 bypass 模式，会话中途无法恢复。</label>
+          <label><input type="radio" name="q-controle-2" value="1"> 它只切断网络访问，Bash 命令和对项目外文件的访问都保持不变。</label>
+          <label><input type="radio" name="q-controle-2" value="2"> 它等同于 manual 模式，每条命令都要确认，同时仍可在需要时使用 bypass 模式。</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。--restricted 移除命令执行工具和 WebFetch，把文件工具限制在工作目录内，并拒绝 bypass 模式；这一选择在会话中途无法撤销。适合用来打开不可信的仓库，或让新手放手实验，不必担心逃逸出沙箱。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确：--restricted 比单纯切断网络或经典的 manual 模式走得更远：它还会移除命令执行工具和 WebFetch，把文件访问限制在工作目录内，并禁止在会话期间切回 bypass 模式。</span></div>
+      </div>
+      <div class="quiz" data-correct="2">
+        <div class="q-label">快速测验</div>
+        <p class="q-text">Claude Code 的 Bash 工具原生沙箱在哪个系统上不被直接支持？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-controle-3" value="0"> macOS</label>
+          <label><input type="radio" name="q-controle-3" value="1"> Linux</label>
+          <label><input type="radio" name="q-controle-3" value="2"> 原生 Windows</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。原生沙箱依托 Seatbelt（macOS）和 bubblewrap（Linux/WSL2）；原生 Windows 不受支持，要用上它必须走 WSL2。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不对：macOS（通过 Seatbelt）和 Linux，包括 WSL2 下（通过 bubblewrap），都是原生支持的。不被支持的是原生 Windows，必须走 WSL2。</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">实践练习</div>
+        <p>创建（或复用）一个 <b>练习仓库</b>：一个可以随时丢弃的仓库，绝不要用你的主仓库，后续模块会一直沿用它，逐步积累一份真正的 <code>.claude/</code> 配置。在这个仓库里：用 <code>/sandbox</code> 启用沙箱，选择自动模式，然后让 Claude 列出 <code>~/.ssh</code> 并执行一次 <code>git push --force</code>。观察网络与读取被拦截的情况，然后在 <code>~/.claude/settings.json</code> 中添加一个 <code>sandbox.credentials.files</code> 块，配上 <code>mode: "deny"</code>，作用于某个敏感文件，再通过 <code>/sandbox</code> → Config 标签页确认结果。</p>
+        <details class="solution"><summary>解答 &amp; 验证</summary>
+        <p>Claude Code 的原生沙箱依托 Seatbelt（macOS）或 bubblewrap（Linux/WSL2），真正限制 Bash 工具的文件与网络访问：一旦通过 /sandbox 启用，它自身就会拦截对 ~/.ssh 的读取，以及 git push --force 的网络连接，无需额外配置。但这套机制默认不会拦截任何特定凭据：必须显式添加一条 sandbox.credentials.files 条目，并带上 mode: "deny"，才能拒绝访问某个具体的敏感文件；而且这项设置必须写在 ~/.claude/settings.json（用户设置）里，因为这些键放在项目设置中会被忽略。</p>
+        <ul><li>列出 ~/.ssh 的命令会失败，并返回沙箱发出的拒绝信息（文件访问超出授权范围），而不是 Claude Code 常规的权限拒绝。</li><li>git push --force 会在网络层失败（连接被拒绝或主机不可达），而不是成功执行或仅仅要求确认。</li><li>在 /sandbox → Config 标签页中，只有当目标文件声明在 ~/.claude/settings.json 里时，它才会显示为已应用 deny 规则；同样的条目放在项目设置中不会显示为生效。</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="controle" data-label="标记为已读">标记为已读</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="prologue.html"><span class="dir">&larr; 上一章</span><span class="ptitle">序章</span></a>
+      <a class="next" href="memory.html"><span class="dir">下一章 &rarr;</span><span class="ptitle">记忆</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

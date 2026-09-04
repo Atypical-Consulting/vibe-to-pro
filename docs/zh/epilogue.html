@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>终章：实践者检查清单 &amp; 参考来源 · 从 Vibe Coding 到专业匠艺</title>
+<meta name="description" content="十二个杠杆，只有一个目标：不再依赖运气。下面这份检查清单是本课程的总结。在宣称某个 Claude Code 项目「可以上生产」之前，请先逐项确认">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/zh/epilogue.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="终章：实践者检查清单 &amp; 参考来源 · 从 Vibe Coding 到专业匠艺">
+<meta property="og:description" content="十二个杠杆，只有一个目标：不再依赖运气。下面这份检查清单是本课程的总结。在宣称某个 Claude Code 项目「可以上生产」之前，请先逐项确认">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/zh/epilogue.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">跳到主要内容</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="模块">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">实战手册</span></a>
+        <select class="lang-switch" aria-label="语言"><option value="../epilogue.html">FR</option><option value="../en/epilogue.html">EN</option><option value="../es/epilogue.html">ES</option><option value="epilogue.html" selected>ZH</option></select>
+      </div>
+      <h1>从 Vibe Coding 到专业匠艺</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>进度</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="模块">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>序章</span></a>
+      <a href="control.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>控制 &amp; 安全</span></a>
+      <a href="memory.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>记忆</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>命令 &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>计划 &amp; 推理</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>子代理</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>检查点</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="scale.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>后台 &amp; 工作流</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>插件 &amp; 市场</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK、CI/CD、IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class="active"><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>终章 &amp; 参考来源</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 个模块 &middot; 每条引用的事实都会链接到官方来源（code.claude.com），否则会被标注为未经核实。<br>✓ 已读 · ✓✓ 已验证（本模块所有测验均已通过）<br>
+      <a href="index.html">← 返回首页</a> &middot; <a href="methodology.html">方法论</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="epilogue">
+      <div class="module-head"><span class="index">13</span><h2>终章：实践者检查清单 &amp; 参考来源</h2></div>
+      <div class="stance"><p>十二个杠杆，只有一个目标：不再依赖运气。下面这份检查清单是本课程的总结。在宣称某个 Claude Code 项目「可以上生产」之前，请先逐项确认。</p></div>
+
+      <div class="exercise">
+        <div class="ex-label">实践练习</div>
+        <p>重新打开你的 <b>练习仓库</b>（模块 01），把三个已经练习过的杠杆组合成一套连贯的配置：(1) 启用沙箱，并配置一条 <code>sandbox.credentials.files</code> 规则（见「控制 &amp; 安全」模块），(2) 一个 <code>PreToolUse</code> hook，用于拦截未经确认的 <code>rm</code> 操作（见 Hooks 模块），(3) 在一个独立的 <code>claude --worktree</code> 中打开会话（见「Git &amp; worktrees」模块）。在这个 worktree 中启动一次会话，确认三重保护同时生效：这正是下面这份检查清单所描述的 <code>.claude/</code> 配置，而不是三项孤立设置逐个测试的结果。</p>
+      </div>
+
+      <h3 class="section-title">专业实践者检查清单</h3>
+      <ul class="checklist">
+        <li>凡是涉及密钥或生产环境的项目，都启用了 Bash 沙箱和网络规则。</li>
+        <li><code>.claude/settings.json</code>（权限、hooks）已纳入版本控制，并像代码一样接受评审。</li>
+        <li>CLAUDE.md 记录的是陷阱和非标准约定，而不是 Claude 从代码里就能推断出来的内容。</li>
+        <li>重复性任务写进受版本控制的 skills，而不是留在敲 prompt 的人的脑子里。</li>
+        <li>高风险任务先走计划模式，再执行。</li>
+        <li>子代理拥有明确的工具范围（<code>tools:</code>/<code>disallowedTools:</code>），而不是默认的全量访问权限。</li>
+        <li>关键校验（lint、测试、密钥扫描）由 hooks 保证，而不是靠期望。</li>
+        <li>每个外部 MCP 服务器在批准前都经过评审，团队维护一份允许清单。</li>
+        <li><code>/rewind</code> 和 worktrees 是在共享代码上做高风险试验前的条件反射。</li>
+        <li>多代理工作流有一个明确设定的 <code>workflowSizeGuideline</code>，而不是「跑起来看看再说」。</li>
+        <li>已安装的插件按 SHA 锁定，其 token 成本也是已知的 (<code>claude plugin details</code>).</li>
+        <li>CI 集成使用 <code>--bare</code>、<code>--output-format json</code> 输出以及明确的权限，在共享流水线中绝不使用 <code>--dangerously-skip-permissions</code>。</li>
+      </ul>
+
+      <h3 class="section-title">综合测验</h3>
+      <div class="quiz-synthesis">
+      <div class="quiz" data-correct="0">
+        <div class="q-label">快速测验 &middot; 控制</div>
+        <p class="q-text">相比 bypass 模式下的会话，--restricted 标志具体做了什么？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-epi-controle" value="0"> 它移除命令执行工具和 WebFetch，把文件工具限制在工作目录内，并拒绝 bypass 模式，会话过程中无法撤销。</label>
+          <label><input type="radio" name="q-epi-controle" value="1"> 它只切断网络访问，Bash 命令和项目外的文件访问保持不变。</label>
+          <label><input type="radio" name="q-epi-controle" value="2"> 它等同于 manual 模式，对每条命令都要求确认，同时仍然保留 bypass 模式可用。</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。--restricted 移除命令执行工具和 WebFetch，把文件工具限制在工作目录内，并拒绝 bypass 模式；这个选择在会话进行中无法取消。适合用于打开不可信的仓库，或让新手在没有逃逸沙箱风险的情况下做实验。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确：--restricted 做的远不止切断网络或普通的 manual 模式，它还会移除命令执行工具和 WebFetch，把文件访问限制在工作目录内，并禁止在会话期间退回 bypass 模式。</span></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">快速测验 &middot; 记忆</div>
+        <p class="q-text">如何防止 @path/to/file.md 这样的路径被自动导入到 CLAUDE.md 中？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-epi-memoire" value="0"> 用反引号把它包起来，例如 <code>@README</code></label>
+          <label><input type="radio" name="q-epi-memoire" value="1"> 在它前面加一条 HTML 注释</label>
+          <label><input type="radio" name="q-epi-memoire" value="2"> 让导入深度超过 4 层的上限</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。用反引号包住路径（<code>@README</code>）就能阻止其自动导入；不加反引号时，@path/to/file.md 这样的路径会被正常导入，最大深度为 4 层。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。真正阻止导入的是给路径加上反引号（<code>@README</code>）：HTML 注释和跳转深度都起不到这个作用。</span></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">快速测验 &middot; Skills</div>
+        <p class="q-text">SKILL.md 的 frontmatter 中，disallowed-tools 字段有什么作用？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-epi-skills" value="0"> 在 skill 处于激活状态期间，把某些工具从可用工具池中移除</label>
+          <label><input type="radio" name="q-epi-skills" value="1"> 列出用户在执行该 skill 之前必须手动安装的工具</label>
+          <label><input type="radio" name="q-epi-skills" value="2"> 在这些工具于本次会话中至少被使用一次之前，阻止该 skill 运行</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。disallowed-tools 会在 skill 执行期间缩小可用工具池。比如可以用它在无人应答的自主循环中禁用 AskUserQuestion。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">在 skill 运行期间把某些工具从可用池中移除的是 disallowed-tools，典型用途是在无人应答的自主循环中禁用 AskUserQuestion。</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">快速测验 &middot; 计划</div>
+        <p class="q-text">在 Claude Code 的 settings.json 中，哪个参数决定计划模式把计划文件写到哪里？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-epi-plan" value="0"> planMode.directory</label>
+          <label><input type="radio" name="q-epi-plan" value="1"> plansDirectory</label>
+          <label><input type="radio" name="q-epi-plan" value="2"> claude.planOutputPath</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。plansDirectory 参数决定计划模式把计划文件写到哪里，它相对项目根目录解析，因此很适合把这些计划纳入仓库版本控制，并在 PR 评审时复看。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。是 plansDirectory，相对项目根目录解析，便于把生成的计划纳入版本控制并在评审中复看。</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">快速测验 &middot; 子代理</div>
+        <p class="q-text">默认情况下，Claude Code 在一次会话中最多可以并行运行多少个子代理？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-epi-agents" value="0"> 10 个并发子代理</label>
+          <label><input type="radio" name="q-epi-agents" value="1"> 20 个并发子代理</label>
+          <label><input type="radio" name="q-epi-agents" value="2"> 50 个并发子代理</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。默认上限是 20 个并发子代理，可通过环境变量 CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS 调整；而每次会话的总量上限已在 v2.1.224 中取消。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。默认上限其实是 20 个并发子代理，可通过 CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS 调整。</span></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">快速测验 &middot; Hooks</div>
+        <p class="q-text">根据 hooks 文档，哪个事件会在上下文压缩之前触发，并且可以用退出码 2 阻止压缩？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-epi-hooks" value="0"> PreCompact</label>
+          <label><input type="radio" name="q-epi-hooks" value="1"> PostCompact</label>
+          <label><input type="radio" name="q-epi-hooks" value="2"> SessionStart</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">PreCompact 在压缩之前触发，可以用退出码 2 阻止压缩。PostCompact 则只在压缩之后才触发，这一机制适合用来在重要信息被压缩前将其归档。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">是 PreCompact：它在压缩之前介入，可以用退出码 2 阻止压缩。PostCompact 在压缩已经完成之后才触发，来不及阻止压缩。</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">快速测验 &middot; MCP</div>
+        <p class="q-text">根据文档，新建 MCP 服务器目前推荐使用哪种传输方式？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-epi-mcp" value="0"> SSE（Server-Sent Events）</label>
+          <label><input type="radio" name="q-epi-mcp" value="1"> HTTP streamable</label>
+          <label><input type="radio" name="q-epi-mcp" value="2"> 仅限 stdio</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。只要条件允许都推荐使用 HTTP streamable 传输；SSE 仍受支持，但文档中已明确标记为废弃。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。推荐的是 HTTP streamable：SSE 仍受支持，但已被标记为废弃。</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">快速测验 &middot; 检查点</div>
+        <p class="q-text">/rewind 菜单中的「Summarize up to here」选项具体做什么？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-epi-rewind" value="0"> 它会永久删除所选时间点之前修改过的文件</label>
+          <label><input type="radio" name="q-epi-rewind" value="1"> 它会压缩所选时间点之前的对话，不改动磁盘上的文件</label>
+          <label><input type="radio" name="q-epi-rewind" value="2"> 它会在回退之前自动创建一个 Git commit</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。「Summarize up to here」只作用于对话历史：它压缩所选时间点之前的内容，不修改磁盘上的文件。这有助于在不丢失已完成代码工作的前提下释放上下文。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。这个选项既不碰任何文件，也不创建 commit：它只压缩所选时间点之前的对话，代码保持原样。</span></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">快速测验 &middot; Git</div>
+        <p class="q-text">在没有特别配置的情况下，Claude Code 新建的 worktree 默认从哪个引用开始？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-epi-git" value="0"> origin/<code>&lt;默认分支&gt;</code>（「fresh」设置）</label>
+          <label><input type="radio" name="q-epi-git" value="1"> 你的本地 HEAD，包含未推送的 commit（「head」设置）</label>
+          <label><input type="radio" name="q-epi-git" value="2"> 仓库最新的 release tag</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。自 v2.1.133 起 worktree.baseRef 默认为「fresh」：每个新建的 worktree 都从 origin/<code>&lt;默认分支&gt;</code>开始。「head」设置（需显式启用）则从你的本地 HEAD 出发，包含未推送的 commit。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。默认值是「fresh」：它从 origin/<code>&lt;默认分支&gt;</code>开始。「head」也存在，但需要自己启用，才能从带有未推送 commit 的本地 HEAD 出发。</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">快速测验 &middot; 后台</div>
+        <p class="q-text">CronCreate/CronList/CronDelete 工具每次会话最多可以计划多少个循环任务？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-epi-echelle" value="0"> 10</label>
+          <label><input type="radio" name="q-epi-echelle" value="1"> 50</label>
+          <label><input type="radio" name="q-epi-echelle" value="2"> 100</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。CronCreate/CronList/CronDelete 工具每次会话的上限是 50 个循环任务；而 /loop 则是在当前对话中按固定间隔直接执行一个 prompt 或一个 skill，不受这个上限限制。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。答案是 50：Cron 工具（CronCreate/CronList/CronDelete）把每次会话计划的循环任务数限制在这个数量，这一点要与运行在当前对话中的 /loop 区分开。</span></div>
+      </div>
+      <div class="quiz" data-correct="2">
+        <div class="q-label">快速测验 &middot; 插件</div>
+        <p class="q-text">对于 github/url/git-subdir 类型的插件来源，marketplace.json 中的哪个字段可以锁定插件的确切版本，不受该分支后续 commit 的影响？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-epi-plugins" value="0"> <code>version</code></label>
+          <label><input type="radio" name="q-epi-plugins" value="1"> <code>tag</code></label>
+          <label><input type="radio" name="q-epi-plugins" value="2"> <code>sha</code></label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。sha 字段（一个完整的 git commit）锁定插件的具体版本，不受所引用分支上后续推送的 commit 影响。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。锁定确切版本的是 sha 字段（一个完整的 git commit），不受该分支后续 commit 的影响。这个用途既没有 version 字段，也没有 tag 字段。</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">快速测验 &middot; SDK、CI/CD、IDE</div>
+        <p class="q-text">在哪种情况下，SDK 的 fallbackModel 机制永远不会切换到备用模型？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-epi-infra" value="0"> 服务器过载时</label>
+          <label><input type="radio" name="q-epi-infra" value="1"> 身份认证、计费或速率限制错误时</label>
+          <label><input type="radio" name="q-epi-infra" value="2"> 通用服务器错误（5xx）时</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。fallbackModel 最多接受三个模型并按顺序尝试，但只在过载或服务器错误时生效，身份认证、计费或速率限制错误永远不会触发切换。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。过载和服务器错误确实会触发切换；恰恰是身份认证、计费或速率限制错误永远不会启用 fallbackModel。</span></div>
+      </div>
+      </div>
+
+      <h3 class="section-title">本课程引用的官方来源</h3>
+      <div class="sources-grid">
+        <a href="https://code.claude.com/docs/en/agent-sdk/permissions" target="_blank" rel="noopener">agent-sdk/permissions</a>
+        <a href="https://code.claude.com/docs/en/agent-sdk/tool-search" target="_blank" rel="noopener">agent-sdk/tool-search</a>
+        <a href="https://code.claude.com/docs/en/agent-view" target="_blank" rel="noopener">agent-view</a>
+        <a href="https://code.claude.com/docs/en/agents" target="_blank" rel="noopener">agents</a>
+        <a href="https://code.claude.com/docs/en/auto-mode-config" target="_blank" rel="noopener">auto-mode-config</a>
+        <a href="https://code.claude.com/docs/en/changelog" target="_blank" rel="noopener">changelog</a>
+        <a href="https://code.claude.com/docs/en/channels" target="_blank" rel="noopener">channels</a>
+        <a href="https://code.claude.com/docs/en/checkpointing" target="_blank" rel="noopener">checkpointing</a>
+        <a href="https://code.claude.com/docs/en/claude-directory" target="_blank" rel="noopener">claude-directory</a>
+        <a href="https://code.claude.com/docs/en/cli-reference" target="_blank" rel="noopener">cli-reference</a>
+        <a href="https://code.claude.com/docs/en/code-review" target="_blank" rel="noopener">code-review</a>
+        <a href="https://code.claude.com/docs/en/commands" target="_blank" rel="noopener">commands</a>
+        <a href="https://code.claude.com/docs/en/costs" target="_blank" rel="noopener">costs</a>
+        <a href="https://code.claude.com/docs/en/cross-session-messaging" target="_blank" rel="noopener">cross-session-messaging</a>
+        <a href="https://code.claude.com/docs/en/goal" target="_blank" rel="noopener">goal</a>
+        <a href="https://code.claude.com/docs/en/headless" target="_blank" rel="noopener">headless</a>
+        <a href="https://code.claude.com/docs/en/hooks" target="_blank" rel="noopener">hooks</a>
+        <a href="https://code.claude.com/docs/en/hooks-guide" target="_blank" rel="noopener">hooks-guide</a>
+        <a href="https://code.claude.com/docs/en/interactive-mode" target="_blank" rel="noopener">interactive-mode</a>
+        <a href="https://code.claude.com/docs/en/large-codebases" target="_blank" rel="noopener">large-codebases</a>
+        <a href="https://code.claude.com/docs/en/managed-mcp" target="_blank" rel="noopener">managed-mcp</a>
+        <a href="https://code.claude.com/docs/en/mcp" target="_blank" rel="noopener">mcp</a>
+        <a href="https://code.claude.com/docs/en/mcp-quickstart" target="_blank" rel="noopener">mcp-quickstart</a>
+        <a href="https://code.claude.com/docs/en/memory" target="_blank" rel="noopener">memory</a>
+        <a href="https://code.claude.com/docs/en/model-config" target="_blank" rel="noopener">model-config</a>
+        <a href="https://code.claude.com/docs/en/permission-modes" target="_blank" rel="noopener">permission-modes</a>
+        <a href="https://code.claude.com/docs/en/permissions" target="_blank" rel="noopener">permissions</a>
+        <a href="https://code.claude.com/docs/en/plugin-marketplaces" target="_blank" rel="noopener">plugin-marketplaces</a>
+        <a href="https://code.claude.com/docs/en/plugins" target="_blank" rel="noopener">plugins</a>
+        <a href="https://code.claude.com/docs/en/plugins-reference" target="_blank" rel="noopener">plugins-reference</a>
+        <a href="https://code.claude.com/docs/en/sandboxing" target="_blank" rel="noopener">sandboxing</a>
+        <a href="https://code.claude.com/docs/en/scheduled-tasks" target="_blank" rel="noopener">scheduled-tasks</a>
+        <a href="https://code.claude.com/docs/en/sessions" target="_blank" rel="noopener">sessions</a>
+        <a href="https://code.claude.com/docs/en/settings-reference" target="_blank" rel="noopener">settings-reference</a>
+        <a href="https://code.claude.com/docs/en/skills" target="_blank" rel="noopener">skills</a>
+        <a href="https://code.claude.com/docs/en/statusline" target="_blank" rel="noopener">statusline</a>
+        <a href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener">sub-agents</a>
+        <a href="https://code.claude.com/docs/en/tools-reference" target="_blank" rel="noopener">tools-reference</a>
+        <a href="https://code.claude.com/docs/en/vs-code" target="_blank" rel="noopener">vs-code</a>
+        <a href="https://code.claude.com/docs/en/whats-new/2026-w15" target="_blank" rel="noopener">whats-new/2026-w15</a>
+        <a href="https://code.claude.com/docs/en/workflows" target="_blank" rel="noopener">workflows</a>
+        <a href="https://code.claude.com/docs/en/worktrees" target="_blank" rel="noopener">worktrees</a>
+        <a href="https://platform.claude.com/docs/en/agent-sdk/migration-guide" target="_blank" rel="noopener">platform.claude.com/docs/en/agent-sdk/migration-guide</a>
+      </div>
+
+      <p class="colophon">方法论：官方 CHANGELOG（github.com/anthropics/claude-code）的 385 个版本被逐段拆分并全部评审，从中提取出对专业使用有意义的主要功能。此处保留的每条事实随后都对照了 <code>code.claude.com</code> 上的现行文档做了独立检索核实；只有经这次核实标记为 <span class="badge confirmed" style="display:inline">已确认</span> 或 <span class="badge corrected" style="display:inline">已更新</span> 的事实才写进本课程。检索无法确认的内容被剔除，而不是当作既定事实呈现。命令和参数会变化：在生产环境中依赖某个具体细节之前，请先确认 <code>claude --version</code> 以及当前有效的文档。</p>
+      <div class="module-foot"><button class="mark-done" data-mark="epilogue" data-label="标记为已读">标记为已读</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="infra.html"><span class="dir">&larr; 上一章</span><span class="ptitle">SDK、CI/CD、IDE</span></a>
+      <span></span>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

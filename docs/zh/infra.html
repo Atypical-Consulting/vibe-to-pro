@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SDK、无头模式、CI/CD &amp; IDE · 从 Vibe Coding 到专业匠艺</title>
+<meta name="description" content="Vibe Coding 在交互模式下凭直觉逐个确认每个操作：这无法规模化。无头模式和 SDK 把 Claude Code 变成可复现的基础构件：确定性的脚本、明确的护栏、可在 CI 中直接使用的结构化输出。">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/zh/infra.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SDK、无头模式、CI/CD &amp; IDE · 从 Vibe Coding 到专业匠艺">
+<meta property="og:description" content="Vibe Coding 在交互模式下凭直觉逐个确认每个操作：这无法规模化。无头模式和 SDK 把 Claude Code 变成可复现的基础构件：确定性的脚本、明确的护栏、可在 CI 中直接使用的结构化输出。">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/zh/infra.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">跳到主要内容</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="模块">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">实战手册</span></a>
+        <select class="lang-switch" aria-label="语言"><option value="../infra.html">FR</option><option value="../en/infra.html">EN</option><option value="../es/infra.html">ES</option><option value="infra.html" selected>ZH</option></select>
+      </div>
+      <h1>从 Vibe Coding 到专业匠艺</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>进度</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="模块">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>序章</span></a>
+      <a href="control.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>控制 &amp; 安全</span></a>
+      <a href="memory.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>记忆</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>命令 &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>计划 &amp; 推理</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>子代理</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>检查点</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="scale.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>后台 &amp; 工作流</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>插件 &amp; 市场</span></a>
+      <a href="infra.html" data-mod="infra" class="active"><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK、CI/CD、IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>终章 &amp; 参考来源</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 个模块 &middot; 每条引用的事实都会链接到官方来源（code.claude.com），否则会被标注为未经核实。<br>✓ 已读 · ✓✓ 已验证（本模块所有测验均已通过）<br>
+      <a href="index.html">← 返回首页</a> &middot; <a href="methodology.html">方法论</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="infra">
+      <div class="module-head"><span class="index">12</span><h2>SDK、无头模式、CI/CD &amp; IDE</h2></div>
+      <div class="module-sub">让 Claude Code 成为一块基础设施构件</div>
+      <div class="stance"><p>Vibe Coding 在交互模式下凭直觉逐个确认每个操作：这无法规模化。无头模式和 SDK 把 Claude Code 变成可复现的基础构件：确定性的脚本、明确的护栏、可在 CI 中直接使用的结构化输出。</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">水平测试</div>
+        <p class="q-text">哪个标志会跳过对 hooks、skills、子代理、插件、MCP 和 CLAUDE.md 的自动发现？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-infra" value="0"> <code>--headless</code></label>
+          <label><input type="radio" name="q-infra" value="1"> <code>--bare</code></label>
+          <label><input type="radio" name="q-infra" value="2"> <code>--no-context</code></label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">这是所有脚本化调用或 SDK 调用的推荐模式：行为可预测，不受隐式本地配置影响。</span><br><a class="skip-next" href="epilogue.html">&rarr; 你已经掌握这一环，可以直接进入下一个模块</a></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">答案是 <code>--bare</code>：它消除对本地配置的一切自动发现，让脚本化行为可预测。</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">如果没有人在场点击「是」呢？</h3>
+      <p>在交互模式下，一切都很简单：你能看到 Claude Code 即将做什么，随时确认或纠正。但如果你想把 Claude Code 接入一条 <code>CI/CD</code> 流水线（每次推送都会自动构建并测试你代码的系统），而它在凌晨 3 点运行，屏幕前空无一人，会发生什么？又或者你想从自己的程序里像调用一个普通函数那样调用它呢？此时交互模式连同它的确认提示和隐式本地配置就不再合适：你需要一种每次执行都完全相同的行为，没有意外，也不依赖你机器上残留的东西。</p>
+      <p>这正是无头模式（没有界面，完全由命令行驱动）和以下标志的用武之地：<code>--bare</code>. <code>--bare</code> 会彻底清空一切：它跳过对 hooks、skills、子代理、插件、MCP 服务器、记忆以及 <code>CLAUDE.md</code>文件的所有自动发现。结果是：只有你在命令行上显式传入的内容才决定本次会话的行为，这让它在不同机器之间可复现。再结合 <code>--permission-prompts none</code>，它会自动把任何本来会触发确认提示的操作转为拒绝，于是你得到一个永远不会卡住、不会苦等一个不会到来的人工回应的脚本。SDK（如今更名为 Claude Agent SDK）在代码一侧确立了同样的逻辑：你的程序不再需要敲命令，而是直接驱动一个 Claude Code 会话。</p>
+      <p>但无人监督的脚本还必须懂得替你自我保护。SDK 的 <code>canUseTool</code> 回调很好地体现了这种分层思路：只有当排在它前面的环节（一个 <code>PreToolUse</code>hook、一条 allow/deny/ask 规则、权限模式）都没有做出裁决时，它才会被调用，这让你可以在不重复已有机制的前提下加入定制的业务校验。在韧性方面同样谨慎：<code>fallbackModel</code> 机制会在服务器过载或出错时自动切换到备用模型，但绝不会因为认证、计费或速率限制错误而切换。换模型解决不了这类问题：与其掩盖一次真正的故障，不如让任务明确失败。至于 <code>maxBudgetUsd</code>，它为一次自动化执行的花费设定上限：没有人实时盯着计数器，所以只能由这个参数自己在账单失控前切断。</p>
+      <p>还剩最后一个问题：没有人盯着屏幕，流水线怎么知道一切正常？靠产出结构化输出，而不是需要肉眼解读的文本。在 <code>--output-format stream-json</code>下，<code>system/init</code> 消息就暴露了一个 <code>plugin_errors</code> 字段，它列出插件加载错误（没有错误时该字段不存在），这为 CI 脚本提供了一道容易编写的校验关口。至于在键盘前工作而非在流水线里，同一个 CLI 也集成进了 VS Code 扩展（侧边栏、内联 diff、与选区关联的 @ 提及），而 <code>/statusline</code> 则实时告诉你正在使用的模型、成本和上下文。下面详细说明这些具体带来了什么改变。</p>
+
+      <h3 class="section-title">要点回顾</h3>
+      <div class="facts">
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.81</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>--bare</code> 会跳过对 hooks、skills、子代理、插件、MCP、记忆和 CLAUDE.md 的自动发现。这是所有脚本化调用或 SDK 调用的推荐模式。</p><div class="how"><b>怎么做</b><br><code>ANTHROPIC_API_KEY=sk-… claude --bare -p "总结 README.md" --allowedTools "Read"</code>.</div><a class="src" href="https://code.claude.com/docs/en/headless" target="_blank" rel="noopener">code.claude.com/docs/en/headless</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.259</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>--permission-prompts none</code> 会自动把任何本来会触发确认提示的操作转为拒绝，不等待任何人工回应。</p><div class="how"><b>怎么做</b><br>用于无人监督的计划任务：<code>claude -p "…" --permission-mode auto --permission-prompts none</code>.</div><a class="src" href="https://code.claude.com/docs/en/headless" target="_blank" rel="noopener">code.claude.com/docs/en/headless</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.111</span><span class="badge confirmed">已确认</span></div><div class="body"><p>字段 <code>plugin_errors</code> 属于 <code>system/init</code> 消息，在 <code>--output-format stream-json</code> 下列出插件加载错误（没有错误时该字段不存在），因此可以设置一道简单的 CI 校验关口。</p><div class="how"><b>怎么做</b><br><code>jq -e '.plugin_errors // [] | length == 0'</code> 可在出现插件错误时让 CI 任务失败。</div><a class="src" href="https://code.claude.com/docs/en/cli-reference" target="_blank" rel="noopener">code.claude.com/docs/en/cli-reference</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.0.0 / 2.0.25</span><span class="badge confirmed">已确认</span></div><div class="body"><p>SDK 已更名为 Claude Agent SDK：<code>@anthropic-ai/claude-agent-sdk</code> （TypeScript）和 <code>claude-agent-sdk</code> （Python），旧的入口包已被移除。</p><div class="how"><b>怎么做</b><br><code>npm install @anthropic-ai/claude-agent-sdk</code> 或 <code>pip install claude-agent-sdk</code> 供所有新项目使用。</div><a class="src" href="https://platform.claude.com/docs/en/agent-sdk/migration-guide" target="_blank" rel="noopener">platform.claude.com/docs/en/agent-sdk/migration-guide</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v1.0.59</span><span class="badge confirmed">已确认</span></div><div class="body"><p>SDK 的回调 <code>canUseTool</code> 只有在排在它前面的环节（ <code>PreToolUse</code>hook、allow/deny/ask 规则、权限模式）都没有做出裁决时才会被调用。对于已经自动批准的工具，它永远不会触发。</p><div class="how"><b>怎么做</b><br>在执行敏感工具之前，用它来做自定义的业务校验。</div><a class="src" href="https://code.claude.com/docs/en/agent-sdk/permissions" target="_blank" rel="noopener">code.claude.com/docs/en/agent-sdk/permissions</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.166</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>fallbackModel</code> 最多接受三个模型，在服务器过载或出错时按顺序尝试（认证、计费或速率限制错误时绝不切换）。</p><div class="how"><b>怎么做</b><br><code>{ "fallbackModel": ["claude-sonnet-5", "claude-haiku-4-5"] }</code> 写入 settings.json。</div><a class="src" href="https://code.claude.com/docs/en/settings-reference" target="_blank" rel="noopener">code.claude.com/docs/en/settings-reference</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.0.28</span><span class="badge confirmed">已确认</span></div><div class="body"><p>SDK 提供 <code>maxBudgetUsd</code> （等同于 CLI 标志 <code>--max-budget-usd</code>），用于为一次自动化执行的花费设定上限。</p><div class="how"><b>怎么做</b><br><code>claude -p "…" --max-budget-usd 2.00</code> 适用于绝不能超出该成本的 CI 脚本。</div><a class="src" href="https://code.claude.com/docs/en/costs" target="_blank" rel="noopener">code.claude.com/docs/en/costs</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.0.0</span><span class="badge confirmed">已确认</span></div><div class="body"><p>原生 VS Code 扩展内置了同一个 CLI <code>claude</code>，并提供侧边栏、内联 diff、与选区关联的 @ 提及，以及一个暴露 IDE 诊断信息的内置 MCP 服务器。</p><div class="how"><b>怎么做</b><br>从 VS Code 应用市场安装「Claude Code」（需要付费套餐或 API 密钥）。</div><a class="src" href="https://code.claude.com/docs/en/vs-code" target="_blank" rel="noopener">code.claude.com/docs/en/vs-code</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v1.0.71</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>/statusline</code> 会生成或配置一个显示在界面底部的脚本，由 stdin 上的 JSON 流驱动（模型、成本、上下文、git）。</p><div class="how"><b>怎么做</b><br>「/statusline 显示模型名称和上下文百分比」会自动生成一个脚本。</div><a class="src" href="https://code.claude.com/docs/en/statusline" target="_blank" rel="noopener">code.claude.com/docs/en/statusline</a></div></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">快速测验</div>
+        <p class="q-text">SDK 的 fallbackModel 机制在什么情况下绝不会切换到备用模型？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-infra-2" value="0"> 服务器过载时</label>
+          <label><input type="radio" name="q-infra-2" value="1"> 认证、计费或速率限制错误时</label>
+          <label><input type="radio" name="q-infra-2" value="2"> 通用服务器错误（5xx）时</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。fallbackModel 最多接受三个模型并按顺序尝试，但仅限服务器过载或服务器出错的情况，绝不用于认证、计费或速率限制错误。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。过载和服务器错误确实会触发切换；恰恰是认证、计费或速率限制错误永远不会启用 fallbackModel。</span></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">快速测验</div>
+        <p class="q-text">在 --output-format stream-json 下，system/init 消息中缺少 plugin_errors 字段意味着什么？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-infra-3" value="0"> 没有发生任何插件加载错误</label>
+          <label><input type="radio" name="q-infra-3" value="1"> 项目里没有配置任何插件</label>
+          <label><input type="radio" name="q-infra-3" value="2"> --bare 模式已启用并禁用了插件</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。plugin_errors 列出插件加载错误，没有错误时就不会出现，因此可以设置一道简单的 CI 校验关口，例如 jq -e '.plugin_errors // [] | length == 0'。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。这个字段既不说明安装了多少插件，也与 --bare 无关：它的缺失只表示没有发生任何插件加载错误。</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">实践练习</div>
+        <p>写出下面这条命令：</p>
+<pre><code class="language-bash">claude --bare -p "总结最近 3 个 commit" --allowedTools "Bash(git log *)" --permission-mode auto --permission-prompts none --output-format json</code></pre>
+<p>用 <code>jq</code> 检查输出，提取 <code>.result</code> 和 <code>.total_cost_usd</code>.</p>
+        <details class="solution"><summary>解答 &amp; 验证</summary>
+        <p>这条命令之所以有效，是因为 <code>--bare</code> 消除了对 hooks、skills、子代理、插件、MCP、记忆和 CLAUDE.md 的一切自动发现：只有在命令行上显式传入的内容（这里是 <code>--allowedTools "Bash(git log *)"</code>）才决定其行为，这让该调用对脚本而言可复现。再结合 <code>--permission-prompts none</code>，它会自动把任何本来会触发确认提示的操作转为拒绝，任务自始至终保持非交互：任何超出 <code>git log</code> 范围的命令都会被直接拒绝，不会等待人工回应。<code>--output-format json</code> 随后会产生单个 JSON 对象，<code>jq</code> 从中提取 <code>.result</code> （摘要）和 <code>.total_cost_usd</code> （本次调用的成本）。</p>
+        <ul><li>命令以退出码 0 结束，并在 stdout 上输出单个 JSON 对象（不是多行，因为格式不是 stream-json）。</li><li><code>jq -r '.result'</code> 返回一段非空文本，确实总结了最近 3 个 commit；而 <code>jq '.total_cost_usd'</code> 返回一个正的小数（绝不为 null）。</li><li>执行过程中不会出现任何确认提示；如果尝试了超出 <code>Bash(git log *)</code> 范围的命令，它会被自动拒绝，而不是让终端卡住等待确认。</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="infra" data-label="标记为已读">标记为已读</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="plugins.html"><span class="dir">&larr; 上一章</span><span class="ptitle">插件 &amp; 市场</span></a>
+      <a class="next" href="epilogue.html"><span class="dir">下一章 &rarr;</span><span class="ptitle">终章 &amp; 参考来源</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

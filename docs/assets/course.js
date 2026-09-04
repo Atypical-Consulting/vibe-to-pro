@@ -3,7 +3,8 @@
   var LOCALES = {
     en: { done: "Read ✓", verified: "Verified ✓✓", copy: "Copy", copied: "Copied", ago: "days ago" },
     fr: { done: "Lu ✓", verified: "Vérifié ✓✓", copy: "Copier", copied: "Copié", ago: "j" },
-    es: { done: "Leído ✓", verified: "Verificado ✓✓", copy: "Copiar", copied: "Copiado", ago: "días" }
+    es: { done: "Leído ✓", verified: "Verificado ✓✓", copy: "Copiar", copied: "Copiado", ago: "días" },
+    zh: { done: "已读 ✓", verified: "已验证 ✓✓", copy: "复制", copied: "已复制", ago: "天前" }
   };
   var L = LOCALES[document.documentElement.lang] || LOCALES.fr;
 

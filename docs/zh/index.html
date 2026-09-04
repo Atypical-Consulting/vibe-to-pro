@@ -1,20 +1,20 @@
 <!doctype html>
-<html lang="fr">
+<html lang="zh">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vibe to Pro</title>
-<meta name="description" content="Un cours de terrain sur Claude Code, construit à partir des 385 versions du CHANGELOG officiel : chaque fait vérifié contre la documentation actuelle avant d'être enseigné.">
-<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/">
+<meta name="description" content="一门关于 Claude Code 的实战课程，取材于 385 个版本的官方 CHANGELOG：每条事实都在写入课程之前对照过最新文档。">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/zh/">
 <meta name="theme-color" content="#1F6F63">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Vibe to Pro : le vibe-coding s'arrête où commence le contrôle">
-<meta property="og:description" content="Un cours gratuit construit à partir des 385 versions du CHANGELOG officiel de Claude Code. Chaque fait est vérifié contre la documentation actuelle avant d'être enseigné.">
+<meta property="og:title" content="Vibe to Pro：Vibe Coding 止步于控制开始的地方">
+<meta property="og:description" content="一门免费课程，内容取材于 385 个版本的 Claude Code 官方 CHANGELOG。每条事实都在写入课程之前对照过最新文档。">
 <meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
-<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/zh/">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Vibe to Pro : le vibe-coding s'arrête où commence le contrôle">
-<meta name="twitter:description" content="385 versions du CHANGELOG officiel de Claude Code, vérifiées une à une contre la documentation actuelle.">
+<meta name="twitter:title" content="Vibe to Pro：Vibe Coding 止步于控制开始的地方">
+<meta name="twitter:description" content="385 个版本的 Claude Code 官方 CHANGELOG，逐一对照最新文档核实。">
 <meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
@@ -233,18 +233,18 @@
 </style>
 </head>
 <body>
-<a class="skip" href="#contenu">Aller au contenu</a>
+<a class="skip" href="#contenu">跳到主要内容</a>
 
 <div class="wrap">
   <header class="topbar">
     <div class="topbar-top">
       <a class="mark" href="#top">vibe-to-pro</a>
-      <select class="lang-switch" aria-label="Langue"><option value="index.html" selected>FR</option><option value="en/index.html">EN</option><option value="es/index.html">ES</option><option value="zh/index.html">ZH</option></select>
+      <select class="lang-switch" aria-label="语言"><option value="../index.html">FR</option><option value="../en/index.html">EN</option><option value="../es/index.html">ES</option><option value="index.html" selected>ZH</option></select>
     </div>
     <nav class="links">
-      <a href="#probleme">Problème</a>
-      <a href="#methode">Méthode</a>
-      <a href="#programme">Programme</a>
+      <a href="#probleme">问题</a>
+      <a href="#methode">方法</a>
+      <a href="#programme">课程大纲</a>
       <a href="https://github.com/Atypical-Consulting/vibe-to-pro">GitHub</a>
     </nav>
   </header>
@@ -254,17 +254,17 @@
 
   <div class="wrap">
     <section class="hero" id="top">
-      <span class="eyebrow">Cours de terrain · Claude Code</span>
-      <h1>Le vibe‑coding s'arrête où commence le contrôle.</h1>
-      <p class="dek">Un cours gratuit construit à partir des <b>385&nbsp;versions</b> du <code>CHANGELOG</code> officiel de Claude Code. Chaque fonctionnalité enseignée a été confrontée à la documentation actuelle sur <code>code.claude.com</code> avant d'y figurer&nbsp;: rien n'est affirmé sans source.</p>
+      <span class="eyebrow">实战课程 · Claude Code</span>
+      <h1>Vibe Coding 止步于控制开始的地方。</h1>
+      <p class="dek">这是一门免费课程，内容取材于 <b>385&nbsp;个版本的</b> Claude Code 官方 <code>CHANGELOG</code> 记录。课程中教授的每一项功能，都在写入之前对照过 <code>code.claude.com</code> 上的最新文档：没有来源，就不下断言。</p>
       <div class="ctas">
-        <a class="btn primary" href="prologue.html">Commencer le cours →</a>
-        <a class="btn ghost" href="#methode">Voir la méthode</a>
+        <a class="btn primary" href="prologue.html">开始学习 →</a>
+        <a class="btn ghost" href="#methode">了解方法</a>
       </div>
       <div class="meta-row">
-        <span class="meta-pill">Source&nbsp;: <b>github.com/anthropics/claude-code</b></span>
-        <span class="meta-pill" data-freshness="2026-09-02">Vérifié au&nbsp;: <b>2 sept. 2026</b> (v2.1.260)</span>
-        <span class="meta-pill">14 modules · <a href="methodology.html">méthode vérifiée</a></span>
+        <span class="meta-pill">来源: <b>github.com/anthropics/claude-code</b></span>
+        <span class="meta-pill" data-freshness="2026-09-02">核实于: <b>2026 年 9 月 2 日</b> (v2.1.260)</span>
+        <span class="meta-pill">14 个模块 · <a href="methodology.html">核实方法</a></span>
       </div>
     </section>
   </div>
@@ -272,27 +272,27 @@
   <section class="block" id="probleme">
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow">00 · Le constat</span>
-        <h2>Un prompt qui marche n'est pas une pratique.</h2>
-        <p>Le vibe‑coding produit des résultats, mais aucune garantie&nbsp;: pas de périmètre de permissions, pas de trace, pas de filet en cas d'erreur. Voici la même intention, traitée deux façons.</p>
+        <span class="eyebrow">00 · 现状</span>
+        <h2>一个能跑通的 prompt，不等于一套工程实践。</h2>
+        <p>Vibe Coding 能产出结果，却没有任何保障：没有权限范围，没有可追溯的记录，出错时也没有安全网。下面是同一个诉求的两种处理方式。</p>
       </div>
       <div class="compare">
         <div class="term vibe">
-          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="label">vibe‑coding</span></div>
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="label">Vibe Coding</span></div>
           <div class="term-body">
             <div class="ln"><span class="prompt">$</span> claude</div>
-            <div class="ln">&gt; corrige le bug de login</div>
-            <div class="ln muted">…4 fichiers modifiés, aucune review</div>
-            <div class="ln ok">✓ « ça a l'air de marcher »</div>
-            <div class="ln bad">✗ push direct sur main<span class="caret"></span></div>
+            <div class="ln">&gt; 修复登录的 bug</div>
+            <div class="ln muted">…修改了 4 个文件，没有任何 review</div>
+            <div class="ln ok">✓ 「看起来能用」</div>
+            <div class="ln bad">✗ 直接 push 到 main<span class="caret"></span></div>
           </div>
         </div>
         <div class="term pro">
-          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="label">pratique pro</span></div>
+          <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="label">专业实践</span></div>
           <div class="term-body">
             <div class="ln"><span class="prompt">$</span> claude --permission-mode plan</div>
-            <div class="ln">&gt; corrige le bug de login</div>
-            <div class="ln muted">→ plan proposé · 3 fichiers · 2 tests</div>
+            <div class="ln">&gt; 修复登录的 bug</div>
+            <div class="ln muted">→ 已给出计划 · 3 个文件 · 2 个测试</div>
             <div class="ln ok">✓ /code-review high --fix</div>
             <div class="ln ok">✓ /commit-push-pr → PR #142<span class="caret"></span></div>
           </div>
@@ -304,15 +304,15 @@
   <section class="block" id="methode">
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow">01 · La méthode</span>
-        <h2>Rien n'est enseigné sans être vérifié.</h2>
-        <p>Ce cours n'est pas écrit de mémoire. Chaque fait suit le même circuit avant de devenir une ligne du cours&nbsp;:</p>
+        <span class="eyebrow">01 · 方法</span>
+        <h2>未经核实，绝不写入课程。</h2>
+        <p>本课程不是凭记忆写成的。每条事实在成为课程中的一行之前，都要走完同一条流程：</p>
       </div>
       <div class="steps">
-        <div class="step"><span class="n">1</span><div><h3>Extraire</h3><p>Les 385&nbsp;versions du CHANGELOG officiel sont découpées et passées en revue pour en isoler les fonctionnalités majeures, pas les correctifs mineurs.</p></div></div>
-        <div class="step"><span class="n">2</span><div><h3>Vérifier</h3><p>Chaque fonctionnalité candidate est confrontée, indépendamment, à la documentation actuelle sur <code>code.claude.com</code> par une recherche dédiée.</p></div></div>
-        <div class="step"><span class="n">3</span><div><h3>Trancher</h3><p>Chaque fait reçoit un verdict&nbsp;: <span class="mono">confirmé</span>, <span class="mono">mis à jour</span> (le comportement a changé depuis), ou <span class="mono">non vérifiable</span>.</p></div></div>
-        <div class="step"><span class="n">4</span><div><h3>Écarter ou publier</h3><p>Seuls les faits confirmés ou mis à jour entrent dans le cours, source citée. Le reste est écarté, jamais présenté comme acquis.</p></div></div>
+        <div class="step"><span class="n">1</span><div><h3>提取</h3><p>官方 CHANGELOG 的 385&nbsp;个版本被逐一拆分和审阅，从中筛选出重大功能，而不是细枝末节的修复。</p></div></div>
+        <div class="step"><span class="n">2</span><div><h3>核实</h3><p>每一项候选功能都通过一次专门的检索，独立对照 <code>code.claude.com</code> 上的最新文档。</p></div></div>
+        <div class="step"><span class="n">3</span><div><h3>裁定</h3><p>每条事实都会得到一个结论: <span class="mono">已确认</span>, <span class="mono">已更新</span> （此后行为已发生变化），或 <span class="mono">无法核实</span>.</p></div></div>
+        <div class="step"><span class="n">4</span><div><h3>舍弃或发布</h3><p>只有已确认或已更新的事实才会进入课程，并注明来源。其余一律舍弃，绝不当作既定事实呈现。</p></div></div>
       </div>
     </div>
   </section>
@@ -320,43 +320,43 @@
   <section class="block" id="chiffres">
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow">02 · En chiffres</span>
-        <h2>La vérification, mesurée.</h2>
+        <span class="eyebrow">02 · 数据</span>
+        <h2>核实工作，用数字说话。</h2>
       </div>
       <div class="stats">
-        <div class="stat"><div class="num">385</div><div class="lbl">versions du changelog analysées, de la 0.2.21 à la 2.1.260</div></div>
-        <div class="stat"><div class="num">395</div><div class="lbl">fonctionnalités candidates vérifiées individuellement</div></div>
-        <div class="stat"><div class="num">14</div><div class="lbl">modules, du contrôle des permissions à l'infrastructure CI/CD</div></div>
+        <div class="stat"><div class="num">385</div><div class="lbl">个 changelog 版本已分析，从 0.2.21 到 2.1.260</div></div>
+        <div class="stat"><div class="num">395</div><div class="lbl">项候选功能逐一核实</div></div>
+        <div class="stat"><div class="num">14</div><div class="lbl">个模块，从权限控制到 CI/CD 基础设施</div></div>
       </div>
-      <p class="stats-note">Les faits non vérifiables ont été écartés du cours plutôt que publiés par défaut.</p>
+      <p class="stats-note">无法核实的事实已从课程中剔除，而不是默认照单发布。</p>
     </div>
   </section>
 
   <section class="block" id="programme">
     <div class="wrap">
       <div class="head">
-        <span class="eyebrow">03 · Le programme</span>
-        <h2>14 modules, dans l'ordre où les adopter.</h2>
-        <p>De la sécurité de base jusqu'à l'échelle en équipe&nbsp;: chaque module s'ouvre sur sa propre page.</p>
+        <span class="eyebrow">03 · 课程大纲</span>
+        <h2>14 个模块，按照落地采用的顺序排列。</h2>
+        <p>从基础安全一直到团队规模化：每个模块都有自己独立的页面。</p>
       </div>
       <div class="curriculum-list">
-        <a href="prologue.html"><span class="cnum">00</span><span><span class="ctitle">Prologue</span><br><span class="csub">Le vibe‑coding s'arrête où commence le contrôle</span></span></a>
-        <a href="control.html"><span class="cnum">01</span><span><span class="ctitle">Contrôle &amp; sécurité</span><br><span class="csub">Permissions, sandbox, mode auto&nbsp;: le socle</span></span></a>
-        <a href="memory.html"><span class="cnum">02</span><span><span class="ctitle">Mémoire</span><br><span class="csub">CLAUDE.md et mémoire automatique</span></span></a>
-        <a href="skills.html"><span class="cnum">03</span><span><span class="ctitle">Commandes &amp; Skills</span><br><span class="csub">D'un prompt improvisé à une procédure versionnée</span></span></a>
-        <a href="plan.html"><span class="cnum">04</span><span><span class="ctitle">Plan Mode &amp; réflexion</span><br><span class="csub">Réfléchir avant d'agir, régler la profondeur</span></span></a>
-        <a href="agents.html"><span class="cnum">05</span><span><span class="ctitle">Sous‑agents</span><br><span class="csub">Déléguer et paralléliser sans tout mélanger</span></span></a>
-        <a href="hooks.html"><span class="cnum">06</span><span><span class="ctitle">Hooks</span><br><span class="csub">Des règles déterministes, pas des espoirs</span></span></a>
-        <a href="mcp.html"><span class="cnum">07</span><span><span class="ctitle">MCP</span><br><span class="csub">Connecter des outils externes en sécurité</span></span></a>
-        <a href="rewind.html"><span class="cnum">08</span><span><span class="ctitle">Checkpoints &amp; Rewind</span><br><span class="csub">Le filet de sécurité pour explorer sans crainte</span></span></a>
-        <a href="git.html"><span class="cnum">09</span><span><span class="ctitle">Git &amp; worktrees</span><br><span class="csub">Travailler à plusieurs sans collision</span></span></a>
-        <a href="scale.html"><span class="cnum">10</span><span><span class="ctitle">Arrière‑plan &amp; workflows</span><br><span class="csub">Passer à l'échelle sans perdre le contrôle</span></span></a>
-        <a href="plugins.html"><span class="cnum">11</span><span><span class="ctitle">Plugins &amp; marketplaces</span><br><span class="csub">Outiller toute l'équipe, pas juste soi</span></span></a>
-        <a href="infra.html"><span class="cnum">12</span><span><span class="ctitle">SDK, CI/CD, IDE</span><br><span class="csub">Claude Code comme brique d'infrastructure</span></span></a>
-        <a href="epilogue.html"><span class="cnum">13</span><span><span class="ctitle">Épilogue</span><br><span class="csub">La checklist du praticien pro</span></span></a>
+        <a href="prologue.html"><span class="cnum">00</span><span><span class="ctitle">序章</span><br><span class="csub">Vibe Coding 止步于控制开始的地方</span></span></a>
+        <a href="control.html"><span class="cnum">01</span><span><span class="ctitle">控制 &amp; 安全</span><br><span class="csub">权限、沙箱、自动模式：地基</span></span></a>
+        <a href="memory.html"><span class="cnum">02</span><span><span class="ctitle">记忆</span><br><span class="csub">CLAUDE.md 与自动记忆</span></span></a>
+        <a href="skills.html"><span class="cnum">03</span><span><span class="ctitle">命令 &amp; Skills</span><br><span class="csub">从临时敲出的 prompt 到版本化的标准流程</span></span></a>
+        <a href="plan.html"><span class="cnum">04</span><span><span class="ctitle">Plan Mode &amp; 推理</span><br><span class="csub">先思考再动手，并调节思考深度</span></span></a>
+        <a href="agents.html"><span class="cnum">05</span><span><span class="ctitle">子代理</span><br><span class="csub">分工并行，又不互相干扰</span></span></a>
+        <a href="hooks.html"><span class="cnum">06</span><span><span class="ctitle">Hooks</span><br><span class="csub">确定性的规则，而不是碰运气</span></span></a>
+        <a href="mcp.html"><span class="cnum">07</span><span><span class="ctitle">MCP</span><br><span class="csub">安全地接入外部工具</span></span></a>
+        <a href="rewind.html"><span class="cnum">08</span><span><span class="ctitle">检查点 &amp; Rewind</span><br><span class="csub">放心探索的安全网</span></span></a>
+        <a href="git.html"><span class="cnum">09</span><span><span class="ctitle">Git &amp; worktrees</span><br><span class="csub">多人并行，互不冲突</span></span></a>
+        <a href="scale.html"><span class="cnum">10</span><span><span class="ctitle">后台 &amp; 工作流</span><br><span class="csub">规模化，同时不失控</span></span></a>
+        <a href="plugins.html"><span class="cnum">11</span><span><span class="ctitle">插件 &amp; 市场</span><br><span class="csub">为整个团队装备工具，而不只是自己</span></span></a>
+        <a href="infra.html"><span class="cnum">12</span><span><span class="ctitle">SDK、CI/CD、IDE</span><br><span class="csub">把 Claude Code 当作基础设施构件</span></span></a>
+        <a href="epilogue.html"><span class="cnum">13</span><span><span class="ctitle">终章</span><br><span class="csub">专业从业者的检查清单</span></span></a>
       </div>
       <div class="curriculum-cta">
-        <a class="btn primary" href="prologue.html">Commencer par le Prologue →</a>
+        <a class="btn primary" href="prologue.html">从序章开始 →</a>
       </div>
     </div>
   </section>
@@ -368,14 +368,14 @@
     <div class="foot-row">
       <span class="mark">vibe-to-pro</span>
       <nav class="foot-links">
-        <a href="prologue.html">Le cours</a>
-        <a href="methodology.html">Méthodologie</a>
-        <a href="https://github.com/Atypical-Consulting/vibe-to-pro">Code source</a>
-        <a href="https://github.com/Atypical-Consulting/vibe-to-pro/blob/main/LICENSE">Licence MIT</a>
-        <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">CHANGELOG source</a>
+        <a href="prologue.html">课程</a>
+        <a href="methodology.html">方法论</a>
+        <a href="https://github.com/Atypical-Consulting/vibe-to-pro">源代码</a>
+        <a href="https://github.com/Atypical-Consulting/vibe-to-pro/blob/main/LICENSE">MIT 许可证</a>
+        <a href="https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md">CHANGELOG 原文</a>
       </nav>
     </div>
-    <p class="colophon">Les commandes et paramètres de Claude Code évoluent. Ce cours indique sa date de vérification en en‑tête&nbsp;; confirmez toujours avec <code>claude --version</code> et la documentation en vigueur avant de vous fier à un détail précis en production. Un projet <a href="https://www.atypical.consulting">Atypical Consulting</a>.</p>
+    <p class="colophon">Claude Code 的命令和参数会不断变化。本课程在页首标注了核实日期；在生产环境中依赖任何具体细节之前，请务必用 <code>claude --version</code> 和当时的官方文档再次确认。本项目出自 <a href="https://www.atypical.consulting">Atypical Consulting</a>.</p>
   </div>
 </footer>
 
@@ -385,7 +385,7 @@
       var days = Math.floor((Date.now() - new Date(el.dataset.freshness)) / 86400000);
       if(days < 0 || days > 1000) return;
       var tag = document.createElement('b');
-      tag.textContent = ' · il y a ' + days + ' j';
+      tag.textContent = ' · ' + days + ' 天前';
       el.appendChild(tag);
       if(days > 21) el.style.borderColor = 'var(--warn)';
     });

@@ -1,5 +1,6 @@
 {
   "fr": { "label": "FR", "dir": "", "aria": "Langue" },
   "en": { "label": "EN", "dir": "en", "aria": "Language" },
-  "es": { "label": "ES", "dir": "es", "aria": "Idioma" }
+  "es": { "label": "ES", "dir": "es", "aria": "Idioma" },
+  "zh": { "label": "ZH", "dir": "zh", "aria": "语言" }
 }

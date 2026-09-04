@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>计划模式 &amp; 扩展推理 · 从 Vibe Coding 到专业匠艺</title>
+<meta name="description" content="在 Vibe Coding 中，你只能寄希望于它能跑通，却看不见 AI 究竟会做什么。计划模式强制在任何修改之前先完成一轮调研，而努力级别让模型的推理变得显式且可调节。">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/zh/plan.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="计划模式 &amp; 扩展推理 · 从 Vibe Coding 到专业匠艺">
+<meta property="og:description" content="在 Vibe Coding 中，你只能寄希望于它能跑通，却看不见 AI 究竟会做什么。计划模式强制在任何修改之前先完成一轮调研，而努力级别让模型的推理变得显式且可调节。">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/zh/plan.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">跳到主要内容</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="模块">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">实战手册</span></a>
+        <select class="lang-switch" aria-label="语言"><option value="../plan.html">FR</option><option value="../en/plan.html">EN</option><option value="../es/plan.html">ES</option><option value="plan.html" selected>ZH</option></select>
+      </div>
+      <h1>从 Vibe Coding 到专业匠艺</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>进度</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="模块">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>序章</span></a>
+      <a href="control.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>控制 &amp; 安全</span></a>
+      <a href="memory.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>记忆</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>命令 &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class="active"><span class="num">04</span><span class="chk" data-chk="plan"></span><span>计划 &amp; 推理</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>子代理</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>检查点</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="scale.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>后台 &amp; 工作流</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>插件 &amp; 市场</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK、CI/CD、IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>终章 &amp; 参考来源</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 个模块 &middot; 每条引用的事实都会链接到官方来源（code.claude.com），否则会被标注为未经核实。<br>✓ 已读 · ✓✓ 已验证（本模块所有测验均已通过）<br>
+      <a href="index.html">← 返回首页</a> &middot; <a href="methodology.html">方法论</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="plan">
+      <div class="module-head"><span class="index">04</span><h2>计划模式 &amp; 扩展推理</h2></div>
+      <div class="module-sub">先思考再行动，并调节推理深度</div>
+      <div class="stance"><p>在 Vibe Coding 中，你只能寄希望于它能跑通，却看不见 AI 究竟会做什么。计划模式强制在任何修改之前先完成一轮调研，而努力级别让模型的推理变得显式且可调节。这是可复现实践的基础。</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">水平测试</div>
+        <p class="q-text">以下哪个关键词至今仍能为单个回合触发更深入的推理？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-plan" value="0"> 「think hard」</label>
+          <label><input type="radio" name="q-plan" value="1"> 「ultrathink」</label>
+          <label><input type="radio" name="q-plan" value="2"> 「think more」</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">如今只有「ultrathink」仍被识别为特殊关键词。「think」「think hard」和「think more」都会被当作普通文本传递。对于一年多以前学习 Claude Code 的人来说，这是一个典型的陷阱。</span><br><a class="skip-next" href="agents.html">&rarr; 你已经掌握了这个手段，直接进入下一个模块</a></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">答案是「ultrathink」：其他历史关键词都不再被识别为特殊关键词。</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">如果 Claude 先思考再行动呢？</h3>
+      <p>你一定熟悉这种感觉：你让 Claude Code 做一处修改，几秒钟之后，文件已经变了。结果有时能用，但你是在动作已经落地之后才发现它的逻辑。这正是 Vibe Coding 的典型反射：只能寄希望于它能跑通，而完全没有预见到那个决策。计划模式把顺序反了过来：在动任何一个文件之前，Claude 先探索现有代码，思考一种方案，然后把计划交给你。只要你没有对这个计划表示同意，就不会有任何东西被修改。</p>
+      <p>如何切换到这个模式？有两种方式：输入 <code>/plan</code> （可带或不带主题描述），或者按下快捷键 <code>Shift+Tab</code>。两种方式都会立即切换，事先不会有确认提示。进入之后，Claude 可以读取文件、运行只读命令来探索你的项目，但不能写入任何内容。而且从最近的一次演进开始，这些读取命令甚至不再逐条触发确认：auto 模式的分类器会在规划过程中即时评估它们，这一行为由设置项 <code>useAutoModeDuringPlan</code> （默认开启）控制。道理很简单：读取没有任何风险，只有写入才必须经过你的明确放行。</p>
+      <p>但先思考再行动不止于计划模式的结构：推理的深度同样可以调节。在消息中的任意位置加上「ultrathink」这个词，Claude 就会在这一个回合投入更多内部推理，而不改动会话的整体设置，相当于一次临时的聚光。如果你是在一年多以前学的 Claude Code，要特别注意：「think」「think hard」「think more」这些老关键词如今不再被识别为特殊关键词，它们会被当作普通文本传递，因此对推理不再有任何影响。如果想要一个覆盖整个会话而非单个回合的设置，可以使用 <code>/effort</code> 命令，它会打开一个五档选择器（low、medium、high、xhigh、max）：遇到复杂的设计问题时切换到 <code>xhigh</code>，之后再降回 <code>low</code>，用于简单且更省成本的任务。</p>
+      <p>这个推理调节也可以常驻整个会话，通过快捷键 <code>Option+T</code> 启用（Windows/Linux 上是 <code>Alt+T</code>）。命令 <code>/config</code> 同样可以把这个设置固化下来。如果你会把工作交给子代理，还有个好消息：子代理会自动继承主对话的扩展推理设置，不需要在每次委派时重新配置。而且计划本身也不会不知所踪：设置项 <code>plansDirectory</code> 决定 Claude Code 把这些计划文件写到哪里，例如可以把它们纳入仓库版本管理，在代码评审时再读一遍。下面就来详细看看，这在你的日常实践中具体带来了什么变化。</p>
+
+      <h3 class="section-title">要点回顾</h3>
+      <div class="facts">
+<div class="fact"><div class="tag-col"><span class="version">v2.1.0 / 2.1.72</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>/plan</code> （可带或不带描述）和快捷键 <code>Shift+Tab</code> 会立即切换到计划模式，不会弹出确认提示。</p><div class="how"><b>怎么做</b><br><code>/plan 修复认证 bug</code> 会立刻就这个具体主题开始规划。</div><a class="src" href="https://code.claude.com/docs/en/permission-modes" target="_blank" rel="noopener">code.claude.com/docs/en/permission-modes</a></div></div>
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.68 / 0.2.44</span><span class="badge corrected">已更新</span></div><div class="body"><p>只有关键词 <code>ultrathink</code> 仍能为单个回合触发更深入的推理，且不改变会话的努力级别。「think」「think hard」「think more」这些词不再被识别为特殊关键词：它们会被当作普通文本传递。</p><div class="how"><b>怎么做</b><br>在消息中的任意位置加上「ultrathink」，即可获得一次更深入的临时推理。</div><a class="src" href="https://code.claude.com/docs/en/model-config" target="_blank" rel="noopener">code.claude.com/docs/en/model-config</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.76</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>/effort</code> 会打开一个 5 档选择器（low、medium、high、xhigh、max）；<code>/effort auto</code> 可重置。在 Opus 5、Fable 5 和 Opus 4.5‑4.8 上可用。</p><div class="how"><b>怎么做</b><br><code>/effort xhigh</code> 用于复杂的调试，<code>/effort low</code> 用于简单且更省成本的任务。</div><a class="src" href="https://code.claude.com/docs/en/model-config" target="_blank" rel="noopener">code.claude.com/docs/en/model-config</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.9</span><span class="badge confirmed">已确认</span></div><div class="body"><p>设置项 <code>plansDirectory</code> 决定计划模式把计划文件写到哪里，路径相对于项目根目录解析。</p><div class="how"><b>怎么做</b><br><code>{ "plansDirectory": "./plans" }</code> 可以把计划纳入仓库版本管理，并在 PR 评审时重新阅读。</div><a class="src" href="https://code.claude.com/docs/en/settings-reference" target="_blank" rel="noopener">code.claude.com/docs/en/settings-reference</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.0.0</span><span class="badge corrected">已更新</span></div><div class="body"><p>在会话中切换 extended thinking 的快捷键是 <code>Option+T</code> （macOS）或 <code>Alt+T</code> （Windows/Linux），而不是单独的 Tab 键。</p><div class="how"><b>怎么做</b><br>如果想要永久设置，请使用 <code>/config</code>，它会把 <code>alwaysThinkingEnabled</code> 写入 <code>~/.claude/settings.json</code>.</div><a class="src" href="https://code.claude.com/docs/en/model-config" target="_blank" rel="noopener">code.claude.com/docs/en/model-config</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.198</span><span class="badge confirmed">已确认</span></div><div class="body"><p>子代理会自动继承主对话的 extended thinking 设置，不存在专属于子代理的 thinking 设置。</p><div class="how"><b>怎么做</b><br>无需任何配置：为会话开启 thinking，之后启动的所有子代理都会继承它。</div><a class="src" href="https://code.claude.com/docs/en/sub-agents" target="_blank" rel="noopener">code.claude.com/docs/en/sub-agents</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.218</span><span class="badge confirmed">已确认</span></div><div class="body"><p>从该版本起，未启用 bypass 的计划模式会话不再为每一条只读 Bash 命令请求确认：auto 模式的分类器会在规划期间评估这些命令。</p><div class="how"><b>怎么做</b><br>由 <code>useAutoModeDuringPlan</code> （默认开启）控制；关闭它即可恢复为每次手动确认。</div><a class="src" href="https://code.claude.com/docs/en/permission-modes" target="_blank" rel="noopener">code.claude.com/docs/en/permission-modes</a></div></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">快速测验</div>
+        <p class="q-text">在 Claude Code 的 settings.json 中，哪个设置项决定计划模式把计划文件写到哪里？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-plan-2" value="0"> planMode.directory</label>
+          <label><input type="radio" name="q-plan-2" value="1"> plansDirectory</label>
+          <label><input type="radio" name="q-plan-2" value="2"> claude.planOutputPath</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。plansDirectory 设置项决定计划模式把计划文件写到哪里，并且路径相对于项目根目录解析，例如可以把这些计划纳入仓库版本管理，在 PR 评审时重新阅读。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。答案是 plansDirectory，路径相对于项目根目录解析，便于把生成的计划纳入版本管理并在评审时重新阅读。</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">快速测验</div>
+        <p class="q-text">在 macOS 上，哪个快捷键可以在会话中切换 extended thinking？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-plan-3" value="0"> 单独的 Tab 键</label>
+          <label><input type="radio" name="q-plan-3" value="1"> Option+T</label>
+          <label><input type="radio" name="q-plan-3" value="2"> Cmd+Shift+T</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。macOS 上的快捷键是 Option+T（Windows/Linux 上是 Alt+T）。与流传甚广的说法相反，单独的 Tab 键并不会执行这个切换。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。macOS 上是 Option+T（Windows/Linux 上是 Alt+T），而不是单独的 Tab 键。</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">实践练习</div>
+        <p>运行以下命令：</p>
+<pre><code class="language-bash">claude --permission-mode plan</code></pre>
+<p>然后提问：「ultrathink: 为这个 API 增加限流，请提出一套架构方案」。观察生成的计划，用「Yes, and use auto mode」批准它。在一个新会话中，对比 <code>/effort low</code> 和 <code>/effort xhigh</code> 在同一个问题上的表现，感受推理深度的差别。</p>
+        <details class="solution"><summary>解答 &amp; 验证</summary>
+        <p>「ultrathink」是如今唯一仍被识别的触发词，它能为单个回合临时触发更深入的推理，而不改变会话的努力级别。正是它促使 Claude 在你还没批准任何东西之前，就给出一份论证更充分的限流方案计划。用「Yes, and use auto mode」批准该计划之后，/effort low 与 /effort xhigh 的对比就能干净地把深度这一个变量单独隔离出来：/effort 会打开一个 5 档选择器（low、medium、high、xhigh、max）。在两个独立的会话中用这两档设置问同一个问题，就能感受到推理上的差距，而不会被「ultrathink」效应或对话历史干扰对比。</p>
+        <ul><li>在你回答计划结束时的提示之前，不会执行任何修改性命令：提示会停留在计划模式，给出类似「Yes, and use auto mode」的选项，而不是直接动手。</li><li>选择「Yes, and use auto mode」之后，后续的工具调用不再逐条弹出确认框，说明会话确实已经切换到 auto 模式来完成后面的工作。</li><li>在这两个新会话中，单独运行 /effort（不带参数）会显示当前生效的级别（先是 low，然后是 xhigh）；xhigh 下产出的计划应当明显比 low 下的更充实（步骤更多，架构选择的论证更多），这说明该设置确实改变了推理深度。</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="plan" data-label="标记为已读">标记为已读</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="skills.html"><span class="dir">&larr; 上一章</span><span class="ptitle">命令 &amp; Skills</span></a>
+      <a class="next" href="agents.html"><span class="dir">下一章 &rarr;</span><span class="ptitle">子代理</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

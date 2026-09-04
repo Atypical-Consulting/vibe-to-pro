@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>插件 &amp; 市场 · 从 Vibe Coding 到专业匠艺</title>
+<meta name="description" content="Vibe Coding 时，随手找到一个插件就装上，然后祈祷它能用。专业做法里，插件和市场带来可复现性（用 SHA 锁定版本）、安全性（密钥绝不注入 shell）以及治理能力。">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/zh/plugins.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="插件 &amp; 市场 · 从 Vibe Coding 到专业匠艺">
+<meta property="og:description" content="Vibe Coding 时，随手找到一个插件就装上，然后祈祷它能用。专业做法里，插件和市场带来可复现性（用 SHA 锁定版本）、安全性（密钥绝不注入 shell）以及治理能力。">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/zh/plugins.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">跳到主要内容</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="模块">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">实战手册</span></a>
+        <select class="lang-switch" aria-label="语言"><option value="../plugins.html">FR</option><option value="../en/plugins.html">EN</option><option value="../es/plugins.html">ES</option><option value="plugins.html" selected>ZH</option></select>
+      </div>
+      <h1>从 Vibe Coding 到专业匠艺</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>进度</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="模块">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>序章</span></a>
+      <a href="control.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>控制 &amp; 安全</span></a>
+      <a href="memory.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>记忆</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>命令 &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>计划 &amp; 推理</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>子代理</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>检查点</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="scale.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>后台 &amp; 工作流</span></a>
+      <a href="plugins.html" data-mod="plugins" class="active"><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>插件 &amp; 市场</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK、CI/CD、IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>终章 &amp; 参考来源</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 个模块 &middot; 每条引用的事实都会链接到官方来源（code.claude.com），否则会被标注为未经核实。<br>✓ 已读 · ✓✓ 已验证（本模块所有测验均已通过）<br>
+      <a href="index.html">← 返回首页</a> &middot; <a href="methodology.html">方法论</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="plugins">
+      <div class="module-head"><span class="index">11</span><h2>插件 &amp; 市场</h2></div>
+      <div class="module-sub">为整个团队配备工具，而不只是为自己</div>
+      <div class="stance"><p>Vibe Coding 时，随手找到一个插件就装上，然后祈祷它能用。专业做法里，插件和市场带来可复现性（用 SHA 锁定版本）、安全性（密钥绝不注入 shell）以及治理能力（显式启用，token 成本可见）。</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">水平测试</div>
+        <p class="q-text">某个插件声明了 <code>defaultEnabled: false</code>。用户需要先做什么，它才会生效？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-plugins" value="0"> 什么都不用做，安装时它就会自动启用</label>
+          <label><input type="radio" name="q-plugins" value="1"> 运行 <code>claude plugin enable &lt;name&gt;</code></label>
+          <label><input type="radio" name="q-plugins" value="2"> 重启 Claude Code</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">即使插件已经安装，也仍然需要显式启用：这是一道防止静默启用的保护。</span><br><a class="skip-next" href="infra.html">&rarr; 您已经掌握这个手段，直接进入下一个模块</a></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">需要运行 <code>claude plugin enable &lt;name&gt;</code>：光安装还不够，该插件被标记为 <code>defaultEnabled: false</code>.</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">在 GitHub 上找到一个插件，你把它装上了……然后呢？</h3>
+      <p>插件很诱人：别人写好了，你装上，Claude Code 突然就多会一件事。在 Vibe Coding 里，这往往就是全部诉求。能跑就行，继续。但插件不只是多一条命令：它还能带来代理、hooks（在特定时刻自动触发的脚本），甚至整套 MCP 或 LSP 服务器（LSP 即 <em>Language Server Protocol</em>，让编辑器深入理解某种编程语言的协议），这一切都被打包，并通过一个 <em>市场</em> 分发出去，它相当于一份共享目录。对团队来说，有意思的地方正在这里：只要在 <code>.claude/settings.json</code> 中通过 <code>extraKnownMarketplaces</code> 声明这个市场一次，所有人就都能用上，无需各自重新安装。</p>
+      <p>但安装插件并不等于启用它，这是一个有意为之的设计选择。如果作者设置了 <code>defaultEnabled: false</code>，写在 <code>plugin.json</code> 里，那么在你自己运行 <code>claude plugin enable &lt;name&gt;</code> 之前，插件始终处于停用状态。为什么要多这一步、看起来像是多余的？因为一个安装即自动启用的插件，会在你决定信任它之前就作用于你的项目。而在迈出这一步之前，你可以先查询 <code>claude plugin details &lt;name&gt;</code>：这条命令会列出插件包含的内容，并预估它给每次会话增加的 token 成本。这样你在启用之前就知道自己启用的是什么，而不是启用之后才知道。</p>
+      <p>还剩一个经典问题：指向某个 GitHub 分支的插件可能在你脚下悄悄改变，下周推送的 commit 已经不是你今天测试的那个。正因如此，<code>marketplace.json</code> 可以锁定一个 <code>sha</code>，即一个完整的 git commit，像一张定格的照片，而不是持续流动的画面。插件根本不在 git 上时，逻辑也一样：一个 <code>archive</code> 类型的源可以直接通过 HTTPS 安装一个 zip，不需要 git 也不需要 npm，同样带有可选的 SHA-256 哈希，用于确保收到的内容正是预期的内容。结果就是：你测试过的东西，精确到 commit，就是同事机器上或 CI 里运行的东西。</p>
+      <p>还有配置与安全方面的信任问题。一个克隆下来的仓库能不能悄悄把自己的插件配置塞进你的会话？不能：<code>pluginConfigs</code> 已不再从 <em>项目</em> 级 settings 中读取，只有你的用户级 settings、<code>--settings</code> 或组织托管的 settings 才算数。写入它们的是 <code>/plugin</code> 命令，写进你自己的 <code>~/.claude/settings.json</code>。插件的 hooks 同样需要警惕：<code>${user_config.*}</code> 的 shell 形式替换会被阻止，因为一旦某个配置值包含恶意代码，它就会打开一个注入漏洞；必须改用 <code>exec</code> 形式，或者读取环境变量 <code>$CLAUDE_PLUGIN_OPTION_&lt;KEY&gt;</code>。下面就具体看看这带来了什么变化。</p>
+
+      <h3 class="section-title">要点回顾</h3>
+      <div class="facts">
+<div class="fact"><div class="tag-col"><span class="version">v2.0.12</span><span class="badge confirmed">已确认</span></div><div class="body"><p>插件系统通过市场分发命令、代理、hooks 以及 MCP/LSP 服务器，以此扩展 Claude Code。<code>extraKnownMarketplaces</code> 写在 <code>.claude/settings.json</code> 中，即可把它们共享给整个团队。</p><div class="how"><b>怎么做</b><br><code>/plugin install &lt;name&gt;@&lt;marketplace&gt;</code> 或 <code>claude plugin install</code>（命令行）。</div><a class="src" href="https://code.claude.com/docs/en/plugins" target="_blank" rel="noopener">code.claude.com/docs/en/plugins</a></div></div>
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.154</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>defaultEnabled: false</code> 写在 <code>plugin.json</code> 中，要求插件即使已经安装，也必须显式启用才会生效。</p><div class="how"><b>怎么做</b><br><code>claude plugin enable &lt;name&gt;</code> 用于在安装之后启用它。</div><a class="src" href="https://code.claude.com/docs/en/plugins-reference" target="_blank" rel="noopener">code.claude.com/docs/en/plugins-reference</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.139</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>claude plugin details &lt;name&gt;</code> 会列出插件的组件，并预估它们每次会话的 token 成本，甚至无需先启用插件。</p><div class="how"><b>怎么做</b><br>在活跃项目上启用陌生插件之前，务必先检查它的 token 占用。</div><a class="src" href="https://code.claude.com/docs/en/plugins-reference" target="_blank" rel="noopener">code.claude.com/docs/en/plugins-reference</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.14</span><span class="badge confirmed">已确认</span></div><div class="body"><p>对于 github/url/git-subdir 类型的源，<code>sha</code> 字段（一个完整的 git commit）可以锁定插件的确切版本，不受该分支后续 commit 的影响。</p><div class="how"><b>怎么做</b><br><code>{ "source": "github", "repo": "owner/repo", "sha": "a1b2c3..." }</code>，写在 <code>marketplace.json</code>.</div><a class="src" href="https://code.claude.com/docs/en/plugin-marketplaces" target="_blank" rel="noopener">code.claude.com/docs/en/plugin-marketplaces</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.207</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>pluginConfigs</code> 已不再从项目的 <code>.claude/settings.json</code> 中读取：只有用户级 settings、<code>--settings</code> 以及组织托管的 settings 才算数。因此，克隆下来的仓库无法在用户不知情的情况下配置其插件。</p><div class="how"><b>怎么做</b><br>通过 <code>/plugin</code> 配置选项，它会写入 <code>~/.claude/settings.json</code>.</div><a class="src" href="https://code.claude.com/docs/en/plugins-reference" target="_blank" rel="noopener">code.claude.com/docs/en/plugins-reference</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.207</span><span class="badge confirmed">已确认</span></div><div class="body"><p>在插件的 hooks/monitors 中，<code>${user_config.*}</code> 的 shell 形式替换会被拒绝（存在注入漏洞）：必须使用 <code>exec</code> 形式，或者读取 <code>$CLAUDE_PLUGIN_OPTION_&lt;KEY&gt;</code>.</p><div class="how"><b>怎么做</b><br>exec 形式的 hook：<code>{ "command": "my-script", "args": ["${user_config.key}"] }</code>.</div><a class="src" href="https://code.claude.com/docs/en/plugins-reference" target="_blank" rel="noopener">code.claude.com/docs/en/plugins-reference</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.224</span><span class="badge confirmed">已确认</span></div><div class="body"><p>插件源类型 <code>archive</code> 可以通过 HTTPS 从一个 zip 安装，不需要 git 也不需要 npm，带有可选的 SHA-256 锁定，最大体积为 256&nbsp;MiB。</p><div class="how"><b>怎么做</b><br><code>{ "source": "archive", "url": "https://…/plugin.zip", "sha256": "…" }</code>，写在 <code>marketplace.json</code>.</div><a class="src" href="https://code.claude.com/docs/en/plugin-marketplaces" target="_blank" rel="noopener">code.claude.com/docs/en/plugin-marketplaces</a></div></div>
+      </div>
+      <div class="quiz" data-correct="2">
+        <div class="q-label">快速测验</div>
+        <p class="q-text">对于 github/url/git-subdir 类型的插件源，marketplace.json 中的哪个字段可以锁定插件的确切版本，不受该分支后续 commit 的影响？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-plugins-2" value="0"> <code>version</code></label>
+          <label><input type="radio" name="q-plugins-2" value="1"> <code>tag</code></label>
+          <label><input type="radio" name="q-plugins-2" value="2"> <code>sha</code></label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。sha 字段（一个完整的 git commit）锁定插件的精确版本，不受所引用分支上后续推送的 commit 影响。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。锁定确切版本、不受该分支后续 commit 影响的是 sha 字段（一个完整的 git commit）。用于这个目的的 version 字段和 tag 字段都不存在。</span></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">快速测验</div>
+        <p class="q-text">marketplace.json 中哪种插件源类型可以通过 HTTPS 从一个 zip 文件安装，而不依赖 git 或 npm？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-plugins-3" value="0"> <code>archive</code></label>
+          <label><input type="radio" name="q-plugins-3" value="1"> <code>url</code></label>
+          <label><input type="radio" name="q-plugins-3" value="2"> <code>git-subdir</code></label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。archive 源通过 HTTPS 从 zip 安装，带有可选的 SHA-256 锁定，最大体积 256 MiB，不依赖 git 也不依赖 npm。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。通过 HTTPS 从 zip 安装、不需要 git 也不需要 npm 的是 archive 源，它带有可选的 SHA-256 锁定，体积上限为 256 MiB。</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">实践练习</div>
+        <p>运行下面这条命令：</p>
+<pre><code class="language-bash">claude plugin init my-plugin --with skills hooks</code></pre>
+<p>把 <code>"defaultEnabled": false</code> 加入生成的 <code>plugin.json</code>，然后确认必须运行下面这条命令才能启用它：</p>
+<pre><code class="language-bash">claude plugin enable my-plugin</code></pre>
+<p>最后执行这条命令，查看它每次会话的预估 token 成本：</p>
+<pre><code class="language-bash">claude plugin details my-plugin</code></pre>
+        <details class="solution"><summary>解答 &amp; 验证</summary>
+        <p>claude plugin init 生成的 plugin.json 自身不会启用任何东西。一旦你在其中加入 "defaultEnabled": false，插件参考文档就要求：插件即使已经安装，也必须显式启用才会生效。这正是为什么 claude plugin enable my-plugin 成为一个必需步骤，而不是可选步骤。插件启用之后，claude plugin details my-plugin 会列出它声明的组件（这里是通过 --with skills hooks 请求的 skills 和 hooks），并在你真正用到它们之前就预估它们每次会话的 token 成本，从而让你不必盲目运行插件也能判断它的占用。</p>
+        <ul><li>在执行 claude plugin enable 之前，会话中调用该插件的命令或 skill 会失败或根本看不到，而 claude plugin list（或 REPL 中的 /plugin）会显示 my-plugin 处于已禁用状态。</li><li>claude plugin enable my-plugin 以退出码 0 结束，并使 my-plugin 在 claude plugin list 中变为已启用状态。</li><li>claude plugin details my-plugin 除了列出声明的 skills 和 hooks，还会显示每次会话 token 成本的量化估计（一个数值），而不只是组件名称。</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="plugins" data-label="标记为已读">标记为已读</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="scale.html"><span class="dir">&larr; 上一章</span><span class="ptitle">后台 &amp; 工作流</span></a>
+      <a class="next" href="infra.html"><span class="dir">下一章 &rarr;</span><span class="ptitle">SDK、CI/CD、IDE</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>后台 &amp; 多代理工作流 · 从 Vibe Coding 到专业匠艺</title>
+<meta name="description" content="在 Vibe Coding 中，你发出一个 prompt，却不知道有多少个代理在运行，也不知道怎么停下它们。掌握后台任务和工作流，就是清楚知道谁在做什么，并为规模与跨会话权限设置护栏。">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/zh/scale.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="后台 &amp; 多代理工作流 · 从 Vibe Coding 到专业匠艺">
+<meta property="og:description" content="在 Vibe Coding 中，你发出一个 prompt，却不知道有多少个代理在运行，也不知道怎么停下它们。掌握后台任务和工作流，就是清楚知道谁在做什么，并为规模与跨会话权限设置护栏。">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/zh/scale.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">跳到主要内容</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="模块">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">实战手册</span></a>
+        <select class="lang-switch" aria-label="语言"><option value="../scale.html">FR</option><option value="../en/scale.html">EN</option><option value="../es/scale.html">ES</option><option value="scale.html" selected>ZH</option></select>
+      </div>
+      <h1>从 Vibe Coding 到专业匠艺</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>进度</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="模块">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>序章</span></a>
+      <a href="control.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>控制 &amp; 安全</span></a>
+      <a href="memory.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>记忆</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>命令 &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>计划 &amp; 推理</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>子代理</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>检查点</span></a>
+      <a href="git.html" data-mod="git" class=""><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="scale.html" data-mod="echelle" class="active"><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>后台 &amp; 工作流</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>插件 &amp; 市场</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK、CI/CD、IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>终章 &amp; 参考来源</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 个模块 &middot; 每条引用的事实都会链接到官方来源（code.claude.com），否则会被标注为未经核实。<br>✓ 已读 · ✓✓ 已验证（本模块所有测验均已通过）<br>
+      <a href="index.html">← 返回首页</a> &middot; <a href="methodology.html">方法论</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="echelle">
+      <div class="module-head"><span class="index">10</span><h2>后台 &amp; 多代理工作流</h2></div>
+      <div class="module-sub">扩大规模而不失控</div>
+      <div class="stance"><p>在 Vibe Coding 中，你发出一个 prompt，却不知道有多少个代理在运行，也不知道怎么停下它们。掌握后台任务和工作流，就是清楚知道谁在做什么，并为规模与跨会话权限设置护栏。</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">水平测试</div>
+        <p class="q-text">默认情况下，一个 Workflow 最多能并发运行多少个代理？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-echelle" value="0"> 8</label>
+          <label><input type="radio" name="q-echelle" value="1"> 16</label>
+          <label><input type="radio" name="q-echelle" value="2"> 32</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">最多 16 个并发代理，整个 workflow 执行期间的总上限是 1000 个代理。</span><br><a class="skip-next" href="plugins.html">&rarr; 你已经掌握这一手段，直接进入下一个模块</a></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">是 16：超过之后，多出来的调用会排队等待空位释放。</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">如果 Claude 能在你关掉电脑之后继续工作呢？</h3>
+      <p>在 Vibe Coding 中，你多半已经养成了这样的习惯：发一个 prompt，等回复，再发一个。整个会话跑在同一条线程里，就在你眼前，你一关终端它就停了。但如果你想让 Claude 并行探索三条思路，或者在你吃午饭时继续做审计呢？这正是后台会话的用武之地：这样启动的任务会继续运行而不占住你的屏幕，一个专门的视图（<code>claude agents</code>）按状态（等待输入、进行中、已完成）汇总所有这些会话，让你随时知道谁在做什么，而不必让每个窗口都开着。</p>
+      <p>尝过甜头之后，人很容易想成倍扩大：为什么不让几十个代理同时在同一个项目上干活呢？这正是 Workflow tool 的职责：它可以在后台编排数以百计的代理，并用简单的原语来组织：单独启动一个代理、并行启动多个，或者把它们串成流水线。但一个能在无人直接监督下调动如此多资源的系统需要护栏：没有上限，一个没规划好的 workflow 几分钟内就可能拖垮你的机器或耗光你的 API 预算。因此，专门针对 Workflow tool（这个限制不同于前面提到的简单委派给子代理的限制），默认存在同时最多 16 个活跃代理的上限（超过之后，新的调用会排队等待），每次执行的总上限为 1000 个代理。还有一条规模指令把口子收得更紧，默认把 workflow 控制在 15 个代理以内，而不像以前那样让规模完全放开。</p>
+      <p>扩大规模而不失去控制，不只是限制代理的数量：还要能像对待普通进程那样，逐个地操作它们。一个后台会话可以被重新接管、通过日志查看、干净地停止、重新启动或删除：相当于一套完整的生命周期，这样就不会有你不知情的幽灵任务在跑。而当多个会话在同一个项目的相关部分上工作时，它们之间甚至可以互相通知，包括只要在你的 prompt 里提到其中一个即可：你不需要自己去编排通信，Claude 会处理。一个监控工具补全了这幅图景，它以流式方式跟踪后台脚本里发生的事情，同时完全不会暂停你的对话。</p>
+      <p>还剩最后一个问题：如果没人在旁边告诉它，怎么知道一个后台代理该在什么时候停下？这就是任务结束条件的作用，你用自然语言把它表述出来：Claude 会持续进行多个回合，一个小模型在每一步评估条件是否满足，直到自动停止。同样的受控自主原则也体现在周期性任务上：安排一个 prompt 按固定间隔重复执行，同样带有每个会话的上限，以免悄悄堆积起被遗忘的任务。下面就来详细看看这在实际中带来了什么改变。</p>
+
+      <h3 class="section-title">要点回顾</h3>
+      <div class="facts">
+<div class="fact"><div class="tag-col"><span class="version">v2.1.139</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>claude agents</code> 会打开一个全屏视图，按状态（Needs input / Working / Completed）汇总所有会话，并可派发新任务。</p><div class="how"><b>怎么做</b><br><code>claude agents --json</code> 用于可脚本化的导出，适合做自定义状态栏。</div><a class="src" href="https://code.claude.com/docs/en/agent-view" target="_blank" rel="noopener">code.claude.com/docs/en/agent-view</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.251</span><span class="badge confirmed">已确认</span></div><div class="body"><p>子命令 <code>claude attach</code>, <code>logs</code>, <code>stop</code>, <code>respawn</code> 和 <code>rm</code> 管理一个后台会话的完整生命周期。</p><div class="how"><b>怎么做</b><br><code>claude attach &lt;id&gt;</code> 用于重新接管，<code>claude stop &lt;id&gt;</code> 用于干净地停止它。</div><a class="src" href="https://code.claude.com/docs/en/cli-reference" target="_blank" rel="noopener">code.claude.com/docs/en/cli-reference</a></div></div>
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.154</span><span class="badge confirmed">已确认</span></div><div class="body"><p>Workflow tool 在后台编排数十到数百个代理，使用的原语有 <code>agent()</code>, <code>parallel()</code>, <code>pipeline()</code>，并设有 16 个并发代理、每次执行总计 1000 个代理的上限。</p><div class="how"><b>怎么做</b><br>跟踪进度可用 <code>/workflows</code> ; <code>p</code> 用于暂停/恢复，<code>x</code> 用于停止。</div><a class="src" href="https://code.claude.com/docs/en/workflows" target="_blank" rel="noopener">code.claude.com/docs/en/workflows</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.219</span><span class="badge confirmed">已确认</span></div><div class="body"><p>指令 <code>workflowSizeGuideline</code> 自该版本起默认为 <code>medium</code> （不到 15 个代理）。此前没有说明任何限制。</p><div class="how"><b>怎么做</b><br><code>{ "workflowSizeGuideline": "small" }</code> 用于进一步收紧动态 workflow 的规模。</div><a class="src" href="https://code.claude.com/docs/en/workflows" target="_blank" rel="noopener">code.claude.com/docs/en/workflows</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.139</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>/goal</code> 定义一个任务结束条件：Claude 会持续进行多个回合，直到一个小模型判定条件已达成。</p><div class="how"><b>怎么做</b><br><code>/goal 所有测试通过且 lint 干净</code> ; <code>/goal clear</code> 用于停止。</div><a class="src" href="https://code.claude.com/docs/en/goal" target="_blank" rel="noopener">code.claude.com/docs/en/goal</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.224 / 2.1.232</span><span class="badge confirmed">已确认</span></div><div class="body"><p>跨会话消息机制（<code>SendMessage</code>/<code>ListAgents</code>）让多个 Claude Code 会话之间互相发送消息，包括在 prompt 中通过会话 <code>@mention</code> 来实现。</p><div class="how"><b>怎么做</b><br>「通知正在处理 API 的那个会话」这样的自然语言就够了；Claude 会自己调用相应的工具。</div><a class="src" href="https://code.claude.com/docs/en/cross-session-messaging" target="_blank" rel="noopener">code.claude.com/docs/en/cross-session-messaging</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.71</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>/loop</code> 按固定间隔执行一个 prompt 或一个 skill，而 <code>CronCreate</code>/<code>CronList</code>/<code>CronDelete</code> 这些工具用于安排周期性任务（每个会话上限 50 个）。</p><div class="how"><b>怎么做</b><br><code>/loop 5m 检查部署是否已完成</code>，或者用自然语言：「15 点提醒我推送分支」。</div><a class="src" href="https://code.claude.com/docs/en/scheduled-tasks" target="_blank" rel="noopener">code.claude.com/docs/en/scheduled-tasks</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.98</span><span class="badge confirmed">已确认</span></div><div class="body"><p>Monitor 工具以流式方式跟踪后台脚本的事件（日志、PR/CI、目录），并在发生变化时做出反应，而不会暂停对话。</p><div class="how"><b>怎么做</b><br>「监控服务器日志并报告任何错误」会触发 Monitor 工具，而不是手动轮询式地使用 <code>/loop</code>.</div><a class="src" href="https://code.claude.com/docs/en/scheduled-tasks" target="_blank" rel="noopener">code.claude.com/docs/en/scheduled-tasks</a></div></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">快速测验</div>
+        <p class="q-text">CronCreate/CronList/CronDelete 这些工具每个会话最多能安排多少个周期性任务？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-echelle-2" value="0"> 10</label>
+          <label><input type="radio" name="q-echelle-2" value="1"> 50</label>
+          <label><input type="radio" name="q-echelle-2" value="2"> 100</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。CronCreate/CronList/CronDelete 这些工具每个会话的周期性任务上限是 50 个；而 /loop 是在当前对话中按固定间隔执行一个 prompt 或一个 skill，不受这个上限约束。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。是 50：Cron 工具（CronCreate/CronList/CronDelete）把每个会话安排的周期性任务限制在这个数量，要与在当前对话中运行的 /loop 区分开。</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">快速测验</div>
+        <p class="q-text">自 2.1.219 版本起，workflowSizeGuideline 指令的默认值是什么？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-echelle-3" value="0"> small（不到 5 个代理）</label>
+          <label><input type="radio" name="q-echelle-3" value="1"> medium（不到 15 个代理）</label>
+          <label><input type="radio" name="q-echelle-3" value="2"> large（不限）</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。自 2.1.219 起，workflowSizeGuideline 默认为 medium，即不到 15 个代理；在这个版本之前，动态 workflow 没有给出任何默认限制。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。自 2.1.219 起的默认值是 medium（不到 15 个代理）。此前没有设定任何限制。</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">实践练习</div>
+        <p>运行以下命令，在后台启动一次审计：</p>
+      <pre><code class="language-bash">claude --bg "审计仓库中的 TODO"</code></pre>
+      <p>打开 <code>claude agents</code>，用 Ctrl+T 固定该会话，然后用 <code>claude logs &lt;id&gt;</code> 查看它的日志。接着在一个小任务上测试下面的命令，看 Claude 如何自行循环直到条件满足：</p>
+      <pre><code class="language-bash">/goal 所有测试通过且 lint 干净</code></pre>
+        <details class="solution"><summary>解答 &amp; 验证</summary>
+        <p>运行以下命令会创建一个后台会话：</p>
+      <pre><code class="language-bash">claude --bg "审计仓库中的 TODO"</code></pre>
+      <p>全屏视图 <code>claude agents</code> 按状态（Needs input / Working / Completed）汇总会话，便于找到并固定正确的那个会话。命令 <code>claude logs &lt;id&gt;</code> 属于同一组子命令，其中还包括 <code>attach</code>, <code>stop</code>, <code>respawn</code> 和 <code>rm</code>，它们共同覆盖了一个后台会话的完整生命周期：因此它可以在不中断会话的情况下查看日志。下面的测试之所以有效，是因为这条指令定义了一个任务结束条件，Claude 会借助一个小模型逐轮重新评估，直到判定条件已达成：</p>
+      <pre><code class="language-bash">/goal 所有测试通过且 lint 干净</code></pre>
+        <ul><li>在 <code>claude agents</code> 中，一旦 TODO 审计完成，会话会从「Working」状态变为「Completed」，并且按下 Ctrl+T 后固定图标会一直可见。</li><li><code>claude logs &lt;id&gt;</code> 会返回该会话的输出流（在 repo 中找到的 TODO 列表），而不会出现「找不到会话」之类的错误信息。</li><li>执行 <code>/goal 所有测试通过且 lint 干净</code> 之后，对话会连续进行多个回合，无需你再次输入，直到出现一条确认条件已达成的最终消息；在此之前你也可以用以下命令中断循环：<code>/goal clear</code>.</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="echelle" data-label="标记为已读">标记为已读</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="git.html"><span class="dir">&larr; 上一章</span><span class="ptitle">Git &amp; worktrees</span></a>
+      <a class="next" href="plugins.html"><span class="dir">下一章 &rarr;</span><span class="ptitle">插件 &amp; 市场</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>

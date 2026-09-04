@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Git、worktrees &amp; PR 自动化 · 从 Vibe Coding 到专业匠艺</title>
+<meta name="description" content="Vibe Coding 会在代码进入共享仓库的那一刻失效：没有 worktrees，也没有 Git 纪律，就会覆盖别人的工作，或者推送未经评审的 commit。worktrees 与 PR 自动化让多个代理并行运行而互不碰撞。">
+<link rel="canonical" href="https://atypical-consulting.github.io/vibe-to-pro/zh/git.html">
+<meta name="theme-color" content="#1F6F63">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git、worktrees &amp; PR 自动化 · 从 Vibe Coding 到专业匠艺">
+<meta property="og:description" content="Vibe Coding 会在代码进入共享仓库的那一刻失效：没有 worktrees，也没有 Git 纪律，就会覆盖别人的工作，或者推送未经评审的 commit。worktrees 与 PR 自动化让多个代理并行运行而互不碰撞。">
+<meta property="og:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<meta property="og:url" content="https://atypical-consulting.github.io/vibe-to-pro/zh/git.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://atypical-consulting.github.io/vibe-to-pro/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231F6F63'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23F3F4EF' font-family='monospace'%3E%E2%80%BA_%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="../assets/theme.css">
+<script>window.Prism=window.Prism||{};Prism.manual=true;</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+<script>Prism.plugins&&(Prism.plugins.autoloader&&(Prism.plugins.autoloader.languages_path="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</head>
+<body>
+<a class="skip" href="#contenu">跳到主要内容</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="模块">
+    <div class="brand">
+      <div class="brand-row">
+        <a href="index.html" style="text-decoration:none;"><span class="mark">实战手册</span></a>
+        <select class="lang-switch" aria-label="语言"><option value="../git.html">FR</option><option value="../en/git.html">EN</option><option value="../es/git.html">ES</option><option value="git.html" selected>ZH</option></select>
+      </div>
+      <h1>从 Vibe Coding 到专业匠艺</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>进度</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="模块">
+      <a href="prologue.html" data-mod="prologue" class=""><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>序章</span></a>
+      <a href="control.html" data-mod="controle" class=""><span class="num">01</span><span class="chk" data-chk="controle"></span><span>控制 &amp; 安全</span></a>
+      <a href="memory.html" data-mod="memoire" class=""><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>记忆</span></a>
+      <a href="skills.html" data-mod="skills" class=""><span class="num">03</span><span class="chk" data-chk="skills"></span><span>命令 &amp; Skills</span></a>
+      <a href="plan.html" data-mod="plan" class=""><span class="num">04</span><span class="chk" data-chk="plan"></span><span>计划 &amp; 推理</span></a>
+      <a href="agents.html" data-mod="agents" class=""><span class="num">05</span><span class="chk" data-chk="agents"></span><span>子代理</span></a>
+      <a href="hooks.html" data-mod="hooks" class=""><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="mcp.html" data-mod="mcp" class=""><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="rewind.html" data-mod="rewind" class=""><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>检查点</span></a>
+      <a href="git.html" data-mod="git" class="active"><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="scale.html" data-mod="echelle" class=""><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>后台 &amp; 工作流</span></a>
+      <a href="plugins.html" data-mod="plugins" class=""><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>插件 &amp; 市场</span></a>
+      <a href="infra.html" data-mod="infra" class=""><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK、CI/CD、IDE</span></a>
+      <a href="epilogue.html" data-mod="epilogue" class=""><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>终章 &amp; 参考来源</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      12 个模块 &middot; 每条引用的事实都会链接到官方来源（code.claude.com），否则会被标注为未经核实。<br>✓ 已读 · ✓✓ 已验证（本模块所有测验均已通过）<br>
+      <a href="index.html">← 返回首页</a> &middot; <a href="methodology.html">方法论</a>
+    </div>
+  </aside>
+  <main id="contenu">
+    <section class="module" id="git">
+      <div class="module-head"><span class="index">09</span><h2>Git、worktrees &amp; PR 自动化</h2></div>
+      <div class="module-sub">多人并行协作，互不冲突</div>
+      <div class="stance"><p>Vibe Coding 会在代码进入共享仓库的那一刻失效：没有 worktrees，也没有 Git 纪律，就会覆盖别人的工作，或者推送未经评审的 commit。worktrees 与 PR 自动化让多个代理并行运行而互不碰撞，同时留下干净的记录。</p></div>
+
+      <div class="quiz quiz-pretest" data-correct="1">
+        <div class="q-label">水平测试</div>
+        <p class="q-text">如果你让 <code>/commit-push-pr</code> 执行一次 <code>git push --force</code>?</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-git" value="0"> 它会自动执行，不需要确认</label>
+          <label><input type="radio" name="q-git" value="1"> 它会在执行前重新要求确认</label>
+          <label><input type="radio" name="q-git" value="2"> 它会被静默忽略</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">自 v2.1.229 起，危险标志（<code>--force</code>, <code>--amend</code>, <code>--no-verify</code>）不再由 <code>/commit-push-pr</code> 自动批准：工作流的其余部分仍然保持自动化。</span><br><a class="skip-next" href="scale.html">&rarr; 你已经掌握这一手段，跳到下一个模块</a></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">它会重新要求确认，因为 <code>/commit-push-pr</code> 自 v2.1.229 起不再自动批准危险的 git/gh 标志。</span></div>
+      </div>
+
+      <h3 class="section-title lesson-title">多个代理，一个仓库：如何避免连环相撞？</h3>
+      <p>你多半已经这样做过：让 Claude Code 处理一项任务，然后在它还在跑的时候又开了第二个窗口，让它去修别的东西。结果就卡住了：两个会话在同一个分支上修改同一批文件，其中一个最终覆盖了另一个的成果。这不是 bug，而是传统 Git 仓库的必然结果：磁盘上只有一份工作副本，所以同一时刻只能有一个代理安全地动它。那么问题来了：怎样才能在同一个项目上并行运行多个代理，又不用在分支之间玩抢椅子游戏？</p>
+      <p>答案藏在一个早已存在却常被忽略的 Git 工具里：worktree。一个 worktree 就是同一个仓库的第二份工作副本，放在另一个目录中，但共享同一份 Git 历史：它不是完整的克隆，只是一个独立的分支，可以随意修改而不触碰主分支。Claude Code 直接建立在它之上：使用 <code>--worktree</code> 或 <code>-w</code> 标志会在 <code>.claude/worktrees/&lt;name&gt;/</code> 下创建这个隔离目录，并新建一个名为 <code>worktree-&lt;name&gt;</code> 的分支，因此在其中启动的代理根本不可能覆盖另一个代理在别处所做的工作。还剩一个问题：这块新工地从哪里开始？默认情况下，它从 <code>origin/&lt;默认分支&gt;</code> 开始，那是一个干净且最新的基线；但如果你已经有未推送的本地工作想要延续，就必须显式启用从本地 HEAD 出发的那个选项。</p>
+      <p>Vibe Coding 的第二个摩擦点出现在任务收尾：代码写完之后，还得 commit、push、开一个 pull request（向主分支发起的合并请求，通常在被接受前会经过评审）。而恰恰就是在这里，人们会漏掉一步，或者出于习惯直接推到主分支上。Claude Code 把这套机械动作自动化了：在 worktree 里后台工作的代理会在结束前 commit 并 push 自己的成果，只有在任务确实需要时才开一个草稿 pull request，同时遵守你写在 CLAUDE.md 里的 Git 指令。但自动化不等于放任不管：在这套 commit、push 和 pull request 的工作流中，那些可能造成难以挽回破坏的标志（强制 push、修改已有 commit、绕过校验 hook）不再被自动执行，而是会重新要求一次明确的确认。换句话说，自动化替你省掉重复的苦差事，但没有替你对风险动作拍板。</p>
+      <p>最后一个细节对日常影响很大：同一个仓库下的所有 worktrees 共享同一套配置（CLAUDE.md、权限设置、自定义代理、Skills、自动记忆），所以每开一块并行工地都不必重新复制一遍。而为了不用每次都打开 GitHub 就能掌握全局，与当前分支关联的 pull request 状态会以一个彩色小圆点的形式显示在界面里。下面就来看看它们具体带来了什么变化。</p>
+
+      <h3 class="section-title">要点回顾</h3>
+      <div class="facts">
+<div class="fact"><div class="tag-col"><span class="version">v2.1.49</span><span class="badge confirmed">已确认</span></div><div class="body"><p>使用 <code>--worktree</code> 或 <code>-w</code> 标志会在 <code>.claude/worktrees/&lt;name&gt;/</code> 下创建一个隔离的 worktree，位于新分支 <code>worktree-&lt;name&gt;</code>.</p><div class="how"><b>怎么做</b><br><code>claude --worktree feature-auth</code>。另外把 <code>.claude/worktrees/</code> 加入你的 <code>.gitignore</code>.</div><a class="src" href="https://code.claude.com/docs/en/worktrees" target="_blank" rel="noopener">code.claude.com/docs/en/worktrees</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.133</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>worktree.baseRef</code> 有两种取值。默认的 <code>"fresh"</code> 表示从 <code>origin/&lt;默认分支&gt;</code> 开始；另一种 <code>"head"</code> 则从你的本地 HEAD 开始，包含未推送的 commit。</p><div class="how"><b>怎么做</b><br><code>{ "worktree": { "baseRef": "head" } }</code> 让每个新建的 worktree 都从你当前进行中的本地工作出发。</div><a class="src" href="https://code.claude.com/docs/en/worktrees" target="_blank" rel="noopener">code.claude.com/docs/en/worktrees</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.198 / 2.1.221</span><span class="badge confirmed">已确认</span></div><div class="body"><p>在 worktree 中修改代码的后台代理会在结束前 commit 并 push，只有在任务确实需要时才开一个草稿 pull request，同时遵守你 CLAUDE.md 中的 Git 指令。</p><div class="how"><b>怎么做</b><br>后台会话的最终摘要总会给出分支，必要时还会给出草稿 PR 的 URL。</div><a class="src" href="https://code.claude.com/docs/en/agent-view" target="_blank" rel="noopener">code.claude.com/docs/en/agent-view</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.147 / 2.1.152</span><span class="badge corrected">已更新</span></div><div class="body"><p><code>/simplify</code> 已被 <code>/code-review</code> 取代，用于查找 bug，努力级别从 low 到 ultra。<code>/simplify</code> 如今指的是一个独立的纯清理命令（复用、简化），它在内部调用 <code>/code-review --fix</code> 来完成。</p><div class="how"><b>怎么做</b><br><code>/code-review high --fix</code> 用于查找并修复 bug；<code>/simplify</code> 则单独用于不查找 bug 的纯清理。</div><a class="src" href="https://code.claude.com/docs/en/code-review" target="_blank" rel="noopener">code.claude.com/docs/en/code-review</a></div></div>
+<div class="fact key"><div class="tag-col"><span class="version">v2.1.229</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>/commit-push-pr</code> 不再自动批准带危险标志的 git/gh 命令（<code>--force</code>, <code>--amend</code>, <code>--no-verify</code>）。它们现在都会重新要求确认。</p><div class="how"><b>怎么做</b><br>commit → push → PR 的工作流仍然是自动化的，但任何破坏性操作都要重新经过一次明确的确认提示。</div><a class="src" href="https://code.claude.com/docs/en/changelog" target="_blank" rel="noopener">code.claude.com/docs/en/changelog</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.20</span><span class="badge confirmed">已确认</span></div><div class="body"><p>页脚中一个可点击的彩色圆点显示当前分支 PR 的状态：绿色（已批准）、黄色（等待中）、红色（要求修改）、灰色（草稿）。</p><div class="how"><b>怎么做</b><br>点击这个圆点即可直接在浏览器中打开该 PR。</div><a class="src" href="https://code.claude.com/docs/en/interactive-mode" target="_blank" rel="noopener">code.claude.com/docs/en/interactive-mode</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.63</span><span class="badge confirmed">已确认</span></div><div class="body"><p>CLAUDE.md 与 <code>.claude/settings.json</code>、自定义代理、Skills 和自动记忆在同一个 Git 仓库的所有 worktrees 之间共享。</p><div class="how"><b>怎么做</b><br>无需手动复制；使用 <code>autoMemoryDirectory</code> 可以在需要时更改这个位置。</div><a class="src" href="https://code.claude.com/docs/en/claude-directory" target="_blank" rel="noopener">code.claude.com/docs/en/claude-directory</a></div></div>
+<div class="fact"><div class="tag-col"><span class="version">v2.1.76</span><span class="badge confirmed">已确认</span></div><div class="body"><p><code>worktree.sparsePaths</code> 使用 <code>git sparse-checkout</code> 只把列出的目录写入磁盘，从而加快大型 monorepo 中 worktrees 的创建。</p><div class="how"><b>怎么做</b><br><code>{ "worktree": { "sparsePaths": [".claude", "packages/api"] } }</code> 写入 <code>.claude/settings.json</code>.</div><a class="src" href="https://code.claude.com/docs/en/large-codebases" target="_blank" rel="noopener">code.claude.com/docs/en/large-codebases</a></div></div>
+      </div>
+      <div class="quiz" data-correct="0">
+        <div class="q-label">快速测验</div>
+        <p class="q-text">在没有特别配置的情况下，Claude Code 新建的 worktree 默认从哪个引用开始？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-git-2" value="0"> origin/<code>&lt;默认分支&gt;</code> 即 "fresh" 设置</label>
+          <label><input type="radio" name="q-git-2" value="1"> 你的本地 HEAD，包含未推送的 commit，即 "head" 设置</label>
+          <label><input type="radio" name="q-git-2" value="2"> 仓库最近的一个 release tag</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。自 v2.1.133 起，worktree.baseRef 默认为 "fresh"：每个新建的 worktree 都从 origin/<code>&lt;默认分支&gt;</code> 开始。"head" 设置需要显式启用，它从你的本地 HEAD 开始，包含未推送的 commit。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。默认值是 "fresh"：它从 origin/<code>&lt;默认分支&gt;</code> 开始。"head" 也存在，但那是一个需要你自己启用的选项，用于从本地 HEAD 出发，包含未推送的 commit。</span></div>
+      </div>
+      <div class="quiz" data-correct="1">
+        <div class="q-label">快速测验</div>
+        <p class="q-text">自 v2.1.147/2.1.152 的命令重组之后，/simplify 是做什么用的？</p>
+        <div class="q-opts">
+          <label><input type="radio" name="q-git-3" value="0"> 查找 bug，努力级别从 low 到 ultra</label>
+          <label><input type="radio" name="q-git-3" value="1"> 做纯清理（复用、简化），内部调用 /code-review --fix</label>
+          <label><input type="radio" name="q-git-3" value="2"> 取代 /code-review，后者已从产品中移除</label>
+        </div>
+        <button class="q-check" type="button">检查答案</button>
+        <div class="q-feedback ok">✓ 正确。<span class="expl">正确。自 v2.1.147/2.1.152 起，接手查找 bug 的是 /code-review（级别从 low 到 ultra）。/simplify 如今指的是一个独立的纯清理命令，它在内部调用 /code-review --fix。</span></div>
+        <div class="q-feedback bad">✗ 不完全正确。<span class="expl">不完全正确。带有努力级别、负责查找 bug 的是 /code-review；/simplify 是纯清理命令，内部调用 /code-review --fix。/code-review 并没有消失。</span></div>
+      </div>
+
+      <div class="exercise">
+        <div class="ex-label">实践练习</div>
+        <p>运行下面的命令来启动一个隔离的会话：</p>
+      <pre><code class="language-bash">claude --worktree essai-pro</code></pre>
+      <p>修改一个文件，在 commit 之前先运行 <code>/code-review high --fix</code> 接着运行 <code>/commit-push-pr</code>。检查一下 <code>git push --force</code> 不会被自动批准，并把 <code>worktree.baseRef: "head"</code> 加入 <code>.claude/settings.json</code>.</p>
+        <details class="solution"><summary>解答 &amp; 验证</summary>
+        <p><code>claude --worktree essai-pro</code> 会在 <code>.claude/worktrees/essai-pro/</code> 下创建一个隔离的 worktree，位于新分支 <code>worktree-essai-pro</code> 上，这样就可以修改文件而不触碰当前的工作分支。文件 commit 之后，由 <code>/commit-push-pr</code> 负责推送这份工作并开启 PR。自 v2.1.229 起，遇到危险标志它不再静默执行：一次 <code>git push --force</code> 会重新要求确认，而不是被自动批准。若想让这个 worktree 以及之后新建的 worktrees 从本地 HEAD 开始，包含未推送的 commit，而不是从 origin/<code>&lt;默认分支&gt;</code> 开始，就需要显式地把下面这段配置加入 <code>.claude/settings.json</code>:</p>
+      <pre><code class="language-json">{
+  "worktree": { "baseRef": "head" }
+}</code></pre>
+      <p>这就是本练习期望达到的最终配置。</p>
+        <ul><li>目录 .claude/worktrees/essai-pro/ 存在，并且在其中运行 git branch --show-current 返回 worktree-essai-pro。</li><li>在这个 worktree 里通过 /commit-push-pr 尝试 git push --force 时，会出现一次明确的确认提示，而不是直接执行推送。</li><li>编辑之后 .claude/settings.json 中包含 "worktree": { "baseRef": "head" } 这个键，并且随后新建的 worktree 头部 commit 与当前本地分支一致，而不是 origin/<code>&lt;默认分支&gt;</code>).</li></ul></details>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="git" data-label="标记为已读">标记为已读</button></div>
+    </section>
+    <div class="pager">
+      <a class="prev" href="rewind.html"><span class="dir">&larr; 上一章</span><span class="ptitle">检查点</span></a>
+      <a class="next" href="scale.html"><span class="dir">下一章 &rarr;</span><span class="ptitle">后台 &amp; 工作流</span></a>
+    </div>
+  </main>
+</div>
+<script src="../assets/course.js"></script>
+</body>
+</html>
