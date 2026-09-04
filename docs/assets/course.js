@@ -119,6 +119,12 @@
     });
   }
 
+  function initLangSwitch(){
+    document.querySelectorAll("select.lang-switch").forEach(function(sel){
+      sel.addEventListener("change", function(){ location.href = sel.value; });
+    });
+  }
+
   function initTocScroll(){
     var toc = document.getElementById("toc");
     var active = toc && toc.querySelector("a.active");
@@ -133,6 +139,7 @@
     initQuizzes();
     initFreshness();
     initCopyButtons();
+    initLangSwitch();
     initTocScroll();
   });
 })();

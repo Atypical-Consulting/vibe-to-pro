@@ -67,16 +67,14 @@
   .badge{ font-family:'IBM Plex Mono'; font-size:10px; text-transform:uppercase; background:var(--warn-soft); color:var(--warn); border-radius:5px; padding:1px 6px; margin-right:6px; }
   h2{ font-size:19px; margin:44px 0 12px; }
   .cta{ margin-top:40px; }
+  select.lang-switch{ font-family:'IBM Plex Mono'; font-size:11px; padding:3px 7px; border-radius:6px; border:1px solid var(--accent); background:var(--accent-soft); color:var(--accent-ink); cursor:pointer; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <div style="display:flex;justify-content:space-between;align-items:center;">
     <a class="back" href="index.html">← Retour à l'accueil</a>
-    <span class="lang-switch" style="display:inline-flex;gap:4px;font-family:'IBM Plex Mono';font-size:11px;">
-      <a href="methodologie.html" class="active" style="padding:3px 7px;border-radius:6px;border:1px solid var(--line);color:var(--accent-ink);border-color:var(--accent);background:var(--accent-soft);">FR</a>
-      <a href="en/methodologie.html" style="padding:3px 7px;border-radius:6px;border:1px solid var(--line);">EN</a>
-    </span>
+    <select class="lang-switch" aria-label="Langue"><option value="methodologie.html" selected>FR</option><option value="en/methodologie.html">EN</option></select>
   </div>
   <span class="eyebrow">Méthodologie</span>
   <h1>Comment ce cours vérifie chaque fait qu'il enseigne.</h1>
@@ -115,5 +113,10 @@
     <a href="prologue.html">Commencer le cours →</a>
   </div>
 </div>
+<script>
+  document.querySelectorAll('select.lang-switch').forEach(function(sel){
+    sel.addEventListener('change', function(){ location.href = sel.value; });
+  });
+</script>
 </body>
 </html>

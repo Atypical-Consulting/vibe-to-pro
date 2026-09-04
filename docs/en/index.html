@@ -124,9 +124,7 @@
   .topbar .links{ display:flex; gap:20px; font-family:'IBM Plex Mono'; font-size:12.5px; align-items:center; }
   .topbar .links a{ color:var(--ink-soft); text-decoration:none; }
   .topbar .links a:hover{ color:var(--accent-ink); }
-  .lang-switch{ display:inline-flex; gap:4px; }
-  .lang-switch a{ padding:3px 7px; border-radius:6px; border:1px solid var(--line); }
-  .lang-switch a.active{ color:var(--accent-ink); border-color:var(--accent); background:var(--accent-soft); }
+  select.lang-switch{ font-family:'IBM Plex Mono'; font-size:11px; padding:3px 7px; border-radius:6px; border:1px solid var(--accent); background:var(--accent-soft); color:var(--accent-ink); cursor:pointer; }
 
   .hero{ padding:72px 0 56px; }
   .eyebrow{
@@ -236,7 +234,7 @@
       <a href="#method">Method</a>
       <a href="#program">Program</a>
       <a href="https://github.com/Atypical-Consulting/vibe-to-pro">GitHub</a>
-      <span class="lang-switch"><a href="../index.html">FR</a><a href="index.html" class="active">EN</a></span>
+      <select class="lang-switch" aria-label="Language"><option value="../index.html">FR</option><option value="index.html" selected>EN</option></select>
     </nav>
   </header>
 </div>
@@ -381,6 +379,9 @@
       if(days > 21) el.style.borderColor = 'var(--warn)';
     });
   }catch(e){}
+  document.querySelectorAll('select.lang-switch').forEach(function(sel){
+    sel.addEventListener('change', function(){ location.href = sel.value; });
+  });
 </script>
 </body>
 </html>
