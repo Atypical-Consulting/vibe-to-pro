@@ -1,0 +1,798 @@
+<title>Du Vibe-Coding au Métier</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    --paper:#F3F4EF;
+    --paper-raised:#FFFFFF;
+    --ink:#1C211E;
+    --ink-soft:#4B524D;
+    --ink-faint:#7A8079;
+    --line:#DBDED4;
+    --line-soft:#E9EBE3;
+    --accent:#1F6F63;
+    --accent-ink:#0F433A;
+    --accent-soft:#E3EFEC;
+    --ok:#3F7D4A;
+    --ok-soft:#E5F1E3;
+    --warn:#A9691F;
+    --warn-soft:#F5EADA;
+    --code-bg:#1B211E;
+    --code-ink:#E7ECE4;
+    --code-line:#323A34;
+    --shadow: 0 1px 2px rgba(20,25,20,.04), 0 8px 24px -12px rgba(20,25,20,.12);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#14181A;
+      --paper-raised:#1B2022;
+      --ink:#E7E9E4;
+      --ink-soft:#A6ACA6;
+      --ink-faint:#767D77;
+      --line:#2B322D;
+      --line-soft:#242A26;
+      --accent:#5CC0AC;
+      --accent-ink:#8FDBC9;
+      --accent-soft:#1B2E2A;
+      --ok:#7BC97F;
+      --ok-soft:#1D2B1F;
+      --warn:#E0A75E;
+      --warn-soft:#2E2718;
+      --code-bg:#0E1213;
+      --code-ink:#DCE4DD;
+      --code-line:#232A26;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#14181A;
+    --paper-raised:#1B2022;
+    --ink:#E7E9E4;
+    --ink-soft:#A6ACA6;
+    --ink-faint:#767D77;
+    --line:#2B322D;
+    --line-soft:#242A26;
+    --accent:#5CC0AC;
+    --accent-ink:#8FDBC9;
+    --accent-soft:#1B2E2A;
+    --ok:#7BC97F;
+    --ok-soft:#1D2B1F;
+    --warn:#E0A75E;
+    --warn-soft:#2E2718;
+    --code-bg:#0E1213;
+    --code-ink:#DCE4DD;
+    --code-line:#232A26;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    color-scheme: dark;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', system-ui, sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3,h4{
+    font-family:'IBM Plex Serif', Georgia, serif;
+    text-wrap:balance;
+    color:var(--ink);
+    margin:0;
+  }
+  code, .mono{ font-family:'IBM Plex Mono', ui-monospace, monospace; }
+  a{ color:var(--accent-ink); }
+  p{ margin:0 0 .9em; color:var(--ink); }
+  p:last-child{ margin-bottom:0; }
+
+  .skip{ position:absolute; left:-999px; }
+
+  /* ---------- Shell layout ---------- */
+  .shell{
+    display:grid;
+    grid-template-columns: 288px minmax(0,1fr);
+    max-width:1180px;
+    margin:0 auto;
+    align-items:start;
+  }
+  @media (max-width: 880px){
+    .shell{ grid-template-columns: 1fr; }
+    .sidebar{ position:static; height:auto; border-right:none; border-bottom:1px solid var(--line); }
+  }
+
+  .sidebar{
+    position:sticky; top:0;
+    height:100vh;
+    overflow-y:auto;
+    padding:28px 22px 40px;
+    border-right:1px solid var(--line);
+    display:flex; flex-direction:column; gap:22px;
+  }
+  .brand{ display:flex; flex-direction:column; gap:4px; }
+  .brand .mark{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono'; font-size:12.5px; letter-spacing:.06em;
+    color:var(--accent-ink); text-transform:uppercase;
+  }
+  .brand .mark::before{ content:"›_"; font-weight:600; }
+  .brand h1{ font-size:19px; line-height:1.25; margin-top:2px; }
+
+  .progress-wrap{ display:flex; flex-direction:column; gap:6px; }
+  .progress-label{ font-size:11.5px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.07em; display:flex; justify-content:space-between; }
+  .progress-track{ height:6px; border-radius:99px; background:var(--line-soft); overflow:hidden; }
+  .progress-fill{ height:100%; background:var(--accent); width:0%; transition:width .3s ease; border-radius:99px; }
+
+  nav.toc{ display:flex; flex-direction:column; gap:1px; font-size:13.5px; }
+  nav.toc a{
+    display:flex; align-items:center; gap:10px;
+    padding:7px 8px; border-radius:7px;
+    text-decoration:none; color:var(--ink-soft);
+    transition: background .15s ease, color .15s ease;
+  }
+  nav.toc a:hover{ background:var(--line-soft); color:var(--ink); }
+  nav.toc a.active{ background:var(--accent-soft); color:var(--accent-ink); font-weight:600; }
+  nav.toc .num{
+    font-family:'IBM Plex Mono'; font-size:11px; color:var(--ink-faint);
+    width:20px; flex:none; text-align:right;
+  }
+  nav.toc a.active .num{ color:var(--accent-ink); }
+  nav.toc a .chk{
+    width:14px; height:14px; border-radius:4px; border:1.5px solid var(--line); flex:none;
+    display:inline-flex; align-items:center; justify-content:center;
+  }
+  nav.toc a .chk.done{ background:var(--ok); border-color:var(--ok); }
+  nav.toc a .chk.done::after{ content:"✓"; color:var(--paper-raised); font-size:9px; font-weight:700; }
+
+  .sidebar-foot{ margin-top:auto; font-size:11.5px; color:var(--ink-faint); border-top:1px solid var(--line); padding-top:14px; }
+
+  /* ---------- Main content ---------- */
+  main{ padding: 56px 48px 120px; min-width:0; }
+  @media (max-width:640px){ main{ padding:36px 20px 90px; } }
+
+  .lede{ max-width:660px; margin-bottom:64px; }
+  .eyebrow{
+    font-family:'IBM Plex Mono'; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--accent-ink); margin-bottom:14px; display:block;
+  }
+  .lede h1{ font-size:clamp(30px,4vw,42px); line-height:1.1; margin-bottom:18px; }
+  .lede .dek{ font-size:17px; color:var(--ink-soft); max-width:60ch; }
+  .lede .meta-row{
+    display:flex; flex-wrap:wrap; gap:10px; margin-top:26px;
+  }
+  .meta-pill{
+    font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--ink-soft);
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:99px;
+    padding:5px 12px; display:inline-flex; align-items:center; gap:6px;
+  }
+  .meta-pill b{ color:var(--ink); font-weight:600; }
+
+  .module{
+    max-width:720px;
+    padding-top:64px;
+    border-top:1px solid var(--line);
+    margin-top:64px;
+    scroll-margin-top:24px;
+  }
+  .module:first-of-type{ border-top:none; margin-top:0; padding-top:0; }
+
+  .module-head{ display:flex; gap:16px; align-items:flex-start; margin-bottom:18px; }
+  .module-head .index{
+    font-family:'IBM Plex Mono'; font-size:14px; color:var(--accent-ink);
+    background:var(--accent-soft); border-radius:8px; width:38px; height:38px;
+    display:flex; align-items:center; justify-content:center; flex:none; font-weight:600;
+  }
+  .module-head h2{ font-size:25px; line-height:1.2; padding-top:5px; }
+  .module-sub{ font-size:14px; color:var(--ink-faint); font-family:'IBM Plex Mono'; margin:-10px 0 20px 54px; }
+
+  .stance{
+    background:var(--paper-raised); border:1px solid var(--line); border-radius:12px;
+    padding:18px 20px; margin-bottom:28px; box-shadow:var(--shadow);
+  }
+  .stance p{ font-size:15px; color:var(--ink-soft); }
+  .stance strong{ color:var(--ink); }
+
+  h3.section-title{
+    font-family:'IBM Plex Mono'; font-size:12px; text-transform:uppercase; letter-spacing:.08em;
+    color:var(--ink-faint); margin:30px 0 14px;
+  }
+
+  .facts{ display:flex; flex-direction:column; gap:10px; }
+  .fact{
+    display:grid; grid-template-columns: 96px 1fr; gap:16px;
+    border:1px solid var(--line); border-radius:10px; background:var(--paper-raised);
+    padding:14px 16px;
+  }
+  @media (max-width:560px){ .fact{ grid-template-columns:1fr; } }
+  .fact .tag-col{ display:flex; flex-direction:column; gap:6px; align-items:flex-start; }
+  .fact .version{
+    font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--ink-soft);
+    background:var(--line-soft); border-radius:5px; padding:2px 6px;
+  }
+  .badge{
+    font-family:'IBM Plex Mono'; font-size:10.5px; text-transform:uppercase; letter-spacing:.04em;
+    border-radius:5px; padding:2px 6px; font-weight:600;
+  }
+  .badge.confirmed{ background:var(--ok-soft); color:var(--ok); }
+  .badge.corrected{ background:var(--warn-soft); color:var(--warn); }
+  .fact .body p{ font-size:14.5px; margin-bottom:6px; }
+  .fact .how{ font-size:13.5px; color:var(--ink-soft); border-top:1px dashed var(--line); margin-top:8px; padding-top:8px; }
+  .fact .how b{ color:var(--ink); font-weight:600; font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase; letter-spacing:.04em; }
+  .fact .src{ display:block; margin-top:6px; font-size:12px; }
+  .fact code{ background:var(--line-soft); border-radius:4px; padding:1px 5px; font-size:.92em; }
+
+  .exercise{
+    margin-top:26px; border-radius:12px; padding:20px 22px;
+    background:var(--accent-soft); border:1px solid var(--accent);
+  }
+  .exercise .ex-label{
+    font-family:'IBM Plex Mono'; font-size:11.5px; text-transform:uppercase; letter-spacing:.07em;
+    color:var(--accent-ink); display:flex; align-items:center; gap:8px; margin-bottom:8px; font-weight:600;
+  }
+  .exercise p{ font-size:14.5px; color:var(--ink); }
+  .exercise code{ background:rgba(0,0,0,.06); border-radius:4px; padding:1px 5px; }
+  :root[data-theme="dark"] .exercise code, @media (prefers-color-scheme:dark){ .exercise code{ background:rgba(255,255,255,.08); } }
+
+  .module-foot{
+    margin-top:20px; display:flex; align-items:center; gap:10px;
+  }
+  .mark-done{
+    font-family:'IBM Plex Mono'; font-size:12px; border:1px solid var(--line); background:var(--paper-raised);
+    color:var(--ink-soft); padding:8px 14px; border-radius:8px; cursor:pointer;
+  }
+  .mark-done:hover{ border-color:var(--accent); color:var(--accent-ink); }
+  .mark-done.is-done{ background:var(--ok-soft); border-color:var(--ok); color:var(--ok); }
+
+  .prologue-list{ display:flex; flex-direction:column; gap:14px; margin:22px 0 0; }
+  .prologue-list li{ display:flex; gap:14px; }
+  .prologue-list .vs{
+    display:grid; grid-template-columns: 1fr auto 1fr; gap:10px; align-items:center;
+    border:1px solid var(--line); background:var(--paper-raised); border-radius:10px; padding:14px 16px; width:100%;
+  }
+  .prologue-list .vs .side{ font-size:13.5px; }
+  .prologue-list .vs .side.vibe{ color:var(--ink-faint); }
+  .prologue-list .vs .side.pro{ color:var(--ink); font-weight:500; }
+  .prologue-list .vs .arrow{ font-family:'IBM Plex Mono'; color:var(--accent-ink); font-size:13px; }
+
+  .checklist{ display:flex; flex-direction:column; gap:8px; margin:18px 0 0; padding:0; list-style:none; }
+  .checklist li{
+    display:flex; gap:10px; align-items:flex-start; font-size:14.5px;
+    border:1px solid var(--line); border-radius:9px; padding:10px 14px; background:var(--paper-raised);
+  }
+  .checklist li::before{ content:"—"; color:var(--accent-ink); font-family:'IBM Plex Mono'; flex:none; }
+
+  .sources-grid{
+    display:grid; grid-template-columns: repeat(auto-fill,minmax(220px,1fr)); gap:8px 16px;
+    margin-top:14px; font-size:13px;
+  }
+  .sources-grid a{ text-decoration:none; }
+  .sources-grid a:hover{ text-decoration:underline; }
+
+  .colophon{ font-size:13px; color:var(--ink-faint); margin-top:40px; padding-top:20px; border-top:1px solid var(--line); }
+
+  @media (prefers-reduced-motion: reduce){
+    .progress-fill{ transition:none; }
+  }
+</style>
+
+<a class="skip" href="#contenu">Aller au contenu</a>
+<div class="shell">
+  <aside class="sidebar" aria-label="Sommaire du cours">
+    <div class="brand">
+      <a href="index.html" style="text-decoration:none;"><span class="mark">Manuel de terrain</span></a>
+      <h1>Du Vibe‑Coding au Métier</h1>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label"><span>Progression</span><span id="progress-text">0 / 14</span></span>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+    <nav class="toc" id="toc" aria-label="Modules">
+      <a href="#prologue" data-mod="prologue"><span class="num">00</span><span class="chk" data-chk="prologue"></span><span>Prologue</span></a>
+      <a href="#controle" data-mod="controle"><span class="num">01</span><span class="chk" data-chk="controle"></span><span>Contrôle &amp; sécurité</span></a>
+      <a href="#memoire" data-mod="memoire"><span class="num">02</span><span class="chk" data-chk="memoire"></span><span>Mémoire</span></a>
+      <a href="#skills" data-mod="skills"><span class="num">03</span><span class="chk" data-chk="skills"></span><span>Commandes &amp; Skills</span></a>
+      <a href="#plan" data-mod="plan"><span class="num">04</span><span class="chk" data-chk="plan"></span><span>Plan &amp; réflexion</span></a>
+      <a href="#agents" data-mod="agents"><span class="num">05</span><span class="chk" data-chk="agents"></span><span>Sous‑agents</span></a>
+      <a href="#hooks" data-mod="hooks"><span class="num">06</span><span class="chk" data-chk="hooks"></span><span>Hooks</span></a>
+      <a href="#mcp" data-mod="mcp"><span class="num">07</span><span class="chk" data-chk="mcp"></span><span>MCP</span></a>
+      <a href="#rewind" data-mod="rewind"><span class="num">08</span><span class="chk" data-chk="rewind"></span><span>Checkpoints</span></a>
+      <a href="#git" data-mod="git"><span class="num">09</span><span class="chk" data-chk="git"></span><span>Git &amp; worktrees</span></a>
+      <a href="#echelle" data-mod="echelle"><span class="num">10</span><span class="chk" data-chk="echelle"></span><span>Arrière‑plan &amp; workflows</span></a>
+      <a href="#plugins" data-mod="plugins"><span class="num">11</span><span class="chk" data-chk="plugins"></span><span>Plugins &amp; marketplaces</span></a>
+      <a href="#infra" data-mod="infra"><span class="num">12</span><span class="chk" data-chk="infra"></span><span>SDK, CI/CD, IDE</span></a>
+      <a href="#epilogue" data-mod="epilogue"><span class="num">13</span><span class="chk" data-chk="epilogue"></span><span>Épilogue &amp; sources</span></a>
+    </nav>
+    <div class="sidebar-foot">
+      13 modules · chaque fait cité renvoie à sa source officielle (code.claude.com) ou est marqué comme non vérifié.<br><a href="index.html">← Retour à l'accueil</a>
+    </div>
+  </aside>
+
+  <main id="contenu">
+    <div class="lede">
+      <span class="eyebrow">Cours de terrain — Claude Code</span>
+      <h1>Du vibe‑coding à une pratique professionnelle</h1>
+      <p class="dek">Ce manuel part du <b>CHANGELOG</b> officiel de Claude Code (385 versions, de 0.2.21 à 2.1.260) et vérifie chaque fonctionnalité contre la documentation actuelle sur <code>code.claude.com</code>. L'objectif&nbsp;: transformer des réflexes de « prompt et on espère » en pratiques contrôlées, reproductibles et sûres.</p>
+      <div class="meta-row">
+        <span class="meta-pill">Source primaire&nbsp;: <b>github.com/anthropics/claude-code/CHANGELOG.md</b></span>
+        <span class="meta-pill">Vérifié au&nbsp;: <b>2 sept. 2026</b> — Claude Code <b>v2.1.260</b></span>
+        <span class="meta-pill">Méthode&nbsp;: <b>changelog → recherche documentaire → verdict par fait</b></span>
+      </div>
+    </div>
+
+    <!-- ============ PROLOGUE ============ -->
+    <section class="module" id="prologue">
+      <div class="module-head"><span class="index">00</span><h2>Le vibe‑coding s'arrête où commence le contrôle</h2></div>
+      <div class="stance">
+        <p><strong>Vibe‑coder</strong>, c'est taper un prompt et espérer. <strong>Pratiquer Claude Code en pro</strong>, c'est savoir précisément ce que l'outil va faire, pouvoir le prouver, le rejouer et le confier à une équipe. Ce cours suit douze leviers de contrôle, dans l'ordre où un développeur devrait se les approprier&nbsp;: d'abord la sécurité, puis la mémoire et les commandes, puis la délégation à des sous‑agents, puis l'échelle en équipe.</p>
+      </div>
+      <ul class="prologue-list">
+        <li class="vs"><span class="side vibe">« Je laisse tourner et je croise les doigts »</span><span class="arrow">→</span><span class="side pro">Un périmètre de permissions explicite, un sandbox actif, des règles versionnées</span></li>
+        <li class="vs"><span class="side vibe">« Je réexplique le contexte à chaque session »</span><span class="arrow">→</span><span class="side pro">CLAUDE.md + mémoire automatique, chargés et audités via <code>/context</code></span></li>
+        <li class="vs"><span class="side vibe">« Je retape le même prompt de mémoire »</span><span class="arrow">→</span><span class="side pro">Une commande <code>/nom</code> versionnée dans <code>.claude/skills/</code></span></li>
+        <li class="vs"><span class="side vibe">« Un seul fil, tout se mélange »</span><span class="arrow">→</span><span class="side pro">Des sous‑agents isolés, un modèle par tâche, une profondeur maîtrisée</span></li>
+        <li class="vs"><span class="side vibe">« J'espère qu'il va formatter et tester »</span><span class="arrow">→</span><span class="side pro">Des hooks déterministes qui s'exécutent toujours au bon moment</span></li>
+      </ul>
+      <div class="module-foot"><button class="mark-done" data-mark="prologue">Marquer comme lu</button></div>
+    </section>
+
+    <!-- ============ 01 CONTRÔLE & SÉCURITÉ ============ -->
+    <section class="module" id="controle">
+      <div class="module-head"><span class="index">01</span><h2>Contrôle &amp; sécurité — permissions, sandbox, mode auto</h2></div>
+      <div class="module-sub">La fondation avant tout le reste</div>
+      <div class="stance"><p>Le vibe‑coding, c'est laisser un agent exécuter des commandes au fil de l'eau sans jamais se demander ce qu'il pourrait casser ou exfiltrer. Maîtriser les permissions et le sandbox, c'est définir précisément le périmètre&nbsp;: quels fichiers Claude peut lire, quels domaines réseau il peut joindre, quelles commandes destructrices restent bloquées par défaut — un socle reproductible et auditable en équipe via <code>.claude/settings.json</code>.</p></div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-controle"></div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Dans un projet de test (jamais votre dépôt principal)&nbsp;: activez le sandbox avec <code>/sandbox</code>, choisissez le mode auto, puis demandez à Claude de lister <code>~/.ssh</code> et de faire un <code>git push --force</code>. Observez le blocage réseau/lecture, puis ajoutez dans <code>~/.claude/settings.json</code> un bloc <code>sandbox.credentials.files</code> avec <code>mode: "deny"</code> sur un fichier sensible, et vérifiez le résultat via l'onglet <code>/sandbox</code> → Config.</p>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="controle">Marquer comme lu</button></div>
+    </section>
+
+    <!-- ============ 02 MÉMOIRE ============ -->
+    <section class="module" id="memoire">
+      <div class="module-head"><span class="index">02</span><h2>Mémoire — CLAUDE.md et mémoire automatique</h2></div>
+      <div class="module-sub">Arrêter de tout réexpliquer à chaque session</div>
+      <div class="stance"><p>En vibe‑coding, chaque session repart de zéro&nbsp;: on répète les mêmes conventions, les mêmes corrections. Maîtriser CLAUDE.md et la mémoire automatique transforme ce contexte volatil en configuration versionnée, partagée en équipe et auditable via <code>/context</code>.</p></div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-memoire"></div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Lancez <code>/init</code> pour générer un CLAUDE.md de base, ajoutez une règle précise (« utilise pnpm, jamais npm »), puis corrigez volontairement Claude sur une préférence pendant une tâche. Vérifiez avec <code>/memory</code> que la correction a bien été enregistrée en auto‑mémoire, confirmez le chargement avec <code>/context</code>, puis lancez <code>/doctor</code> pour voir s'il propose d'alléger votre CLAUDE.md.</p>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="memoire">Marquer comme lu</button></div>
+    </section>
+
+    <!-- ============ 03 SKILLS ============ -->
+    <section class="module" id="skills">
+      <div class="module-head"><span class="index">03</span><h2>Commandes &amp; Skills — industrialiser ses prompts</h2></div>
+      <div class="module-sub">D'un prompt improvisé à une procédure versionnée</div>
+      <div class="stance"><p>Le vibe‑coding, c'est retaper le même prompt de mémoire, avec les variations que ça implique. Une skill fige ce prompt dans un fichier <code>SKILL.md</code> versionné&nbsp;: reproductible, partageable par git, auditable via son <code>allowed-tools</code>.</p></div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-skills"></div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Créez <code>.claude/skills/resume-diff/SKILL.md</code> avec un frontmatter minimal (<code>description</code>, <code>disable-model-invocation: true</code>) et un corps qui injecte <code>!git diff HEAD</code> puis demande un résumé en 3 puces. Testez avec <code>/resume-diff</code>, puis ajoutez <code>context: fork</code> et <code>agent: Explore</code> pour le faire tourner en sous‑agent en arrière‑plan.</p>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="skills">Marquer comme lu</button></div>
+    </section>
+
+    <!-- ============ 04 PLAN MODE ============ -->
+    <section class="module" id="plan">
+      <div class="module-head"><span class="index">04</span><h2>Plan Mode &amp; réflexion étendue</h2></div>
+      <div class="module-sub">Réfléchir avant d'agir, régler la profondeur</div>
+      <div class="stance"><p>En vibe‑coding, on espère que ça marche sans visibilité sur ce que l'IA va faire. Le mode plan force une phase de recherche avant toute modification, et le niveau d'effort rend le raisonnement du modèle explicite et réglable — la base d'une pratique reproductible.</p></div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-plan"></div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Lancez <code>claude --permission-mode plan</code>, puis demandez&nbsp;: « ultrathink: propose une architecture pour ajouter du rate‑limiting à cette API ». Observez le plan, approuvez avec « Yes, and use auto mode ». Dans une nouvelle session, comparez <code>/effort low</code> vs <code>/effort xhigh</code> sur la même question pour sentir la différence de profondeur.</p>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="plan">Marquer comme lu</button></div>
+    </section>
+
+    <!-- ============ 05 SOUS-AGENTS ============ -->
+    <section class="module" id="agents">
+      <div class="module-head"><span class="index">05</span><h2>Sous‑agents — déléguer et paralléliser</h2></div>
+      <div class="module-sub">L'outil Agent (ex‑Task)</div>
+      <div class="stance"><p>Le vibe‑coding, c'est un seul fil où tout se mélange&nbsp;: recherche, écriture, tests, contexte qui explose. Les sous‑agents isolent chaque tâche (contexte séparé, outils restreints, parfois un worktree dédié) et laissent choisir consciemment quel modèle fait quoi.</p></div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-agents"></div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Demandez à Claude de créer un sous‑agent <code>code-reviewer</code> en lecture seule (<code>Read, Grep, Glob</code>), modèle <code>haiku</code>. Lancez <code>/subtask</code> avec cet agent et observez son exécution en arrière‑plan via <code>/tasks</code>. Ajoutez ensuite <code>isolation: worktree</code> pour qu'il travaille dans une copie git isolée, puis bloquez‑le avec une règle <code>permissions.deny: ["Agent(code-reviewer)"]</code>.</p>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="agents">Marquer comme lu</button></div>
+    </section>
+
+    <!-- ============ 06 HOOKS ============ -->
+    <section class="module" id="hooks">
+      <div class="module-head"><span class="index">06</span><h2>Hooks — automatiser sans dépendre du modèle</h2></div>
+      <div class="module-sub">Des règles déterministes, pas des espoirs</div>
+      <div class="stance"><p>En vibe‑coding, on laisse le modèle décider seul quand formatter, tester ou demander une confirmation — et il oublie parfois. Les hooks transforment ces habitudes en règles qui s'exécutent <strong>toujours</strong> au bon moment, scriptables et partageables en équipe.</p></div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-hooks"></div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Créez un hook <code>PreToolUse</code> sur Bash avec <code>if: "Bash(rm *)"</code> qui bloque (code de sortie 2) toute commande <code>rm</code>. Ajoutez un hook <code>PostToolUse</code> sur <code>Edit|Write</code> avec <code>continueOnBlock: true</code> qui lance un linter et renvoie l'erreur à Claude au lieu d'arrêter le tour. Inspectez <code>/hooks</code> pour voir la provenance de chaque hook actif.</p>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="hooks">Marquer comme lu</button></div>
+    </section>
+
+    <!-- ============ 07 MCP ============ -->
+    <section class="module" id="mcp">
+      <div class="module-head"><span class="index">07</span><h2>MCP — connecter des outils externes en sécurité</h2></div>
+      <div class="module-sub">Model Context Protocol</div>
+      <div class="stance"><p>En vibe‑coding, on branche des outils MCP au hasard sans savoir qui les a approuvés ni ce qu'ils peuvent lire. Passer pro, c'est maîtriser les scopes (<code>.mcp.json</code> versionné), les approbations et les allowlists/denylists.</p></div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-mcp"></div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Créez un <code>.mcp.json</code> à la racine avec un serveur MCP HTTP public, lancez <code>claude</code>, observez l'invite « Pending approval », acceptez‑la puis vérifiez avec <code>claude mcp list</code>. Bloquez ensuite ce même serveur pour vous via <code>deniedMcpServers</code> dans <code>~/.claude/settings.json</code>.</p>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="mcp">Marquer comme lu</button></div>
+    </section>
+
+    <!-- ============ 08 REWIND ============ -->
+    <section class="module" id="rewind">
+      <div class="module-head"><span class="index">08</span><h2>Checkpoints &amp; Rewind — le filet de sécurité</h2></div>
+      <div class="module-sub">Explorer sans crainte</div>
+      <div class="stance"><p>Le vibe‑coding enchaîne des prompts à l'aveugle sans filet si Claude part dans la mauvaise direction. Les checkpoints transforment cette improvisation en pratique pro&nbsp;: chaque prompt devient un point restaurable, code et/ou conversation, avant même un commit Git.</p></div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-rewind"></div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Faites implémenter une fonctionnalité simple, laissez Claude modifier 2‑3 fichiers, puis demandez volontairement une modification que vous jugez mauvaise. Appuyez deux fois sur Échap (ou <code>/rewind</code>), choisissez le point juste avant, testez « Restore code and conversation » puis, sur un autre essai, « Restore code » seul.</p>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="rewind">Marquer comme lu</button></div>
+    </section>
+
+    <!-- ============ 09 GIT ============ -->
+    <section class="module" id="git">
+      <div class="module-head"><span class="index">09</span><h2>Git, worktrees &amp; automatisation PR</h2></div>
+      <div class="module-sub">Travailler à plusieurs sans collision</div>
+      <div class="stance"><p>Le vibe‑coding s'arrête là où le code touche un dépôt partagé&nbsp;: sans worktrees ni discipline Git, on écrase le travail des autres ou on pousse des commits non relus. Les worktrees et l'automatisation PR font tourner plusieurs agents en parallèle sans collision, avec une trace propre.</p></div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-git"></div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Lancez <code>claude --worktree essai-pro</code> pour une session isolée. Modifiez un fichier, lancez <code>/code-review high --fix</code> avant de committer, puis <code>/commit-push-pr</code>. Vérifiez qu'un <code>git push --force</code> ne serait pas auto‑approuvé, et ajoutez <code>worktree.baseRef: "head"</code> dans <code>.claude/settings.json</code>.</p>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="git">Marquer comme lu</button></div>
+    </section>
+
+    <!-- ============ 10 ÉCHELLE ============ -->
+    <section class="module" id="echelle">
+      <div class="module-head"><span class="index">10</span><h2>Arrière‑plan &amp; workflows multi‑agents</h2></div>
+      <div class="module-sub">Passer à l'échelle sans perdre le contrôle</div>
+      <div class="stance"><p>En vibe‑coding, on lance un prompt sans savoir combien d'agents tournent ni comment les arrêter. Maîtriser les tâches en arrière‑plan et les workflows, c'est savoir exactement qui fait quoi, avec des garde‑fous de taille et de permissions inter‑sessions.</p></div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-echelle"></div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Lancez <code>claude --bg "audite les TODO du repo"</code>, ouvrez <code>claude agents</code>, épinglez la session (Ctrl+T), consultez ses logs avec <code>claude logs &lt;id&gt;</code>. Testez ensuite <code>/goal tous les tests passent et le lint est propre</code> sur une petite tâche pour voir Claude boucler seul jusqu'à la condition.</p>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="echelle">Marquer comme lu</button></div>
+    </section>
+
+    <!-- ============ 11 PLUGINS ============ -->
+    <section class="module" id="plugins">
+      <div class="module-head"><span class="index">11</span><h2>Plugins &amp; marketplaces</h2></div>
+      <div class="module-sub">Outiller toute l'équipe, pas juste soi</div>
+      <div class="stance"><p>En vibe‑coding, on installe un plugin trouvé au hasard et on croise les doigts. En pro, les plugins et marketplaces donnent la reproductibilité (version épinglée par SHA), la sécurité (secrets jamais injectés en shell) et la gouvernance (activation explicite, coût en tokens visible).</p></div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-plugins"></div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Lancez <code>claude plugin init mon-plugin --with skills hooks</code>. Ajoutez <code>"defaultEnabled": false</code> et vérifiez qu'il faut <code>claude plugin enable mon-plugin</code> pour l'activer. Exécutez <code>claude plugin details mon-plugin</code> pour voir son coût en tokens projeté par session.</p>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="plugins">Marquer comme lu</button></div>
+    </section>
+
+    <!-- ============ 12 INFRA ============ -->
+    <section class="module" id="infra">
+      <div class="module-head"><span class="index">12</span><h2>SDK, mode headless, CI/CD &amp; IDE</h2></div>
+      <div class="module-sub">Faire de Claude Code une brique d'infrastructure</div>
+      <div class="stance"><p>Le vibe‑coding valide chaque action à l'instinct en mode interactif&nbsp;: ça ne passe pas à l'échelle. Le mode headless et le SDK transforment Claude Code en brique reproductible&nbsp;: scripts déterministes, garde‑fous explicites, sortie structurée exploitable en CI.</p></div>
+
+      <h3 class="section-title">Ce qu'il faut retenir</h3>
+      <div class="facts" id="facts-infra"></div>
+
+      <div class="exercise">
+        <div class="ex-label">Exercice pratique</div>
+        <p>Écrivez <code>claude --bare -p "Résume les 3 derniers commits" --allowedTools "Bash(git log *)" --permission-mode auto --permission-prompts none --output-format json</code>. Inspectez la sortie avec <code>jq</code> pour extraire <code>.result</code> et <code>.total_cost_usd</code>.</p>
+      </div>
+      <div class="module-foot"><button class="mark-done" data-mark="infra">Marquer comme lu</button></div>
+    </section>
+
+    <!-- ============ ÉPILOGUE ============ -->
+    <section class="module" id="epilogue">
+      <div class="module-head"><span class="index">13</span><h2>Épilogue — checklist du praticien &amp; sources</h2></div>
+      <div class="stance"><p>Douze leviers, un seul objectif&nbsp;: ne plus jamais avoir à espérer. Voici la checklist qui résume ce cours — cochez‑la avant de dire qu'un projet Claude Code est « prêt pour la prod ».</p></div>
+
+      <h3 class="section-title">Checklist du praticien pro</h3>
+      <ul class="checklist">
+        <li>Le sandbox Bash et les règles réseau sont actifs sur tout projet touchant des secrets ou une prod.</li>
+        <li><code>.claude/settings.json</code> (permissions, hooks) est versionné et revu comme du code.</li>
+        <li>CLAUDE.md documente les pièges et conventions non standard — pas ce que Claude peut déjà déduire du code.</li>
+        <li>Les tâches répétées vivent dans des skills versionnées, pas dans la mémoire de qui tape le prompt.</li>
+        <li>Les tâches risquées passent par le mode plan avant toute exécution.</li>
+        <li>Les sous‑agents ont un périmètre d'outils explicite (<code>tools:</code>/<code>disallowedTools:</code>), pas un accès total par défaut.</li>
+        <li>Les vérifications critiques (lint, tests, secrets) sont des hooks, pas des espoirs.</li>
+        <li>Chaque serveur MCP externe est passé en revue avant approbation, avec une allowlist en équipe.</li>
+        <li><code>/rewind</code> et les worktrees sont réflexes avant toute expérimentation risquée sur du code partagé.</li>
+        <li>Les workflows multi‑agents ont une <code>workflowSizeGuideline</code> assumée, pas « laisser tourner et voir ».</li>
+        <li>Les plugins installés sont épinglés par SHA et leur coût en tokens est connu (<code>claude plugin details</code>).</li>
+        <li>Les intégrations CI utilisent <code>--bare</code>, une sortie <code>--output-format json</code> et des permissions explicites — jamais un <code>--dangerously-skip-permissions</code> dans un pipeline partagé.</li>
+      </ul>
+
+      <h3 class="section-title">Sources officielles citées dans ce cours</h3>
+      <div class="sources-grid" id="sources-grid"></div>
+
+      <p class="colophon">Méthodologie&nbsp;: les 385 versions du CHANGELOG officiel (github.com/anthropics/claude-code) ont été découpées et passées en revue pour en extraire les fonctionnalités majeures pertinentes à l'usage professionnel. Chaque fait retenu ici a ensuite été confronté à la documentation actuelle sur <code>code.claude.com</code> via une recherche indépendante&nbsp;; seuls les faits <span class="badge confirmed" style="display:inline">confirmé</span> ou <span class="badge corrected" style="display:inline">mis à jour</span> par cette vérification figurent dans ce cours — les points que la recherche n'a pas pu confirmer ont été écartés plutôt que présentés comme acquis. Les commandes et paramètres évoluent&nbsp;: vérifiez <code>claude --version</code> et la doc en vigueur avant de vous fier à un détail précis en production.</p>
+      <div class="module-foot"><button class="mark-done" data-mark="epilogue">Marquer comme lu</button></div>
+    </section>
+
+  </main>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  function esc(s){
+    return String(s).replace(/[&<>]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;"}[c]; });
+  }
+
+  // -------- Fact data (curated, confirmed/corrected only) --------
+  var DATA = {
+    controle: [
+      {v:"2.1.111", s:"confirmed", t:"Le mode auto est le mode de démarrage par défaut sur les plans Pro, Max et Team — aucun flag d'activation n'est plus nécessaire.", h:"Lancez simplement <code>claude</code> sur un plan Pro/Max/Team&nbsp;: la session démarre en mode auto. <code>Shift+Tab</code> permet de changer de mode.", src:"https://code.claude.com/docs/en/permission-modes"},
+      {v:"2.1.200", s:"confirmed", t:"Le mode historiquement appelé « default » s'appelle désormais « Manual » dans toute l'interface (CLI, VS Code, JetBrains).", h:"<code>claude --permission-mode manual</code> et <code>--permission-mode default</code> sont équivalents.", src:"https://code.claude.com/docs/en/permission-modes"},
+      {v:"2.1.248", s:"confirmed", t:"Le flag <code>--restricted</code> retire les outils d'exécution de commandes et WebFetch, confine les outils fichiers au répertoire de travail, et refuse le mode bypass — sans retour possible en cours de session.", h:"<code>claude --restricted</code> pour ouvrir un dépôt non fiable ou faire expérimenter un junior sans risque d'évasion de sandbox.", src:"https://code.claude.com/docs/en/permission-modes"},
+      {v:"2.1.183", s:"confirmed", t:"En mode auto, une liste de commandes destructrices est bloquée par défaut&nbsp;: <code>git reset --hard</code>, <code>git clean -fd</code>, <code>git stash drop</code>, <code>terraform destroy</code>, etc.", h:"Ces blocages sont actifs sans configuration&nbsp;; ils se lèvent au cas par cas si vous formulez explicitement l'intention (« force‑push cette branche »).", src:"https://code.claude.com/docs/en/auto-mode-config"},
+      {v:"2.1.126", s:"confirmed", t:"<code>--dangerously-skip-permissions</code> (bypass) contourne les « protected paths » (<code>.claude/</code>, <code>.git/</code>, configs shell) mais un garde‑fou sur les suppressions catastrophiques (<code>rm -rf /</code> ou <code>~</code>) reste actif quoi qu'il arrive.", h:"À réserver à des conteneurs ou VM isolés — jamais sur une machine de production.", src:"https://code.claude.com/docs/en/permission-modes"},
+      {v:"2.0.24", s:"confirmed", t:"Claude Code embarque un sandbox natif pour l'outil Bash (Seatbelt sur macOS, bubblewrap sur Linux/WSL2) — Windows natif n'est pas supporté, il faut passer par WSL2.", h:"Lancez <code>/sandbox</code> en session pour l'activer immédiatement, sans installation supplémentaire sur macOS.", src:"https://code.claude.com/docs/en/sandboxing"},
+      {v:"2.1.187 / 2.1.221", s:"confirmed", t:"<code>sandbox.credentials.files</code>/<code>envVars</code> permet de bloquer (<code>deny</code>) ou masquer (<code>mode: \"mask\"</code>) des identifiants pour les commandes sandboxées, sans liste de déni intégrée par défaut.", h:"Placez ces réglages dans <code>~/.claude/settings.json</code> (jamais dans les settings de projet, qui sont ignorés pour ces clés).", src:"https://code.claude.com/docs/en/sandboxing"},
+      {v:"0.2.67", s:"confirmed", t:"Les règles de permission partagées vivent dans <code>.claude/settings.json</code> (versionné, partagé en équipe), distinctes de <code>.claude/settings.local.json</code> (personnel, gitignoré).", h:"Committez vos règles allow/deny/ask d'équipe dans <code>.claude/settings.json</code>&nbsp; ; gardez vos préférences perso dans le fichier local.", src:"https://code.claude.com/docs/en/permissions"},
+      {v:"2.1.257", s:"confirmed", t:"En mode auto, la première lecture (Read/Grep/Glob) hors du répertoire de travail déclenche une invite unique&nbsp;: toujours autoriser, bloquer définitivement, ou redemander.", h:"Le blocage définitif écrit <code>permissions.blockReadsOutsideWorkingDirectories: true</code> dans les settings utilisateur.", src:"https://code.claude.com/docs/en/permission-modes"},
+      {v:"2.1.0", s:"confirmed", t:"Les règles Bash acceptent des jokers à n'importe quelle position&nbsp;: <code>Bash(npm *)</code>, <code>Bash(* install)</code>, <code>Bash(git * main)</code> — attention, ce dernier autorise aussi <code>git -c ...</code>, qui peut exécuter un programme arbitraire.", h:"Testez toujours vos règles avec <code>--verbose</code> pour voir le matching exact avant de les déployer en équipe.", src:"https://code.claude.com/docs/en/permissions"}
+    ],
+    memoire: [
+      {v:"0.2.107", s:"confirmed", t:"CLAUDE.md accepte des imports <code>@chemin/vers/fichier.md</code> (profondeur max 4 sauts). Entourer un chemin de backticks (<code>`@README`</code>) l'empêche d'être importé.", h:"Écrivez « Voir @README pour la vue d'ensemble » dans CLAUDE.md pour charger automatiquement ce fichier en contexte.", src:"https://code.claude.com/docs/en/memory"},
+      {v:"2.1.59", s:"confirmed", t:"L'auto‑mémoire enregistre 4 types de notes&nbsp;: <code>user</code> (préférences), <code>feedback</code> (corrections confirmées), <code>project</code> (contexte non déductible du code), <code>reference</code> (où trouver une info externe).", h:"Activée par défaut&nbsp;; désactivable via <code>/memory</code> ou <code>CLAUDE_CODE_DISABLE_AUTO_MEMORY=1</code>. Dites « souviens‑toi que… » en langage naturel pour déclencher un enregistrement.", src:"https://code.claude.com/docs/en/memory"},
+      {v:"2.1.74", s:"confirmed", t:"Le paramètre <code>autoMemoryDirectory</code> déplace le dossier d'auto‑mémoire hors de l'emplacement par défaut <code>~/.claude/projects/&lt;projet&gt;/memory/</code>.", h:"<code>{ \"autoMemoryDirectory\": \"~/mon-dossier-memoire\" }</code> dans un fichier settings.json, à n'importe quel niveau (user, projet, local).", src:"https://code.claude.com/docs/en/memory"},
+      {v:"2.1.72", s:"confirmed", t:"Les commentaires HTML de bloc (<code>&lt;!-- … --&gt;</code>) dans CLAUDE.md sont retirés avant l'injection en contexte, mais restent visibles si vous ouvrez le fichier directement.", h:"Utilisez‑les pour des annotations destinées aux humains sans consommer de tokens de contexte.", src:"https://code.claude.com/docs/en/memory"},
+      {v:"2.1.206", s:"confirmed", t:"<code>/doctor</code> propose de déduplique les CLAUDE.md face au code (arborescence, dépendances déjà déductibles), en gardant pièges et conventions non standard, et migre le reste vers des skills ou CLAUDE.md imbriqués.", h:"Lancez <code>/doctor</code> en session&nbsp;: il présente ses constats puis demande confirmation avant modification.", src:"https://code.claude.com/docs/en/commands"},
+      {v:"2.1.101", s:"confirmed", t:"<code>/team-onboarding</code> génère un guide de prise en main pour un nouveau coéquipier à partir de l'usage local récent (sessions, commandes, serveurs MCP) et du CLAUDE.md du projet.", h:"À lancer dans un projet que vous connaissez bien&nbsp;; le guide peut être collé comme premier message par le nouveau membre.", src:"https://code.claude.com/docs/en/whats-new/2026-w15"},
+      {v:"2.1.20", s:"confirmed", t:"Par défaut, les CLAUDE.md des répertoires ajoutés via <code>--add-dir</code> ne sont pas chargés — il faut définir <code>CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1</code>.", h:"<code>CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD=1 claude --add-dir ../shared-config</code> pour charger aussi les fichiers mémoire de ce dossier.", src:"https://code.claude.com/docs/en/memory"},
+      {v:"2.1.214", s:"confirmed", t:"Quand Claude écrit un fichier mémoire qui possède déjà un frontmatter YAML, il y enregistre un champ <code>modified</code> (ISO 8601) — jamais ajouté à un fichier qui n'a pas de frontmatter.", h:"Ouvrez un fichier via <code>/memory</code> et regardez le champ <code>modified</code> pour juger si une note est périmée.", src:"https://code.claude.com/docs/en/memory"}
+    ],
+    skills: [
+      {v:"0.2.31", s:"confirmed", t:"Les commandes slash personnalisées sont nées comme de simples fichiers Markdown dans <code>.claude/commands/</code> — toujours pleinement supportées aujourd'hui, mais les Skills (<code>SKILL.md</code>) sont le mécanisme successeur recommandé.", h:"Créez <code>.claude/commands/deploy.md</code> pour un besoin simple, ou <code>.claude/skills/deploy/SKILL.md</code> pour embarquer aussi des fichiers annexes.", src:"https://code.claude.com/docs/en/skills"},
+      {v:"2.1.3", s:"confirmed", t:"Commandes slash et Skills ont été fusionnées&nbsp;: un fichier <code>.claude/commands/deploy.md</code> et un skill <code>.claude/skills/deploy/SKILL.md</code> créent tous deux <code>/deploy</code> et fonctionnent pareil.", h:"Migrez vers <code>SKILL.md</code> pour bénéficier des fichiers de support et d'un contrôle plus fin d'invocation.", src:"https://code.claude.com/docs/en/skills"},
+      {v:"1.0.57", s:"confirmed", t:"Le champ <code>model:</code> du frontmatter fixe le modèle utilisé pendant l'exécution d'une commande ou skill — pour ce tour seulement, la session reprend son modèle ensuite.", h:"<code>model: haiku</code> dans l'en‑tête YAML pour router les tâches mécaniques bon marché vers un modèle rapide.", src:"https://code.claude.com/docs/en/skills"},
+      {v:"2.1.0", s:"confirmed", t:"<code>context: fork</code> exécute une skill comme un sous‑agent isolé (sans accès à l'historique) ; le champ <code>agent:</code> choisit le type d'agent d'exécution (Explore, Plan, general‑purpose ou un agent personnalisé).", h:"Combinez <code>context: fork</code> et <code>agent: Explore</code> pour une skill de recherche outillée en lecture seule.", src:"https://code.claude.com/docs/en/skills"},
+      {v:"2.1.152", s:"confirmed", t:"Le champ <code>disallowed-tools</code> du frontmatter retire des outils du pool disponible tant que la skill est active — utile pour empêcher <code>AskUserQuestion</code> dans une boucle autonome.", h:"<code>disallowed-tools: AskUserQuestion</code> dans le frontmatter d'un SKILL.md.", src:"https://code.claude.com/docs/en/skills"},
+      {v:"2.1.84", s:"confirmed", t:"Le champ <code>paths:</code> accepte une liste de motifs glob&nbsp;: Claude ne charge automatiquement la skill que pour les fichiers correspondants.", h:"<code>paths: [\"src/api/**/*.ts\"]</code> pour limiter l'activation automatique à cette zone du code.", src:"https://code.claude.com/docs/en/skills"},
+      {v:"2.1.178", s:"confirmed", t:"Une skill dans un <code>.claude/skills/</code> imbriqué se charge dès que Claude touche un fichier de ce sous‑répertoire. En cas de conflit de nom, elle devient accessible via <code>&lt;dossier&gt;:&lt;nom&gt;</code>.", h:"Placez un skill dans <code>packages/frontend/.claude/skills/deploy/SKILL.md</code>, invocable via <code>/packages/frontend:deploy</code> en cas de collision.", src:"https://code.claude.com/docs/en/skills"},
+      {v:"2.1.199", s:"confirmed", t:"On peut enchaîner jusqu'à 6 skills en préfixe d'un même message (<code>/skill-a /skill-b faire XYZ</code>), l'expansion s'arrêtant au premier token qui n'est pas un skill invocable inline.", h:"<code>/write-tests /fix-issue 123</code> charge les deux skills, qui reçoivent « 123 » comme argument.", src:"https://code.claude.com/docs/en/skills"},
+      {v:"2.1.218", s:"confirmed", t:"Une skill <code>context: fork</code> s'exécute désormais en arrière‑plan par défaut (vous continuez à travailler pendant son exécution), sauf si <code>background: false</code> est défini.", h:"Ajoutez <code>background: false</code> si vous voulez au contraire attendre son résultat avant de continuer.", src:"https://code.claude.com/docs/en/skills"},
+      {v:"2.1.181", s:"confirmed", t:"<code>/config clé=valeur</code> règle n'importe quel paramètre directement depuis le prompt, en interactif comme en mode <code>-p</code> ou via Remote Control.", h:"<code>/config theme=dark</code> ou <code>/config model=sonnet</code>&nbsp;; <code>/config --help</code> liste toutes les clés disponibles.", src:"https://code.claude.com/docs/en/commands"}
+    ],
+    plan: [
+      {v:"2.1.0 / 2.1.72", s:"confirmed", t:"<code>/plan</code> (avec ou sans description) et le raccourci <code>Shift+Tab</code> font basculer immédiatement en mode plan, sans invite de confirmation.", h:"<code>/plan corrige le bug d'authentification</code> démarre aussitôt la planification sur ce sujet précis.", src:"https://code.claude.com/docs/en/permission-modes"},
+      {v:"2.1.68 / 0.2.44", s:"corrected", t:"Seul le mot‑clé <code>ultrathink</code> déclenche encore un raisonnement plus profond pour un tour, sans changer le niveau d'effort de la session. Les mots « think », « think hard » ou « think more » ne sont plus reconnus comme spéciaux — ils sont transmis comme texte ordinaire.", h:"Ajoutez « ultrathink » n'importe où dans votre message pour un raisonnement ponctuel plus poussé.", src:"https://code.claude.com/docs/en/model-config"},
+      {v:"2.1.76", s:"confirmed", t:"<code>/effort</code> ouvre un sélecteur à 5 niveaux (low, medium, high, xhigh, max) ; <code>/effort auto</code> réinitialise. Disponible sur Opus 5, Fable 5 et Opus 4.5‑4.8.", h:"<code>/effort xhigh</code> pour du debugging complexe, <code>/effort low</code> pour des tâches simples et moins coûteuses.", src:"https://code.claude.com/docs/en/model-config"},
+      {v:"2.1.9", s:"confirmed", t:"Le paramètre <code>plansDirectory</code> choisit où le mode plan écrit ses fichiers de plan, résolu relativement à la racine du projet.", h:"<code>{ \"plansDirectory\": \"./plans\" }</code> pour versionner les plans dans le dépôt et les relire en revue de PR.", src:"https://code.claude.com/docs/en/settings-reference"},
+      {v:"2.0.0", s:"corrected", t:"Le raccourci pour basculer l'extended thinking en session est <code>Option+T</code> (macOS) ou <code>Alt+T</code> (Windows/Linux) — pas la touche Tab seule.", h:"Pour un réglage permanent, passez par <code>/config</code>, qui écrit <code>alwaysThinkingEnabled</code> dans <code>~/.claude/settings.json</code>.", src:"https://code.claude.com/docs/en/model-config"},
+      {v:"2.1.198", s:"confirmed", t:"Un sous‑agent hérite automatiquement du réglage d'extended thinking de la conversation principale — il n'existe aucun réglage de thinking propre à un sous‑agent.", h:"Rien à configurer&nbsp;: activez le thinking pour la session, tous les sous‑agents lancés en hériteront.", src:"https://code.claude.com/docs/en/sub-agents"},
+      {v:"2.1.218", s:"confirmed", t:"Depuis cette version, une session en mode plan sans bypass ne demande plus confirmation pour chaque commande Bash read‑only&nbsp;: le classificateur du mode auto évalue ces commandes pendant la planification.", h:"Contrôlé par <code>useAutoModeDuringPlan</code> (actif par défaut) — désactivez‑le pour repasser en confirmation manuelle systématique.", src:"https://code.claude.com/docs/en/permission-modes"}
+    ],
+    agents: [
+      {v:"0.2.74 / 2.1.63", s:"confirmed", t:"L'outil de sous‑agent (nommé Task à l'origine, renommé Agent) donne par défaut tous les outils disponibles — écriture et Bash compris — sauf restriction explicite via <code>tools:</code> ou <code>disallowedTools:</code>.", h:"<code>tools: Read, Grep, Glob</code> dans le frontmatter pour un sous‑agent strictement lecture seule.", src:"https://code.claude.com/docs/en/sub-agents"},
+      {v:"2.1.49 / 2.1.50", s:"confirmed", t:"<code>isolation: worktree</code> fait tourner un sous‑agent dans une copie git isolée, branchée depuis votre branche par défaut et nettoyée automatiquement si aucune modification n'est faite.", h:"<code>isolation: worktree</code> dans le frontmatter d'un fichier <code>.claude/agents/&lt;nom&gt;.md</code>.", src:"https://code.claude.com/docs/en/sub-agents"},
+      {v:"2.1.212 / 2.1.232", s:"confirmed", t:"<code>/subtask</code> lance un fork qui reste dans la session courante ; <code>/fork</code> copie toute la conversation dans une nouvelle session d'arrière‑plan indépendante. Le forking est actif par défaut en session interactive.", h:"<code>/fork</code> pour essayer une approche en parallèle sans bloquer la session en cours ; <code>/subtask</code> pour un sous‑agent visible dans <code>/tasks</code>.", src:"https://code.claude.com/docs/en/agents"},
+      {v:"2.1.217", s:"confirmed", t:"Plafond de 20 sous‑agents concurrents par défaut, ajustable via <code>CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS</code> — aucun plafond total par session n'existe plus (supprimé en v2.1.224).", h:"<code>{ \"env\": { \"CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS\": \"50\" } }</code> pour ajuster le débit.", src:"https://code.claude.com/docs/en/sub-agents"},
+      {v:"2.1.219", s:"confirmed", t:"Profondeur d'imbrication des sous‑agents limitée à 3 niveaux par défaut. À la limite, l'outil Agent est retiré de tous les sous‑agents sauf des forks.", h:"<code>CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH=1</code> pour désactiver toute imbrication.", src:"https://code.claude.com/docs/en/sub-agents"},
+      {v:"2.1.251", s:"corrected", t:"Ordre de résolution du modèle d'un sous‑agent&nbsp;: paramètre par invocation &gt; champ <code>model:</code> du frontmatter (avec <code>inherit</code> possible) &gt; <code>CLAUDE_CODE_SUBAGENT_MODEL</code> &gt; modèle de la conversation principale.", h:"<code>{ \"env\": { \"CLAUDE_CODE_SUBAGENT_MODEL\": \"haiku\" } }</code> comme valeur par défaut, surchargeable par agent.", src:"https://code.claude.com/docs/en/sub-agents"},
+      {v:"2.1.33", s:"confirmed", t:"Le champ <code>memory:</code> du frontmatter active une mémoire persistante par sous‑agent, à 3 portées possibles&nbsp;: <code>user</code>, <code>project</code> (recommandée, versionnable), <code>local</code>.", h:"<code>memory: project</code> dans le frontmatter, puis demandez explicitement à l'agent de consulter/mettre à jour sa mémoire.", src:"https://code.claude.com/docs/en/sub-agents"},
+      {v:"2.1.77", s:"confirmed", t:"L'outil Agent n'accepte plus de paramètre <code>resume</code>&nbsp;: pour reprendre un sous‑agent déjà lancé, on utilise <code>SendMessage({to: agentId})</code>.", h:"Reprise d'un sous‑agent existant via l'outil SendMessage ciblant son ID ou son nom.", src:"https://code.claude.com/docs/en/tools-reference"},
+      {v:"2.1.198", s:"confirmed", t:"L'assistant interactif <code>/agents</code> a été supprimé&nbsp;: on crée un sous‑agent en le demandant à Claude, ou en éditant directement un fichier dans <code>.claude/agents/</code>.", h:"« Crée un sous‑agent nommé X qui fait Y, avec les outils Z » suffit en langage naturel.", src:"https://code.claude.com/docs/en/agents"}
+    ],
+    hooks: [
+      {v:"1.0.38", s:"confirmed", t:"Le système de hooks est sorti officiellement, avec des types désormais étendus à <code>command</code>, <code>http</code>, <code>mcp_tool</code>, <code>prompt</code>, <code>agent</code>, sur des dizaines d'événements.", h:"Consultez <code>/docs/en/hooks-guide</code> pour un tutoriel pas à pas de création d'un premier hook.", src:"https://code.claude.com/docs/en/hooks"},
+      {v:"2.1.85", s:"confirmed", t:"Un hook peut être conditionné avec un champ <code>if</code> utilisant la syntaxe des règles de permission, ex. <code>Bash(git *)</code>, y compris sur des sous‑commandes fines.", h:"<code>{ \"type\": \"command\", \"if\": \"Bash(git *)\", \"command\": \"./check-branch.sh\" }</code> pour ne déclencher le script que sur les commandes git.", src:"https://code.claude.com/docs/en/hooks"},
+      {v:"2.1.139", s:"confirmed", t:"L'option <code>continueOnBlock: true</code> sur un hook <code>PostToolUse</code> renvoie la raison du blocage à Claude comme résultat d'outil, au lieu d'arrêter le tour.", h:"Un typecheck qui échoue peut ainsi être corrigé automatiquement par Claude au lieu d'interrompre la session.", src:"https://code.claude.com/docs/en/hooks-guide"},
+      {v:"1.0.48 / 2.1.105", s:"confirmed", t:"<code>PreCompact</code> se déclenche juste avant une compaction et peut la bloquer (code de sortie 2) ; <code>PostCompact</code> se déclenche juste après.", h:"Utile pour archiver des informations importantes juste avant qu'elles ne soient compactées.", src:"https://code.claude.com/docs/en/hooks"},
+      {v:"2.1.118", s:"confirmed", t:"Un hook peut appeler directement un outil MCP via <code>type: \"mcp_tool\"</code>, avec interpolation des champs de l'entrée JSON du hook.", h:"Déléguez une vérification de sécurité à un outil MCP déjà installé, sans réécrire de script shell.", src:"https://code.claude.com/docs/en/hooks"},
+      {v:"2.1.63", s:"confirmed", t:"Les hooks HTTP (<code>type: \"http\"</code>) envoient le JSON de l'événement en POST vers une URL et attendent une réponse JSON, en alternative à l'exécution shell.", h:"Utile pour centraliser la logique de validation dans un service existant plutôt qu'un script local.", src:"https://code.claude.com/docs/en/hooks"},
+      {v:"2.1.0", s:"confirmed", t:"Les hooks peuvent être déclarés directement dans le frontmatter d'un skill ou d'un agent, actifs seulement pendant leur cycle de vie.", h:"Un bloc <code>hooks:</code> dans le frontmatter YAML d'un fichier <code>.claude/agents/mon-agent.md</code>.", src:"https://code.claude.com/docs/en/hooks"},
+      {v:"2.1.214", s:"confirmed", t:"Le champ <code>source</code> d'un hook <code>SessionStart</code> distingue <code>startup</code>, <code>resume</code>, <code>clear</code>, <code>compact</code> et <code>fork</code>.", h:"Filtrez avec <code>matcher: \"fork\"</code> pour une logique spécifique au démarrage d'un fork de session.", src:"https://code.claude.com/docs/en/hooks"},
+      {v:"2.1.89", s:"confirmed", t:"En mode non interactif (<code>-p</code>), un hook <code>PreToolUse</code> peut renvoyer la décision <code>defer</code> pour suspendre un appel d'outil, repris plus tard via <code>claude -p --resume</code>.", h:"Utile pour un wrapper externe qui collecte une décision humaine avant de laisser Claude continuer.", src:"https://code.claude.com/docs/en/hooks-guide"}
+    ],
+    mcp: [
+      {v:"0.2.50", s:"confirmed", t:"Le modèle à trois portées MCP (local, <code>project</code> via <code>.mcp.json</code> committé, <code>user</code>) reste central aujourd'hui pour partager une configuration en équipe via Git.", h:"<code>claude mcp add --scope project --transport http nom url</code> écrit l'entrée dans <code>.mcp.json</code>, à committer.", src:"https://code.claude.com/docs/en/mcp-quickstart"},
+      {v:"1.0.27 / 0.2.54", s:"corrected", t:"Le transport HTTP streamable est aujourd'hui recommandé partout où c'est possible&nbsp;; SSE reste supporté mais est explicitement marqué déprécié dans la documentation.", h:"<code>claude mcp add --transport http mon-serveur https://mcp.exemple.com/mcp</code>.", src:"https://code.claude.com/docs/en/mcp"},
+      {v:"1.0.27 / 2.1.186", s:"confirmed", t:"Les serveurs distants supportent OAuth avec découverte automatique des points de terminaison ; <code>claude mcp login/logout</code> lance ou révoque ce flux directement depuis le shell.", h:"<code>claude mcp login sentry --no-browser</code> pour un environnement distant sans navigateur local.", src:"https://code.claude.com/docs/en/mcp"},
+      {v:"2.1.154", s:"confirmed", t:"Un serveur <code>.mcp.json</code> de portée projet non approuvé s'affiche « Pending approval » au lieu de se connecter silencieusement — jamais d'auto‑approbation.", h:"<code>claude mcp list</code> affiche le statut d'approbation de chaque serveur MCP configuré.", src:"https://code.claude.com/docs/en/mcp-quickstart"},
+      {v:"2.0.22 / 2.1.259", s:"corrected", t:"<code>allowedMcpServers</code>/<code>deniedMcpServers</code> matchent par <code>serverUrl</code>, <code>serverCommand</code> ou <code>serverName</code> (avec jokers), et s'appliquent aussi aux serveurs déployés via le fichier séparé <code>managed-mcp.json</code> en entreprise.", h:"<code>{ \"deniedMcpServers\": [{\"serverName\": \"dangerous-server\"}] }</code> dans une source de settings gérée.", src:"https://code.claude.com/docs/en/managed-mcp"},
+      {v:"2.1.7", s:"confirmed", t:"La recherche automatique d'outils MCP est active par défaut sur Claude 4.5 et modèles ultérieurs&nbsp;: au‑delà de 10&nbsp;% de la fenêtre de contexte, les outils sont différés et découverts à la demande.", h:"<code>ENABLE_TOOL_SEARCH=false claude</code> pour forcer le chargement systématique de tous les outils.", src:"https://code.claude.com/docs/en/agent-sdk/tool-search"},
+      {v:"2.1.76", s:"confirmed", t:"Un serveur MCP peut demander une saisie structurée en cours de tâche (elicitation) sans configuration nécessaire — le dialogue apparaît automatiquement.", h:"Un hook <code>Elicitation</code> permet d'automatiser la réponse en environnement headless.", src:"https://code.claude.com/docs/en/mcp"},
+      {v:"2.1.80", s:"confirmed", t:"Les <em>channels</em> (research preview) permettent à un serveur MCP déclarant la capacité <code>claude/channel</code> de pousser des messages (alertes CI, webhooks) dans une session active.", h:"<code>claude mcp add --channels --transport stdio alerts -- npx -y telegram-mcp-server</code>.", src:"https://code.claude.com/docs/en/channels"}
+    ],
+    rewind: [
+      {v:"2.0.0", s:"confirmed", t:"<code>/rewind</code> ouvre un menu listant les checkpoints (un par prompt envoyé), ou accepte un argument direct&nbsp;: nom de checkpoint, numéro de tour, ou description.", h:"<code>/rewind 5</code> pour revenir directement au 5ᵉ tour de la conversation.", src:"https://code.claude.com/docs/en/commands"},
+      {v:"2.1.141", s:"confirmed", t:"L'option « Summarize up to here » du menu <code>/rewind</code> compresse la conversation avant le point choisi, sans toucher aux fichiers sur disque.", h:"Utile pour libérer du contexte sans perdre le travail de code déjà effectué.", src:"https://code.claude.com/docs/en/checkpointing"},
+      {v:"2.1.216", s:"confirmed", t:"Une restauration de code ignore les liens symboliques et liens physiques&nbsp;: ces fichiers gardent leur contenu actuel, avec un message « Restored the code, but skipped N files ».", h:"Activez <code>/debug</code> avant une restauration pour voir la liste exacte des chemins ignorés.", src:"https://code.claude.com/docs/en/checkpointing"},
+      {v:"0.2.93", s:"confirmed", t:"<code>--continue</code> (<code>-c</code>) reprend la conversation la plus récente du répertoire courant ; <code>--resume</code> (<code>-r</code>) ouvre un sélecteur ou reprend un ID de session précis.", h:"<code>claude --continue</code> pour reprendre instantanément là où vous étiez.", src:"https://code.claude.com/docs/en/sessions"},
+      {v:"2.1.83", s:"corrected", t:"Dans l'extension VS Code, on survole n'importe quel message pour faire apparaître un bouton de rewind proposant trois options&nbsp;: « Fork conversation from here », « Rewind code to here », ou les deux.", h:"Dans le terminal CLI, le raccourci reste Échap deux fois ou <code>/rewind</code>.", src:"https://code.claude.com/docs/en/vs-code"}
+    ],
+    git: [
+      {v:"2.1.49", s:"confirmed", t:"Le flag <code>--worktree</code> (ou <code>-w</code>) crée un worktree isolé sous <code>.claude/worktrees/&lt;nom&gt;/</code>, sur une nouvelle branche <code>worktree-&lt;nom&gt;</code>.", h:"<code>claude --worktree feature-auth</code> — ajoutez <code>.claude/worktrees/</code> à votre <code>.gitignore</code>.", src:"https://code.claude.com/docs/en/worktrees"},
+      {v:"2.1.133", s:"confirmed", t:"<code>worktree.baseRef</code> vaut <code>\"fresh\"</code> par défaut (part de <code>origin/&lt;branche par défaut&gt;</code>) ou <code>\"head\"</code> (part de votre HEAD local, commits non poussés inclus).", h:"<code>{ \"worktree\": { \"baseRef\": \"head\" } }</code> si vous voulez que chaque nouveau worktree parte de votre travail local en cours.", src:"https://code.claude.com/docs/en/worktrees"},
+      {v:"2.1.198 / 2.1.221", s:"confirmed", t:"Les agents en arrière‑plan qui modifient du code dans un worktree committent et poussent avant de terminer, et n'ouvrent une pull request en brouillon que lorsque la tâche le justifie — en respectant les instructions Git de votre CLAUDE.md.", h:"Le résumé final d'une session en arrière‑plan indique toujours la branche et, le cas échéant, l'URL de la PR en brouillon.", src:"https://code.claude.com/docs/en/agent-view"},
+      {v:"2.1.147 / 2.1.152", s:"corrected", t:"<code>/simplify</code> est devenu <code>/code-review</code> pour la chasse aux bugs (niveaux d'effort low à ultra) ; <code>/simplify</code> désigne aujourd'hui une commande distincte de nettoyage pur (réutilisation, simplification), qui invoque <code>/code-review --fix</code> en interne.", h:"<code>/code-review high --fix</code> pour chasser et corriger des bugs ; <code>/simplify</code> séparément pour du nettoyage sans recherche de bugs.", src:"https://code.claude.com/docs/en/code-review"},
+      {v:"2.1.229", s:"confirmed", t:"<code>/commit-push-pr</code> n'auto‑approuve plus les commandes git/gh à flags dangereux (<code>--force</code>, <code>--amend</code>, <code>--no-verify</code>) — elles redemandent désormais confirmation.", h:"Le workflow commit → push → PR reste automatisé, mais toute action destructrice repasse par une invite explicite.", src:"https://code.claude.com/docs/en/changelog"},
+      {v:"2.1.20", s:"confirmed", t:"Un point coloré cliquable dans le pied de page indique l'état de la PR de la branche courante&nbsp;: vert (approuvée), jaune (en attente), rouge (changements demandés), gris (brouillon).", h:"Cliquez sur le point pour ouvrir la PR directement dans le navigateur.", src:"https://code.claude.com/docs/en/interactive-mode"},
+      {v:"2.1.63", s:"confirmed", t:"CLAUDE.md, <code>.claude/settings.json</code>, agents personnalisés, skills et mémoire automatique sont partagés entre tous les worktrees d'un même dépôt Git.", h:"Aucune duplication manuelle nécessaire&nbsp; ; utilisez <code>autoMemoryDirectory</code> pour changer cet emplacement au besoin.", src:"https://code.claude.com/docs/en/claude-directory"},
+      {v:"2.1.76", s:"confirmed", t:"<code>worktree.sparsePaths</code> utilise <code>git sparse-checkout</code> pour n'écrire sur le disque que les répertoires listés — utile pour accélérer la création de worktrees dans un grand monorepo.", h:"<code>{ \"worktree\": { \"sparsePaths\": [\".claude\", \"packages/api\"] } }</code> dans <code>.claude/settings.json</code>.", src:"https://code.claude.com/docs/en/large-codebases"}
+    ],
+    echelle: [
+      {v:"2.1.139", s:"confirmed", t:"<code>claude agents</code> ouvre une vue plein écran regroupant toutes les sessions par état (Needs input / Working / Completed), avec dispatch de nouvelles tâches.", h:"<code>claude agents --json</code> pour un export scriptable, utile pour une barre de statut personnalisée.", src:"https://code.claude.com/docs/en/agent-view"},
+      {v:"2.1.251", s:"confirmed", t:"Les sous‑commandes <code>claude attach</code>, <code>logs</code>, <code>stop</code>, <code>respawn</code> et <code>rm</code> gèrent le cycle de vie complet d'une session en arrière‑plan.", h:"<code>claude attach &lt;id&gt;</code> pour reprendre la main, <code>claude stop &lt;id&gt;</code> pour l'arrêter proprement.", src:"https://code.claude.com/docs/en/cli-reference"},
+      {v:"2.1.154", s:"confirmed", t:"Le Workflow tool orchestre des dizaines à centaines d'agents en arrière‑plan via des primitives <code>agent()</code>, <code>parallel()</code>, <code>pipeline()</code>, avec un plafond de 16 agents concurrents et 1000 au total par exécution.", h:"Suivez la progression avec <code>/workflows</code>&nbsp; ; <code>p</code> pour pause/reprise, <code>x</code> pour arrêter.", src:"https://code.claude.com/docs/en/workflows"},
+      {v:"2.1.219", s:"confirmed", t:"La directive <code>workflowSizeGuideline</code> vaut <code>medium</code> (moins de 15 agents) par défaut depuis cette version — avant, aucune limite n'était indiquée.", h:"<code>{ \"workflowSizeGuideline\": \"small\" }</code> pour restreindre encore l'échelle d'un workflow dynamique.", src:"https://code.claude.com/docs/en/workflows"},
+      {v:"2.1.139", s:"confirmed", t:"<code>/goal</code> définit une condition de fin de tâche&nbsp;: Claude continue sur plusieurs tours jusqu'à ce qu'un petit modèle évalue la condition comme atteinte.", h:"<code>/goal tous les tests passent et le lint est propre</code>&nbsp; ; <code>/goal clear</code> pour arrêter.", src:"https://code.claude.com/docs/en/goal"},
+      {v:"2.1.224 / 2.1.232", s:"confirmed", t:"La messagerie inter‑sessions (<code>SendMessage</code>/<code>ListAgents</code>) permet à des sessions Claude Code de s'envoyer des messages entre elles, y compris via une <code>@mention</code> de session dans le prompt.", h:"« Préviens la session qui travaille sur l'API » suffit en langage naturel&nbsp;; Claude appelle les outils lui‑même.", src:"https://code.claude.com/docs/en/cross-session-messaging"},
+      {v:"2.1.71", s:"confirmed", t:"<code>/loop</code> exécute un prompt ou une skill à intervalle régulier, et les outils <code>CronCreate</code>/<code>CronList</code>/<code>CronDelete</code> planifient des tâches récurrentes (plafond de 50 par session).", h:"<code>/loop 5m vérifie si le déploiement est fini</code>, ou en langage naturel&nbsp;: « rappelle‑moi à 15h de pousser la branche ».", src:"https://code.claude.com/docs/en/scheduled-tasks"},
+      {v:"2.1.98", s:"confirmed", t:"L'outil Monitor suit en flux les événements d'un script lancé en arrière‑plan (log, PR/CI, répertoire) et réagit aux changements sans mettre en pause la conversation.", h:"« Surveille les logs du serveur et signale toute erreur » déclenche l'outil Monitor plutôt qu'un polling manuel via <code>/loop</code>.", src:"https://code.claude.com/docs/en/scheduled-tasks"}
+    ],
+    plugins: [
+      {v:"2.0.12", s:"confirmed", t:"Le système de plugins étend Claude Code avec commandes, agents, hooks et serveurs MCP/LSP distribués via des marketplaces&nbsp;— <code>extraKnownMarketplaces</code> dans <code>.claude/settings.json</code> les partage à toute l'équipe.", h:"<code>/plugin install &lt;nom&gt;@&lt;marketplace&gt;</code> ou <code>claude plugin install</code> en CLI.", src:"https://code.claude.com/docs/en/plugins"},
+      {v:"2.1.154", s:"confirmed", t:"<code>defaultEnabled: false</code> dans <code>plugin.json</code> exige une activation explicite avant qu'un plugin ne soit actif, même une fois installé.", h:"<code>claude plugin enable &lt;nom&gt;</code> pour l'activer après installation.", src:"https://code.claude.com/docs/en/plugins-reference"},
+      {v:"2.1.139", s:"confirmed", t:"<code>claude plugin details &lt;nom&gt;</code> liste les composants du plugin et projette leur coût en tokens par session, avant même de l'activer.", h:"Vérifiez toujours l'empreinte en tokens d'un plugin inconnu avant de l'activer sur un projet actif.", src:"https://code.claude.com/docs/en/plugins-reference"},
+      {v:"2.1.14", s:"confirmed", t:"Pour les sources github/url/git-subdir, un champ <code>sha</code> (commit git complet) épingle une version exacte d'un plugin, indépendamment des futurs commits sur la branche.", h:"<code>{ \"source\": \"github\", \"repo\": \"owner/repo\", \"sha\": \"a1b2c3...\" }</code> dans <code>marketplace.json</code>.", src:"https://code.claude.com/docs/en/plugin-marketplaces"},
+      {v:"2.1.207", s:"confirmed", t:"<code>pluginConfigs</code> n'est plus lu depuis <code>.claude/settings.json</code> de projet&nbsp;: seuls les settings utilisateur, <code>--settings</code> et les settings managés comptent — un dépôt cloné ne peut donc pas configurer les plugins d'un utilisateur à son insu.", h:"Configurez les options via <code>/plugin</code>, qui écrit dans <code>~/.claude/settings.json</code>.", src:"https://code.claude.com/docs/en/plugins-reference"},
+      {v:"2.1.207", s:"confirmed", t:"La substitution <code>${user_config.*}</code> en forme shell est rejetée dans les hooks/monitors de plugin (faille d'injection) — il faut la forme <code>exec</code> ou lire <code>$CLAUDE_PLUGIN_OPTION_&lt;CLE&gt;</code>.", h:"Hook en forme exec&nbsp;: <code>{ \"command\": \"mon-script\", \"args\": [\"${user_config.cle}\"] }</code>.", src:"https://code.claude.com/docs/en/plugins-reference"},
+      {v:"2.1.224", s:"confirmed", t:"Une source de plugin <code>archive</code> installe depuis un zip via HTTPS sans git ni npm, avec un épinglage SHA‑256 optionnel et une taille maximale de 256&nbsp;MiB.", h:"<code>{ \"source\": \"archive\", \"url\": \"https://…/plugin.zip\", \"sha256\": \"…\" }</code> dans <code>marketplace.json</code>.", src:"https://code.claude.com/docs/en/plugin-marketplaces"}
+    ],
+    infra: [
+      {v:"2.1.81", s:"confirmed", t:"<code>--bare</code> saute la découverte automatique de hooks, skills, subagents, plugins, MCP, mémoire et CLAUDE.md — c'est le mode recommandé pour tout appel scripté ou SDK.", h:"<code>ANTHROPIC_API_KEY=sk-… claude --bare -p \"Résume README.md\" --allowedTools \"Read\"</code>.", src:"https://code.claude.com/docs/en/headless"},
+      {v:"2.1.259", s:"confirmed", t:"<code>--permission-prompts none</code> transforme automatiquement en refus toute action qui aurait normalement déclenché une invite de confirmation, sans attendre de réponse humaine.", h:"Pour un job planifié sans supervision&nbsp;: <code>claude -p \"…\" --permission-mode auto --permission-prompts none</code>.", src:"https://code.claude.com/docs/en/headless"},
+      {v:"2.1.111", s:"confirmed", t:"Le champ <code>plugin_errors</code> du message <code>system/init</code> en <code>--output-format stream-json</code> liste les erreurs de chargement de plugin — absent s'il n'y en a aucune, ce qui permet une porte CI simple.", h:"<code>jq -e '.plugin_errors // [] | length == 0'</code> pour faire échouer un job CI en cas d'erreur de plugin.", src:"https://code.claude.com/docs/en/cli-reference"},
+      {v:"2.0.0 / 2.0.25", s:"confirmed", t:"Le SDK a été renommé Claude Agent SDK&nbsp;: <code>@anthropic-ai/claude-agent-sdk</code> (TypeScript) et <code>claude-agent-sdk</code> (Python), l'ancien point d'entrée étant supprimé.", h:"<code>npm install @anthropic-ai/claude-agent-sdk</code> ou <code>pip install claude-agent-sdk</code> pour tout nouveau projet.", src:"https://platform.claude.com/docs/en/agent-sdk/migration-guide"},
+      {v:"1.0.59", s:"confirmed", t:"Le callback <code>canUseTool</code> du SDK n'est appelé que si rien avant lui (hook <code>PreToolUse</code>, règles allow/deny/ask, mode de permission) n'a déjà tranché — jamais déclenché pour un outil déjà auto‑approuvé.", h:"Implémentez‑le pour une validation métier personnalisée avant l'exécution d'un outil sensible.", src:"https://code.claude.com/docs/en/agent-sdk/permissions"},
+      {v:"2.1.166", s:"confirmed", t:"<code>fallbackModel</code> accepte jusqu'à trois modèles essayés dans l'ordre en cas de surcharge ou d'erreur serveur (jamais pour une erreur d'auth, de facturation ou de rate‑limit).", h:"<code>{ \"fallbackModel\": [\"claude-sonnet-5\", \"claude-haiku-4-5\"] }</code> dans settings.json.", src:"https://code.claude.com/docs/en/settings-reference"},
+      {v:"2.0.28", s:"confirmed", t:"Le SDK expose <code>maxBudgetUsd</code> (équivalent du flag CLI <code>--max-budget-usd</code>) pour plafonner la dépense d'une exécution automatisée.", h:"<code>claude -p \"…\" --max-budget-usd 2.00</code> pour un script CI qui ne doit jamais dépasser ce coût.", src:"https://code.claude.com/docs/en/costs"},
+      {v:"2.0.0", s:"confirmed", t:"L'extension VS Code native embarque le même CLI <code>claude</code>, avec panneau latéral, diffs inline, mentions @ liées à la sélection, et un serveur MCP intégré exposant les diagnostics de l'IDE.", h:"Installez « Claude Code » depuis le Marketplace VS Code (plan payant ou clé API requis).", src:"https://code.claude.com/docs/en/vs-code"},
+      {v:"1.0.71", s:"confirmed", t:"<code>/statusline</code> génère ou configure un script affiché en bas de l'interface, alimenté par un flux JSON sur stdin (modèle, coût, contexte, git).", h:"« /statusline montre le nom du modèle et le pourcentage de contexte » génère automatiquement un script.", src:"https://code.claude.com/docs/en/statusline"}
+    ]
+  };
+
+  function renderFacts(){
+    Object.keys(DATA).forEach(function(mod){
+      var el = document.getElementById("facts-" + mod);
+      if(!el) return;
+      var html = DATA[mod].map(function(f){
+        var badgeLabel = f.s === "confirmed" ? "Confirmé" : "Mis à jour";
+        return (
+          '<div class="fact">' +
+            '<div class="tag-col"><span class="version">v' + esc(f.v) + '</span><span class="badge ' + f.s + '">' + badgeLabel + '</span></div>' +
+            '<div class="body">' +
+              '<p>' + f.t + '</p>' +
+              '<div class="how"><b>Comment faire</b><br>' + f.h + '</div>' +
+              '<a class="src" href="' + esc(f.src) + '" target="_blank" rel="noopener">' + esc(f.src.replace(/^https?:\/\//,"")) + '</a>' +
+            '</div>' +
+          '</div>'
+        );
+      }).join("");
+      el.innerHTML = html;
+    });
+  }
+
+  function renderSources(){
+    var seen = {}; var list = [];
+    Object.keys(DATA).forEach(function(mod){
+      DATA[mod].forEach(function(f){
+        if(!seen[f.src]){ seen[f.src] = true; list.push(f.src); }
+      });
+    });
+    list.sort();
+    var el = document.getElementById("sources-grid");
+    el.innerHTML = list.map(function(u){
+      var label = u.replace(/^https?:\/\//,"").replace(/^code\.claude\.com\/docs\/en\//,"");
+      return '<a href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(label) + '</a>';
+    }).join("");
+  }
+
+  // -------- Progress tracking (localStorage, per-viewer only) --------
+  var MODULES = ["prologue","controle","memoire","skills","plan","agents","hooks","mcp","rewind","git","echelle","plugins","infra","epilogue"];
+  var STORAGE_KEY = "claude-code-course-progress-v1";
+
+  function loadDone(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    }catch(e){ return {}; }
+  }
+  function saveDone(done){
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(done)); }catch(e){}
+  }
+
+  function refreshProgressUI(done){
+    var count = 0;
+    MODULES.forEach(function(m){
+      var isDone = !!done[m];
+      if(isDone) count++;
+      var chk = document.querySelector('.chk[data-chk="' + m + '"]');
+      if(chk){ chk.classList.toggle("done", isDone); }
+      var btn = document.querySelector('.mark-done[data-mark="' + m + '"]');
+      if(btn){
+        btn.classList.toggle("is-done", isDone);
+        btn.textContent = isDone ? "Lu ✓" : "Marquer comme lu";
+      }
+    });
+    document.getElementById("progress-text").textContent = count + " / " + MODULES.length;
+    document.getElementById("progress-fill").style.width = (count / MODULES.length * 100) + "%";
+  }
+
+  function initProgress(){
+    var done = loadDone();
+    refreshProgressUI(done);
+    document.querySelectorAll(".mark-done").forEach(function(btn){
+      btn.addEventListener("click", function(){
+        var m = btn.getAttribute("data-mark");
+        done[m] = !done[m];
+        saveDone(done);
+        refreshProgressUI(done);
+      });
+    });
+  }
+
+  // -------- Active section highlight in ToC --------
+  function initScrollSpy(){
+    var links = Array.prototype.slice.call(document.querySelectorAll("nav.toc a"));
+    var sections = MODULES.map(function(id){ return document.getElementById(id); }).filter(Boolean);
+    if(!("IntersectionObserver" in window) || sections.length === 0) return;
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          links.forEach(function(l){ l.classList.remove("active"); });
+          var link = document.querySelector('nav.toc a[data-mod="' + entry.target.id + '"]');
+          if(link) link.classList.add("active");
+        }
+      });
+    }, { rootMargin: "-10% 0px -70% 0px", threshold: 0 });
+    sections.forEach(function(s){ observer.observe(s); });
+  }
+
+  renderFacts();
+  renderSources();
+  initProgress();
+  initScrollSpy();
+})();
+</script>
