@@ -112,18 +112,19 @@
   @media (max-width:560px){ .wrap{ padding:0 20px; } }
 
   .topbar{
-    display:flex; align-items:center; justify-content:space-between;
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; row-gap:12px;
     padding:22px 0; border-bottom:1px solid var(--line);
   }
   .topbar .mark{
-    display:inline-flex; align-items:center; gap:8px;
+    display:inline-flex; align-items:center; gap:8px; white-space:nowrap;
     font-family:'IBM Plex Mono'; font-size:13px; letter-spacing:.04em; font-weight:600;
     color:var(--ink); text-decoration:none;
   }
   .topbar .mark::before{ content:"›_"; color:var(--accent-ink); font-weight:700; }
-  .topbar .links{ display:flex; gap:20px; font-family:'IBM Plex Mono'; font-size:12.5px; align-items:center; }
+  .topbar .links{ display:flex; gap:20px; flex-wrap:wrap; row-gap:8px; font-family:'IBM Plex Mono'; font-size:12.5px; align-items:center; }
   .topbar .links a{ color:var(--ink-soft); text-decoration:none; }
   .topbar .links a:hover{ color:var(--accent-ink); }
+  @media (max-width:640px){ .topbar .links{ order:3; flex-basis:100%; gap:16px; } }
   select.lang-switch{ font-family:'IBM Plex Mono'; font-size:11px; padding:3px 7px; border-radius:6px; border:1px solid var(--accent); background:var(--accent-soft); color:var(--accent-ink); cursor:pointer; }
 
   .hero{ padding:72px 0 56px; }
@@ -217,7 +218,7 @@
   footer .foot-row{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:16px; align-items:flex-start; }
   footer .mark{ font-family:'IBM Plex Mono'; font-size:12.5px; font-weight:600; color:var(--ink); }
   footer .mark::before{ content:"›_ "; color:var(--accent-ink); }
-  footer .foot-links{ display:flex; gap:18px; font-family:'IBM Plex Mono'; font-size:12px; }
+  footer .foot-links{ display:flex; gap:18px; flex-wrap:wrap; row-gap:8px; font-family:'IBM Plex Mono'; font-size:12px; }
   footer .foot-links a{ color:var(--ink-soft); text-decoration:none; }
   footer .foot-links a:hover{ color:var(--accent-ink); }
   footer .colophon{ font-size:12.5px; color:var(--ink-faint); margin-top:22px; max-width:70ch; }
