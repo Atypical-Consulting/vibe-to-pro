@@ -1,3 +1,5 @@
+![vibe-to-pro banner](.github/banner.png)
+
 # Vibe to Pro
 
 A field manual on Claude Code, built from the official [CHANGELOG](https://github.com/anthropics/claude-code/blob/main/CHANGELOG.md) (385 releases, `0.2.21` to `2.1.260`) and independently fact-checked against current documentation before anything is taught. Available in French, English, Spanish, and Simplified Chinese.
